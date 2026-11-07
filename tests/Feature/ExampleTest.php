@@ -15,6 +15,23 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
+        $response->assertSee(route('login'), false);
+        $response->assertSee(route('register'), false);
+    }
+
+    public function test_homepage_displays_authenticated_user_and_sign_out(): void
+    {
+        $user = User::factory()->create([
+            'name' => 'edrine_buyer',
+            'email' => 'buyer@matroltd.com',
+        ]);
+
+        $response = $this->actingAs($user)->get('/');
+
+        $response->assertStatus(200);
+        $response->assertSee('edrine_buyer');
+        $response->assertSee('buyer@matroltd.com');
+        $response->assertSee(route('logout'), false);
     }
 
     public function test_login_and_register_pages_render_design_one_portal(): void
@@ -23,11 +40,14 @@ class ExampleTest extends TestCase
         $loginPage->assertStatus(200);
         $loginPage->assertSee('Login');
         $loginPage->assertSee('Register');
+        $loginPage->assertSee('Back to Homepage');
+        $loginPage->assertSee(route('home'), false);
         $loginPage->assertDontSee('Login | Signup Animation');
 
         $registerPage = $this->get('/register');
         $registerPage->assertStatus(200);
         $registerPage->assertSee('container active', false);
+        $registerPage->assertSee('Back to Homepage');
     }
 
     public function test_users_can_register_and_sign_in(): void

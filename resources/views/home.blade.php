@@ -23,6 +23,12 @@
     </div>
 
     <div class="wrapper">
+        <div class="top-nav-bar">
+            <a href="{{ route('home') }}" class="back-home-link">
+                <i class='bx bx-left-arrow-alt'></i> Back to Homepage
+            </a>
+        </div>
+
         <div class="container {{ ($initialMode ?? 'login') === 'register' ? 'active' : '' }}" id="container">
             <!-- Curved Animated Background Shapes -->
             <div class="curved-shape"></div>
@@ -65,8 +71,14 @@
 
             <!-- ================= LOGIN INFO TEXT (RIGHT SIDE) ================= -->
             <div class="info-text Login">
-                <h2 class="animation" style="--li: 0s; --lo: 0.3s;">WELCOME<br>BACK!</h2>
-                <p class="animation" style="--li: 0.15s; --lo: 0.15s;">
+                <div class="produce-preview-card animation" style="--li: 0s; --lo: 0.35s;">
+                    <img src="{{ asset('img/sunflower-bg.jpg') }}" alt="Sunflower Plants and Sunflower Oil" class="produce-card-img">
+                    <div class="produce-card-badge gold">
+                        <i class='bx bxs-sun'></i> Sunflowers &amp; Pure Oil
+                    </div>
+                </div>
+                <h2 class="animation" style="--li: 0.1s; --lo: 0.25s;">WELCOME BACK!</h2>
+                <p class="animation" style="--li: 0.2s; --lo: 0.15s;">
                     Sign in to continue to your account.
                 </p>
             </div>
@@ -74,6 +86,17 @@
             <!-- ================= REGISTER FORM ================= -->
             <div class="form-box Register">
                 <h2 class="animation" style="--li: 0s; --lo: 0.6s;">Register</h2>
+                <div class="register-peppers-strip animation" style="--li: 0.04s; --lo: 0.55s;">
+                    <img src="{{ asset('img/bell-peppers-bg.jpg') }}" alt="Green, Yellow &amp; Red Bell Peppers" class="peppers-strip-thumb">
+                    <div class="peppers-strip-text">
+                        <span class="peppers-pill-group">
+                            <span class="pill green">Green</span>
+                            <span class="pill yellow">Yellow</span>
+                            <span class="pill red">Red</span>
+                        </span>
+                        <span class="peppers-subtitle">Farm Fresh Bell Peppers</span>
+                    </div>
+                </div>
                 <form id="registerForm" action="{{ route('register') }}" method="POST" novalidate>
                     @csrf
                     <div class="input-box animation" style="--li: 0.08s; --lo: 0.5s;">
@@ -119,9 +142,18 @@
 
             <!-- ================= REGISTER INFO TEXT (LEFT SIDE) ================= -->
             <div class="info-text Register">
-                <h2 class="animation" style="--li: 0s; --lo: 0.3s;">WELCOME!</h2>
-                <p class="animation" style="--li: 0.15s; --lo: 0.15s;">
-                    Create an account to get started.
+                <div class="produce-preview-card animation" style="--li: 0s; --lo: 0.35s;">
+                    <img src="{{ asset('img/bell-peppers-bg.jpg') }}" alt="Fresh Green, Yellow and Red Bell Peppers" class="produce-card-img">
+                    <div class="produce-card-badge peppers">
+                        <span class="pepper-dot green"></span>
+                        <span class="pepper-dot yellow"></span>
+                        <span class="pepper-dot red"></span>
+                        <span>Bell Peppers</span>
+                    </div>
+                </div>
+                <h2 class="animation" style="--li: 0.1s; --lo: 0.25s;">FRESH PRODUCE</h2>
+                <p class="animation" style="--li: 0.2s; --lo: 0.15s;">
+                    Create an account to source verified green, yellow &amp; red bell peppers.
                 </p>
             </div>
 
@@ -134,6 +166,9 @@
                     <div class="auth-meta-badge">
                         <span class="auth-dot"></span> Active Session
                     </div>
+                    <a id="btnGoHome" href="{{ isset($authenticatedUser) && $authenticatedUser?->isAdmin() ? route('admin.dashboard') : route('home') }}" class="btn btn-go-home">
+                        Continue to Homepage
+                    </a>
                     <button id="btnLogout" data-logout-url="{{ route('logout') }}" class="btn btn-logout">Sign Out</button>
                 </div>
             </div>

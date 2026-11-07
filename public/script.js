@@ -25,6 +25,7 @@ const btnRegister = document.getElementById('btnRegister');
 
 const authSuccessOverlay = document.getElementById('authSuccessOverlay');
 const authUsername = document.getElementById('authUsername');
+const btnGoHome = document.getElementById('btnGoHome');
 const btnLogout = document.getElementById('btnLogout');
 
 const toast = document.getElementById('toast');
@@ -155,7 +156,7 @@ function updatePasswordStrength(password) {
     } else if (reasons.length > 0) {
         strengthLabel.textContent = label;
         strengthHint.textContent = `Add: ${reasons.join(', ')}`;
-        strengthHint.style.color = '#f87171';
+        strengthHint.style.color = '#dc2626';
     } else {
         strengthLabel.textContent = label;
         strengthHint.textContent = '';
@@ -319,7 +320,7 @@ loginForm.addEventListener('submit', async (e) => {
 
         lockoutNotice.style.display = 'none';
         showToast(data.message || 'Signed in successfully.', 'success');
-        displayActiveSession(data.username || username);
+        displayActiveSession(data.username || username, data.redirect_url);
 
         if (data.redirect_url) {
             setTimeout(() => {
@@ -337,8 +338,11 @@ loginForm.addEventListener('submit', async (e) => {
 });
 
 // ================= 8. SESSION DISPLAY & LOGOUT =================
-function displayActiveSession(username) {
+function displayActiveSession(username, redirectUrl) {
     authUsername.textContent = username;
+    if (btnGoHome && redirectUrl) {
+        btnGoHome.href = redirectUrl;
+    }
     authSuccessOverlay.style.display = 'flex';
 }
 

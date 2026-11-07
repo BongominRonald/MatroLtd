@@ -150,8 +150,8 @@
                                 </div>
                             </div>
                         @else
-                            <a href="/login" class="btn btn-outline-light rounded-pill px-3 py-1 small fw-bold">Login</a>
-                            <a href="/register" class="btn btn-primary btn-custom rounded-pill px-3 py-1 small fw-bold text-white shadow-sm">Register</a>
+                            <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill px-3 py-1 small fw-bold">Login</a>
+                            <a href="{{ route('register') }}" class="btn btn-primary btn-custom rounded-pill px-3 py-1 small fw-bold text-white shadow-sm">Register</a>
                         @endauth
 
                         <button type="button" class="btn btn-outline-light rounded-circle d-none d-lg-flex align-items-center justify-content-center position-relative ms-1 desktop-cart-btn" style="width: 38px; height: 38px;" id="cartBtn" aria-label="Cart" title="View Cart">
@@ -704,6 +704,14 @@
                         <a href="#knowledge" class="block hover:text-[#d4af37] transition-colors duration-300">Blog</a>
                         <a href="#knowledge" class="block hover:text-[#d4af37] transition-colors duration-300">FAQ</a>
                         <a href="#contact" class="block hover:text-[#d4af37] transition-colors duration-300">Contact</a>
+                        @guest
+                            <a href="{{ route('login') }}" class="block hover:text-[#d4af37] transition-colors duration-300">Sign In</a>
+                            <a href="{{ route('register') }}" class="block hover:text-[#d4af37] transition-colors duration-300">Create Account</a>
+                        @else
+                            @if(Auth::user()->isAdmin())
+                                <a href="{{ route('admin.dashboard') }}" class="block text-[#d4af37] hover:text-white transition-colors duration-300">Admin Dashboard</a>
+                            @endif
+                        @endguest
                     </nav>
                 </div>
                 <div>
@@ -765,8 +773,8 @@
                 <strong class="text-dark">Trade Desk online</strong>
                 <button type="button" class="btn-close" id="chatClose" aria-label="Close"></button>
             </div>
-            <input type="text" id="chatName" class="form-control rounded-pill mb-2" placeholder="Name">
-            <input type="email" id="chatEmail" class="form-control rounded-pill mb-2" placeholder="Email">
+            <input type="text" id="chatName" class="form-control rounded-pill mb-2" placeholder="Name" value="{{ Auth::user()?->name }}">
+            <input type="email" id="chatEmail" class="form-control rounded-pill mb-2" placeholder="Email" value="{{ Auth::user()?->email }}">
             <select id="chatTopic" class="form-select rounded-pill mb-2">
                 <option>Grower</option>
                 <option>Buyer</option>
@@ -819,11 +827,11 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Full Name *</label>
-                                <input type="text" name="name" class="form-control rounded-pill" required>
+                                <input type="text" name="name" class="form-control rounded-pill" value="{{ Auth::user()?->name }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Email *</label>
-                                <input type="email" name="email" class="form-control rounded-pill" required>
+                                <input type="email" name="email" class="form-control rounded-pill" value="{{ Auth::user()?->email }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Phone *</label>
@@ -916,11 +924,11 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Full Name *</label>
-                                <input type="text" name="name" class="form-control rounded-pill" required>
+                                <input type="text" name="name" class="form-control rounded-pill" value="{{ Auth::user()?->name }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Email *</label>
-                                <input type="email" name="email" class="form-control rounded-pill" required>
+                                <input type="email" name="email" class="form-control rounded-pill" value="{{ Auth::user()?->email }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Phone / WhatsApp</label>
@@ -1095,11 +1103,12 @@
         updateCartBadge();
 
         var isAuthenticated = @json(auth()->check());
+        var loginUrl = @json(route('login'));
 
         $('#qvAddToCart').on('click', function () {
             if (!isAuthenticated) {
                 if (window.showAgroviaToast) window.showAgroviaToast('Login Required', 'Please log in or register to add items to cart.', 'fa fa-lock text-danger', 'danger');
-                setTimeout(function () { window.location.href = '/login'; }, 1200);
+                setTimeout(function () { window.location.href = loginUrl; }, 1200);
                 return;
             }
             var qty = parseInt($('#qvQty').val(), 10) || 1;
@@ -1115,7 +1124,7 @@
         $('#qvCheckout').on('click', function () {
             if (!isAuthenticated) {
                 if (window.showAgroviaToast) window.showAgroviaToast('Login Required', 'Please log in or register to checkout.', 'fa fa-lock text-danger', 'danger');
-                setTimeout(function () { window.location.href = '/login'; }, 1200);
+                setTimeout(function () { window.location.href = loginUrl; }, 1200);
                 return;
             }
             if (window.showAgroviaToast) {
