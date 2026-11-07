@@ -346,6 +346,37 @@
             border-color: var(--sh-primary);
             color: #fff;
         }
+        .btn-sh-login {
+            background: #198754;
+            color: #ffffff !important;
+            border: 2px solid #198754;
+            font-family: 'Comic Relief', 'Open Sans', system-ui;
+            font-weight: 700;
+            padding: .32rem .95rem;
+            border-radius: 8px;
+            transition: all .2s ease;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(25, 135, 84, 0.3);
+        }
+        .btn-sh-login:hover {
+            background: #157347;
+            border-color: #157347;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(25, 135, 84, 0.45);
+            transform: translateY(-1px);
+        }
+        html[data-theme="light"] .btn-sh-login {
+            background: #198754;
+            border-color: #198754;
+            color: #ffffff !important;
+        }
+        html[data-theme="light"] .btn-sh-login:hover {
+            background: #157347;
+            border-color: #157347;
+            color: #ffffff !important;
+        }
         .btn-sh-outline {
             border: 2px solid var(--bs-body-color);
             color: var(--bs-body-color);
@@ -1092,7 +1123,7 @@
                             </ul>
                         </div>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-sh-outline-white btn-sm">Log in</a>
+                        <a href="{{ route('login') }}" class="btn btn-sh-login btn-sm">Log in</a>
                         <a href="{{ route('register') }}" class="btn btn-sh-primary btn-sm">Sign Up</a>
                     @endauth
                 </div>
