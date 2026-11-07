@@ -3,6 +3,10 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
+if (!headers_sent() && extension_loaded('zlib')) {
+    ini_set('zlib.output_compression', '1');
+}
+
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...

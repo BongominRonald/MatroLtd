@@ -24,14 +24,6 @@
     <!-- Stylesheets -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            corePlugins: {
-                preflight: false,
-            }
-        }
-    </script>
 
     <!-- Theme State Initializer (Fast, prevent flash) -->
     <script>
@@ -1219,7 +1211,7 @@
         <div class="container-fluid px-3 px-xl-4" style="max-width: 1540px;">
             <!-- Brand Lockup with Emblem Logo and Balanced Typography -->
             <a class="navbar-brand brx-navbar-brand py-0 me-2 me-xl-3" href="{{ route('home') }}" title="BRX Agro Global Importação e Exportação Ltda">
-                <img src="{{ asset('img/BRX Agro Global Product Emblem.png') }}" alt="BRX Agro Global Logo" class="brx-navbar-emblem">
+                <img src="{{ asset('img/brx-emblem-nav.png') }}" alt="BRX Agro Global Logo" class="brx-navbar-emblem" width="44" height="44">
                 <div class="brx-brand-wrap">
                     <div class="brx-brand-row">
                         <span class="brx-name-lead">BRX</span>
@@ -1404,7 +1396,7 @@
                     <!-- Slide 2 -->
                     <div class="carousel-item">
                         <div class="sh-hero-slide">
-                            <img src="{{ asset('img/carousel-2.jpg') }}" alt="Export Grade Commodities" class="sh-hero-bg">
+                            <img src="{{ asset('img/carousel-2.jpg') }}" alt="Export Grade Commodities" class="sh-hero-bg" loading="lazy" decoding="async">
                             <div class="sh-hero-scrim"></div>
                             <div class="container sh-hero-content">
                                 <div class="eyebrow mb-3">Bulk Contracts &amp; Spot Lots</div>
@@ -1512,7 +1504,7 @@
                             <div class="sh-product-card">
                                 <div class="sh-product-img">
                                     <a href="javascript:void(0)" class="quick-view-trigger" data-product="{{ $product->name }}" data-price="${{ number_format($product->price, 2) }} / {{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}">
-                                        <img src="{{ asset($product->image ?: 'img/service-1.jpg') }}" alt="{{ $product->name }}" loading="lazy">
+                                        <img src="{{ asset($product->image ?: 'img/service-1.jpg') }}" alt="{{ $product->name }}" loading="lazy" decoding="async">
                                     </a>
                                     @if ($product->unit == 'Metric Ton')
                                         <span class="sh-badge-sale">BULK / B2B</span>
@@ -1559,7 +1551,7 @@
                         <div class="col product-item" data-category="Grains & Rice">
                             <div class="sh-product-card">
                                 <div class="sh-product-img">
-                                    <img src="{{ asset('img/service-1.jpg') }}" alt="Brazilian Non-GMO Soybeans">
+                                    <img src="{{ asset('img/service-1.jpg') }}" alt="Brazilian Non-GMO Soybeans" loading="lazy" decoding="async">
                                     <span class="sh-badge-sale">BULK</span>
                                     <span class="sh-badge-original">$520.00</span>
                                 </div>
@@ -1574,7 +1566,7 @@
                         <div class="col product-item" data-category="Oil & Sugar">
                             <div class="sh-product-card">
                                 <div class="sh-product-img">
-                                    <img src="{{ asset('img/service-2.jpg') }}" alt="Refined Cane Sugar ICUMSA 45">
+                                    <img src="{{ asset('img/service-2.jpg') }}" alt="Refined Cane Sugar ICUMSA 45" loading="lazy" decoding="async">
                                     <span class="sh-badge-sale">BULK</span>
                                     <span class="sh-badge-original">$580.00</span>
                                 </div>
@@ -1589,7 +1581,7 @@
                         <div class="col product-item" data-category="Grains & Rice">
                             <div class="sh-product-card">
                                 <div class="sh-product-img">
-                                    <img src="{{ asset('img/service-3.jpg') }}" alt="Yellow Corn Maize Grade 2">
+                                    <img src="{{ asset('img/service-3.jpg') }}" alt="Yellow Corn Maize Grade 2" loading="lazy" decoding="async">
                                     <span class="sh-badge-new">NEW</span>
                                 </div>
                                 <div class="sh-card-body">
@@ -1603,7 +1595,7 @@
                         <div class="col product-item" data-category="Spices & Specialty">
                             <div class="sh-product-card">
                                 <div class="sh-product-img">
-                                    <img src="{{ asset('img/service-5.jpg') }}" alt="Arabica Green Coffee Beans">
+                                    <img src="{{ asset('img/service-5.jpg') }}" alt="Arabica Green Coffee Beans" loading="lazy" decoding="async">
                                     <span class="sh-badge-sale">EXPORT</span>
                                 </div>
                                 <div class="sh-card-body">
@@ -1631,7 +1623,7 @@
                 <div class="row g-3 g-md-4">
                     <div class="col-6 col-md-3">
                         <a href="#products" class="sh-cat-card">
-                            <img src="{{ asset('img/service-1.jpg') }}" alt="Grains & Soybeans">
+                            <img src="{{ asset('img/service-1.jpg') }}" alt="Grains & Soybeans" loading="lazy" decoding="async">
                             <div class="label">
                                 <h5>Grains &amp; Soybeans</h5>
                                 <span>Mato Grosso &amp; Paraná</span>
@@ -1640,7 +1632,7 @@
                     </div>
                     <div class="col-6 col-md-3">
                         <a href="#products" class="sh-cat-card">
-                            <img src="{{ asset('img/service-2.jpg') }}" alt="Cane Sugar & Oils">
+                            <img src="{{ asset('img/service-2.jpg') }}" alt="Cane Sugar & Oils" loading="lazy" decoding="async">
                             <div class="label">
                                 <h5>Sugar &amp; Sweeteners</h5>
                                 <span>São Paulo Mills</span>
@@ -1649,7 +1641,7 @@
                     </div>
                     <div class="col-6 col-md-3">
                         <a href="#products" class="sh-cat-card">
-                            <img src="{{ asset('img/service-5.jpg') }}" alt="Specialty Coffee">
+                            <img src="{{ asset('img/service-5.jpg') }}" alt="Specialty Coffee" loading="lazy" decoding="async">
                             <div class="label">
                                 <h5>Specialty Coffee</h5>
                                 <span>Sul de Minas Gerais</span>
@@ -1658,7 +1650,7 @@
                     </div>
                     <div class="col-6 col-md-3">
                         <a href="#products" class="sh-cat-card">
-                            <img src="{{ asset('img/service-7.jpg') }}" alt="Pulses & Seeds">
+                            <img src="{{ asset('img/service-7.jpg') }}" alt="Pulses & Seeds" loading="lazy" decoding="async">
                             <div class="label">
                                 <h5>Pulses &amp; Seeds</h5>
                                 <span>Carioca &amp; Brazil Nuts</span>
@@ -1797,7 +1789,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="p-3 rounded-4 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
-                            <img src="{{ asset('img/about-2.jpg') }}" alt="About BRX Agro Global Desk" class="img-fluid rounded-3 w-100 object-fit-cover" style="max-height: 320px;" onerror="this.src='{{ asset('img/service-1.jpg') }}'">
+                            <img src="{{ asset('img/about-2.jpg') }}" alt="About BRX Agro Global Desk" class="img-fluid rounded-3 w-100 object-fit-cover" style="max-height: 320px;" onerror="this.src='{{ asset('img/service-1.jpg') }}'" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>
@@ -1913,7 +1905,7 @@
                             </div>
                             <p class="fst-italic sh-text-muted mb-3">"Securing 12,500 MT of Brazilian Non-GMO Soybeans through Santos was handled with absolute professionalism. The pre-shipment SGS assay matched our exact feed parameters."</p>
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('img/testimonial-1.jpg') }}" alt="" class="rounded-circle me-3 object-fit-cover" width="46" height="46">
+                                <img src="{{ asset('img/testimonial-1.jpg') }}" alt="Pieter van der Berg" class="rounded-circle me-3 object-fit-cover" width="46" height="46" loading="lazy" decoding="async">
                                 <div>
                                     <h6 class="mb-0 sh-text-title fw-bold">Pieter van der Berg</h6>
                                     <small class="sh-text-muted">Procurement · Rotterdam, Netherlands</small>
@@ -1928,7 +1920,7 @@
                             </div>
                             <p class="fst-italic sh-text-muted mb-3">"The ICUMSA 45 refined sugar arrived on time with complete phytosanitary certificates and zero broken bags. BRX Agro Global's direct desk communicated vessel telemetry daily."</p>
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('img/testimonial-2.jpg') }}" alt="" class="rounded-circle me-3 object-fit-cover" width="46" height="46">
+                                <img src="{{ asset('img/testimonial-2.jpg') }}" alt="Tariq Al-Mansoor" class="rounded-circle me-3 object-fit-cover" width="46" height="46" loading="lazy" decoding="async">
                                 <div>
                                     <h6 class="mb-0 sh-text-title fw-bold">Tariq Al-Mansoor</h6>
                                     <small class="sh-text-muted">VP Supply Chain · Jebel Ali, Dubai</small>
@@ -1943,7 +1935,7 @@
                             </div>
                             <p class="fst-italic sh-text-muted mb-3">"Direct co-op pricing eliminated the broker markup we usually pay on yellow maize. Clean title handover at the discharge port made customs processing effortless."</p>
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('img/testimonial-3.jpg') }}" alt="" class="rounded-circle me-3 object-fit-cover" width="46" height="46">
+                                <img src="{{ asset('img/testimonial-3.jpg') }}" alt="Wei Chen" class="rounded-circle me-3 object-fit-cover" width="46" height="46" loading="lazy" decoding="async">
                                 <div>
                                     <h6 class="mb-0 sh-text-title fw-bold">Wei Chen</h6>
                                     <small class="sh-text-muted">Agro Commodity Trader · Qingdao, China</small>
@@ -2025,7 +2017,7 @@
                 <!-- Col 1: Brand & Mission -->
                 <div class="sh-footer-col-brand">
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <img src="{{ asset('img/BRX Agro Global Product Emblem.png') }}" alt="BRX AGRO GLOBAL" class="rounded-circle" style="width: 44px; height: 44px; object-fit: cover; border: 2px solid var(--sh-primary); flex-shrink: 0;">
+                        <img src="{{ asset('img/brx-emblem-nav.png') }}" alt="BRX AGRO GLOBAL" class="rounded-circle" style="width: 44px; height: 44px; object-fit: cover; border: 2px solid var(--sh-primary); flex-shrink: 0;" width="44" height="44" loading="lazy">
                         <div>
                             <div class="fw-bold text-white fs-6" style="letter-spacing: 0.5px; line-height: 1.1;">BRX <span style="color: var(--sh-primary);">AGRO GLOBAL</span></div>
                             <small class="text-white-50 d-block" style="font-size: 0.52rem; letter-spacing: 1.2px; text-transform: uppercase;">Importação e Exportação Ltda</small>
