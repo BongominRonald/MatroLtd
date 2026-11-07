@@ -579,7 +579,7 @@
             letter-spacing: 2px;
         }
 
-        /* ===== Footer (Exact fume-main 6-Column Layout) ===== */
+        /* ===== Footer (Horizontal Layout Across All Elements) ===== */
         .sh-footer {
             background: var(--sh-black);
             color: rgba(255, 255, 255, 0.68);
@@ -588,7 +588,9 @@
         .sh-footer h6 {
             color: #fff;
             font-weight: 700;
+            font-size: 0.95rem;
             margin-bottom: 1rem;
+            letter-spacing: 0.5px;
         }
         .sh-footer a {
             color: rgba(255, 255, 255, 0.65);
@@ -619,23 +621,60 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        @media (min-width: 992px) {
-            .sh-footer-grid {
-                display: grid;
-                grid-template-columns: repeat(6, minmax(0, 1fr));
-                gap: 2rem;
-                align-items: start;
+        .sh-footer-horizontal-wrap {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2.25rem;
+            width: 100%;
+        }
+        .sh-footer-col-brand {
+            flex: 2.2 1 240px;
+            min-width: 210px;
+            max-width: 290px;
+        }
+        .sh-footer-col {
+            flex: 1.1 1 125px;
+            min-width: 115px;
+        }
+        .sh-footer-col-contact {
+            flex: 1.8 1 220px;
+            min-width: 200px;
+        }
+
+        @media (max-width: 1199.98px) {
+            .sh-footer-horizontal-wrap {
+                flex-wrap: wrap;
+                gap: 2rem 1.5rem;
+            }
+            .sh-footer-col-brand {
+                flex: 1 1 100%;
+                max-width: 100%;
+                border-bottom: 1px solid var(--sh-border);
+                padding-bottom: 1.25rem;
+                margin-bottom: 0.25rem;
+            }
+            .sh-footer-col {
+                flex: 1 1 calc(25% - 1.5rem);
+                min-width: 130px;
+            }
+            .sh-footer-col-contact {
+                flex: 1 1 calc(50% - 1.5rem);
+                min-width: 220px;
             }
         }
-        @media (max-width: 991.98px) {
-            .sh-footer-grid {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 1.5rem;
+        @media (max-width: 767.98px) {
+            .sh-footer-horizontal-wrap {
+                flex-wrap: wrap;
+                gap: 1.5rem 1rem;
             }
-            .sh-footer-grid > div:first-child,
-            .sh-footer-grid .sh-footer-contact {
-                grid-column: 1 / -1;
+            .sh-footer-col {
+                flex: 1 1 calc(50% - 1rem);
+            }
+            .sh-footer-col-contact {
+                flex: 1 1 100%;
             }
         }
 
@@ -1337,15 +1376,17 @@
         </section>
     </main>
 
-    <!-- 10. FOOTER (Exact fume-main 6-Column Layout) -->
+    <!-- 10. FOOTER (Horizontal Layout Across All Elements) -->
     <footer class="sh-footer pt-5 pb-4">
-        <div class="container">
-            <div class="row g-4 sh-footer-grid">
-                <!-- Col 1: Brand & Bio -->
-                <div class="col-12 col-md-3">
-                    <h6 class="fs-5 text-white">MATRO <span style="color: var(--sh-primary);">AGRO</span></h6>
-                    <p class="small text-white-50">Direct institutional trade facilitation between certified Brazilian agricultural cooperatives and global commodity buyers.</p>
-                    <div class="mt-3">
+        <div class="container-fluid px-3 px-md-5" style="max-width: 1440px;">
+            <div class="sh-footer-horizontal-wrap mb-4">
+                <!-- Col 1: Brand & Mission -->
+                <div class="sh-footer-col-brand">
+                    <h6 class="fs-5 text-white mb-2">MATRO <span style="color: var(--sh-primary);">AGRO</span></h6>
+                    <p class="small text-white-50 mb-3" style="line-height: 1.6;">
+                        Direct institutional trade facilitation between certified Brazilian agricultural cooperatives and global commodity buyers.
+                    </p>
+                    <div class="d-flex align-items-center mt-3">
                         <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="social-icon" title="WhatsApp Desk"><i class="bi bi-whatsapp"></i></a>
                         <a href="#" class="social-icon" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
                         <a href="mailto:tradedesk@matro.com" class="social-icon" title="Email Desk"><i class="bi bi-envelope"></i></a>
@@ -1353,9 +1394,9 @@
                 </div>
 
                 <!-- Col 2: Shop -->
-                <div class="col-6 col-md-3 sh-footer-col">
+                <div class="sh-footer-col">
                     <h6>Shop</h6>
-                    <ul class="list-unstyled small">
+                    <ul class="list-unstyled small mb-0">
                         <li class="mb-2"><a href="#products">Soybeans &amp; Grains</a></li>
                         <li class="mb-2"><a href="#products">ICUMSA 45 Sugar</a></li>
                         <li class="mb-2"><a href="#products">Yellow Maize Grade 2</a></li>
@@ -1365,9 +1406,9 @@
                 </div>
 
                 <!-- Col 3: Company -->
-                <div class="col-6 col-md-3 sh-footer-col">
+                <div class="sh-footer-col">
                     <h6>Company</h6>
-                    <ul class="list-unstyled small">
+                    <ul class="list-unstyled small mb-0">
                         <li class="mb-2"><a href="#products">About Matro</a></li>
                         <li class="mb-2"><a href="#rfq-desk">Brazilian Trade Desk</a></li>
                         <li class="mb-2"><a href="#products">Harvest Basins</a></li>
@@ -1376,46 +1417,63 @@
                 </div>
 
                 <!-- Col 4: Account -->
-                <div class="col-6 col-md-3 sh-footer-col">
+                <div class="sh-footer-col">
                     <h6>Account</h6>
-                    <ul class="list-unstyled small">
+                    <ul class="list-unstyled small mb-0">
+                        <li class="mb-2"><a href="{{ route('login') }}">Client Login</a></li>
+                        <li class="mb-2"><a href="{{ route('register') }}">Register Account</a></li>
                         @auth
-                            <li class="mb-2"><a href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
-                            <li class="mb-2"><a href="{{ route('admin.orders.index') }}">My Contracts &amp; Orders</a></li>
-                            <li class="mb-2"><a href="{{ route('admin.inquiries.index') }}">Inquiries</a></li>
-                        @else
-                            <li class="mb-2"><a href="{{ route('login') }}">Client Login</a></li>
-                            <li class="mb-2"><a href="{{ route('register') }}">Register Account</a></li>
+                            @if(auth()->user()->isAdmin())
+                                <li class="mb-2"><a href="{{ route('admin.dashboard') }}" class="text-warning fw-semibold"><i class="bi bi-speedometer2 me-1"></i>Admin Dashboard</a></li>
+                            @endif
+                            <li class="mb-2"><a href="{{ route('admin.orders.index') }}">My Orders</a></li>
                         @endauth
                     </ul>
                 </div>
 
                 <!-- Col 5: Legal -->
-                <div class="col-6 col-md-3 sh-footer-col">
+                <div class="sh-footer-col">
                     <h6>Legal</h6>
-                    <ul class="list-unstyled small">
+                    <ul class="list-unstyled small mb-0">
                         <li class="mb-2"><a href="javascript:void(0)">Phytosanitary Terms</a></li>
                         <li class="mb-2"><a href="javascript:void(0)">Bank Escrow Rules</a></li>
                         <li class="mb-2"><a href="javascript:void(0)">IncoTerms 2020 Guide</a></li>
                     </ul>
                 </div>
 
-                <!-- Col 6: Direct Contact -->
-                <div class="col-12 col-md-6 sh-footer-contact">
+                <!-- Col 6: Contact -->
+                <div class="sh-footer-col sh-footer-col-contact">
                     <h6>Contact</h6>
-                    <ul class="list-unstyled small">
-                        <li class="mb-2"><i class="bi bi-geo-alt me-2 text-success"></i>Av. Paulista 1374, São Paulo - SP, Brazil</li>
-                        <li class="mb-2"><i class="bi bi-whatsapp me-2 text-success"></i>+55 (11) 95298-7545</li>
-                        <li class="mb-2"><i class="bi bi-envelope me-2 text-success"></i>tradedesk@matro.com</li>
-                        <li class="mb-2"><i class="bi bi-clock me-2 text-success"></i>Mon - Fri: 08:00 - 18:00 BRT</li>
+                    <ul class="list-unstyled small mb-0">
+                        <li class="mb-2 d-flex align-items-start gap-2">
+                            <i class="bi bi-geo-alt me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0; margin-top: 3px;"></i>
+                            <span>Av. Paulista 1374, São Paulo - SP, Brazil</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center gap-2">
+                            <i class="bi bi-whatsapp me-1 text-success" style="flex-shrink: 0;"></i>
+                            <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold">+55 (11) 95298-7545</a>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center gap-2">
+                            <i class="bi bi-envelope me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
+                            <a href="mailto:tradedesk@matro.com" class="text-decoration-none text-white-50">tradedesk@matro.com</a>
+                        </li>
+                        <li class="mb-0 d-flex align-items-center gap-2">
+                            <i class="bi bi-clock me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
+                            <span>Mon - Fri: 08:00 - 18:00 BRT</span>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <!-- Footer Bottom -->
-            <div class="sh-footer-bottom mt-4 pt-4 text-center small text-white-50">
+            <div class="sh-footer-bottom mt-4 pt-4 text-center small text-white-50 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
                 <div>
-                    &copy; {{ date('Y') }} Matro Brazilian Agro-Commodity Platform. All rights reserved. Text scales smoothly with your screen.
+                    &copy; {{ date('Y') }} Matro Brazilian Agro-Commodity Platform. All rights reserved.
+                </div>
+                <div class="d-flex gap-3">
+                    <span><i class="bi bi-shield-check text-success me-1"></i> Bank Escrow Protected</span>
+                    <span><i class="bi bi-patch-check text-success me-1"></i> SGS Tested</span>
+                    <span><i class="bi bi-award text-success me-1"></i> MAPA Certified</span>
                 </div>
             </div>
         </div>
