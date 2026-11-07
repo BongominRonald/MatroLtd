@@ -87,38 +87,79 @@
             font-weight: 700;
         }
 
-        /* ===== Navbar (fume-main layout) ===== */
+        /* ===== Navbar (Straightline Horizontal Layout) ===== */
         .sh-navbar {
             background: var(--sh-black);
             border-bottom: 1px solid var(--sh-border);
             z-index: 1030;
+            padding-top: 0.65rem !important;
+            padding-bottom: 0.65rem !important;
         }
-        .sh-navbar .navbar-brand {
-            color: #fff;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            font-size: 1.45rem;
-        }
-        .sh-navbar .navbar-brand span {
-            color: var(--sh-primary);
+        @media (min-width: 992px) {
+            .sh-nav-straightline {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+                align-items: center !important;
+                white-space: nowrap !important;
+                gap: 0.5rem !important;
+                margin-bottom: 0;
+            }
+            .sh-nav-straightline .nav-item {
+                flex-shrink: 0;
+            }
         }
         .sh-navbar .nav-link {
             color: rgba(255, 255, 255, 0.82);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color .2s ease;
+            font-weight: 600;
+            font-size: 0.88rem;
+            padding: 0.4rem 0.55rem !important;
+            border-radius: 6px;
+            white-space: nowrap;
+            transition: color .2s ease, background-color .2s ease;
         }
         .sh-navbar .nav-link:hover,
         .sh-navbar .nav-link.active {
             color: var(--sh-primary) !important;
         }
-
+        .sh-nav-dropdown .dropdown-menu {
+            background: var(--sh-surface);
+            border: 1px solid var(--sh-border);
+            border-radius: 10px;
+            padding: 0.5rem 0;
+            min-width: 220px;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+        }
+        .sh-nav-dropdown .dropdown-header {
+            color: var(--sh-primary);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 0.4rem 1rem;
+        }
+        .sh-nav-dropdown .dropdown-item {
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.86rem;
+            padding: 0.45rem 1rem;
+            transition: all .15s ease;
+        }
+        .sh-nav-dropdown .dropdown-item:hover {
+            background: rgba(120, 162, 47, 0.15);
+            color: var(--sh-primary);
+        }
         @media (min-width: 992px) {
-            .sh-navbar .navbar-nav.mx-auto {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 1.25rem;
+            .sh-nav-dropdown:hover > .dropdown-menu {
+                display: block;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            .sh-nav-dropdown > .dropdown-menu {
+                display: block;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(6px);
+                transition: opacity .2s ease, transform .2s ease;
             }
         }
         @media (max-width: 991.98px) {
@@ -787,52 +828,74 @@
 
 <body>
 
-    <!-- 1. STICKY TOP NAVBAR (fume-main navbar layout) -->
-    <nav class="navbar navbar-expand-lg sh-navbar py-3 sticky-top">
-        <div class="container">
-            <!-- Brand Logo -->
-            <a class="navbar-brand d-flex align-items-center me-3" href="{{ route('home') }}">
-                <span class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle me-2 shadow-sm" style="width: 36px; height: 36px; background-color: var(--sh-primary) !important;">
-                    <i class="fa fa-shopping-basket"></i>
-                </span>
-                <span>MATRO <span>AGRO</span></span>
-            </a>
-
-            <!-- Mobile Hamburger Toggler -->
-            <button class="navbar-toggler sh-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- 1. STICKY TOP NAVBAR (Horizontal Straightline Layout) -->
+    <nav class="navbar navbar-expand-lg sh-navbar sticky-top" id="top">
+        <div class="container-fluid px-3 px-xl-5" style="max-width: 1440px;">
+            <!-- Mobile Hamburger Toggler (visible on small screens) -->
+            <button class="navbar-toggler sh-toggler d-lg-none me-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </button>
 
-            <!-- Nav Links & Actions -->
+            <!-- Nav Links on a Straight Line Horizontally -->
             <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav mx-auto gap-lg-3">
+                <ul class="navbar-nav me-auto sh-nav-straightline">
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('home') }}">Home</a>
                     </li>
-                    @if (isset($categories) && $categories->isNotEmpty())
-                        @foreach ($categories->take(5) as $cat)
-                            <li class="nav-item">
-                                <a class="nav-link" href="#products">{{ $cat->name }}</a>
-                            </li>
-                        @endforeach
-                    @else
-                        <li class="nav-item"><a class="nav-link" href="#products">Grains &amp; Rice</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#products">Oil &amp; Sugar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#products">Nuts &amp; Seeds</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#products">Lentils &amp; Pulses</a></li>
-                    @endif
                     <li class="nav-item">
-                        <a class="nav-link" href="#products">Shop All</a>
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item dropdown sh-nav-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#products" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu shadow">
+                            <li class="dropdown-header text-uppercase">Commodity Sectors</li>
+                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Grains & Rice"><i class="bi bi-circle-fill text-success me-2 small"></i>Grains &amp; Rice</a></li>
+                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Oil & Sugar"><i class="bi bi-circle-fill text-success me-2 small"></i>Oil &amp; Sugar</a></li>
+                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Nuts & Seeds"><i class="bi bi-circle-fill text-success me-2 small"></i>Nuts &amp; Seeds</a></li>
+                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Lentils & Pulses"><i class="bi bi-circle-fill text-success me-2 small"></i>Lentils &amp; Pulses</a></li>
+                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Spices & Specialty"><i class="bi bi-circle-fill text-success me-2 small"></i>Spices &amp; Specialty</a></li>
+                            <li><hr class="dropdown-divider border-secondary my-1"></li>
+                            <li><a class="dropdown-item fw-bold" href="#products"><i class="bi bi-grid-fill text-success me-2"></i>Shop All Products</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown sh-nav-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#products" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Store
+                        </a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="#products"><i class="bi bi-bag-check text-success me-2"></i>Shop All</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="#rfq-desk"><i class="bi bi-file-earmark-text text-success me-2"></i>Direct RFQ</a></li>
+                            <li><hr class="dropdown-divider border-secondary my-1"></li>
+                            <li><a class="dropdown-item py-2" href="#insights"><i class="bi bi-geo-alt text-success me-2"></i>Harvest Basins</a></li>
+                            <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="document.getElementById('cartTriggerBtn').click()"><i class="bi bi-cart3 text-success me-2"></i>Sample Cart</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#rfq-desk">Direct RFQ</a>
+                        <a class="nav-link" href="#process">Process</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#insights">Insights</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
                     </li>
                 </ul>
 
                 <!-- Navbar Actions (Theme / Cart / Search / Auth) -->
-                <div class="sh-nav-actions d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                <div class="sh-nav-actions d-flex align-items-center gap-2 gap-xl-3 ms-lg-auto mt-3 mt-lg-0">
                     <!-- Theme Toggle -->
                     <button type="button" class="sh-theme-toggle" aria-label="Toggle dark / light theme" title="Toggle Theme">
                         <i class="bi bi-moon-stars"></i>
@@ -998,8 +1061,8 @@
             </div>
         </section>
 
-        <!-- 4. FEATURE STRIP (Exact fume-main layout) -->
-        <section class="sh-strip py-3">
+        <!-- 4. SERVICES / FEATURE STRIP (Exact fume-main layout) -->
+        <section class="sh-strip py-3" id="services">
             <div class="container">
                 <div class="row text-center g-3">
                     <div class="col-6 col-md-3 item d-flex flex-column align-items-center">
@@ -1158,8 +1221,8 @@
             </div>
         </section>
 
-        <!-- 6. CATEGORY CARDS SECTION (Exact fume-main category architecture) -->
-        <section class="py-5" style="background: var(--sh-black);">
+        <!-- 6. CATEGORY CARDS & BASIN INSIGHTS -->
+        <section class="py-5" id="insights" style="background: var(--sh-black);">
             <div class="container py-3">
                 <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
                     <div>
@@ -1225,7 +1288,126 @@
             </div>
         </section>
 
-        <!-- 8. DIRECT TRADE DESK & RFQ INQUIRIES -->
+        <!-- 8. PROCESS: 4-Step Bulk Fulfillment Architecture -->
+        <section class="py-5" id="process" style="background: var(--sh-black); border-top: 1px solid var(--sh-border);">
+            <div class="container py-3">
+                <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+                    <div>
+                        <div class="sh-eyebrow">Institutional Workflow</div>
+                        <h2 class="sh-title mb-0">End-to-End Trade Fulfillment Process</h2>
+                    </div>
+                    <span class="badge bg-success px-3 py-2 fs-6">SGS &amp; Escrow Compliant</span>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 h-100" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.2); color: var(--sh-primary);">01</div>
+                            <h5 class="fw-bold text-white mb-2">Basin Sourcing</h5>
+                            <p class="small text-white-50 mb-0">Contract allocations secured directly from certified agricultural cooperatives across Mato Grosso, Paraná, and São Paulo.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 h-100" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.2); color: var(--sh-primary);">02</div>
+                            <h5 class="fw-bold text-white mb-2">SGS Lab Assays</h5>
+                            <p class="small text-white-50 mb-0">Independent pre-shipment sampling for moisture, protein, foreign matter, and MAPA phytosanitary compliance.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 h-100" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.2); color: var(--sh-primary);">03</div>
+                            <h5 class="fw-bold text-white mb-2">Bank Escrow / LC</h5>
+                            <p class="small text-white-50 mb-0">Tier-1 escrow settlement and irrevocable documentary letters of credit ensure zero counterparty settlement risk.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 h-100" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.2); color: var(--sh-primary);">04</div>
+                            <h5 class="fw-bold text-white mb-2">Port Vessel Dispatch</h5>
+                            <p class="small text-white-50 mb-0">Terminal berth coordination at Port of Santos and Paranaguá with live vessel telemetry until discharge.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. BLOG / TRADE INSIGHTS -->
+        <section class="py-5" id="blog">
+            <div class="container py-3">
+                <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+                    <div>
+                        <div class="sh-eyebrow">Trade Digest</div>
+                        <h2 class="sh-title mb-0">Market Reports &amp; Commodity Insights</h2>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 h-100 d-flex flex-column" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                            <span class="badge bg-secondary align-self-start mb-2">Crop Outlook</span>
+                            <h5 class="fw-bold text-white mb-2">2026/27 Brazilian Soybean Crop Forecast</h5>
+                            <p class="small text-white-50 mb-3 flex-grow-1">Mato Grosso record yields and favorable moisture levels drive high export availability for early vessel bookings.</p>
+                            <a href="#rfq-desk" class="text-success small fw-semibold text-decoration-none">Inquire Basin Availability <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 h-100 d-flex flex-column" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                            <span class="badge bg-secondary align-self-start mb-2">Trade Guide</span>
+                            <h5 class="fw-bold text-white mb-2">IncoTerms 2020: CIF vs FOB Port Risk</h5>
+                            <p class="small text-white-50 mb-3 flex-grow-1">Analyzing demurrage responsibility, marine insurance clauses, and title handover protocols for bulk buyers.</p>
+                            <a href="#rfq-desk" class="text-success small fw-semibold text-decoration-none">Inquire Terms Guide <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 h-100 d-flex flex-column" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                            <span class="badge bg-secondary align-self-start mb-2">Logistics</span>
+                            <h5 class="fw-bold text-white mb-2">Raw Sugar (ICUMSA 45) Port Allocations</h5>
+                            <p class="small text-white-50 mb-3 flex-grow-1">Santos terminal conveyor upgrade schedule and containerized pallet shipment lead times for Middle East ports.</p>
+                            <a href="#rfq-desk" class="text-success small fw-semibold text-decoration-none">Inquire Port Schedules <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. ABOUT US SECTION -->
+        <section class="py-5" id="about" style="background: var(--sh-black); border-top: 1px solid var(--sh-border);">
+            <div class="container py-3">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <div class="sh-eyebrow">About Matro</div>
+                        <h2 class="sh-title mb-3">Direct Brazilian Agro Trade Facilitation</h2>
+                        <p class="text-white-50 mb-3">
+                            Matro connects international commodity buyers and institutional food conglomerates directly with certified agricultural cooperatives across Brazil's most productive basins.
+                        </p>
+                        <p class="text-white-50 mb-4">
+                            Headquartered on Avenida Paulista in São Paulo, our multi-lingual trade desk coordinates harvest basin allocations, laboratory assay verifications, and deepwater vessel logistics to deliver institutional grade commodities on FOB and CIF terms.
+                        </p>
+                        <div class="d-flex gap-4">
+                            <div>
+                                <h3 class="fw-bold text-white mb-0" style="color: var(--sh-primary) !important;">100%</h3>
+                                <small class="text-white-50">SGS Assay Inspected</small>
+                            </div>
+                            <div class="border-start border-secondary ps-4">
+                                <h3 class="fw-bold text-white mb-0" style="color: var(--sh-primary) !important;">15+</h3>
+                                <small class="text-white-50">Certified Co-op Basins</small>
+                            </div>
+                            <div class="border-start border-secondary ps-4">
+                                <h3 class="fw-bold text-white mb-0" style="color: var(--sh-primary) !important;">Zero</h3>
+                                <small class="text-white-50">Counterparty Default</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-3 rounded-4" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                            <img src="{{ asset('img/about-2.jpg') }}" alt="About Matro Agro Desk" class="img-fluid rounded-3 w-100 object-fit-cover" style="max-height: 320px;" onerror="this.src='{{ asset('img/service-1.jpg') }}'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. DIRECT TRADE DESK & RFQ INQUIRIES (CONTACT) -->
+        <div id="contact"></div>
         <section class="py-5" id="rfq-desk" style="background: var(--sh-surface); border-top: 1px solid var(--sh-border); border-bottom: 1px solid var(--sh-border);">
             <div class="container py-3">
                 <div class="row g-5 align-items-start">
@@ -1368,6 +1550,68 @@
                                     <h6 class="mb-0 text-white fw-bold">Wei Chen</h6>
                                     <small class="text-white-50">Agro Commodity Trader · Qingdao, China</small>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 13. FAQ SECTION -->
+        <section class="py-5" id="faq" style="background: var(--sh-black); border-top: 1px solid var(--sh-border);">
+            <div class="container py-3">
+                <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+                    <div>
+                        <div class="sh-eyebrow">Knowledge Base</div>
+                        <h2 class="sh-title mb-0">Frequently Asked Questions</h2>
+                    </div>
+                </div>
+                <div class="accordion" id="agroFaqAccordion">
+                    <div class="accordion-item mb-3 rounded-3 overflow-hidden" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                        <h2 class="accordion-header" id="faqH1">
+                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC1" style="background: var(--sh-surface); color: #fff;">
+                                How does bank escrow protect international commodity buyers?
+                            </button>
+                        </h2>
+                        <div id="faqC1" class="accordion-collapse collapse" data-bs-parent="#agroFaqAccordion">
+                            <div class="accordion-body small text-white-50" style="background: var(--sh-surface);">
+                                Funds are deposited into a regulated Tier-1 escrow account and released only when verified SGS inspection assay certificates and official Bills of Lading are verified by the escrow agent.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3 rounded-3 overflow-hidden" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                        <h2 class="accordion-header" id="faqH2">
+                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC2" style="background: var(--sh-surface); color: #fff;">
+                                What quality assurance certificates accompany shipments?
+                            </button>
+                        </h2>
+                        <div id="faqC2" class="accordion-collapse collapse" data-bs-parent="#agroFaqAccordion">
+                            <div class="accordion-body small text-white-50" style="background: var(--sh-surface);">
+                                Every batch is accompanied by an independent SGS Laboratory Assay, MAPA (Brazilian Ministry of Agriculture) Phytosanitary Certificate, Certificate of Origin, and Fumigation Certificate.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3 rounded-3 overflow-hidden" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                        <h2 class="accordion-header" id="faqH3">
+                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC3" style="background: var(--sh-surface); color: #fff;">
+                                What is the minimum order quantity (MOQ) for bulk shipments?
+                            </button>
+                        </h2>
+                        <div id="faqC3" class="accordion-collapse collapse" data-bs-parent="#agroFaqAccordion">
+                            <div class="accordion-body small text-white-50" style="background: var(--sh-surface);">
+                                Standard containerized shipments start at 200 to 500 Metric Tons. For Panamax / Supramax breakbulk vessel allocations, spot contracts typically start at 12,500 Metric Tons.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item rounded-3 overflow-hidden" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                        <h2 class="accordion-header" id="faqH4">
+                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC4" style="background: var(--sh-surface); color: #fff;">
+                                Which discharge ports are supported under CIF contracts?
+                            </button>
+                        </h2>
+                        <div id="faqC4" class="accordion-collapse collapse" data-bs-parent="#agroFaqAccordion">
+                            <div class="accordion-body small text-white-50" style="background: var(--sh-surface);">
+                                We regularly execute CIF charters to major deepwater ports including Rotterdam, Antwerp, Jebel Ali, Qingdao, Shanghai, Dammam, and Alexandria.
                             </div>
                         </div>
                     </div>
@@ -1683,6 +1927,33 @@
                         $(this).stop(true, true).fadeOut(150);
                     }
                 });
+            });
+
+            // Dropdown Category Filter in Navbar
+            $(document).on('click', '.agro-nav-cat-filter', function (e) {
+                var targetCat = $(this).attr('data-filter');
+                if (targetCat) {
+                    var $matchBtn = $('.agro-filter-btn').filter(function () {
+                        return $(this).text().trim().toLowerCase() === targetCat.toLowerCase();
+                    });
+                    if ($matchBtn.length > 0) {
+                        $matchBtn.click();
+                    } else {
+                        $('.agro-filter-btn').removeClass('active btn-primary').addClass('btn-outline-secondary');
+                        $('.product-item').each(function () {
+                            var cat = ($(this).attr('data-category') || '').toLowerCase();
+                            if (cat.indexOf(targetCat.toLowerCase()) !== -1) {
+                                $(this).stop(true, true).fadeIn(250);
+                            } else {
+                                $(this).stop(true, true).fadeOut(150);
+                            }
+                        });
+                    }
+                    var prodSec = document.getElementById('products');
+                    if (prodSec) {
+                        prodSec.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
             });
 
             // Scroll to Top Button
