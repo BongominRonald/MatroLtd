@@ -7,9 +7,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
-use App\Models\Category;
 use App\Models\Inquiry;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -21,12 +19,7 @@ use Illuminate\Support\Str;
 */
 
 Route::get('/', function () {
-    $categories = Category::withCount('products')->get();
-    $products = Product::with('category')->latest('id')->take(8)->get();
-    $totalStock = Product::sum('stock') ?: 2500;
-    $productsCount = Product::count() ?: 8;
-
-    return view('index', compact('categories', 'products', 'totalStock', 'productsCount'));
+    return view('index');
 })->name('home');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

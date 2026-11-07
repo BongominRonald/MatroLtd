@@ -3,17 +3,17 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Matro - Brazilian Bulk Agro-Commodity Trading &amp; Store</title>
+    <title>Matro - Brazilian Agro-Commodity Trading &amp; Online Store</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Brazilian agro commodities, bulk soybeans, ICUMSA 45 sugar, yellow corn, green coffee, SGS inspection, escrow settlement, Port of Santos, Matro" name="keywords">
-    <meta content="Matro coordinates direct institutional origination of Brazilian agro-commodities for international buyers. Sourced from certified cooperatives, verified by SGS &amp; MAPA, and secured with Tier-1 bank escrow." name="description">
+    <meta content="agro commodities, Brazilian soybeans, sugar, lentils, bulk export, B2B, B2C, Matro" name="keywords">
+    <meta content="Matro sources verified Brazilian agro-commodities for global buyers and retail customers with secure, traceable trade." name="description">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link href="{{ asset('img/favicon.ico') }}" rel="icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -29,85 +29,18 @@
             }
         }
     </script>
-    <style>
-        .hero-banner {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.94) 0%, rgba(19, 35, 27, 0.92) 100%), url('{{ asset('img/hero-bg.jpg') }}') center/cover no-repeat;
-        }
-        .telemetry-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-        }
-        .telemetry-card:hover {
-            background: rgba(255, 255, 255, 0.09);
-            border-color: var(--bs-primary);
-            transform: translateY(-2px);
-        }
-        .pillar-card {
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
-        }
-        .pillar-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--bs-primary);
-            box-shadow: 0 16px 32px rgba(120, 162, 47, 0.12);
-        }
-        .step-circle {
-            width: 48px;
-            height: 48px;
-            font-size: 1.15rem;
-            font-weight: 700;
-        }
-        .product-card-img-wrap {
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-        }
-        .product-card-img-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .product-card:hover .product-card-img-wrap img {
-            transform: scale(1.05);
-        }
-    </style>
 </head>
 
-<body class="open-sans-regular bg-white text-dark">
+<body>
 
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex flex-column align-items-center justify-content-center">
         <span class="spinner-border text-primary mb-2" role="status" style="width: 3rem; height: 3rem;"></span>
-        <span class="text-muted small fw-semibold">Loading Matro Institutional Trade Desk...</span>
+        Loading Agrovia...
     </div>
     <!-- Spinner End -->
 
-    <!-- Top Announcement & Credential Bar -->
-    <div class="bg-dark text-light border-bottom border-secondary border-opacity-25 py-2 px-3 px-lg-4 small d-none d-md-block">
-        <div class="container-fluid d-flex flex-wrap align-items-center justify-content-between">
-            <div class="d-flex align-items-center gap-3">
-                <span class="d-inline-flex align-items-center text-primary fw-bold">
-                    <i class="fa fa-circle text-success me-1" style="font-size: 8px;"></i> LIVE TRADE DESK
-                </span>
-                <span class="text-white-50">|</span>
-                <span><i class="fa fa-anchor text-primary me-1"></i> Origin Ports: <strong>Santos &amp; Paranaguá (BR)</strong></span>
-                <span class="text-white-50">|</span>
-                <span><i class="fa fa-shield-alt text-primary me-1"></i> 100% Pre-Shipment SGS &amp; MAPA Assays</span>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                <span><i class="fa fa-file-invoice-dollar text-primary me-1"></i> Settlements: <strong>USD, EUR, BRL (Escrow / LC)</strong></span>
-                <span class="text-white-50">|</span>
-                <a href="https://wa.me/5511952987545?text=Hello%20Matro%20Trade%20Desk" target="_blank" rel="noopener" class="text-light text-decoration-none hover:text-primary">
-                    <i class="fab fa-whatsapp text-success me-1"></i> +55 (11) 95298-7545
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation Header -->
+    <!-- Header Start -->
     <div id="home" class="container-fluid p-0 position-relative">
         <nav class="navbar matro-navbar navbar-expand-lg navbar-dark fixed-top px-3 px-lg-4">
             <div class="container-fluid px-0">
@@ -118,11 +51,11 @@
                     </span>
                     <div class="d-flex flex-column">
                         <span class="fs-4 fw-bold text-white lh-1">MATRO</span>
-                        <span class="text-primary text-uppercase font-monospace" style="font-size: 10px; letter-spacing: 1.5px; font-weight: 600;">BRAZILIAN AGRO TRADE</span>
+                        <span class="text-primary text-uppercase font-monospace" style="font-size: 10px; letter-spacing: 1.5px; font-weight: 600;">E-COMMERCE</span>
                     </div>
                 </a>
 
-                <!-- Mobile Quick Actions -->
+                <!-- Mobile Quick Actions (Search, Cart & Hamburger) -->
                 <div class="d-flex align-items-center d-lg-none ms-auto me-2 gap-2">
                     <button type="button" class="btn btn-sm btn-outline-light rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" data-bs-toggle="modal" data-bs-target="#searchModal" title="Search">
                         <i class="fa fa-search"></i>
@@ -140,25 +73,32 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-3 py-lg-0 align-items-lg-center">
                         <a href="#home" class="nav-item nav-link active px-2 px-xl-3">Home</a>
-                        <a href="#commodities" class="nav-item nav-link px-2 px-xl-3">Commodities</a>
-                        <a href="#pillars" class="nav-item nav-link px-2 px-xl-3">4 Pillars</a>
-                        <a href="#fulfillment" class="nav-item nav-link px-2 px-xl-3">Fulfillment Flow</a>
-                        <a href="#standards" class="nav-item nav-link px-2 px-xl-3">Quality &amp; Assays</a>
-                        <a href="#testimonials" class="nav-item nav-link px-2 px-xl-3">Reviews</a>
-                        <a href="#rfq-desk" class="nav-item nav-link px-2 px-xl-3 text-warning fw-semibold">
-                            <i class="fa fa-file-invoice me-1"></i>Request RFQ
-                        </a>
+                        <a href="#catalog" class="nav-item nav-link px-2 px-xl-3">Products &amp; Store</a>
+                        <a href="#catalog" class="nav-item nav-link px-2 px-xl-3">Services</a>
+                        <a href="#ecosystem" class="nav-item nav-link px-2 px-xl-3">Process</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle px-2 px-xl-3" data-bs-toggle="dropdown">More</a>
+                            <div class="dropdown-menu dropdown-menu-dark border-0 shadow mt-2">
+                                <a href="#knowledge" class="dropdown-item py-2"><i class="fa fa-lightbulb text-primary me-2"></i>Insights</a>
+                                <a href="#knowledge" class="dropdown-item py-2"><i class="fa fa-newspaper text-primary me-2"></i>Blog</a>
+                                <a href="#knowledge" class="dropdown-item py-2"><i class="fa fa-question-circle text-primary me-2"></i>FAQ</a>
+                                <a href="#proof" class="dropdown-item py-2"><i class="fa fa-certificate text-primary me-2"></i>Reviews &amp; Proof</a>
+                                <hr class="dropdown-divider border-secondary my-1">
+                                <a href="#ecosystem" class="dropdown-item py-2"><i class="fa fa-users text-primary me-2"></i>About Us</a>
+                            </div>
+                        </div>
+                        <a href="#contact" class="nav-item nav-link px-2 px-xl-3">Contact</a>
                     </div>
 
                     <!-- Right-side Actions -->
                     <div class="agrovia-nav-actions d-flex flex-wrap align-items-center gap-2 pt-2 pt-lg-0 border-top border-lg-0 border-secondary">
-                        <button type="button" class="btn btn-outline-light rounded-circle d-none d-lg-flex align-items-center justify-content-center" style="width: 38px; height: 38px;" data-bs-toggle="modal" data-bs-target="#searchModal" title="Search Commodities (Ctrl+K)">
+                        <button type="button" class="btn btn-outline-light rounded-circle d-none d-lg-flex align-items-center justify-content-center" style="width: 38px; height: 38px;" data-bs-toggle="modal" data-bs-target="#searchModal" title="Search Products (Ctrl+K)">
                             <i class="fa fa-search"></i>
                         </button>
 
-                        <a href="https://wa.me/5511952987545?text=Hello%20Matro%20Trade%20Desk" target="_blank" rel="noopener" class="btn btn-outline-success rounded-pill px-3 py-1 d-inline-flex align-items-center justify-content-center text-nowrap" title="Direct WhatsApp Desk">
+                        <a href="https://wa.me/5511952987545?text=Hello%20Matro%20Trade%20Desk" target="_blank" rel="noopener" class="btn btn-outline-success rounded-pill px-3 py-1 d-inline-flex align-items-center justify-content-center text-nowrap" title="Chat on WhatsApp">
                             <i class="fab fa-whatsapp fs-6 me-1 text-success"></i>
-                            <span class="small fw-bold">WhatsApp Desk</span>
+                            <span class="small fw-bold">WhatsApp</span>
                         </a>
 
                         @auth
@@ -180,7 +120,7 @@
                                         @if(Auth::user()->isAdmin())
                                             <span class="badge bg-warning text-dark mt-1">Administrator</span>
                                         @else
-                                            <span class="badge bg-info text-dark mt-1">Verified Importer / Buyer</span>
+                                            <span class="badge bg-info text-dark mt-1">Verified Customer</span>
                                         @endif
                                     </div>
                                     @if(Auth::user()->isAdmin())
@@ -188,16 +128,16 @@
                                             <i class="fa fa-tachometer-alt me-2 text-warning"></i>Admin Dashboard
                                         </a>
                                         <a href="{{ route('admin.products.index') }}" class="dropdown-item py-2">
-                                            <i class="fa fa-boxes-stacked me-2 text-success"></i>Commodity Inventory
+                                            <i class="fa fa-boxes-stacked me-2 text-success"></i>Agro Catalog
                                         </a>
                                         <a href="{{ route('admin.orders.index') }}" class="dropdown-item py-2">
-                                            <i class="fa fa-receipt me-2 text-info"></i>Contracts &amp; Orders
+                                            <i class="fa fa-receipt me-2 text-info"></i>Sales &amp; Orders
                                         </a>
                                         <a href="{{ route('admin.inquiries.index') }}" class="dropdown-item py-2">
-                                            <i class="fa fa-envelope-open-text me-2 text-primary"></i>RFQ Trade Inquiries
+                                            <i class="fa fa-envelope-open-text me-2 text-primary"></i>Trade Inquiries
                                         </a>
                                         <a href="{{ route('admin.users.index') }}" class="dropdown-item py-2">
-                                            <i class="fa fa-users me-2 text-light"></i>Client Directory
+                                            <i class="fa fa-users me-2 text-light"></i>Customers
                                         </a>
                                         <hr class="dropdown-divider border-secondary my-1">
                                     @endif
@@ -214,7 +154,7 @@
                             <a href="/register" class="btn btn-primary btn-custom rounded-pill px-3 py-1 small fw-bold text-white shadow-sm">Register</a>
                         @endauth
 
-                        <button type="button" class="btn btn-outline-light rounded-circle d-none d-lg-flex align-items-center justify-content-center position-relative ms-1 desktop-cart-btn" style="width: 38px; height: 38px;" id="cartBtn" aria-label="Cart" title="View Sample Cart">
+                        <button type="button" class="btn btn-outline-light rounded-circle d-none d-lg-flex align-items-center justify-content-center position-relative ms-1 desktop-cart-btn" style="width: 38px; height: 38px;" id="cartBtn" aria-label="Cart" title="View Cart">
                             <i class="fa fa-shopping-cart"></i>
                             <span id="cartCount" class="cartCountBadge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;">0</span>
                         </button>
@@ -223,1024 +163,638 @@
             </div>
         </nav>
 
-        <!-- Spacious Split Hero Section (Organized following Kindle Trading's layout) -->
-        <section class="hero-banner text-white position-relative" style="padding-top: 130px; padding-bottom: 70px;">
-            <div class="container py-4 py-lg-5">
-                <div class="row align-items-center g-5">
-                    <!-- Left Hero: Institutional Value Proposition & Telemetry -->
-                    <div class="col-lg-7">
-                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-primary bg-opacity-25 border border-primary text-white small fw-bold mb-3">
-                            <i class="fa fa-shield-alt text-primary"></i>
-                            <span>DIRECT BRAZILIAN AGRO-COMMODITY TRADING</span>
-                        </div>
-                        <h1 class="display-4 fw-bold text-white mb-3 lh-sm">
-                            Direct Brazilian Agro-Commodities. <span class="text-primary">Global Port Delivery.</span>
-                        </h1>
-                        <p class="lead text-light opacity-90 mb-4" style="max-width: 620px;">
-                            Origination of Brazilian Non-GMO Soybeans, Refined Cane Sugar (ICUMSA 45), Yellow Corn, Specialty Green Coffee, and Pulses. Backed by independent SGS lab assays, MAPA phytosanitary certification, and risk-free Tier-1 bank escrow settlement.
-                        </p>
-                        <div class="d-flex flex-wrap gap-3 mb-5">
-                            <a href="#commodities" class="btn btn-primary btn-custom rounded-pill px-4 py-3 text-white fw-bold shadow-lg d-inline-flex align-items-center gap-2">
-                                <i class="fa fa-boxes"></i> Explore Commodity Lots
-                            </a>
-                            <a href="#rfq-desk" class="btn btn-outline-light rounded-pill px-4 py-3 fw-bold d-inline-flex align-items-center gap-2">
-                                <i class="fa fa-file-invoice-dollar text-warning"></i> Request Bulk RFQ
-                            </a>
-                        </div>
-
-                        <!-- Telemetry Grid (Kindle Trading 4-Metric Bar) -->
-                        <div class="row g-3 pt-2">
-                            <div class="col-6 col-sm-3">
-                                <div class="telemetry-card rounded-3 p-3 h-100 text-center text-sm-start">
-                                    <div class="fs-4 fw-bold text-white mb-0 counter" data-target="{{ $totalStock }}" data-suffix="+ MT">{{ number_format($totalStock) }}+ MT</div>
-                                    <div class="text-white-50 small mt-1">Active Supply</div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-sm-3">
-                                <div class="telemetry-card rounded-3 p-3 h-100 text-center text-sm-start">
-                                    <div class="fs-4 fw-bold text-primary mb-0">100% SGS</div>
-                                    <div class="text-white-50 small mt-1">Pre-Shipment Assay</div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-sm-3">
-                                <div class="telemetry-card rounded-3 p-3 h-100 text-center text-sm-start">
-                                    <div class="fs-4 fw-bold text-warning mb-0">Zero Risk</div>
-                                    <div class="text-white-50 small mt-1">Escrow Settlement</div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-sm-3">
-                                <div class="telemetry-card rounded-3 p-3 h-100 text-center text-sm-start">
-                                    <div class="fs-4 fw-bold text-white mb-0">Santos (BR)</div>
-                                    <div class="text-white-50 small mt-1">Primary Exit Port</div>
-                                </div>
+        <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="w-100" src="{{ asset('img/carousel-1.jpg') }}" alt="Verified Brazilian farm sourcing">
+                    <div class="carousel-caption">
+                        <div class="row h-100 align-items-center justify-content-center">
+                            <div class="col-10 col-md-8">
+                                <h5 class="text-white mb-3 animated slideInDown"><i class="fa fa-leaf text-primary me-2"></i>Welcome to Agrovia: Verified Brazilian Agro-Commodities</h5>
+                                <h1 class="display-1 text-white mb-5 animated slideInDown">From Brazilian Farms to Global Tables, Without the Risk</h1>
+                                <a href="#catalog" class="btn btn-primary btn-custom rounded-pill animated slideInDown me-2">Explore Agricultural Products</a>
+                                <a href="#contact" class="btn btn-outline-light rounded-pill animated slideInDown px-4 py-3">Join as a Partner</a>
+                                <p class="text-light small mt-3 animated slideInDown">Escrow-backed payments · Phytosanitary-certified · Door-to-port logistics</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Right Hero: Featured Spotlight Commodity Card -->
-                    <div class="col-lg-5">
-                        <div class="bg-dark bg-opacity-75 border border-secondary border-opacity-50 rounded-4 p-4 shadow-2xl backdrop-blur-md">
-                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                <span class="badge bg-primary px-3 py-1.5 rounded-pill small fw-bold">SPOTLIGHT CONTRACT LOT</span>
-                                <span class="text-warning small fw-bold"><i class="fa fa-certificate me-1"></i>SGS Verified</span>
-                            </div>
-                            <div class="position-relative rounded-3 overflow-hidden mb-3" style="height: 220px;">
-                                <img src="{{ asset('img/carousel-1.jpg') }}" alt="Brazilian Non-GMO Soybeans" class="w-100 h-100 object-fit-cover">
-                                <div class="position-absolute bottom-0 start-0 m-2">
-                                    <span class="badge bg-dark bg-opacity-75 text-white small"><i class="fa fa-map-marker-alt text-warning me-1"></i>Mato Grosso Basin, Brazil</span>
-                                </div>
-                            </div>
-                            <h4 class="fw-bold text-white mb-1">Brazilian Non-GMO Yellow Soybeans</h4>
-                            <p class="text-light opacity-75 small mb-3">Export grade #2, standard harvest allocation ready for immediate vessel chartering or container stuffing.</p>
-                            
-                            <div class="bg-black bg-opacity-40 rounded-3 p-3 mb-3 small">
-                                <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-1 mb-1">
-                                    <span class="text-white-50">Protein Content:</span>
-                                    <span class="text-white fw-bold">Min 36.0% (Dry Basis)</span>
-                                </div>
-                                <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-1 mb-1">
-                                    <span class="text-white-50">Moisture Index:</span>
-                                    <span class="text-white fw-bold">Max 12.5%</span>
-                                </div>
-                                <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-1 mb-1">
-                                    <span class="text-white-50">Standard MOQ:</span>
-                                    <span class="text-white fw-bold">500 MT (Vessel / Bags)</span>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <span class="text-white-50">Delivery Terms:</span>
-                                    <span class="text-primary fw-bold">CIF Destination / FOB Santos</span>
-                                </div>
-                            </div>
-
-                            <div class="d-flex align-items-center justify-content-between pt-1">
-                                <div>
-                                    <span class="text-white-50 small d-block">Indicative FOB / CIF:</span>
-                                    <span class="fs-4 fw-bold text-primary">$485.00</span>
-                                    <span class="text-white-50 small">/ Metric Ton</span>
-                                </div>
-                                <a href="#rfq-desk" class="btn btn-primary btn-custom rounded-pill text-white fw-bold px-4 select-rfq-product" data-product-name="Brazilian Non-GMO Soybeans">
-                                    Lock Spot Lot RFQ
-                                </a>
+                </div>
+                <div class="carousel-item">
+                    <img class="w-100" src="{{ asset('img/carousel-2.jpg') }}" alt="Bulk contracts and direct online store" loading="lazy">
+                    <div class="carousel-caption">
+                        <div class="row h-100 align-items-center justify-content-center">
+                            <div class="col-10 col-md-8">
+                                <h5 class="text-white mb-3 animated slideInDown"><i class="fa fa-leaf text-primary me-2"></i>Bulk Contracts &amp; Direct Online Store</h5>
+                                <h1 class="display-1 text-white mb-5 animated slideInDown">Source Soybeans, Sugar, Lentils &amp; More, Securely</h1>
+                                <a href="#catalog" class="btn btn-primary btn-custom rounded-pill animated slideInDown me-2">Explore Agricultural Products</a>
+                                <a href="#contact" class="btn btn-outline-light rounded-pill animated slideInDown px-4 py-3">Join as a Partner</a>
+                                <p class="text-light small mt-3 animated slideInDown">Escrow-backed payments · Phytosanitary-certified · Door-to-port logistics</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev" aria-label="Previous Slide">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next" aria-label="Next Slide">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
+    <!-- Header End -->
 
     <main>
 
-        <!-- Section 1: The 4 Pillars of Bulk Agro Trade (Borrowed from Kindle Trading's 4-Pillar Layout) -->
-        <section id="pillars" class="py-5 py-lg-6 bg-light border-bottom">
-            <div class="container py-4">
-                <div class="text-center max-w-3xl mx-auto mb-5">
-                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-white border border-primary border-opacity-25 text-primary small fw-bold mb-3 shadow-sm">
-                        <i class="fa fa-cubes text-primary"></i> INSTITUTIONAL ASSURANCE
+
+    <!-- Catalog Start -->
+    <section id="catalog" class="container-fluid bg-light py-5">
+        <div class="container py-5">
+            <div class="section-title wow fadeIn" data-wow-delay="0.1s">
+                <h5 class="mb-3"><i class="fa fa-leaf text-primary me-2"></i>Agro Products</h5>
+                <h1 class="display-5 mb-4">Agro Products Straight from Brazil</h1>
+            </div>
+            <div class="d-flex flex-wrap gap-2 mb-3">
+                <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn active" data-filter="all">All</button>
+                <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Nuts & Seeds">Nuts & Seeds</button>
+                <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Lentils & Pulses">Lentils & Pulses</button>
+                <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Grains & Rice">Grains & Rice</button>
+                <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Spices">Spices</button>
+                <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Oil & Sugar">Oil & Sugar</button>
+                <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Dairy">Dairy</button>
+                <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Poultry">Poultry</button>
+                <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Meat/Fishes">Meat/Fishes</button>
+                <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Juices/Drinks">Juices/Drinks</button>
+                <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Fruits/Vegetables">Fruits/Vegetables</button>
+                <button type="button" class="btn btn-outline-primary rounded-pill ms-auto" id="refreshProductsBtn">Refresh All Products</button>
+            </div>
+
+            <div class="row g-4" id="catalogGrid">
+                <!-- Brazilian Soybeans -->
+                <div class="col-lg-3 col-md-6 product-item" data-category="Grains & Rice">
+                    <div class="service-item position-relative overflow-hidden bg-white rounded p-4 h-100">
+                        <div class="position-relative overflow-hidden rounded mb-3">
+                            <img class="img-fluid w-100" src="{{ asset('img/service-3.jpg') }}" alt="Brazilian Soybeans" loading="lazy">
+                            <span class="badge bg-primary position-absolute top-0 end-0 m-2">Bulk / B2B</span>
+                        </div>
+                        <h4 class="mb-2">Brazilian Soybeans</h4>
+                        <p class="text-secondary small mb-2">Moisture &lt; 14% · Protein ≥ 34% · Origin: Mato Grosso, Brazil</p>
+                        <div class="mb-3">
+                            <span class="agro-pill"><i class="fa fa-check text-success me-1"></i>USDA Organic</span>
+                            <span class="agro-pill"><i class="fa fa-check text-success me-1"></i>Non-GMO</span>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button type="button" class="btn btn-primary btn-custom rounded-pill" data-action="specs" data-product="Brazilian Soybeans" data-specs='{"grade":"USDA #1","packaging":"Bulk vessel / 50 kg bags","moq":"25 MT","incoterms":"FOB / CIF","certificates":"Phytosanitary, Non-GMO, USDA Organic"}'>View Specifications</button>
+                            <a href="https://wa.me/5511952987545?text=Quote%20request:%20Brazilian%20Soybeans" target="_blank" rel="noopener" class="btn btn-outline-success rounded-pill">WhatsApp Quote</a>
+                        </div>
                     </div>
-                    <h2 class="display-6 fw-bold text-dark mb-3">The 4 Pillars of Bulk Agro Trade</h2>
-                    <p class="text-secondary fs-6">
-                        How Matro eliminates counterparty risk, enforces physical chemical assay standards, and coordinates seamless deepwater multimodal logistics across global destination ports.
-                    </p>
                 </div>
 
-                <div class="row g-4">
-                    <!-- Pillar 1 -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="pillar-card bg-white rounded-4 p-4 h-100 d-flex flex-column shadow-sm">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <span class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3" style="width: 52px; height: 52px;">
-                                    <i class="fa fa-tractor fs-4"></i>
-                                </span>
-                                <span class="badge bg-light text-secondary border font-monospace">PILLAR 01</span>
-                            </div>
-                            <h4 class="fw-bold text-dark mb-2">Direct Farm Co-op Origination</h4>
-                            <p class="text-secondary small mb-4 flex-grow-1">
-                                Direct origination contracts across accredited agricultural cooperatives in Mato Grosso, Paraná, and Goiás. Zero trading middlemen, full harvest traceability, and guaranteed seasonal supply volumes.
-                            </p>
-                            <div class="pt-3 border-top">
-                                <span class="badge bg-success bg-opacity-10 text-success fw-semibold"><i class="fa fa-check me-1"></i>Farm-Gate Direct</span>
-                            </div>
+                <!-- Yellow Maize -->
+                <div class="col-lg-3 col-md-6 product-item" data-category="Grains & Rice">
+                    <div class="service-item position-relative overflow-hidden bg-white rounded p-4 h-100">
+                        <div class="position-relative overflow-hidden rounded mb-3">
+                            <img class="img-fluid w-100" src="{{ asset('img/service-6.jpg') }}" alt="Yellow Maize" loading="lazy">
+                            <span class="badge bg-primary position-absolute top-0 end-0 m-2">Bulk / B2B</span>
+                        </div>
+                        <h4 class="mb-2">Yellow Maize</h4>
+                        <p class="text-secondary small mb-2">Moisture &lt; 14% · Broken &lt; 3% · Origin: Brazil</p>
+                        <div class="mb-3">
+                            <span class="agro-pill"><i class="fa fa-check text-success me-1"></i>Non-GMO</span>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button type="button" class="btn btn-primary btn-custom rounded-pill" data-action="specs" data-product="Yellow Maize" data-specs='{"grade":"Feed grade","packaging":"Bulk / 50 kg bags","moq":"25 MT","incoterms":"FOB / CIF","certificates":"Phytosanitary"}'>View Specifications</button>
+                            <a href="https://wa.me/5511952987545?text=Quote%20request:%20Yellow%20Maize" target="_blank" rel="noopener" class="btn btn-outline-success rounded-pill">WhatsApp Quote</a>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Pillar 2 -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="pillar-card bg-white rounded-4 p-4 h-100 d-flex flex-column shadow-sm">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <span class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3" style="width: 52px; height: 52px;">
-                                    <i class="fa fa-microscope fs-4"></i>
-                                </span>
-                                <span class="badge bg-light text-secondary border font-monospace">PILLAR 02</span>
-                            </div>
-                            <h4 class="fw-bold text-dark mb-2">Independent SGS &amp; MAPA Assay</h4>
-                            <p class="text-secondary small mb-4 flex-grow-1">
-                                Every metric ton is sampled prior to vessel holds or container loading. Verified by independent lab testing (SGS / Bureau Veritas) and official Brazilian Ministry of Agriculture (MAPA) phytosanitary clearance.
-                            </p>
-                            <div class="pt-3 border-top">
-                                <span class="badge bg-success bg-opacity-10 text-success fw-semibold"><i class="fa fa-check me-1"></i>100% Pre-Shipment Tested</span>
-                            </div>
+                <!-- ICUMSA 45 Refined Sugar -->
+                <div class="col-lg-3 col-md-6 product-item" data-category="Oil & Sugar">
+                    <div class="service-item position-relative overflow-hidden bg-white rounded p-4 h-100">
+                        <div class="position-relative overflow-hidden rounded mb-3">
+                            <!-- REPLACE: dedicated product photo -->
+                            <img class="img-fluid w-100" src="{{ asset('img/service-2.jpg') }}" alt="ICUMSA 45 Refined Sugar" loading="lazy">
+                            <span class="badge bg-primary position-absolute top-0 end-0 m-2">Bulk / B2B</span>
+                        </div>
+                        <h4 class="mb-2">ICUMSA 45 Refined Sugar</h4>
+                        <p class="text-secondary small mb-2">ICUMSA ≤ 45 · Moisture ≤ 0.04% · 50 kg bags</p>
+                        <div class="mb-3">
+                            <span class="agro-pill"><i class="fa fa-check text-success me-1"></i>Phytosanitary Certified</span>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button type="button" class="btn btn-primary btn-custom rounded-pill" data-action="specs" data-product="ICUMSA 45 Refined Sugar" data-specs='{"grade":"ICUMSA 45","packaging":"50 kg PP bags","moq":"25 MT","incoterms":"FOB / CIF","certificates":"Phytosanitary, Quality lab report"}'>View Specifications</button>
+                            <a href="https://wa.me/5511952987545?text=Quote%20request:%20ICUMSA%2045%20Refined%20Sugar" target="_blank" rel="noopener" class="btn btn-outline-success rounded-pill">WhatsApp Quote</a>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Pillar 3 -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="pillar-card bg-white rounded-4 p-4 h-100 d-flex flex-column shadow-sm">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <span class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3" style="width: 52px; height: 52px;">
-                                    <i class="fa fa-shield-alt fs-4"></i>
-                                </span>
-                                <span class="badge bg-light text-secondary border font-monospace">PILLAR 03</span>
-                            </div>
-                            <h4 class="fw-bold text-dark mb-2">Risk-Free Escrow Settlement</h4>
-                            <p class="text-secondary small mb-4 flex-grow-1">
-                                International commercial settlements execute through Tier-1 bank escrow or Irrevocable Letters of Credit (LC / SBLC). Buyer capital remains protected under fiduciary custody until Clean Bill of Lading validation.
-                            </p>
-                            <div class="pt-3 border-top">
-                                <span class="badge bg-success bg-opacity-10 text-success fw-semibold"><i class="fa fa-check me-1"></i>Zero Counterparty Risk</span>
-                            </div>
+                <!-- Green Lentils -->
+                <div class="col-lg-3 col-md-6 product-item" data-category="Lentils & Pulses">
+                    <div class="service-item position-relative overflow-hidden bg-white rounded p-4 h-100">
+                        <div class="position-relative overflow-hidden rounded mb-3">
+                            <!-- REPLACE: dedicated product photo -->
+                            <img class="img-fluid w-100" src="{{ asset('img/service-3.jpg') }}" alt="Green Lentils" loading="lazy">
+                            <span class="badge bg-primary position-absolute top-0 end-0 m-2">Bulk / B2B</span>
+                        </div>
+                        <h4 class="mb-2">Green Lentils</h4>
+                        <p class="text-secondary small mb-2">Purity 99% · MOQ 25 MT</p>
+                        <div class="mb-3">
+                            <span class="agro-pill"><i class="fa fa-check text-success me-1"></i>Non-GMO</span>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button type="button" class="btn btn-primary btn-custom rounded-pill" data-action="specs" data-product="Green Lentils" data-specs='{"grade":"Premium green","packaging":"25 / 50 kg bags","moq":"25 MT","incoterms":"FOB / CIF","certificates":"Phytosanitary"}'>View Specifications</button>
+                            <a href="https://wa.me/5511952987545?text=Quote%20request:%20Green%20Lentils" target="_blank" rel="noopener" class="btn btn-outline-success rounded-pill">WhatsApp Quote</a>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Pillar 4 -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="pillar-card bg-white rounded-4 p-4 h-100 d-flex flex-column shadow-sm">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <span class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3" style="width: 52px; height: 52px;">
-                                    <i class="fa fa-ship fs-4"></i>
-                                </span>
-                                <span class="badge bg-light text-secondary border font-monospace">PILLAR 04</span>
-                            </div>
-                            <h4 class="fw-bold text-dark mb-2">Multimodal Port Freight</h4>
-                            <p class="text-secondary small mb-4 flex-grow-1">
-                                Dedicated deepwater berth logistics through Port of Santos and Port of Paranaguá. Vessel chartering (Panamax, Supramax), containerized bagging, and 24/7 live AIS satellite voyage telemetry.
-                            </p>
-                            <div class="pt-3 border-top">
-                                <span class="badge bg-success bg-opacity-10 text-success fw-semibold"><i class="fa fa-check me-1"></i>Santos &amp; Paranaguá CIF/FOB</span>
-                            </div>
+                <!-- Sesame / Sunflower Seeds Sample Pack -->
+                <div class="col-lg-3 col-md-6 product-item" data-category="Nuts & Seeds">
+                    <div class="service-item position-relative overflow-hidden bg-white rounded p-4 h-100">
+                        <div class="position-relative overflow-hidden rounded mb-3">
+                            <img class="img-fluid w-100" src="{{ asset('img/service-7.jpg') }}" alt="Sesame and Sunflower Seeds Sample Pack" loading="lazy">
+                            <span class="badge bg-success position-absolute top-0 end-0 m-2">Retail / Sample</span>
+                        </div>
+                        <h4 class="mb-2">Sesame / Sunflower Seeds Sample Pack</h4>
+                        <p class="text-secondary small mb-2">$45.00 / Sample Pack</p>
+                        <div class="mb-3">
+                            <span class="agro-pill"><i class="fa fa-check text-success me-1"></i>In Season</span>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-custom rounded-pill" data-action="quickview" data-product="Sesame / Sunflower Seeds Sample Pack" data-price="$45.00" data-image="{{ asset('img/service-7.jpg') }}">View &amp; Buy</button>
+                    </div>
+                </div>
+
+                <!-- Premium Rice Sample Pack -->
+                <div class="col-lg-3 col-md-6 product-item" data-category="Grains & Rice">
+                    <div class="service-item position-relative overflow-hidden bg-white rounded p-4 h-100">
+                        <div class="position-relative overflow-hidden rounded mb-3">
+                            <img class="img-fluid w-100" src="{{ asset('img/service-2.jpg') }}" alt="Premium Rice Sample Pack 5 kg" loading="lazy">
+                            <span class="badge bg-success position-absolute top-0 end-0 m-2">Retail / Sample</span>
+                        </div>
+                        <h4 class="mb-2">Premium Rice Sample Pack (5 kg)</h4>
+                        <p class="text-secondary small mb-2">$28.00 / 5 kg Pack</p>
+                        <div class="mb-3">
+                            <span class="agro-pill"><i class="fa fa-check text-success me-1"></i>In Season</span>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-custom rounded-pill" data-action="quickview" data-product="Premium Rice Sample Pack (5 kg)" data-price="$28.00" data-image="{{ asset('img/service-2.jpg') }}">View &amp; Buy</button>
+                    </div>
+                </div>
+
+                <!-- Fresh Produce Box -->
+                <div class="col-lg-3 col-md-6 product-item" data-category="Fruits/Vegetables">
+                    <div class="service-item position-relative overflow-hidden bg-white rounded p-4 h-100">
+                        <div class="position-relative overflow-hidden rounded mb-3">
+                            <img class="img-fluid w-100" src="{{ asset('img/service-8.jpg') }}" alt="Fresh Produce Box" loading="lazy">
+                            <span class="badge bg-success position-absolute top-0 end-0 m-2">Retail / Sample</span>
+                        </div>
+                        <h4 class="mb-2">Fresh Produce Box</h4>
+                        <p class="text-secondary small mb-2">$39.00 / Seasonal Box</p>
+                        <div class="mb-3">
+                            <span class="agro-pill"><i class="fa fa-check text-success me-1"></i>In Season</span>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-custom rounded-pill" data-action="quickview" data-product="Fresh Produce Box" data-price="$39.00" data-image="{{ asset('img/service-8.jpg') }}">View &amp; Buy</button>
+                    </div>
+                </div>
+
+                <!-- Carrots, Bulk Fresh -->
+                <div class="col-lg-3 col-md-6 product-item" data-category="Fruits/Vegetables">
+                    <div class="service-item position-relative overflow-hidden bg-white rounded p-4 h-100">
+                        <div class="position-relative overflow-hidden rounded mb-3">
+                            <img class="img-fluid w-100" src="{{ asset('img/service-4.jpg') }}" alt="Carrots Bulk Fresh" loading="lazy">
+                            <span class="badge bg-primary position-absolute top-0 end-0 m-2">Bulk / B2B</span>
+                        </div>
+                        <h4 class="mb-2">Carrots, Bulk Fresh</h4>
+                        <p class="text-secondary small mb-2">Grade A · Cold-chain 2 to 4 °C</p>
+                        <div class="mb-3">
+                            <span class="agro-pill"><i class="fa fa-check text-success me-1"></i>Phytosanitary Certified</span>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button type="button" class="btn btn-primary btn-custom rounded-pill" data-action="specs" data-product="Carrots, Bulk Fresh" data-specs='{"grade":"Grade A","packaging":"20 kg crates","moq":"5 MT","incoterms":"FOB / CIF","certificates":"Phytosanitary"}'>View Specifications</button>
+                            <a href="https://wa.me/5511952987545?text=Quote%20request:%20Carrots%20Bulk%20Fresh" target="_blank" rel="noopener" class="btn btn-outline-success rounded-pill">WhatsApp Quote</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Section 2: Commodity Catalog & Spot Contract Lots -->
-        <section id="commodities" class="py-5 py-lg-6 bg-white">
-            <div class="container py-4">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
-                    <div>
-                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-light border border-primary border-opacity-25 text-primary small fw-bold mb-2">
-                            <i class="fa fa-seedling text-primary"></i> CERTIFIED EXPORT INVENTORY
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-primary btn-custom rounded-pill px-5 py-3">Visit Full Online Store</a>
+            </div>
+        </div>
+    </section>
+    <!-- Catalog End -->
+
+    <!-- Ecosystem Start -->
+    <section id="ecosystem" class="container-fluid py-5 position-relative" style="background: url('{{ asset('img/hero-bg.jpg') }}') center/cover no-repeat;">
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(24,24,24,.75);"></div>
+        <div class="container py-5 position-relative">
+            <div class="section-title wow fadeIn" data-wow-delay="0.1s">
+                <h5 class="mb-3 text-white"><i class="fa fa-leaf text-primary me-2"></i>Agro-Ecosystem</h5>
+                <h1 class="display-5 text-white mb-5">Operation Model</h1>
+            </div>
+
+            <div class="row g-4 align-items-center mb-4" id="ecoSteps">
+                <div class="col-lg-4">
+                    <div class="bg-white rounded p-4 h-100 eco-step" tabindex="0" role="button" data-step="1" aria-expanded="false">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="btn-lg-square rounded-circle bg-primary text-dark me-2">1</span>
+                            <h4 class="mb-0">Source: Farms and Co-ops</h4>
                         </div>
-                        <h2 class="display-6 fw-bold text-dark mb-1">Available Commodity Lots &amp; Spot Contracts</h2>
-                        <p class="text-secondary mb-0">Direct Brazilian agricultural lots ready for immediate contract allocation, container stuffing, or full bulk chartering.</p>
-                    </div>
-                    <div class="mt-3 mt-md-0">
-                        <span class="badge bg-light text-dark border px-3 py-2 fs-6">
-                            <i class="fa fa-cubes text-primary me-1"></i> <strong>{{ $productsCount ?? 8 }}</strong> Active Lots
-                        </span>
+                        <p class="text-secondary small mb-0">Verified farms, traceable lots, harvest scheduling.</p>
                     </div>
                 </div>
-
-                <!-- Category Filters -->
-                <div class="d-flex flex-wrap gap-2 mb-4 pb-2 border-bottom">
-                    <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn active" data-filter="all">
-                        <i class="fa fa-list me-1"></i> All Commodities
-                    </button>
-                    @if(isset($categories) && $categories->isNotEmpty())
-                        @foreach($categories as $cat)
-                            <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="{{ $cat->name }}">
-                                {{ $cat->name }}
-                            </button>
-                        @endforeach
-                    @else
-                        <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Grains & Rice">Grains &amp; Rice</button>
-                        <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Oil & Sugar">Oil &amp; Sugar</button>
-                        <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Nuts & Seeds">Nuts &amp; Seeds</button>
-                        <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Lentils & Pulses">Lentils &amp; Pulses</button>
-                        <button type="button" class="btn btn-outline-dark rounded-pill agro-filter-btn" data-filter="Spices & Specialty">Spices &amp; Specialty</button>
-                    @endif
-                    <button type="button" class="btn btn-outline-primary rounded-pill ms-auto" id="refreshProductsBtn">
-                        <i class="fa fa-sync-alt me-1"></i> Shuffle Lots
-                    </button>
+                <div class="col-lg-1 text-center d-none d-lg-block">
+                    <i class="fa fa-arrow-right fa-2x text-primary"></i>
                 </div>
+                <div class="col-lg-4">
+                    <div class="bg-white rounded p-4 h-100 eco-step" tabindex="0" role="button" data-step="2" aria-expanded="false">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="btn-lg-square rounded-circle bg-primary text-dark me-2">2</span>
+                            <h4 class="mb-0">Platform: QC, Logistics, Finance</h4>
+                        </div>
+                        <p class="text-secondary small mb-0">Lab grading, phytosanitary documentation, freight and cold-chain, trade finance and escrow.</p>
+                    </div>
+                </div>
+                <div class="col-lg-1 text-center d-none d-lg-block">
+                    <i class="fa fa-arrow-right fa-2x text-primary"></i>
+                </div>
+                <div class="col-lg-4">
+                    <div class="bg-white rounded p-4 h-100 eco-step" tabindex="0" role="button" data-step="3" aria-expanded="false">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="btn-lg-square rounded-circle bg-primary text-dark me-2">3</span>
+                            <h4 class="mb-0">Downstream: Retailers &amp; Wholesalers</h4>
+                        </div>
+                        <p class="text-secondary small mb-0">Port-to-door delivery, repeat contracts, B2C store fulfillment.</p>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Product Grid -->
-                <div class="row g-4" id="catalogGrid">
-                    @forelse($products as $product)
-                        <div class="col-lg-3 col-md-6 product-item" data-category="{{ $product->category->name ?? 'Grains & Rice' }}">
-                            <div class="product-card bg-white rounded-4 border p-3 h-100 d-flex flex-column shadow-sm">
-                                <div class="product-card-img-wrap rounded-3 mb-3">
-                                    <img src="{{ asset($product->image ?: 'img/service-1.jpg') }}" alt="{{ $product->name }}" loading="lazy">
-                                    <span class="badge bg-primary position-absolute top-0 end-0 m-2 shadow-sm">
-                                        {{ $product->unit == 'Metric Ton' ? 'Bulk / B2B' : 'Retail / Sample' }}
-                                    </span>
-                                    <span class="badge bg-dark bg-opacity-75 text-white position-absolute bottom-0 start-0 m-2 small">
-                                        <i class="fa fa-map-marker-alt text-warning me-1"></i>{{ $product->origin ?? 'Brazil' }}
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div class="text-muted small mb-1 fw-semibold text-uppercase font-monospace" style="font-size: 11px;">
-                                        {{ $product->category->name ?? 'Agro Commodity' }}
-                                    </div>
-                                    <h5 class="fw-bold mb-2 text-dark">{{ $product->name }}</h5>
-                                    <p class="text-secondary small mb-3">
-                                        {{ Str::limit($product->description, 80) }}
-                                    </p>
-                                </div>
-                                <div class="pt-3 border-top mt-auto">
-                                    <div class="d-flex align-items-baseline justify-content-between mb-3">
-                                        <div>
-                                            <span class="fs-5 fw-bold text-primary">${{ number_format($product->price, 2) }}</span>
-                                            <span class="text-muted small">/ {{ $product->unit ?? 'MT' }}</span>
+            <div class="progress mb-4" style="height: 8px;">
+                <div id="ecoProgress" class="progress-bar bg-primary" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            <div id="ecoDetail" class="bg-white rounded p-4">
+                <h5 class="mb-2" id="ecoDetailTitle">Source: Farms and Co-ops</h5>
+                <p class="text-secondary mb-0" id="ecoDetailText">Verified farms, traceable lots and harvest scheduling across Brazil's producing regions.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Ecosystem End -->
+
+    <!-- Knowledge Start -->
+    <section id="knowledge" class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center mb-5">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                    <h5 class="mb-3"><i class="fa fa-leaf text-primary me-2"></i>Industry Insights</h5>
+                    <h1 class="display-5 mb-4">Knowledge &amp; Trust</h1>
+                    <p class="text-secondary mb-4">Standard operating procedures, phytosanitary guides and crop manuals, free for registered partners.</p>
+                    <a href="#" class="btn btn-outline-dark rounded-pill px-4">Explore Insights</a>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+                    <img class="img-fluid rounded" src="{{ asset('img/feature-2.jpg') }}" alt="Quality control and insights" loading="lazy">
+                </div>
+            </div>
+
+            <div class="section-title wow fadeIn" data-wow-delay="0.1s">
+                <h5 class="mb-3"><i class="fa fa-leaf text-primary me-2"></i>Trade Desk Blog</h5>
+                <h1 class="display-5 mb-5">Latest From the Trade Desk</h1>
+            </div>
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="blog-item position-relative overflow-hidden bg-white rounded h-100 p-4 shadow-sm">
+                        <div class="d-flex align-items-center justify-content-center mb-2 text-muted small">
+                            <span>14 Oct 2026</span>
+                            <hr class="mx-3">
+                            <span class="text-primary fw-bold">Compliance</span>
+                        </div>
+                        <a href="#" class="h5 lh-base d-block text-center mb-4 text-dark text-decoration-none">Navigating Brazilian Soybean Export Regulations</a>
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid rounded w-100" src="{{ asset('img/blog-1.jpg') }}" alt="Soybean export regulations" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 wow fadeIn" data-wow-delay="0.3s">
+                    <div class="blog-item position-relative overflow-hidden bg-white rounded h-100 p-4 shadow-sm">
+                        <div class="d-flex align-items-center justify-content-center mb-2 text-muted small">
+                            <span>28 Sep 2026</span>
+                            <hr class="mx-3">
+                            <span class="text-primary fw-bold">Quality</span>
+                        </div>
+                        <a href="#" class="h5 lh-base d-block text-center mb-4 text-dark text-decoration-none">ICUMSA 45 Sugar Quality Checks</a>
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid rounded w-100" src="{{ asset('img/blog-2.jpg') }}" alt="Sugar quality checks" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 wow fadeIn" data-wow-delay="0.5s">
+                    <div class="blog-item position-relative overflow-hidden bg-white rounded h-100 p-4 shadow-sm">
+                        <div class="d-flex align-items-center justify-content-center mb-2 text-muted small">
+                            <span>15 Sep 2026</span>
+                            <hr class="mx-3">
+                            <span class="text-primary fw-bold">Logistics</span>
+                        </div>
+                        <a href="#" class="h5 lh-base d-block text-center mb-4 text-dark text-decoration-none">Cold-Chain Basics for Exporting Dairy</a>
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid rounded w-100" src="{{ asset('img/blog-3.jpg') }}" alt="Cold chain dairy" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mb-5">
+                <a href="#" class="btn btn-outline-primary rounded-pill px-4">Read the Blog</a>
+            </div>
+
+            <div class="section-title wow fadeIn" data-wow-delay="0.1s">
+                <h5 class="mb-3"><i class="fa fa-leaf text-primary me-2"></i>FAQ</h5>
+                <h1 class="display-5 mb-4">Frequently Asked Questions</h1>
+            </div>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">What phytosanitary certificate requirements apply to export?</button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">All bulk lots ship with phytosanitary certificates and lab grading reports aligned to destination country requirements.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">What are the Minimum Order Quantities for Lentils?</button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Standard MOQ for lentils and pulses is 25 MT; smaller sample packs are available via the online store.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">How is cold-chain logistics handled for Dairy?</button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Dairy moves under monitored cold-chain with temperature logs and validated packaging.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">How does Guaranteed Payment work?</button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Escrow-backed settlement releases funds against verified documentation and delivery milestones.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">Can I buy a sample before a bulk order?</button>
+                    </h2>
+                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Yes, retail and sample packs are available with live add-to-cart checkout.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Knowledge End -->
+
+    <!-- Social Proof Start -->
+    <section id="proof" class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row g-4 text-center mb-5">
+                <div class="col-6 col-lg-3">
+                    <div class="bg-white rounded p-4 shadow-sm h-100">
+                        <h2 class="display-5 text-primary mb-1 counter" data-target="45" data-suffix="+">0</h2>
+                        <p class="text-secondary mb-0">Countries Served</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="bg-white rounded p-4 shadow-sm h-100">
+                        <h2 class="display-5 text-primary mb-1 counter" data-target="1200" data-suffix="+">0</h2>
+                        <p class="text-secondary mb-0">Verified Farms</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="bg-white rounded p-4 shadow-sm h-100">
+                        <h2 class="display-5 text-primary mb-1 counter" data-target="2500000" data-suffix="+">0</h2>
+                        <p class="text-secondary mb-0">Tons Exported Annually</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="bg-white rounded p-4 shadow-sm h-100">
+                        <h2 class="display-5 text-primary mb-1 counter" data-target="98" data-suffix="%">0</h2>
+                        <p class="text-secondary mb-0">On-Time Delivery</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="bg-white rounded p-4 shadow-sm text-center">
+                                    <div class="text-warning mb-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                                    <p class="text-secondary">"Guaranteed payment changed how we plan the season."</p>
+                                    <div class="d-flex align-items-center justify-content-center mt-3">
+                                        <img class="rounded-circle me-3" width="100" height="100" src="{{ asset('img/testimonial-1.jpg') }}" alt="Grower testimonial" loading="lazy">
+                                        <div class="text-start">
+                                            <h6 class="mb-0 fw-bold">Verified Grower</h6>
+                                            <small class="text-muted">Mato Grosso, Brazil</small>
                                         </div>
-                                        <span class="badge bg-light text-secondary border small">
-                                            <i class="fa fa-box text-success me-1"></i>{{ number_format($product->stock) }} {{ $product->unit == 'Metric Ton' ? 'MT' : 'units' }}
-                                        </span>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-sm btn-outline-dark rounded-pill flex-fill" data-action="quickview" data-product="{{ $product->name }}" data-price="${{ number_format($product->price, 2) }} / {{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}">
-                                            <i class="fa fa-eye me-1"></i>View / Buy
-                                        </button>
-                                        <a href="#rfq-desk" class="btn btn-sm btn-primary btn-custom rounded-pill text-white flex-fill select-rfq-product" data-product-name="{{ $product->name }}">
-                                            <i class="fa fa-file-invoice me-1"></i>RFQ
-                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @empty
-                        <!-- Fallback 4 Commodities if DB has no records -->
-                        <div class="col-lg-3 col-md-6 product-item" data-category="Grains & Rice">
-                            <div class="product-card bg-white rounded-4 border p-3 h-100 d-flex flex-column shadow-sm">
-                                <div class="product-card-img-wrap rounded-3 mb-3">
-                                    <img src="{{ asset('img/service-1.jpg') }}" alt="Brazilian Non-GMO Soybeans" loading="lazy">
-                                    <span class="badge bg-primary position-absolute top-0 end-0 m-2 shadow-sm">Bulk / B2B</span>
-                                    <span class="badge bg-dark bg-opacity-75 text-white position-absolute bottom-0 start-0 m-2 small"><i class="fa fa-map-marker-alt text-warning me-1"></i>Mato Grosso, BR</span>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div class="text-muted small mb-1 fw-semibold text-uppercase font-monospace" style="font-size: 11px;">Grains &amp; Rice</div>
-                                    <h5 class="fw-bold mb-2 text-dark">Brazilian Non-GMO Soybeans</h5>
-                                    <p class="text-secondary small mb-3">Export grade yellow soybeans, protein min 36%, moisture max 12.5%.</p>
-                                </div>
-                                <div class="pt-3 border-top mt-auto">
-                                    <div class="d-flex align-items-baseline justify-content-between mb-3">
-                                        <div><span class="fs-5 fw-bold text-primary">$485.00</span><span class="text-muted small">/ Metric Ton</span></div>
-                                        <span class="badge bg-light text-secondary border small"><i class="fa fa-box text-success me-1"></i>2,500 MT</span>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-sm btn-outline-dark rounded-pill flex-fill" data-action="quickview" data-product="Brazilian Non-GMO Soybeans" data-price="$485.00 / Metric Ton" data-image="{{ asset('img/service-1.jpg') }}"><i class="fa fa-eye me-1"></i>View / Buy</button>
-                                        <a href="#rfq-desk" class="btn btn-sm btn-primary btn-custom rounded-pill text-white flex-fill select-rfq-product" data-product-name="Brazilian Non-GMO Soybeans"><i class="fa fa-file-invoice me-1"></i>RFQ</a>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="bg-white rounded p-4 shadow-sm text-center">
+                                    <div class="text-warning mb-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                                    <p class="text-secondary">"Consistent grading and clean documentation on every container."</p>
+                                    <div class="d-flex align-items-center justify-content-center mt-3">
+                                        <img class="rounded-circle me-3" width="100" height="100" src="{{ asset('img/testimonial-2.jpg') }}" alt="Global retailer testimonial" loading="lazy">
+                                        <div class="text-start">
+                                            <h6 class="mb-0 fw-bold">Global Retailer</h6>
+                                            <small class="text-muted">Import Buyer</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-3 col-md-6 product-item" data-category="Oil & Sugar">
-                            <div class="product-card bg-white rounded-4 border p-3 h-100 d-flex flex-column shadow-sm">
-                                <div class="product-card-img-wrap rounded-3 mb-3">
-                                    <img src="{{ asset('img/service-2.jpg') }}" alt="Refined Cane Sugar (ICUMSA 45)" loading="lazy">
-                                    <span class="badge bg-primary position-absolute top-0 end-0 m-2 shadow-sm">Bulk / B2B</span>
-                                    <span class="badge bg-dark bg-opacity-75 text-white position-absolute bottom-0 start-0 m-2 small"><i class="fa fa-map-marker-alt text-warning me-1"></i>São Paulo, BR</span>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div class="text-muted small mb-1 fw-semibold text-uppercase font-monospace" style="font-size: 11px;">Oil &amp; Sugar</div>
-                                    <h5 class="fw-bold mb-2 text-dark">Refined Cane Sugar (ICUMSA 45)</h5>
-                                    <p class="text-secondary small mb-3">Sparkling white cane sugar, ICUMSA ≤ 45, max 0.04% moisture, 50kg PP bags.</p>
-                                </div>
-                                <div class="pt-3 border-top mt-auto">
-                                    <div class="d-flex align-items-baseline justify-content-between mb-3">
-                                        <div><span class="fs-5 fw-bold text-primary">$540.00</span><span class="text-muted small">/ Metric Ton</span></div>
-                                        <span class="badge bg-light text-secondary border small"><i class="fa fa-box text-success me-1"></i>1,800 MT</span>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-sm btn-outline-dark rounded-pill flex-fill" data-action="quickview" data-product="Refined Cane Sugar (ICUMSA 45)" data-price="$540.00 / Metric Ton" data-image="{{ asset('img/service-2.jpg') }}"><i class="fa fa-eye me-1"></i>View / Buy</button>
-                                        <a href="#rfq-desk" class="btn btn-sm btn-primary btn-custom rounded-pill text-white flex-fill select-rfq-product" data-product-name="Refined Cane Sugar (ICUMSA 45)"><i class="fa fa-file-invoice me-1"></i>RFQ</a>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="bg-white rounded p-4 shadow-sm text-center">
+                                    <div class="text-warning mb-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                                    <p class="text-secondary">"Zero cost onboarding and steady volume from day one."</p>
+                                    <div class="d-flex align-items-center justify-content-center mt-3">
+                                        <img class="rounded-circle me-3" width="100" height="100" src="{{ asset('img/testimonial-3.jpg') }}" alt="Logistics partner testimonial" loading="lazy">
+                                        <div class="text-start">
+                                            <h6 class="mb-0 fw-bold">Logistics Partner</h6>
+                                            <small class="text-muted">Freight &amp; Cold-Chain</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-3 col-md-6 product-item" data-category="Grains & Rice">
-                            <div class="product-card bg-white rounded-4 border p-3 h-100 d-flex flex-column shadow-sm">
-                                <div class="product-card-img-wrap rounded-3 mb-3">
-                                    <img src="{{ asset('img/service-3.jpg') }}" alt="Yellow Corn (Maize Grade 2)" loading="lazy">
-                                    <span class="badge bg-primary position-absolute top-0 end-0 m-2 shadow-sm">Bulk / B2B</span>
-                                    <span class="badge bg-dark bg-opacity-75 text-white position-absolute bottom-0 start-0 m-2 small"><i class="fa fa-map-marker-alt text-warning me-1"></i>Goiás, BR</span>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div class="text-muted small mb-1 fw-semibold text-uppercase font-monospace" style="font-size: 11px;">Grains &amp; Rice</div>
-                                    <h5 class="fw-bold mb-2 text-dark">Yellow Corn (Maize Grade 2)</h5>
-                                    <p class="text-secondary small mb-3">Brazilian yellow maize, feed grade, moisture max 14%, broken kernels max 3%.</p>
-                                </div>
-                                <div class="pt-3 border-top mt-auto">
-                                    <div class="d-flex align-items-baseline justify-content-between mb-3">
-                                        <div><span class="fs-5 fw-bold text-primary">$245.00</span><span class="text-muted small">/ Metric Ton</span></div>
-                                        <span class="badge bg-light text-secondary border small"><i class="fa fa-box text-success me-1"></i>3,200 MT</span>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-sm btn-outline-dark rounded-pill flex-fill" data-action="quickview" data-product="Yellow Corn (Maize Grade 2)" data-price="$245.00 / Metric Ton" data-image="{{ asset('img/service-3.jpg') }}"><i class="fa fa-eye me-1"></i>View / Buy</button>
-                                        <a href="#rfq-desk" class="btn btn-sm btn-primary btn-custom rounded-pill text-white flex-fill select-rfq-product" data-product-name="Yellow Corn (Maize Grade 2)"><i class="fa fa-file-invoice me-1"></i>RFQ</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 product-item" data-category="Spices & Specialty">
-                            <div class="product-card bg-white rounded-4 border p-3 h-100 d-flex flex-column shadow-sm">
-                                <div class="product-card-img-wrap rounded-3 mb-3">
-                                    <img src="{{ asset('img/service-5.jpg') }}" alt="Specialty Arabica Green Coffee Beans" loading="lazy">
-                                    <span class="badge bg-primary position-absolute top-0 end-0 m-2 shadow-sm">Bulk / B2B</span>
-                                    <span class="badge bg-dark bg-opacity-75 text-white position-absolute bottom-0 start-0 m-2 small"><i class="fa fa-map-marker-alt text-warning me-1"></i>Minas Gerais, BR</span>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div class="text-muted small mb-1 fw-semibold text-uppercase font-monospace" style="font-size: 11px;">Spices &amp; Specialty</div>
-                                    <h5 class="fw-bold mb-2 text-dark">Specialty Arabica Green Coffee</h5>
-                                    <p class="text-secondary small mb-3">Strictly Soft Fine Cup, Screen 17/18, single-origin Sul de Minas, 60kg jute bags.</p>
-                                </div>
-                                <div class="pt-3 border-top mt-auto">
-                                    <div class="d-flex align-items-baseline justify-content-between mb-3">
-                                        <div><span class="fs-5 fw-bold text-primary">$3,850.00</span><span class="text-muted small">/ Metric Ton</span></div>
-                                        <span class="badge bg-light text-secondary border small"><i class="fa fa-box text-success me-1">450 MT</span>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-sm btn-outline-dark rounded-pill flex-fill" data-action="quickview" data-product="Specialty Arabica Green Coffee" data-price="$3,850.00 / Metric Ton" data-image="{{ asset('img/service-5.jpg') }}"><i class="fa fa-eye me-1"></i>View / Buy</button>
-                                        <a href="#rfq-desk" class="btn btn-sm btn-primary btn-custom rounded-pill text-white flex-fill select-rfq-product" data-product-name="Specialty Arabica Green Coffee"><i class="fa fa-file-invoice me-1"></i>RFQ</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforelse
+                    </div>
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev" aria-label="Previous Testimonial">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next" aria-label="Next Testimonial">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </button>
             </div>
-        </section>
 
-        <!-- Section 3: 5-Step End-to-End Bulk Fulfillment Architecture (Kindle Trading's 5-Step Flow) -->
-        <section id="fulfillment" class="py-5 py-lg-6 bg-light border-top border-bottom">
-            <div class="container py-4">
-                <div class="text-center max-w-3xl mx-auto mb-5">
-                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-white border border-primary border-opacity-25 text-primary small fw-bold mb-3 shadow-sm">
-                        <i class="fa fa-route text-primary"></i> STRUCTURED EXECUTION
-                    </div>
-                    <h2 class="display-6 fw-bold text-dark mb-3">5-Step End-to-End Fulfillment Architecture</h2>
-                    <p class="text-secondary fs-6">
-                        From initial commercial specification to final discharge port handover, every milestone is strictly gated by fiduciary escrow and certified lab assay validation.
-                    </p>
-                </div>
-
-                <div class="row g-4">
-                    <!-- Step 01 -->
-                    <div class="col-lg col-md-6">
-                        <div class="bg-white rounded-4 p-4 h-100 border shadow-sm position-relative d-flex flex-column">
-                            <span class="step-circle rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3 shadow-sm">
-                                01
-                            </span>
-                            <h5 class="fw-bold text-dark mb-2">Requirement &amp; Spec Matching</h5>
-                            <p class="text-secondary small mb-0">
-                                Importer specifies volume, target chemical specs (moisture, protein, ICUMSA), discharge destination port, and delivery Incoterms (CIF or FOB Santos/Paranaguá).
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Step 02 -->
-                    <div class="col-lg col-md-6">
-                        <div class="bg-white rounded-4 p-4 h-100 border shadow-sm position-relative d-flex flex-column">
-                            <span class="step-circle rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3 shadow-sm">
-                                02
-                            </span>
-                            <h5 class="fw-bold text-dark mb-2">Co-op Allocation &amp; SGS Assay</h5>
-                            <p class="text-secondary small mb-0">
-                                Grain lots allocated from accredited cooperatives in Mato Grosso or Paraná. Independent surveyors (SGS / Bureau Veritas) draw composite samples for chemical assay and MAPA clearance.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Step 03 -->
-                    <div class="col-lg col-md-6">
-                        <div class="bg-white rounded-4 p-4 h-100 border shadow-sm position-relative d-flex flex-column">
-                            <span class="step-circle rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3 shadow-sm">
-                                03
-                            </span>
-                            <h5 class="fw-bold text-dark mb-2">Escrow Custody &amp; Contract Lock</h5>
-                            <p class="text-secondary small mb-0">
-                                Formal Sales &amp; Purchase Agreement (SPA) executed. Buyer lodges funds into Tier-1 Bank Escrow or opens Irrevocable Documentary Letter of Credit (DLC); funds remain frozen.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Step 04 -->
-                    <div class="col-lg col-md-6">
-                        <div class="bg-white rounded-4 p-4 h-100 border shadow-sm position-relative d-flex flex-column">
-                            <span class="step-circle rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3 shadow-sm">
-                                04
-                            </span>
-                            <h5 class="fw-bold text-dark mb-2">Port Loading &amp; Ocean Transit</h5>
-                            <p class="text-secondary small mb-0">
-                                Cargo moves via bonded freight corridors to Port of Santos. Vessel holds inspected, cargo stowed, and Clean On-Board Bill of Lading (B/L) issued with live AIS tracking.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Step 05 -->
-                    <div class="col-lg col-md-6">
-                        <div class="bg-white rounded-4 p-4 h-100 border shadow-sm position-relative d-flex flex-column">
-                            <span class="step-circle rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3 shadow-sm">
-                                05
-                            </span>
-                            <h5 class="fw-bold text-dark mb-2">Discharge Release &amp; Handover</h5>
-                            <p class="text-secondary small mb-0">
-                                Vessel arrives at destination port. Final outturn validation conducted, escrow funds release to seller, and title documents transfer directly to buyer customs broker.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="text-center mt-4">
+                <button type="button" class="btn btn-outline-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#reviewModal">
+                    <i class="fa fa-star text-warning me-1"></i>Leave a Review
+                </button>
             </div>
-        </section>
-
-        <!-- Section 4: Institutional Quality Standards & Compliance Badges -->
-        <section id="standards" class="py-5 py-lg-6 bg-white">
-            <div class="container py-4">
-                <div class="text-center max-w-3xl mx-auto mb-5">
-                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-light border border-primary border-opacity-25 text-primary small fw-bold mb-3">
-                        <i class="fa fa-certificate text-primary"></i> VERIFIED ACCREDITATIONS
-                    </div>
-                    <h2 class="display-6 fw-bold text-dark mb-3">Institutional Quality &amp; Compliance Standards</h2>
-                    <p class="text-secondary fs-6">
-                        Every agricultural lot traded through Matro complies with rigorous international sanitary, phytosanitary, and legal trade finance requirements.
-                    </p>
-                </div>
-
-                <div class="row g-4">
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="bg-light rounded-4 p-3 text-center h-100 border shadow-sm">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-2 text-primary" style="width: 50px; height: 50px;">
-                                <i class="fa fa-check-circle fs-4"></i>
-                            </div>
-                            <h6 class="fw-bold text-dark mb-1">SGS Testing</h6>
-                            <p class="text-muted small mb-0" style="font-size: 11px;">Independent pre-shipment quality &amp; weight assay</p>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="bg-light rounded-4 p-3 text-center h-100 border shadow-sm">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-2 text-success" style="width: 50px; height: 50px;">
-                                <i class="fa fa-leaf fs-4"></i>
-                            </div>
-                            <h6 class="fw-bold text-dark mb-1">MAPA Certified</h6>
-                            <p class="text-muted small mb-0" style="font-size: 11px;">Official Brazilian Ministry of Agriculture clearance</p>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="bg-light rounded-4 p-3 text-center h-100 border shadow-sm">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-2 text-info" style="width: 50px; height: 50px;">
-                                <i class="fa fa-globe fs-4"></i>
-                            </div>
-                            <h6 class="fw-bold text-dark mb-1">IPPC / FAO</h6>
-                            <p class="text-muted small mb-0" style="font-size: 11px;">International Plant Protection phytosanitary protocol</p>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="bg-light rounded-4 p-3 text-center h-100 border shadow-sm">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-2 text-warning" style="width: 50px; height: 50px;">
-                                <i class="fa fa-award fs-4"></i>
-                            </div>
-                            <h6 class="fw-bold text-dark mb-1">ISO 22000</h6>
-                            <p class="text-muted small mb-0" style="font-size: 11px;">Food safety management &amp; cold-chain custody</p>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="bg-light rounded-4 p-3 text-center h-100 border shadow-sm">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-2 text-danger" style="width: 50px; height: 50px;">
-                                <i class="fa fa-balance-scale fs-4"></i>
-                            </div>
-                            <h6 class="fw-bold text-dark mb-1">GAFTA / FOSFA</h6>
-                            <p class="text-muted small mb-0" style="font-size: 11px;">Standard international grain contract terms</p>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="bg-light rounded-4 p-3 text-center h-100 border shadow-sm">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-2 text-primary" style="width: 50px; height: 50px;">
-                                <i class="fa fa-shield-alt fs-4"></i>
-                            </div>
-                            <h6 class="fw-bold text-dark mb-1">Bank Escrow</h6>
-                            <p class="text-muted small mb-0" style="font-size: 11px;">Tier-1 fiduciary financial lock until B/L release</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 5: Institutional Importer Testimonials & Reviews -->
-        <section id="testimonials" class="py-5 py-lg-6 bg-light border-top border-bottom">
-            <div class="container py-4">
-                <div class="text-center max-w-3xl mx-auto mb-5">
-                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-white border border-primary border-opacity-25 text-primary small fw-bold mb-3 shadow-sm">
-                        <i class="fa fa-star text-warning"></i> GLOBAL IMPORTER TESTIMONIALS
-                    </div>
-                    <h2 class="display-6 fw-bold text-dark mb-3">Institutional Importer Track Record</h2>
-                    <p class="text-secondary fs-6">
-                        Read how multinational commodity buyers, port distributors, and food processing groups rely on Matro for dependable Brazilian agro execution.
-                    </p>
-                </div>
-
-                <div class="row g-4">
-                    <!-- Testimonial 1 -->
-                    <div class="col-lg-4">
-                        <div class="bg-white rounded-4 p-4 h-100 border shadow-sm d-flex flex-column">
-                            <div class="text-warning mb-3">
-                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                            </div>
-                            <p class="text-secondary fs-6 fst-italic mb-4 flex-grow-1">
-                                "Securing 12,500 MT of Non-GMO Soybeans out of Santos was executed seamlessly. The SGS composite assay matched our feed specifications precisely, and the bank escrow gave our treasury full peace of mind."
-                            </p>
-                            <div class="d-flex align-items-center pt-3 border-top">
-                                <img src="{{ asset('img/testimonial-1.jpg') }}" alt="Pieter van der Berg" class="rounded-circle me-3 object-fit-cover" width="50" height="50">
-                                <div>
-                                    <h6 class="fw-bold text-dark mb-0">Pieter van der Berg</h6>
-                                    <small class="text-muted">Procurement Director · Rotterdam, Netherlands</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 2 -->
-                    <div class="col-lg-4">
-                        <div class="bg-white rounded-4 p-4 h-100 border shadow-sm d-flex flex-column">
-                            <div class="text-warning mb-3">
-                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                            </div>
-                            <p class="text-secondary fs-6 fst-italic mb-4 flex-grow-1">
-                                "The ICUMSA 45 refined sugar arrived in Jebel Ali on time with complete phytosanitary certificates and zero broken bags. Matro's direct trade desk communicated vessel loading telemetry every 24 hours."
-                            </p>
-                            <div class="d-flex align-items-center pt-3 border-top">
-                                <img src="{{ asset('img/testimonial-2.jpg') }}" alt="Tariq Al-Mansoor" class="rounded-circle me-3 object-fit-cover" width="50" height="50">
-                                <div>
-                                    <h6 class="fw-bold text-dark mb-0">Tariq Al-Mansoor</h6>
-                                    <small class="text-muted">VP Supply Chain · Jebel Ali, Dubai UAE</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 3 -->
-                    <div class="col-lg-4">
-                        <div class="bg-white rounded-4 p-4 h-100 border shadow-sm d-flex flex-column">
-                            <div class="text-warning mb-3">
-                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                            </div>
-                            <p class="text-secondary fs-6 fst-italic mb-4 flex-grow-1">
-                                "Direct co-op pricing eliminated the 6% broker markup we normally pay on Brazilian yellow corn. Clean title handover at the discharge port made customs processing effortless."
-                            </p>
-                            <div class="d-flex align-items-center pt-3 border-top">
-                                <img src="{{ asset('img/testimonial-3.jpg') }}" alt="Wei Chen" class="rounded-circle me-3 object-fit-cover" width="50" height="50">
-                                <div>
-                                    <h6 class="fw-bold text-dark mb-0">Wei Chen</h6>
-                                    <small class="text-muted">Agro Trading Desk Head · Qingdao, China</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center mt-5">
-                    <button type="button" class="btn btn-outline-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#reviewModal">
-                        <i class="fa fa-pen me-1"></i> Submit Importer Review
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 6: Direct Trade Desk RFQ / Inquiries (Spacious Dual-Column Layout) -->
-        <section id="rfq-desk" class="py-5 py-lg-6 bg-white">
-            <div class="container py-4">
-                <div class="row g-5 align-items-start">
-                    <!-- Left Column: Trade Desk Information & Physical Presence -->
-                    <div class="col-lg-5">
-                        <div class="pe-lg-4">
-                            <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-light border border-primary border-opacity-25 text-primary small fw-bold mb-3">
-                                <i class="fa fa-headset text-primary"></i> DIRECT DESK ACCESS
-                            </div>
-                            <h2 class="display-6 fw-bold text-dark mb-3">Institutional Trade Desk &amp; RFQ Inquiries</h2>
-                            <p class="text-secondary mb-4">
-                                Connect directly with our commodity trading desk in São Paulo. Submit your target specifications or request live indicative CIF/FOB pricing.
-                            </p>
-
-                            <div class="bg-light rounded-4 p-4 border mb-4 shadow-sm">
-                                <div class="d-flex align-items-start gap-3 mb-3">
-                                    <span class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle text-primary shadow-sm" style="width: 42px; height: 42px; flex-shrink: 0;">
-                                        <i class="fa fa-map-marker-alt"></i>
-                                    </span>
-                                    <div>
-                                        <strong class="d-block text-dark">Trading Headquarters</strong>
-                                        <span class="text-secondary small">Avenida Paulista 1374, Bela Vista, São Paulo - SP, Brazil</span>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex align-items-start gap-3 mb-3">
-                                    <span class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle text-success shadow-sm" style="width: 42px; height: 42px; flex-shrink: 0;">
-                                        <i class="fab fa-whatsapp"></i>
-                                    </span>
-                                    <div>
-                                        <strong class="d-block text-dark">Encrypted Trade WhatsApp</strong>
-                                        <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="text-success text-decoration-none small fw-bold">
-                                            +55 (11) 95298-7545
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex align-items-start gap-3 mb-3">
-                                    <span class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle text-primary shadow-sm" style="width: 42px; height: 42px; flex-shrink: 0;">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                    <div>
-                                        <strong class="d-block text-dark">Desk Inquiries</strong>
-                                        <span class="text-secondary small">tradedesk@matro.com / inquiries@matro.com</span>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex align-items-start gap-3">
-                                    <span class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle text-warning shadow-sm" style="width: 42px; height: 42px; flex-shrink: 0;">
-                                        <i class="fa fa-clock"></i>
-                                    </span>
-                                    <div>
-                                        <strong class="d-block text-dark">Trading Hours &amp; Response SLA</strong>
-                                        <span class="text-secondary small">Mon - Fri: 08:00 - 18:00 BRT · Initial Quote &lt; 4 Hours</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="d-flex gap-2">
-                                <span class="badge bg-light text-secondary border px-3 py-2 small"><i class="fa fa-dollar-sign text-success me-1"></i>USD Settlement</span>
-                                <span class="badge bg-light text-secondary border px-3 py-2 small"><i class="fa fa-euro-sign text-primary me-1"></i>EUR Settlement</span>
-                                <span class="badge bg-light text-secondary border px-3 py-2 small"><i class="fa fa-money-bill-wave text-warning me-1"></i>BRL Direct</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Interactive RFQ Inquiry Form -->
-                    <div class="col-lg-7">
-                        <div class="bg-light rounded-4 p-4 p-lg-5 border shadow-sm">
-                            <h4 class="fw-bold text-dark mb-1">Submit Institutional Request for Quote (RFQ)</h4>
-                            <p class="text-secondary small mb-4">Complete the form below to receive formal indicative pricing, SGS specification sheets, and allocation schedule.</p>
-
-                            <div id="rfqAlert" class="alert d-none mb-4" role="alert"></div>
-
-                            <form id="rfqDeskForm">
-                                <input type="hidden" name="role" value="buyer">
-                                
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label small fw-bold text-dark">Target Commodity *</label>
-                                        <select name="buyer_detail" id="rfqCommoditySelect" class="form-select rounded-pill" required>
-                                            <option value="Brazilian Non-GMO Soybeans">Brazilian Non-GMO Soybeans</option>
-                                            <option value="Refined Cane Sugar (ICUMSA 45)">Refined Cane Sugar (ICUMSA 45)</option>
-                                            <option value="Yellow Corn (Maize Grade 2)">Yellow Corn (Maize Grade 2)</option>
-                                            <option value="Specialty Arabica Green Coffee">Specialty Arabica Green Coffee</option>
-                                            <option value="Brazilian Green Lentils & Pulses">Brazilian Green Lentils &amp; Pulses</option>
-                                            <option value="Other Agricultural Bulk Lot">Other Agricultural Bulk Lot</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label small fw-bold text-dark">Estimated Volume (Metric Tons) *</label>
-                                        <input type="text" name="volume" class="form-control rounded-pill" placeholder="e.g. 500 MT / 2,500 MT / Vessel" required>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-label small fw-bold text-dark">Full Contact Name *</label>
-                                        <input type="text" name="name" class="form-control rounded-pill" placeholder="First &amp; Last Name" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label small fw-bold text-dark">Corporate Email *</label>
-                                        <input type="email" name="email" class="form-control rounded-pill" placeholder="importer@company.com" required>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-label small fw-bold text-dark">Company / Organization *</label>
-                                        <input type="text" name="company" class="form-control rounded-pill" placeholder="Trading firm or import agency" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label small fw-bold text-dark">Destination Country / Discharge Port *</label>
-                                        <input type="text" name="country" class="form-control rounded-pill" placeholder="e.g. Port of Rotterdam, Netherlands" required>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-label small fw-bold text-dark">Phone / WhatsApp Number</label>
-                                        <input type="tel" name="phone" class="form-control rounded-pill" placeholder="+Country Code Phone Number">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label small fw-bold text-dark">Preferred Incoterms</label>
-                                        <select name="service_type" class="form-select rounded-pill">
-                                            <option value="CIF Destination Port">CIF - Cost, Insurance &amp; Freight (Discharge Port)</option>
-                                            <option value="FOB Port of Santos">FOB - Free on Board (Port of Santos, Brazil)</option>
-                                            <option value="FOB Port of Paranaguá">FOB - Free on Board (Port of Paranaguá, Brazil)</option>
-                                            <option value="CFR Port of Discharge">CFR - Cost and Freight</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <label class="form-label small fw-bold text-dark">Technical Specifications &amp; Instructions</label>
-                                        <textarea name="message" class="form-control rounded-3" rows="3" placeholder="Provide any moisture, protein, packaging (bulk vs 50kg bags), or target timeline requirements..."></textarea>
-                                    </div>
-
-                                    <div class="col-12 pt-2">
-                                        <button type="submit" id="rfqSubmitBtn" class="btn btn-primary btn-custom rounded-pill w-100 py-3 text-white fw-bold shadow">
-                                            <i class="fa fa-paper-plane me-2"></i> Submit RFQ to Trade Desk
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 7: Frequently Asked Questions (FAQ) -->
-        <section id="faq" class="py-5 bg-light border-top border-bottom">
-            <div class="container py-4">
-                <div class="text-center max-w-3xl mx-auto mb-5">
-                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-white border border-primary border-opacity-25 text-primary small fw-bold mb-3 shadow-sm">
-                        <i class="fa fa-question-circle text-primary"></i> TRADE TRANSPARENCY
-                    </div>
-                    <h2 class="display-6 fw-bold text-dark mb-3">Frequently Asked Questions</h2>
-                    <p class="text-secondary fs-6">Key answers regarding export logistics, phytosanitary clearance, minimum orders, and escrow financing.</p>
-                </div>
-
-                <div class="row justify-content-center">
-                    <div class="col-lg-9">
-                        <div class="accordion" id="faqAccordion">
-                            <div class="accordion-item rounded-3 mb-3 border shadow-sm overflow-hidden">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button fw-bold py-3 text-dark bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                                        What phytosanitary and export certificates accompany each shipment?
-                                    </button>
-                                </h2>
-                                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body text-secondary small py-3">
-                                        Every metric ton is certified with an official Phytosanitary Certificate issued by the Brazilian Ministry of Agriculture (MAPA), an independent Certificate of Quality and Weight (SGS / Bureau Veritas), a Certificate of Origin, Non-GMO verification (for designated lots), and Clean On-Board Ocean Bills of Lading.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item rounded-3 mb-3 border shadow-sm overflow-hidden">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button fw-bold py-3 text-dark bg-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                        What are the standard Minimum Order Quantities (MOQ)?
-                                    </button>
-                                </h2>
-                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body text-secondary small py-3">
-                                        For bulk grains (Soybeans, Yellow Corn), standard spot lots start at 500 Metric Tons for containerized cargo and 12,500 to 50,000 MT for break-bulk charter vessels. For refined sugar (ICUMSA 45), minimum contract allocation is 500 MT. Smaller trial samples and composite boxes can be ordered directly through our online store.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item rounded-3 mb-3 border shadow-sm overflow-hidden">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button fw-bold py-3 text-dark bg-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                                        How does the Risk-Free Bank Escrow settlement function?
-                                    </button>
-                                </h2>
-                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body text-secondary small py-3">
-                                        All commercial settlements execute through Tier-1 bank escrow or Irrevocable Letters of Credit (DLC). Funds remain frozen under fiduciary custody during grain movement and ocean loading. Capital is released to the seller strictly when Clean Bills of Lading and SGS inspection certificates are independently verified.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item rounded-3 mb-3 border shadow-sm overflow-hidden">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button fw-bold py-3 text-dark bg-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                                        Which deepwater ports handle Matro's maritime departures?
-                                    </button>
-                                </h2>
-                                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body text-secondary small py-3">
-                                        Our primary departure points are Port of Santos (São Paulo state) — Latin America’s largest agro-bulk terminal — and Port of Paranaguá (Paraná state). Both ports accommodate Handysize, Supramax, and Panamax bulk grain vessels with dedicated conveyor berths and certified container bagging facilities.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item rounded-3 border shadow-sm overflow-hidden">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button fw-bold py-3 text-dark bg-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
-                                        Can we order physical samples prior to signing full vessel charter agreements?
-                                    </button>
-                                </h2>
-                                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body text-secondary small py-3">
-                                        Yes. Prospective buyers can order composite sample packs (5 kg to 50 kg) directly via our Quick View / Add to Cart checkout. Samples are drawn from current harvest silos, sealed under chain-of-custody protocols, and dispatched by air courier with preliminary lab assay documentation.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 8: Newsletter / Trade Desk Digest -->
-        <section class="py-5 bg-dark text-white">
-            <div class="container py-4">
-                <div class="row justify-content-center">
-                    <div class="col-lg-7 text-center">
-                        <h3 class="display-6 fw-bold text-white mb-2">Subscribe to the Trade Desk Digest</h3>
-                        <p class="text-light opacity-75 mb-4">Weekly Brazilian harvest yield reports, Port of Santos vessel line-ups, and indicative FOB/CIF market quotes.</p>
-                        <form class="position-relative max-w-lg mx-auto" onsubmit="event.preventDefault(); if (window.showAgroviaToast) window.showAgroviaToast('Subscription Logged', 'You will receive our weekly Brazilian trade digest.', 'fa fa-envelope text-success', 'success'); this.reset();">
-                            <input class="form-control rounded-pill border-0 ps-4 pe-5 py-3 shadow-lg" type="email" placeholder="Enter your corporate email address..." required style="height: 56px;">
-                            <button type="submit" class="btn btn-primary btn-custom rounded-pill position-absolute top-0 end-0 mt-1 me-1 px-4 text-white fw-bold" style="height: 48px;">
-                                Subscribe
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
+    </section>
+    <!-- Social Proof End -->
 
     </main>
 
-    <!-- Corporate Footer -->
-    <footer class="bg-[#111827] text-gray-300 border-t border-gray-800 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
-                <!-- Col 1 -->
-                <div>
-                    <div class="d-flex align-items-center mb-3">
-                        <span class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle me-2" style="width: 36px; height: 36px;">
-                            <i class="fa fa-shopping-basket"></i>
-                        </span>
-                        <span class="text-2xl font-bold text-white">MATRO</span>
+    <!-- Newsletter Start -->
+    <div class="container-fluid newsletter bg-dark py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 text-center wow fadeIn" data-wow-delay="0.3s">
+                    <h1 class="display-5 text-white mb-4">Subscribe to the Trade Desk Digest</h1>
+                    <p class="text-light mb-4">Weekly price indications, phytosanitary updates and new lots.</p>
+                    <form class="newsletter-form position-relative w-100 mb-2">
+                        <input class="form-control rounded-pill border-0 w-100 ps-4 pe-5" type="email" placeholder="Enter your email" style="height: 60px;" required>
+                        <button type="submit" class="btn btn-lg-square shadow-none position-absolute top-0 end-0 mt-1 me-2" aria-label="Subscribe">
+                            <i class="fa fa-paper-plane text-primary fs-4"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Newsletter End -->
+
+    <!-- Footer Start -->
+    <footer id="contact" class="bg-[#212529] text-gray-300 border-t border-[#d4af37]/30">
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div class="space-y-6">
+                    <div>
+                        <span class="text-2xl font-bold text-white block">Agrovia</span>
+                        <span class="text-xs text-[#d4af37] tracking-widest uppercase flex items-center gap-2 mt-1">Brazilian Agro-Commodities</span>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                        Direct institutional trade facilitation between certified Brazilian agricultural cooperatives and global commodity buyers. Fully documented, assayed by SGS, and backed by Tier-1 bank escrow.
-                    </p>
-                    <div class="d-flex gap-2">
-                        <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="btn btn-sm btn-outline-light rounded-circle" style="width: 34px; height: 34px;"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" class="btn btn-sm btn-outline-light rounded-circle" style="width: 34px; height: 34px;"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="btn btn-sm btn-outline-light rounded-circle" style="width: 34px; height: 34px;"><i class="fa fa-envelope"></i></a>
+                    <p class="text-gray-400 leading-relaxed text-sm">Connecting verified Brazilian farms with global buyers through secure, traceable and fully documented agro-commodity trade.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-[#d4af37] hover:text-[#1e3a8a] transition-all" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-[#d4af37] hover:text-[#1e3a8a] transition-all" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-[#d4af37] hover:text-[#1e3a8a] transition-all" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
-
-                <!-- Col 2: Navigation Links -->
                 <div>
-                    <h5 class="text-white font-bold text-base mb-4 border-b border-gray-700 pb-2">Trading Architecture</h5>
-                    <ul class="list-unstyled space-y-2 text-sm text-gray-400">
-                        <li><a href="#commodities" class="text-gray-400 hover:text-white text-decoration-none">Available Commodity Lots</a></li>
-                        <li><a href="#pillars" class="text-gray-400 hover:text-white text-decoration-none">The 4 Pillars of Bulk Trade</a></li>
-                        <li><a href="#fulfillment" class="text-gray-400 hover:text-white text-decoration-none">5-Step Fulfillment Lifecycle</a></li>
-                        <li><a href="#standards" class="text-gray-400 hover:text-white text-decoration-none">SGS &amp; MAPA Compliance</a></li>
-                        <li><a href="#rfq-desk" class="text-gray-400 hover:text-white text-decoration-none">Trade Desk Quotations (RFQ)</a></li>
-                        <li><a href="/login" class="text-gray-400 hover:text-white text-decoration-none">Client Portal &amp; Orders</a></li>
+                    <h4 class="text-lg font-bold text-white mb-6 relative inline-block">Quick Links<span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[#d4af37]"></span></h4>
+                    <nav class="space-y-3">
+                        <a href="#ecosystem" class="block hover:text-[#d4af37] transition-colors duration-300">About Us</a>
+                        <a href="#catalog" class="block hover:text-[#d4af37] transition-colors duration-300">Services</a>
+                        <a href="#catalog" class="block hover:text-[#d4af37] transition-colors duration-300">Products</a>
+                        <a href="#knowledge" class="block hover:text-[#d4af37] transition-colors duration-300">Blog</a>
+                        <a href="#knowledge" class="block hover:text-[#d4af37] transition-colors duration-300">FAQ</a>
+                        <a href="#contact" class="block hover:text-[#d4af37] transition-colors duration-300">Contact</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-6 relative inline-block">Ecosystem<span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[#d4af37]"></span></h4>
+                    <ul class="space-y-3">
+                        <li class="text-gray-400 hover:text-white transition-colors">Capital Providers</li>
+                        <li class="text-gray-400 hover:text-white transition-colors">Resource Suppliers</li>
+                        <li class="text-gray-400 hover:text-white transition-colors">Channel Distributors</li>
+                        <li class="text-gray-400 hover:text-white transition-colors">Logistics Partners</li>
                     </ul>
                 </div>
-
-                <!-- Col 3: Key Agro-Commodities -->
                 <div>
-                    <h5 class="text-white font-bold text-base mb-4 border-b border-gray-700 pb-2">Key Commodities</h5>
-                    <ul class="list-unstyled space-y-2 text-sm text-gray-400">
-                        <li><span class="text-gray-300">Brazilian Non-GMO Soybeans (Bulk)</span></li>
-                        <li><span class="text-gray-300">Refined Cane Sugar (ICUMSA 45)</span></li>
-                        <li><span class="text-gray-300">Yellow Corn (Maize Feed Grade 2)</span></li>
-                        <li><span class="text-gray-300">Arabica &amp; Robusta Green Coffee</span></li>
-                        <li><span class="text-gray-300">Brazilian Black &amp; Carioca Beans</span></li>
-                        <li><span class="text-gray-300">Export Brazil Nuts &amp; Sesame Seeds</span></li>
-                    </ul>
-                </div>
-
-                <!-- Col 4: Operations & Contact -->
-                <div>
-                    <h5 class="text-white font-bold text-base mb-4 border-b border-gray-700 pb-2">Brazilian Trade Desk</h5>
-                    <div class="space-y-3 text-sm text-gray-400">
-                        <div class="d-flex align-items-start gap-2">
-                            <i class="fa fa-map-marker-alt text-primary mt-1"></i>
-                            <span>Av. Paulista 1374, Bela Vista, São Paulo - SP, Brazil</span>
+                    <h4 class="text-lg font-bold text-white mb-6 relative inline-block">Contact<span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[#d4af37]"></span></h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-map-marker-alt text-[#d4af37] mt-1 flex-shrink-0"></i>
+                            <div class="text-sm text-gray-400">
+                                <p>HQ: Cuiabá, Mato Grosso, Brazil</p>
+                                <p>Ops Center: São Paulo, Brazil</p>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <i class="fab fa-whatsapp text-success"></i>
-                            <a href="https://wa.me/5511952987545" class="text-gray-300 hover:text-white text-decoration-none">+55 (11) 95298-7545</a>
+                        <div class="flex items-center space-x-3">
+                            <i class="fa fa-envelope text-[#d4af37] flex-shrink-0"></i>
+                            <a href="mailto:contact@agrovia.com" class="text-sm text-gray-400 hover:text-white transition-colors">contact@agrovia.com</a>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <i class="fa fa-envelope text-primary"></i>
-                            <span class="text-gray-300">tradedesk@matro.com</span>
+                        <div class="flex items-center space-x-3">
+                            <i class="fa fa-phone text-[#d4af37] flex-shrink-0"></i>
+                            <a href="tel:+5511952987545" class="text-sm text-gray-400 hover:text-white transition-colors">+55 (11) 95298-7545</a>
                         </div>
-                        <div class="pt-2">
-                            <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-50 px-2 py-1 small">
-                                <i class="fa fa-check-circle me-1"></i> MAPA Registered Operator
-                            </span>
+                        <div class="flex items-center space-x-3 mt-2">
+                            <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="flex items-center gap-2 bg-[#25D366] text-white px-3 py-1.5 rounded-full text-xs font-bold hover:bg-green-600 transition-colors">
+                                <i class="fab fa-whatsapp"></i> WhatsApp Us
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="border-t border-gray-800 pt-6 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 text-xs text-gray-500">
-                <p class="mb-0">&copy; {{ date('Y') }} Matro Brazilian Agro-Commodity Trading Platform. All rights reserved.</p>
-                <div class="d-flex gap-4">
-                    <span><i class="fa fa-lock text-primary me-1"></i> Tier-1 Bank Escrow Protected</span>
-                    <span><i class="fa fa-certificate text-success me-1"></i> SGS Pre-Shipment Tested</span>
-                    <span><i class="fa fa-ship text-info me-1"></i> Santos &amp; Paranaguá CIF/FOB</span>
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-400">&copy; {{ date('Y') }} Agrovia. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm text-gray-400">
+                    <span class="flex items-center gap-1"><i class="fa fa-check-circle"></i> Phytosanitary Certified</span>
+                    <span class="flex items-center gap-1"><i class="fa fa-check-circle"></i> USDA Organic</span>
                 </div>
             </div>
         </div>
     </footer>
+    <!-- Footer End -->
 
-    <!-- Back to Top Button -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top shadow" aria-label="Back to Top">
-        <i class="bi bi-arrow-up"></i>
-    </a>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" aria-label="Back to Top"><i class="bi bi-arrow-up"></i></a>
 
     <!-- Floating Chat Widget -->
-    <div id="chatWidget" style="position: fixed; bottom: 100px; right: 28px; z-index: 999;">
-        <button type="button" id="chatToggle" class="btn btn-primary btn-lg-square rounded-circle shadow-lg" aria-label="Chat with Trade Desk">
-            <i class="fa fa-comments text-white"></i>
+    <div id="chatWidget" style="position: fixed; bottom: 110px; right: 45px; z-index: 999;">
+        <button type="button" id="chatToggle" class="btn btn-primary btn-lg-square rounded-circle shadow" aria-label="Chat with trade desk">
+            <i class="fa fa-comments"></i>
         </button>
-        <div id="chatPanel" class="bg-white rounded-4 shadow-xl p-3 border mt-2" style="width: 320px; display: none;">
-            <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
-                <div>
-                    <strong class="text-dark d-block">Brazilian Trade Desk</strong>
-                    <span class="text-success small"><i class="fa fa-circle me-1" style="font-size: 8px;"></i>Live Assistance</span>
-                </div>
+        <div id="chatPanel" class="bg-white rounded shadow p-3 mt-2" style="width: 300px; display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <strong class="text-dark">Trade Desk online</strong>
                 <button type="button" class="btn-close" id="chatClose" aria-label="Close"></button>
             </div>
-            <input type="text" id="chatName" class="form-control form-control-sm rounded-pill mb-2" placeholder="Your Name">
-            <input type="email" id="chatEmail" class="form-control form-control-sm rounded-pill mb-2" placeholder="Your Corporate Email">
-            <select id="chatTopic" class="form-select form-select-sm rounded-pill mb-2">
-                <option value="Soybean Contract">Soybean Contract</option>
-                <option value="Sugar ICUMSA 45">Sugar ICUMSA 45</option>
-                <option value="Corn / Grains">Corn / Grains</option>
-                <option value="Coffee / Pulses">Coffee / Pulses</option>
-                <option value="Escrow / Settlement">Escrow / Settlement</option>
+            <input type="text" id="chatName" class="form-control rounded-pill mb-2" placeholder="Name">
+            <input type="email" id="chatEmail" class="form-control rounded-pill mb-2" placeholder="Email">
+            <select id="chatTopic" class="form-select rounded-pill mb-2">
+                <option>Grower</option>
+                <option>Buyer</option>
+                <option>Partner</option>
+                <option>Order status</option>
             </select>
-            <textarea id="chatMessage" class="form-control form-control-sm rounded-3 mb-2" rows="3" placeholder="Tell us about volume or destination port..."></textarea>
-            <button type="button" id="chatSend" class="btn btn-primary btn-custom btn-sm rounded-pill w-100 text-white fw-bold">
-                Send to Trade Desk
-            </button>
+            <textarea id="chatMessage" class="form-control mb-2" rows="3" placeholder="Message"></textarea>
+            <button type="button" id="chatSend" class="btn btn-primary btn-custom rounded-pill w-100">Send</button>
         </div>
     </div>
 
     <!-- Modals -->
-
-    <!-- Global Search Modal -->
+    <!-- Search Modal -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title fw-bold" id="searchModalLabel">
-                        <i class="fa fa-search text-primary me-2"></i>Search Matro Platform &amp; Commodities
-                    </h5>
+                    <h5 class="modal-title fw-bold" id="searchModalLabel"><i class="fa fa-search text-primary me-2"></i>Search Agrovia Platform</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="position-relative mb-4">
-                        <input type="text" id="agroviaSearchInput" class="form-control search-input" placeholder="Type commodity, category, spec, or trade term (e.g. Soybeans, Escrow, Sugar)...">
+                        <input type="text" id="agroviaSearchInput" class="form-control search-input" placeholder="Type product, category, FAQ or insight keyword...">
                     </div>
                     <div id="searchResultsContainer" style="max-height: 380px; overflow-y: auto;">
                         <div class="text-center text-muted py-4">
                             <i class="fa fa-seedling fa-2x mb-2 text-success opacity-75"></i>
-                            <p class="mb-0">Type to search agricultural lots, export specifications, and trade protocols.</p>
+                            <p class="mb-0">Start typing to explore agro products and resources.</p>
                         </div>
                     </div>
                 </div>
@@ -1251,68 +805,180 @@
         </div>
     </div>
 
-    <!-- Quick View / Add to Cart Modal -->
-    <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow-xl rounded-4 overflow-hidden">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title text-white fw-bold" id="quickViewLabel">Commodity Quick View</h5>
+    <!-- Quote Modal -->
+    <div class="modal fade" id="quoteModal" tabindex="-1" aria-labelledby="quoteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-3">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title fw-bold text-white" id="quoteModalLabel"><i class="fa fa-calculator me-2"></i>Request Bulk Quote</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
-                    <div class="rounded-3 overflow-hidden mb-3" style="height: 220px;">
-                        <img id="qvImage" class="img-fluid w-100 h-100 object-fit-cover" src="" alt="">
-                    </div>
-                    <h4 id="qvTitle" class="fw-bold text-dark mb-1"></h4>
-                    <p class="text-primary fs-5 fw-bold mb-3" id="qvPrice"></p>
-                    
-                    <div class="bg-light rounded-3 p-3 mb-3 small">
-                        <div class="d-flex justify-content-between mb-1">
-                            <span class="text-muted">Pre-Shipment Inspection:</span>
-                            <span class="fw-bold text-dark">SGS Certified Assay</span>
+                    <div id="quoteModalAlert" class="d-none"></div>
+                    <form id="quoteModalForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Full Name *</label>
+                                <input type="text" name="name" class="form-control rounded-pill" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Email *</label>
+                                <input type="email" name="email" class="form-control rounded-pill" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Phone *</label>
+                                <input type="tel" name="phone" class="form-control rounded-pill" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Product Category *</label>
+                                <select name="produce_type" class="form-select rounded-pill" required>
+                                    <option value="Grains & Rice">Grains & Rice</option>
+                                    <option value="Oil & Sugar">Oil & Sugar</option>
+                                    <option value="Lentils & Pulses">Lentils & Pulses</option>
+                                    <option value="Nuts & Seeds">Nuts & Seeds</option>
+                                    <option value="Fruits/Vegetables">Fruits/Vegetables</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Quantity</label>
+                                <input type="text" name="quantity" class="form-control rounded-pill">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Delivery Date</label>
+                                <input type="date" name="delivery_date" class="form-control rounded-pill">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold">Notes</label>
+                                <textarea name="notes" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="col-12 text-end pt-2">
+                                <button type="button" class="btn btn-secondary rounded-pill px-4 me-2" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary btn-custom rounded-pill px-5">Submit Quote Request</button>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between mb-1">
-                            <span class="text-muted">Origin Verification:</span>
-                            <span class="fw-bold text-dark">MAPA Phytosanitary Clearance</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <span class="text-muted">Settlement:</span>
-                            <span class="fw-bold text-success">Bank Escrow Protected</span>
-                        </div>
-                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Spec Modal -->
+    <div class="modal fade" id="specModal" tabindex="-1" aria-labelledby="specModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-3">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title text-white fw-bold" id="specModalLabel">Specifications</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4" id="specModalBody">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-3">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title text-white fw-bold" id="quickViewLabel">Quick View</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <img id="qvImage" class="img-fluid rounded mb-3" src="" alt="">
+                    <h4 id="qvTitle"></h4>
+                    <p class="text-primary fw-bold" id="qvPrice"></p>
                     <div class="mb-3">
-                        <label class="form-label small fw-bold">Sample / Allocation Quantity</label>
+                        <label class="form-label small fw-bold">Quantity</label>
                         <input type="number" id="qvQty" class="form-control rounded-pill" value="1" min="1">
                     </div>
                     <div class="d-flex gap-2">
-                        <button type="button" id="qvAddToCart" class="btn btn-primary btn-custom rounded-pill text-white fw-bold flex-fill">
-                            <i class="fa fa-shopping-cart me-1"></i> Add to Sample Cart
-                        </button>
-                        <button type="button" id="qvCheckout" class="btn btn-outline-dark rounded-pill px-4">
-                            Checkout
-                        </button>
+                        <button type="button" id="qvAddToCart" class="btn btn-primary btn-custom rounded-pill">Add to Cart</button>
+                        <button type="button" id="qvCheckout" class="btn btn-outline-dark rounded-pill px-4">Checkout</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Importer Review Modal -->
+    <!-- Inquiry Modal -->
+    <div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-3">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title text-white fw-bold" id="inquiryModalLabel">Inquiry</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div id="inquiryAlert" class="d-none"></div>
+                    <form id="inquiryForm">
+                        <input type="hidden" name="role" id="inquiryRole">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Full Name *</label>
+                                <input type="text" name="name" class="form-control rounded-pill" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Email *</label>
+                                <input type="email" name="email" class="form-control rounded-pill" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Phone / WhatsApp</label>
+                                <input type="tel" name="phone" class="form-control rounded-pill">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Country</label>
+                                <input type="text" name="country" class="form-control rounded-pill">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Company</label>
+                                <input type="text" name="company" class="form-control rounded-pill">
+                            </div>
+                            <div class="col-md-6" id="buyerFields" style="display:none;">
+                                <label class="form-label small fw-bold">Product / Quantity / Destination Port</label>
+                                <input type="text" name="buyer_detail" class="form-control rounded-pill" placeholder="Soybeans, 25 MT, Santos">
+                            </div>
+                            <div class="col-md-6" id="partnerFields" style="display:none;">
+                                <label class="form-label small fw-bold">Service Type</label>
+                                <select name="service_type" class="form-select rounded-pill">
+                                    <option value="freight">Freight</option>
+                                    <option value="cold-chain">Cold-chain</option>
+                                    <option value="trade-finance">Trade finance</option>
+                                    <option value="insurance">Insurance</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6" id="growerFields" style="display:none;">
+                                <label class="form-label small fw-bold">Farm / Crop Details</label>
+                                <input type="text" name="grower_detail" class="form-control rounded-pill" placeholder="Farm location, crop, volume">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold">Message</label>
+                                <textarea name="message" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="col-12 text-end pt-2">
+                                <button type="button" class="btn btn-secondary rounded-pill px-4 me-2" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary btn-custom rounded-pill px-5">Submit Inquiry</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
     <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow-xl rounded-4">
+            <div class="modal-content border-0 shadow-lg rounded-3">
                 <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title text-white fw-bold" id="reviewModalLabel">
-                        <i class="fa fa-star text-warning me-2"></i>Submit Importer Review
-                    </h5>
+                    <h5 class="modal-title text-white fw-bold" id="reviewModalLabel"><i class="fa fa-star text-warning me-2"></i>Rate Agrovia</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <form id="reviewForm">
                         <input type="hidden" id="ratingValue" value="5">
                         <div class="text-center mb-3">
-                            <label class="form-label d-block text-secondary small fw-bold">Overall Execution Rating</label>
+                            <label class="form-label d-block text-secondary small fw-bold">Your Overall Rating</label>
                             <div class="rating-stars fs-3">
                                 <i class="fa fa-star active text-warning" data-rating="1"></i>
                                 <i class="fa fa-star active text-warning" data-rating="2"></i>
@@ -1323,20 +989,18 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label small fw-bold">Your Name *</label>
-                            <input type="text" id="reviewAuthor" class="form-control rounded-pill" required placeholder="e.g. Jean Dupont">
+                            <input type="text" id="reviewAuthor" class="form-control rounded-pill" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small fw-bold">Role &amp; Company / Port</label>
-                            <input type="text" id="reviewRole" class="form-control rounded-pill" placeholder="e.g. Head of Grain Procurement, Port of Marseille">
+                            <label class="form-label small fw-bold">Role / Organization</label>
+                            <input type="text" id="reviewRole" class="form-control rounded-pill">
                         </div>
                         <div class="mb-3">
                             <label class="form-label small fw-bold">Review Commentary *</label>
-                            <textarea id="reviewText" class="form-control rounded-3" rows="3" required placeholder="Share your experience with lot quality, SGS assay accuracy, or escrow settlement..."></textarea>
+                            <textarea id="reviewText" class="form-control" rows="3" required></textarea>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-custom rounded-pill text-white fw-bold">
-                                Publish Review
-                            </button>
+                            <button type="submit" class="btn btn-primary btn-custom rounded-pill">Publish Review</button>
                         </div>
                     </form>
                 </div>
@@ -1356,7 +1020,7 @@
     (function ($) {
         "use strict";
 
-        // Category Filter
+        // Product filter
         $('.agro-filter-btn').on('click', function () {
             $('.agro-filter-btn').removeClass('active');
             $(this).addClass('active');
@@ -1371,7 +1035,7 @@
             });
         });
 
-        // Shuffle / Refresh Products
+        // Refresh products (shuffle DOM order)
         $('#refreshProductsBtn').on('click', function () {
             $('.agro-filter-btn').removeClass('active');
             $('.agro-filter-btn[data-filter="all"]').addClass('active');
@@ -1388,35 +1052,27 @@
                 grid.append(item);
             });
             if (window.showAgroviaToast) {
-                window.showAgroviaToast('Catalog Re-randomized', 'Commodity display order updated.', 'fa fa-sync text-primary', 'info');
+                window.showAgroviaToast('Products Refreshed', 'Featured set re-randomized.', 'fa fa-sync text-primary', 'info');
             }
         });
 
-        // Pre-fill RFQ Commodity when clicking "RFQ" button on any card
-        $(document).on('click', '.select-rfq-product', function (e) {
-            var prodName = $(this).attr('data-product-name');
-            if (prodName) {
-                var select = $('#rfqCommoditySelect');
-                var optionExists = select.find('option').filter(function () {
-                    return $(this).text().toLowerCase().indexOf(prodName.toLowerCase()) !== -1;
-                }).length > 0;
-
-                if (!optionExists) {
-                    select.prepend('<option value="' + prodName + '" selected>' + prodName + '</option>');
-                } else {
-                    select.find('option').filter(function () {
-                        return $(this).text().toLowerCase().indexOf(prodName.toLowerCase()) !== -1;
-                    }).prop('selected', true);
-                }
-
-                select.addClass('border-primary shadow-sm');
-                setTimeout(function () {
-                    select.removeClass('border-primary shadow-sm');
-                }, 2500);
-            }
+        // Specification modal
+        $('[data-action="specs"]').on('click', function () {
+            var title = $(this).attr('data-product');
+            var specs = {};
+            try { specs = JSON.parse($(this).attr('data-specs')); } catch (e) {}
+            var html = '<h5 class="mb-3">' + title + '</h5><ul class="list-group">';
+            Object.keys(specs).forEach(function (k) {
+                html += '<li class="list-group-item d-flex justify-content-between"><span class="fw-bold text-capitalize">' + k + '</span><span>' + specs[k] + '</span></li>';
+            });
+            html += '</ul>';
+            $('#specModalLabel').text(title + ' - Specifications');
+            $('#specModalBody').html(html);
+            var modal = new bootstrap.Modal(document.getElementById('specModal'));
+            modal.show();
         });
 
-        // Quick View Modal
+        // Quick view modal
         var qvProduct = '';
         $('[data-action="quickview"]').on('click', function () {
             qvProduct = $(this).attr('data-product');
@@ -1429,7 +1085,7 @@
             modal.show();
         });
 
-        // Cart State & Interactions
+        // Cart
         var cart = [];
         try { cart = JSON.parse(localStorage.getItem('agroviaCart') || '[]'); } catch (e) { cart = []; }
         function updateCartBadge() {
@@ -1442,7 +1098,7 @@
 
         $('#qvAddToCart').on('click', function () {
             if (!isAuthenticated) {
-                if (window.showAgroviaToast) window.showAgroviaToast('Login Required', 'Please log in to add sample items to cart.', 'fa fa-lock text-danger', 'danger');
+                if (window.showAgroviaToast) window.showAgroviaToast('Login Required', 'Please log in or register to add items to cart.', 'fa fa-lock text-danger', 'danger');
                 setTimeout(function () { window.location.href = '/login'; }, 1200);
                 return;
             }
@@ -1469,24 +1125,33 @@
 
         $('#cartBtn, .mobile-cart-btn').on('click', function () {
             if (window.showAgroviaToast) {
-                window.showAgroviaToast('Sample Cart', 'You have ' + cart.reduce(function (a, b) { return a + b.qty; }, 0) + ' sample allocation(s) in cart.', 'fa fa-shopping-cart text-primary', 'info');
+                window.showAgroviaToast('Cart', 'You have ' + cart.reduce(function (a, b) { return a + b.qty; }, 0) + ' item(s) in cart.', 'fa fa-shopping-cart text-primary', 'info');
             }
         });
 
-        // RFQ In-Page Form Submission via AJAX to /inquiries
-        $('#rfqDeskForm').on('submit', function (e) {
+        // Inquiry modal role handling
+        $('#inquiryModal').on('show.bs.modal', function (e) {
+            var trigger = $(e.relatedTarget);
+            var role = trigger.attr('data-role') || 'buyer';
+            $('#inquiryRole').val(role);
+            $('#buyerFields, #partnerFields, #growerFields').hide();
+            if (role === 'buyer') { $('#buyerFields').show(); $('#inquiryModalLabel').text('Buyer / Importer Inquiry'); }
+            if (role === 'partner') { $('#partnerFields').show(); $('#inquiryModalLabel').text('Logistics / Financial Partner Inquiry'); }
+            if (role === 'grower') { $('#growerFields').show(); $('#inquiryModalLabel').text('Grower / Supplier Inquiry'); }
+        });
+
+        $('#inquiryForm').on('submit', function (e) {
             e.preventDefault();
             var $form = $(this);
             var name = $.trim($form.find('input[name="name"]').val());
             var email = $.trim($form.find('input[name="email"]').val());
             if (!name || !email) {
-                $('#rfqAlert').removeClass('d-none alert-success').addClass('alert alert-danger').text('Contact name and corporate email are required.');
+                $('#inquiryAlert').removeClass('d-none alert-success').addClass('alert alert-danger').text('Name and email are required.');
                 return;
             }
-
-            var $btn = $('#rfqSubmitBtn');
-            var origText = $btn.html();
-            $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Transmitting to Brazilian Trade Desk...');
+            var $btn = $form.find('button[type="submit"]');
+            var originalBtnText = $btn.html();
+            $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span>Submitting...');
 
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var formData = $form.serialize();
@@ -1501,49 +1166,51 @@
                 },
                 success: function (res) {
                     var ref = res.reference || ('AGRO-INQ-' + Math.random().toString(36).substring(2, 8).toUpperCase());
-                    $('#rfqAlert').removeClass('d-none alert-danger').addClass('alert alert-success').html(
-                        '<strong>RFQ Logged!</strong> Reference: <code>' + ref + '</code>. Our São Paulo trade desk will contact your company within 4 business hours with indicative CIF/FOB pricing.'
-                    );
+                    $('#inquiryAlert').removeClass('d-none alert-danger').addClass('alert alert-success').html('<strong>Inquiry Logged!</strong> Reference: <code>' + ref + '</code>. Our trade desk will contact you promptly.');
                     if (window.showAgroviaToast) {
-                        window.showAgroviaToast('RFQ Transmitted', 'Reference: ' + ref, 'fa fa-check-circle text-success', 'success');
+                        window.showAgroviaToast('Inquiry Transmitted', 'Ref: ' + ref, 'fa fa-check-circle text-success', 'success');
                     }
                     $form[0].reset();
                 },
                 error: function (xhr) {
-                    var errorMsg = 'Failed to submit RFQ. Please check your inputs or contact us directly on WhatsApp.';
+                    var errorMsg = 'Failed to submit inquiry. Please try again.';
                     if (xhr.responseJSON && xhr.responseJSON.message) {
                         errorMsg = xhr.responseJSON.message;
                     }
-                    $('#rfqAlert').removeClass('d-none alert-success').addClass('alert alert-danger').text(errorMsg);
+                    $('#inquiryAlert').removeClass('d-none alert-success').addClass('alert alert-danger').text(errorMsg);
                 },
                 complete: function () {
-                    $btn.prop('disabled', false).html(origText);
+                    $btn.prop('disabled', false).html(originalBtnText);
                 }
             });
         });
 
-        // Review Form Submission
-        $('#reviewForm').on('submit', function (e) {
+        // Ecosystem steps
+        var ecoData = {
+            1: { title: 'Source: Farms and Co-ops', text: 'Verified farms, traceable lots and harvest scheduling across Brazil\'s producing regions.' },
+            2: { title: 'Platform: QC, Logistics, Finance', text: 'Lab grading, phytosanitary documentation, freight and cold-chain booking, trade finance and escrow.' },
+            3: { title: 'Downstream: Retailers & Wholesalers', text: 'Port-to-door delivery, repeat contracts and B2C store fulfillment.' }
+        };
+        function setEco(step) {
+            $('.eco-step').removeClass('border border-primary');
+            $('.eco-step[data-step="' + step + '"]').addClass('border border-primary');
+            $('#ecoDetailTitle').text(ecoData[step].title);
+            $('#ecoDetailText').text(ecoData[step].text);
+            $('#ecoProgress').css('width', (step * 33.33) + '%').attr('aria-valuenow', step * 33);
+        }
+        $('.eco-step').on('click keydown', function (e) {
+            if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
             e.preventDefault();
-            var author = $.trim($('#reviewAuthor').val());
-            var text = $.trim($('#reviewText').val());
-            if (!author || !text) return;
-
-            var modalEl = document.getElementById('reviewModal');
-            var modal = bootstrap.Modal.getInstance(modalEl);
-            if (modal) modal.hide();
-
-            if (window.showAgroviaToast) {
-                window.showAgroviaToast('Review Received', 'Thank you for your feedback, ' + author + '.', 'fa fa-star text-warning', 'success');
-            }
-            this.reset();
+            setEco(parseInt($(this).attr('data-step'), 10));
         });
+        setEco(1);
 
-        // Animated Numerical Counters
+        // Counters
         function animateCounter(el) {
             var target = parseInt(el.getAttribute('data-target'), 10);
             var suffix = el.getAttribute('data-suffix') || '';
-            var duration = 1600;
+            var duration = 1500;
+            var start = 0;
             var startTime = null;
             function step(ts) {
                 if (!startTime) startTime = ts;
@@ -1565,26 +1232,23 @@
                     counterObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.4 });
         document.querySelectorAll('.counter').forEach(function (el) { counterObserver.observe(el); });
 
-        // Floating Chat Widget
+        // Chat widget
         $('#chatToggle').on('click', function () { $('#chatPanel').toggle(); });
         $('#chatClose').on('click', function () { $('#chatPanel').hide(); });
         $('#chatSend').on('click', function () {
             var name = $.trim($('#chatName').val());
-            var msg = $.trim($('#chatMessage').val());
             var email = $.trim($('#chatEmail').val());
             var topic = $('#chatTopic').val();
+            var msg = $.trim($('#chatMessage').val());
             if (!name || !msg) {
-                if (window.showAgroviaToast) window.showAgroviaToast('Trade Desk Chat', 'Name and message are required.', 'fa fa-exclamation-triangle text-danger', 'danger');
+                if (window.showAgroviaToast) window.showAgroviaToast('Chat', 'Name and message required.', 'fa fa-exclamation-triangle text-danger', 'danger');
                 return;
             }
-            if (window.showAgroviaToast) {
-                window.showAgroviaToast('Message Sent', 'Trade desk representative will reply to ' + email + ' regarding ' + topic + '.', 'fa fa-comments text-success', 'success');
-            }
+            if (window.showAgroviaToast) window.showAgroviaToast('Message Sent', 'Trade Desk will reply to ' + email + ' about ' + topic + '.', 'fa fa-comments text-success', 'success');
             $('#chatMessage').val('');
-            $('#chatPanel').hide();
         });
 
     })(jQuery);
