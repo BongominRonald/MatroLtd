@@ -237,44 +237,63 @@
 
         .sh-cart-icon {
             position: relative;
-            color: var(--bs-emphasis-color);
-            font-size: 1.35rem;
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.12) !important;
+            border: 1px solid rgba(255, 255, 255, 0.22) !important;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.15rem;
             text-decoration: none;
-            width: 38px;
-            height: 38px;
-            transition: color .2s ease;
+            cursor: pointer;
+            transition: all .2s ease;
         }
         .sh-cart-icon:hover {
-            color: var(--sh-primary);
+            background: rgba(120, 162, 47, 0.25) !important;
+            border-color: var(--sh-primary) !important;
+            color: var(--sh-primary) !important;
+            transform: scale(1.05);
+        }
+        html[data-theme="light"] .sh-cart-icon {
+            color: #14141a !important;
+            background: rgba(20, 20, 26, 0.06) !important;
+            border-color: rgba(20, 20, 26, 0.18) !important;
+        }
+        html[data-theme="light"] .sh-cart-icon:hover {
+            color: var(--sh-primary) !important;
+            border-color: var(--sh-primary) !important;
+            background: rgba(120, 162, 47, 0.15) !important;
         }
         .sh-cart-badge {
             position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--sh-primary);
-            color: #fff;
+            top: -4px;
+            right: -4px;
+            background: var(--sh-primary) !important;
+            color: #ffffff !important;
             font-size: .65rem;
             font-weight: 700;
             border-radius: 999px;
-            min-width: 18px;
-            height: 18px;
+            min-width: 19px;
+            height: 19px;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 0 4px;
+            border: 2px solid var(--sh-surface);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
         }
 
         .sh-icon-btn,
         .sh-theme-toggle {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            border: 1px solid var(--bs-border-color);
-            background: transparent;
-            color: var(--bs-emphasis-color);
+            border: 1px solid rgba(255, 255, 255, 0.22) !important;
+            background: rgba(255, 255, 255, 0.12) !important;
+            color: #ffffff !important;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -285,9 +304,22 @@
         }
         .sh-icon-btn:hover,
         .sh-theme-toggle:hover {
-            color: var(--sh-primary);
-            border-color: var(--sh-primary);
-            background: rgba(120, 162, 47, 0.12);
+            color: var(--sh-primary) !important;
+            border-color: var(--sh-primary) !important;
+            background: rgba(120, 162, 47, 0.25) !important;
+            transform: scale(1.05);
+        }
+        html[data-theme="light"] .sh-icon-btn,
+        html[data-theme="light"] .sh-theme-toggle {
+            background: rgba(20, 20, 26, 0.06) !important;
+            border-color: rgba(20, 20, 26, 0.18) !important;
+            color: #14141a !important;
+        }
+        html[data-theme="light"] .sh-icon-btn:hover,
+        html[data-theme="light"] .sh-theme-toggle:hover {
+            color: var(--sh-primary) !important;
+            border-color: var(--sh-primary) !important;
+            background: rgba(120, 162, 47, 0.15) !important;
         }
 
         .sh-toggler {
@@ -347,34 +379,34 @@
             color: #fff;
         }
         .btn-sh-login {
-            background: #198754;
+            background: #198754 !important;
             color: #ffffff !important;
-            border: 2px solid #198754;
+            border: 2px solid #198754 !important;
             font-family: 'Comic Relief', 'Open Sans', system-ui;
             font-weight: 700;
-            padding: .32rem .95rem;
+            padding: .35rem 1rem;
             border-radius: 8px;
             transition: all .2s ease;
             display: inline-flex;
             align-items: center;
             text-decoration: none;
-            box-shadow: 0 2px 8px rgba(25, 135, 84, 0.3);
+            box-shadow: 0 2px 8px rgba(25, 135, 84, 0.35);
         }
         .btn-sh-login:hover {
-            background: #157347;
-            border-color: #157347;
+            background: #157347 !important;
+            border-color: #157347 !important;
             color: #ffffff !important;
-            box-shadow: 0 4px 14px rgba(25, 135, 84, 0.45);
+            box-shadow: 0 4px 14px rgba(25, 135, 84, 0.5);
             transform: translateY(-1px);
         }
         html[data-theme="light"] .btn-sh-login {
-            background: #198754;
-            border-color: #198754;
+            background: #198754 !important;
+            border-color: #198754 !important;
             color: #ffffff !important;
         }
         html[data-theme="light"] .btn-sh-login:hover {
-            background: #157347;
-            border-color: #157347;
+            background: #157347 !important;
+            border-color: #157347 !important;
             color: #ffffff !important;
         }
         .btn-sh-outline {
@@ -943,6 +975,134 @@
             border-radius: 999px;
         }
 
+        /* ===== Agrovia Commodity Cart Drawer ===== */
+        .sh-cart-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(10, 12, 16, 0.72);
+            backdrop-filter: blur(4px);
+            z-index: 1055;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .25s ease, visibility .25s ease;
+        }
+        .sh-cart-backdrop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .sh-cart-offcanvas {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 440px !important;
+            max-width: 100vw !important;
+            background: var(--sh-surface) !important;
+            color: var(--bs-body-color) !important;
+            border-left: 1px solid var(--sh-border) !important;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            z-index: 1060;
+            transform: translateX(100%);
+            transition: transform .32s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .sh-cart-offcanvas.show {
+            transform: translateX(0);
+        }
+        .sh-cart-offcanvas .offcanvas-header {
+            border-bottom: 1px solid var(--sh-border);
+            padding: 1.1rem 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .sh-cart-offcanvas .offcanvas-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex: 1 1 auto;
+        }
+        .sh-cart-items-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .sh-cart-item {
+            background: var(--sh-surface-alt, rgba(255, 255, 255, 0.04));
+            border: 1px solid var(--sh-border);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: border-color .2s ease, transform .2s ease;
+        }
+        .sh-cart-item:hover {
+            border-color: rgba(120, 162, 47, 0.45);
+            transform: translateY(-1px);
+        }
+        .sh-cart-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid var(--sh-border);
+            flex-shrink: 0;
+        }
+        .sh-cart-qty-ctrl {
+            display: inline-flex;
+            align-items: center;
+            background: var(--sh-surface);
+            border: 1px solid var(--sh-border);
+            border-radius: 30px;
+            padding: 2px 4px;
+        }
+        .sh-cart-qty-btn {
+            background: transparent;
+            border: none;
+            color: var(--bs-body-color);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .85rem;
+            cursor: pointer;
+            transition: background .15s ease, color .15s ease;
+        }
+        .sh-cart-qty-btn:hover {
+            background: var(--sh-primary);
+            color: #fff;
+        }
+        .sh-cart-qty-val {
+            font-size: .85rem;
+            font-weight: 700;
+            padding: 0 8px;
+            min-width: 26px;
+            text-align: center;
+            color: var(--bs-emphasis-color);
+        }
+        .sh-cart-assurance-card {
+            background: rgba(120, 162, 47, 0.08);
+            border: 1px solid rgba(120, 162, 47, 0.25);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: .8rem;
+        }
+        .sh-cart-summary-box {
+            background: var(--sh-surface-alt, rgba(255, 255, 255, 0.04));
+            border: 1px solid var(--sh-border);
+            border-radius: 12px;
+            padding: 14px;
+        }
+
         /* ===== Cart Toast ===== */
         .sh-toast {
             position: fixed;
@@ -1321,7 +1481,7 @@
                                         <span class="count text-muted">({{ number_format($product->stock) }} {{ $product->unit == 'Metric Ton' ? 'MT' : 'units' }})</span>
                                     </div>
                                     <div class="d-flex gap-2 mt-auto pt-2">
-                                        <button type="button" class="sh-card-cart-btn btn-add-cart" data-name="{{ $product->name }}">
+                                        <button type="button" class="sh-card-cart-btn btn-add-cart" data-name="{{ $product->name }}" data-price="{{ $product->price }}" data-unit="{{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}">
                                             <i class="bi bi-bag"></i> Add to Cart
                                         </button>
                                     </div>
@@ -1341,7 +1501,7 @@
                                     <div class="sh-card-brand">Mato Grosso · Grains &amp; Rice</div>
                                     <div class="sh-card-name">Brazilian Non-GMO Soybeans</div>
                                     <div class="sh-card-price"><span class="price-now">$485.00</span> <small class="text-muted">/ MT</small></div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Brazilian Non-GMO Soybeans"><i class="bi bi-bag"></i> Add to Cart</button>
+                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Brazilian Non-GMO Soybeans" data-price="485.00" data-unit="MT" data-image="{{ asset('img/service-1.jpg') }}" data-origin="Mato Grosso"><i class="bi bi-bag"></i> Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -1356,7 +1516,7 @@
                                     <div class="sh-card-brand">São Paulo · Oil &amp; Sugar</div>
                                     <div class="sh-card-name">Refined Cane Sugar (ICUMSA 45)</div>
                                     <div class="sh-card-price"><span class="price-now">$540.00</span> <small class="text-muted">/ MT</small></div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Refined Cane Sugar (ICUMSA 45)"><i class="bi bi-bag"></i> Add to Cart</button>
+                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Refined Cane Sugar (ICUMSA 45)" data-price="540.00" data-unit="MT" data-image="{{ asset('img/service-2.jpg') }}" data-origin="São Paulo"><i class="bi bi-bag"></i> Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -1370,7 +1530,7 @@
                                     <div class="sh-card-brand">Goiás · Grains &amp; Rice</div>
                                     <div class="sh-card-name">Yellow Corn (Maize Grade 2)</div>
                                     <div class="sh-card-price"><span class="price-now">$245.00</span> <small class="text-muted">/ MT</small></div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Yellow Corn (Maize Grade 2)"><i class="bi bi-bag"></i> Add to Cart</button>
+                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Yellow Corn (Maize Grade 2)" data-price="245.00" data-unit="MT" data-image="{{ asset('img/service-3.jpg') }}" data-origin="Goiás"><i class="bi bi-bag"></i> Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -1384,7 +1544,7 @@
                                     <div class="sh-card-brand">Minas Gerais · Specialty</div>
                                     <div class="sh-card-name">Arabica Green Coffee Beans</div>
                                     <div class="sh-card-price"><span class="price-now">$3,850.00</span> <small class="text-muted">/ MT</small></div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Arabica Green Coffee Beans"><i class="bi bi-bag"></i> Add to Cart</button>
+                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Arabica Green Coffee Beans" data-price="3850.00" data-unit="MT" data-image="{{ asset('img/service-5.jpg') }}" data-origin="Minas Gerais"><i class="bi bi-bag"></i> Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -1934,7 +2094,213 @@
         <i class="bi bi-chevron-up"></i>
     </button>
 
-    <!-- Modals -->
+    <!-- Modals & Drawers -->
+
+    <!-- Agrovia Cart Drawer Backdrop & Offcanvas -->
+    <div id="agroviaCartBackdrop" class="sh-cart-backdrop" onclick="closeCartDrawer()"></div>
+
+    <div id="agroviaCartDrawer" class="sh-cart-offcanvas" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle">
+        <!-- Drawer Header -->
+        <div class="offcanvas-header">
+            <div class="d-flex align-items-center gap-2">
+                <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 1.15rem;">
+                    <i class="bi bi-cart3"></i>
+                </div>
+                <div>
+                    <h5 class="mb-0 fw-bold sh-text-title d-flex align-items-center gap-2" id="cartDrawerTitle" style="font-size: 1.05rem;">
+                        Agro-Commodity Cart
+                        <span class="badge rounded-pill" id="cartDrawerCountBadge" style="background: var(--sh-primary); font-size: 0.7rem; font-weight: 700;">0 lots</span>
+                    </h5>
+                    <small class="text-muted" style="font-size: 0.75rem;">Brazilian Origination &amp; Sample Desk</small>
+                </div>
+            </div>
+            <button type="button" class="btn btn-sm text-secondary p-1" onclick="closeCartDrawer()" aria-label="Close cart" style="font-size: 1.25rem; line-height: 1;">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Body -->
+        <div class="offcanvas-body">
+            <!-- Empty State -->
+            <div id="cartEmptyState" class="text-center py-5 my-auto d-none">
+                <div class="mb-3 text-muted opacity-50" style="font-size: 3.5rem;">
+                    <i class="bi bi-basket3"></i>
+                </div>
+                <h5 class="fw-bold sh-text-title mb-2">Your Sample Cart is Empty</h5>
+                <p class="text-muted small mb-4 px-3">
+                    You have not added any commodity lots yet. Browse our harvest catalog or select physical samples for laboratory analysis.
+                </p>
+                <a href="#products" class="btn btn-sh-primary btn-sm px-4 py-2" onclick="closeCartDrawer()">
+                    <i class="bi bi-grid-3x3-gap me-1"></i> Browse Commodities
+                </a>
+            </div>
+
+            <!-- Populated Cart Content -->
+            <div id="cartPopulatedContent" class="d-flex flex-column flex-grow-1">
+                <!-- Cart Items List -->
+                <div id="cartItemsList" class="sh-cart-items-container">
+                    <!-- Items rendered dynamically by JS -->
+                </div>
+
+                <!-- Quality & Settlement Assurance Card -->
+                <div class="sh-cart-assurance-card mb-3">
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <i class="bi bi-shield-check" style="color: var(--sh-primary); font-size: 1.1rem;"></i>
+                        <strong class="sh-text-title">SGS Assayed &amp; MAPA Phyto Cleared</strong>
+                    </div>
+                    <div class="text-muted" style="font-size: 0.78rem; line-height: 1.4;">
+                        Every lot includes physical assay verification, non-GMO certificates, and export clearance through Brazilian ports under zero-risk bank escrow protection.
+                    </div>
+                </div>
+
+                <!-- Cart Summary Box -->
+                <div class="sh-cart-summary-box mt-auto">
+                    <div class="d-flex justify-content-between align-items-center mb-2 small">
+                        <span class="text-muted">Total Sample Lots:</span>
+                        <strong class="sh-text-title" id="cartSummaryLotCount">0</strong>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2 small">
+                        <span class="text-muted">Loading Ports:</span>
+                        <span class="fw-semibold sh-text-title">Santos &amp; Paranaguá (BR)</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2 small">
+                        <span class="text-muted">Escrow &amp; Assay Protection:</span>
+                        <span class="text-success fw-bold"><i class="bi bi-check-circle me-1"></i>Included</span>
+                    </div>
+                    <hr class="my-2 border-secondary border-opacity-25">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <span class="d-block fw-bold sh-text-title" style="font-size: 0.95rem;">Estimated Total:</span>
+                            <small class="text-muted" style="font-size: 0.72rem;">FOB Santos / Paranaguá</small>
+                        </div>
+                        <span class="fw-bold" style="color: var(--sh-primary); font-size: 1.35rem;" id="cartSummaryTotalVal">$0.00</span>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <button type="button" id="btnOpenCheckout" class="btn btn-sh-primary w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2" style="font-size: 0.95rem;">
+                        <i class="bi bi-lock-fill"></i> Proceed to Trade Checkout
+                    </button>
+
+                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-secondary border-opacity-25">
+                        <button type="button" onclick="clearCart()" class="btn btn-link text-danger text-decoration-none p-0 small" style="font-size: 0.8rem;">
+                            <i class="bi bi-trash3 me-1"></i> Clear Cart
+                        </button>
+                        <a href="#rfq-desk" onclick="closeCartDrawer()" class="small text-decoration-none" style="color: var(--sh-primary); font-size: 0.8rem;">
+                            <i class="bi bi-file-earmark-text me-1"></i> Need 500+ MT? Direct RFQ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agrovia Trade Checkout Modal -->
+    <div class="modal fade" id="agroviaCheckoutModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(120, 162, 47, 0.15); color: var(--sh-primary);">
+                            <i class="bi bi-shield-lock-fill fs-5"></i>
+                        </div>
+                        <div>
+                            <h5 class="modal-title fw-bold sh-text-title mb-0" style="font-size: 1.15rem;">Commodity Dispatch &amp; Trade Checkout</h5>
+                            <small class="text-muted" style="font-size: 0.78rem;">Verified Brazilian Institutional Origination</small>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-4">
+                    <form id="checkoutOrderForm">
+                        <!-- Step 1: Order Items Summary Preview -->
+                        <div class="mb-4 p-3 rounded-3 sh-box-bg" style="border: 1px solid var(--bs-border-color);">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-bold sh-text-title small"><i class="bi bi-list-check text-success me-1"></i> Selected Commodity Lots:</span>
+                                <span class="badge bg-success" id="checkoutItemCountBadge">0 items</span>
+                            </div>
+                            <div id="checkoutItemsList" class="small mb-2" style="max-height: 160px; overflow-y: auto;">
+                                <!-- dynamically rendered items -->
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                                <span class="fw-semibold text-muted small">Total Commercial Value:</span>
+                                <span class="fw-bold fs-5" style="color: var(--sh-primary);" id="checkoutTotalVal">$0.00</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Buyer & Logistics Details -->
+                        <h6 class="fw-bold sh-text-title mb-3 small text-uppercase" style="letter-spacing: 0.5px;">
+                            <i class="bi bi-person-badge text-success me-1"></i> 1. Buyer &amp; Corporate Entity
+                        </h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Representative / Contact Name <span class="text-danger">*</span></label>
+                                <input type="text" name="customer_name" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->name : '' }}" placeholder="e.g. John Doe / Procuring Officer" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Corporate Email (for SGS &amp; Invoice) <span class="text-danger">*</span></label>
+                                <input type="email" name="customer_email" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->email : '' }}" placeholder="buyer@company.com" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Contact Phone / WhatsApp</label>
+                                <input type="text" name="customer_phone" class="form-control sh-input rounded-3" placeholder="+1 (555) 019-2834">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Destination Port / Discharge Facility <span class="text-danger">*</span></label>
+                                <select name="shipping_address" class="form-select sh-input rounded-3" required>
+                                    <option value="Rotterdam Port (NLRTM), Netherlands - CIF">Port of Rotterdam (NLRTM) - CIF</option>
+                                    <option value="Qingdao Port (CNTAO), China - CIF">Port of Qingdao (CNTAO) - CIF</option>
+                                    <option value="Jebel Ali Port (AEJEA), Dubai UAE - CIF">Port of Jebel Ali (AEJEA), Dubai - CIF</option>
+                                    <option value="Santos Export Terminal (BRSSZ), Brazil - FOB" selected>Port of Santos (BRSSZ) - FOB Brazilian Berth</option>
+                                    <option value="Paranaguá Port (BRPNG), Brazil - FOB">Port of Paranaguá (BRPNG) - FOB</option>
+                                    <option value="Air Courier Laboratory Sample Express">Air Courier Laboratory Sample Express (DHL/FedEx)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Settlement Instrument -->
+                        <h6 class="fw-bold sh-text-title mb-3 small text-uppercase" style="letter-spacing: 0.5px;">
+                            <i class="bi bi-credit-card-2-front text-success me-1"></i> 2. Settlement &amp; Escrow Instrument
+                        </h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Payment Instrument</label>
+                                <select name="payment_method" class="form-select sh-input rounded-3">
+                                    <option value="Tier-1 Bank Escrow (LC / Irrevocable Documentary Credit)" selected>Tier-1 Bank Escrow (Irrevocable LC / MT700)</option>
+                                    <option value="Direct Bank Wire (SWIFT T/T against SGS Inspection Certificate)">Direct Bank Wire (SWIFT T/T against SGS Assays)</option>
+                                    <option value="Institutional Digital Settlement (USDT / USDC Escrow)">Digital Asset Escrow (USDT / USDC)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Special Phytosanitary / Assay Instructions</label>
+                                <input type="text" name="notes" class="form-control sh-input rounded-3" placeholder="e.g., Request Non-GMO IP certificate, Moisture < 12%">
+                            </div>
+                        </div>
+
+                        <!-- Assurance Strip -->
+                        <div class="p-3 rounded-3 mb-4 small d-flex flex-wrap gap-3 align-items-center justify-content-between" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.25);">
+                            <div><i class="bi bi-patch-check-fill text-success me-1"></i> 100% Pre-Shipment Assay</div>
+                            <div><i class="bi bi-shield-fill-check text-success me-1"></i> Bank Escrow Protected</div>
+                            <div><i class="bi bi-file-earmark-lock text-success me-1"></i> Official MAPA Export Clearance</div>
+                        </div>
+
+                        <!-- Order Alert message container -->
+                        <div id="checkoutAlertBox" class="alert d-none mb-3 py-2 px-3 small rounded-3"></div>
+
+                        <!-- Form Actions -->
+                        <div class="d-flex gap-2">
+                            <button type="submit" id="btnSubmitOrder" class="btn btn-sh-primary flex-grow-1 py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                <span class="spinner-border spinner-border-sm d-none" id="orderSubmitSpinner" role="status"></span>
+                                <i class="bi bi-check2-circle fs-5" id="orderSubmitIcon"></i>
+                                <span id="orderSubmitText">Confirm &amp; Place Commodity Order</span>
+                            </button>
+                            <button type="button" class="btn btn-sh-outline px-4" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Quick View Modal -->
     <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
@@ -1948,8 +2314,11 @@
                     <div class="rounded-3 overflow-hidden mb-3" style="height: 200px;">
                         <img id="qvModalImg" src="" alt="" class="w-100 h-100 object-fit-cover">
                     </div>
-                    <h4 class="fw-bold sh-text-title mb-1" id="qvModalName"></h4>
-                    <p class="fs-5 fw-bold mb-3" style="color: var(--sh-primary);" id="qvModalPrice"></p>
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <h4 class="fw-bold sh-text-title mb-0" id="qvModalName"></h4>
+                        <span class="badge rounded-pill" id="qvModalOrigin" style="background: rgba(120, 162, 47, 0.2); color: var(--sh-primary); border: 1px solid rgba(120, 162, 47, 0.3);">Brazil</span>
+                    </div>
+                    <p class="fs-5 fw-bold mb-3" style="color: var(--sh-primary);" id="qvModalPrice" data-price="485.00" data-unit="MT"></p>
                     <div class="p-3 rounded-3 mb-3 small sh-box-bg" style="border: 1px solid var(--bs-border-color);">
                         <div class="d-flex justify-content-between mb-1">
                             <span class="sh-text-muted">SGS Assay:</span>
@@ -2023,11 +2392,33 @@
 
             // Cart State & Notification
             var cart = [];
-            try { cart = JSON.parse(localStorage.getItem('agroviaCart') || '[]'); } catch (e) { cart = []; }
+            try {
+                cart = JSON.parse(localStorage.getItem('agroviaCart') || '[]');
+                // Ensure items have proper structure
+                cart = cart.map(function (item) {
+                    return {
+                        name: item.name || 'Commodity Lot',
+                        price: parseFloat(item.price) || 485.00,
+                        unit: item.unit || 'MT',
+                        image: item.image || '{{ asset('img/service-1.jpg') }}',
+                        origin: item.origin || 'Brazil',
+                        qty: parseInt(item.qty, 10) || 1
+                    };
+                });
+            } catch (e) {
+                cart = [];
+            }
+
+            function saveCart() {
+                try {
+                    localStorage.setItem('agroviaCart', JSON.stringify(cart));
+                } catch (e) {}
+            }
 
             function updateCartCount() {
-                var total = cart.reduce(function (sum, item) { return sum + item.qty; }, 0);
+                var total = cart.reduce(function (sum, item) { return sum + (parseInt(item.qty, 10) || 1); }, 0);
                 $('#cartCountBadge, .mobileCartBadge').text(total);
+                $('#cartDrawerCountBadge').text(total + (total === 1 ? ' lot' : ' lots'));
                 return total;
             }
             updateCartCount();
@@ -2036,7 +2427,7 @@
                 var toast = document.getElementById('sh-toast');
                 if (!toast) return;
                 document.getElementById('shToastMsg').textContent = message;
-                document.getElementById('shToastCount').textContent = total + ' item(s) in cart';
+                document.getElementById('shToastCount').textContent = total + ' lot(s) in cart';
                 toast.classList.remove('sh-toast-hide');
                 toast.classList.add('sh-toast-show');
                 setTimeout(function () {
@@ -2045,27 +2436,180 @@
                 }, 3000);
             }
 
+            // Agrovia Cart Drawer Functions
+            function openCartDrawer() {
+                renderCartDrawer();
+                var backdrop = document.getElementById('agroviaCartBackdrop');
+                var drawer = document.getElementById('agroviaCartDrawer');
+                if (backdrop) backdrop.classList.add('show');
+                if (drawer) drawer.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+            window.openCartDrawer = openCartDrawer;
+
+            function closeCartDrawer() {
+                var backdrop = document.getElementById('agroviaCartBackdrop');
+                var drawer = document.getElementById('agroviaCartDrawer');
+                if (backdrop) backdrop.classList.remove('show');
+                if (drawer) drawer.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+            window.closeCartDrawer = closeCartDrawer;
+
+            function renderCartDrawer() {
+                updateCartCount();
+                var $empty = $('#cartEmptyState');
+                var $pop = $('#cartPopulatedContent');
+                var $list = $('#cartItemsList');
+
+                if (cart.length === 0) {
+                    $empty.removeClass('d-none');
+                    $pop.addClass('d-none');
+                    $('#cartSummaryTotalVal').text('$0.00');
+                    $('#cartSummaryLotCount').text('0');
+                    return;
+                }
+
+                $empty.addClass('d-none');
+                $pop.removeClass('d-none');
+                $list.empty();
+
+                var grandTotal = 0;
+                var totalLots = 0;
+
+                cart.forEach(function (item, index) {
+                    var price = parseFloat(item.price) || 0;
+                    var qty = parseInt(item.qty, 10) || 1;
+                    var lineTotal = price * qty;
+                    grandTotal += lineTotal;
+                    totalLots += qty;
+
+                    var itemHtml = `
+                        <div class="sh-cart-item">
+                            <img src="${item.image || '{{ asset('img/service-1.jpg') }}'}" alt="${item.name}" class="sh-cart-thumb">
+                            <div class="flex-grow-1 min-w-0">
+                                <div class="d-flex justify-content-between align-items-start gap-1">
+                                    <h6 class="mb-0 fw-bold sh-text-title text-truncate" style="font-size: 0.88rem;" title="${item.name}">${item.name}</h6>
+                                    <button type="button" class="btn btn-link text-danger p-0 border-0" onclick="removeCartItem(${index})" title="Remove item" style="font-size: 0.9rem; line-height: 1;">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </div>
+                                <div class="d-flex align-items-center gap-1 my-1">
+                                    <span class="badge" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.68rem; padding: 2px 6px;">
+                                        ${item.origin || 'Brazil'}
+                                    </span>
+                                    <span class="text-muted" style="font-size: 0.72rem;">· SGS Assayed</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <div class="sh-cart-qty-ctrl">
+                                        <button type="button" class="sh-cart-qty-btn" onclick="changeItemQty(${index}, -1)" title="Decrease">-</button>
+                                        <span class="sh-cart-qty-val">${qty}</span>
+                                        <button type="button" class="sh-cart-qty-btn" onclick="changeItemQty(${index}, 1)" title="Increase">+</button>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="fw-bold" style="color: var(--sh-primary); font-size: 0.95rem;">$${lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                        <small class="text-muted d-block" style="font-size: 0.68rem;">($${price.toFixed(2)}/${item.unit || 'MT'})</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    $list.append(itemHtml);
+                });
+
+                $('#cartSummaryLotCount').text(totalLots);
+                $('#cartSummaryTotalVal').text('$' + grandTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            }
+            window.renderCartDrawer = renderCartDrawer;
+
+            function changeItemQty(index, delta) {
+                if (!cart[index]) return;
+                cart[index].qty = (parseInt(cart[index].qty, 10) || 1) + delta;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+                saveCart();
+                renderCartDrawer();
+                triggerToast('Cart updated', updateCartCount());
+            }
+            window.changeItemQty = changeItemQty;
+
+            function removeCartItem(index) {
+                if (!cart[index]) return;
+                var removedName = cart[index].name;
+                cart.splice(index, 1);
+                saveCart();
+                renderCartDrawer();
+                triggerToast(removedName + ' removed from cart', updateCartCount());
+            }
+            window.removeCartItem = removeCartItem;
+
+            function clearCart() {
+                if (cart.length === 0) return;
+                if (confirm('Are you sure you want to clear your commodity sample cart?')) {
+                    cart = [];
+                    saveCart();
+                    renderCartDrawer();
+                    triggerToast('Cart cleared', 0);
+                }
+            }
+            window.clearCart = clearCart;
+
             // Add to Cart Buttons
             var currentQvProduct = '';
-            $(document).on('click', '.btn-add-cart', function () {
+            var currentQvPrice = 485.00;
+            var currentQvUnit = 'MT';
+            var currentQvImage = '{{ asset('img/service-1.jpg') }}';
+            var currentQvOrigin = 'Brazil';
+
+            $(document).on('click', '.btn-add-cart', function (e) {
+                e.preventDefault();
                 var prodName = $(this).attr('data-name') || 'Agricultural Commodity';
+                var prodPrice = parseFloat($(this).attr('data-price')) || 485.00;
+                var prodUnit = $(this).attr('data-unit') || 'MT';
+                var prodImage = $(this).attr('data-image') || '{{ asset('img/service-1.jpg') }}';
+                var prodOrigin = $(this).attr('data-origin') || 'Brazil';
+
                 var existing = cart.find(function (i) { return i.name === prodName; });
-                if (existing) { existing.qty += 1; } else { cart.push({ name: prodName, qty: 1 }); }
-                try { localStorage.setItem('agroviaCart', JSON.stringify(cart)); } catch (e) {}
+                if (existing) {
+                    existing.qty = (parseInt(existing.qty, 10) || 1) + 1;
+                } else {
+                    cart.push({
+                        name: prodName,
+                        price: prodPrice,
+                        unit: prodUnit,
+                        image: prodImage,
+                        origin: prodOrigin,
+                        qty: 1
+                    });
+                }
+                saveCart();
                 var total = updateCartCount();
                 triggerToast(prodName + ' added to cart!', total);
+                openCartDrawer();
             });
 
             // Quick View Trigger
             $(document).on('click', '.quick-view-trigger', function () {
-                currentQvProduct = $(this).attr('data-product');
-                var price = $(this).attr('data-price');
-                var img = $(this).attr('data-image');
+                currentQvProduct = $(this).attr('data-product') || 'Brazilian Agro Commodity';
+                var displayPrice = $(this).attr('data-price') || '$485.00 / MT';
+                currentQvImage = $(this).attr('data-image') || '{{ asset('img/service-1.jpg') }}';
+                currentQvOrigin = $(this).attr('data-origin') || 'Brazil';
+                currentQvUnit = $(this).attr('data-unit') || 'MT';
+
+                var rawPrice = $(this).attr('data-rawprice');
+                if (rawPrice) {
+                    currentQvPrice = parseFloat(rawPrice) || 485.00;
+                } else {
+                    var match = displayPrice.replace(/[^0-9.]/g, '');
+                    currentQvPrice = parseFloat(match) || 485.00;
+                }
 
                 $('#qvModalTitle').text(currentQvProduct);
                 $('#qvModalName').text(currentQvProduct);
-                $('#qvModalPrice').text(price);
-                $('#qvModalImg').attr('src', img);
+                $('#qvModalPrice').text(displayPrice).attr('data-price', currentQvPrice).attr('data-unit', currentQvUnit);
+                $('#qvModalOrigin').text(currentQvOrigin);
+                $('#qvModalImg').attr('src', currentQvImage);
 
                 var modal = new bootstrap.Modal(document.getElementById('quickViewModal'));
                 modal.show();
@@ -2074,16 +2618,153 @@
             $('#qvAddToCartBtn').on('click', function () {
                 if (!currentQvProduct) return;
                 var existing = cart.find(function (i) { return i.name === currentQvProduct; });
-                if (existing) { existing.qty += 1; } else { cart.push({ name: currentQvProduct, qty: 1 }); }
-                try { localStorage.setItem('agroviaCart', JSON.stringify(cart)); } catch (e) {}
+                if (existing) {
+                    existing.qty = (parseInt(existing.qty, 10) || 1) + 1;
+                } else {
+                    cart.push({
+                        name: currentQvProduct,
+                        price: currentQvPrice,
+                        unit: currentQvUnit,
+                        image: currentQvImage,
+                        origin: currentQvOrigin,
+                        qty: 1
+                    });
+                }
+                saveCart();
                 var total = updateCartCount();
                 triggerToast(currentQvProduct + ' added to cart!', total);
-                bootstrap.Modal.getInstance(document.getElementById('quickViewModal')).hide();
+                var qvEl = document.getElementById('quickViewModal');
+                var qvInstance = bootstrap.Modal.getInstance(qvEl);
+                if (qvInstance) { qvInstance.hide(); }
+                openCartDrawer();
             });
 
-            $('#cartTriggerBtn, .mobile-cart-trigger').on('click', function () {
-                var total = updateCartCount();
-                triggerToast('You have ' + total + ' item(s) in your cart.', total);
+            $('#cartTriggerBtn, .mobile-cart-trigger').on('click', function (e) {
+                e.preventDefault();
+                openCartDrawer();
+            });
+
+            // Open Checkout Modal from Cart Drawer
+            $('#btnOpenCheckout').on('click', function () {
+                if (cart.length === 0) {
+                    alert('Your sample cart is currently empty. Please select commodity lots first.');
+                    return;
+                }
+                closeCartDrawer();
+
+                var $chkList = $('#checkoutItemsList');
+                $chkList.empty();
+                var totalVal = 0;
+                var lotCount = 0;
+
+                cart.forEach(function (item) {
+                    var price = parseFloat(item.price) || 0;
+                    var qty = parseInt(item.qty, 10) || 1;
+                    var sub = price * qty;
+                    totalVal += sub;
+                    lotCount += qty;
+
+                    $chkList.append(`
+                        <div class="d-flex justify-content-between align-items-center py-1 border-bottom border-secondary border-opacity-10">
+                            <div>
+                                <strong class="sh-text-title">${item.name}</strong>
+                                <span class="text-muted ms-1">(${qty} &times; $${price.toFixed(2)}/${item.unit || 'MT'})</span>
+                            </div>
+                            <span class="fw-bold" style="color: var(--sh-primary);">$${sub.toFixed(2)}</span>
+                        </div>
+                    `);
+                });
+
+                $('#checkoutItemCountBadge').text(lotCount + (lotCount === 1 ? ' item' : ' items'));
+                $('#checkoutTotalVal').text('$' + totalVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                $('#checkoutAlertBox').addClass('d-none');
+
+                var checkoutModal = new bootstrap.Modal(document.getElementById('agroviaCheckoutModal'));
+                checkoutModal.show();
+            });
+
+            // Submit Checkout Order via AJAX
+            $('#checkoutOrderForm').on('submit', function (e) {
+                e.preventDefault();
+                if (cart.length === 0) {
+                    alert('Your cart is empty.');
+                    return;
+                }
+
+                var $btn = $('#btnSubmitOrder');
+                var $spinner = $('#orderSubmitSpinner');
+                var $icon = $('#orderSubmitIcon');
+                var $text = $('#orderSubmitText');
+                var $alert = $('#checkoutAlertBox');
+
+                $btn.prop('disabled', true);
+                $spinner.removeClass('d-none');
+                $icon.addClass('d-none');
+                $text.text('Transmitting Order to Brazilian Export Desk...');
+
+                var formData = {
+                    customer_name: $('input[name="customer_name"]').val(),
+                    customer_email: $('input[name="customer_email"]').val(),
+                    customer_phone: $('input[name="customer_phone"]').val(),
+                    shipping_address: $('select[name="shipping_address"]').val(),
+                    payment_method: $('select[name="payment_method"]').val(),
+                    notes: $('input[name="notes"]').val(),
+                    items: cart.map(function (item) {
+                        return {
+                            name: item.name,
+                            qty: parseInt(item.qty, 10) || 1,
+                            price: parseFloat(item.price) || 0
+                        };
+                    })
+                };
+
+                $.ajax({
+                    url: '{{ route('checkout.store') }}',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'Accept': 'application/json'
+                    },
+                    success: function (res) {
+                        $alert.removeClass('d-none alert-danger').addClass('alert-success').html(`
+                            <h6 class="fw-bold mb-1"><i class="bi bi-check-circle-fill me-1"></i> Order Recorded Successfully!</h6>
+                            <p class="mb-1">Order Ref: <strong>${res.order_number}</strong></p>
+                            <p class="mb-0 small text-muted">${res.message}</p>
+                        `);
+
+                        // Clear cart
+                        cart = [];
+                        saveCart();
+                        updateCartCount();
+                        renderCartDrawer();
+
+                        setTimeout(function () {
+                            var chkModalEl = document.getElementById('agroviaCheckoutModal');
+                            var chkInstance = bootstrap.Modal.getInstance(chkModalEl);
+                            if (chkInstance) {
+                                chkInstance.hide();
+                            }
+                            $btn.prop('disabled', false);
+                            $spinner.addClass('d-none');
+                            $icon.removeClass('d-none');
+                            $text.text('Confirm & Place Commodity Order');
+                            triggerToast('Order ' + res.order_number + ' Placed!', 0);
+                        }, 2500);
+                    },
+                    error: function (xhr) {
+                        var errMsg = 'Unable to complete checkout. Please review form fields or contact our trade desk directly.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errMsg = xhr.responseJSON.message;
+                        }
+                        $alert.removeClass('d-none alert-success').addClass('alert-danger').text(errMsg);
+                        $btn.prop('disabled', false);
+                        $spinner.addClass('d-none');
+                        $icon.removeClass('d-none');
+                        $text.text('Confirm & Place Commodity Order');
+                    }
+                });
             });
 
             // Category Filter Buttons

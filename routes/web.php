@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Models\Category;
 use App\Models\Inquiry;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -87,6 +89,59 @@ Route::post('/inquiries', function (Request $request) {
 
     return back()->with('status', 'Inquiry submitted successfully.');
 })->name('inquiries.store');
+
+// Public Commodity Cart Checkout & Order Placement
+Route::post('/checkout', function (Request $request) {
+    $validated = $request->validate([
+        'customer_name' => 'required|string|max:255',
+        'customer_email' => 'required|email|max:255',
+        'customer_phone' => 'nullable|string|max:50',
+        'shipping_address' => 'nullable|string|max:500',
+        'payment_method' => 'nullable|string|max:100',
+        'notes' => 'nullable|string',
+        'items' => 'required|array|min:1',
+        'items.*.name' => 'required|string|max:255',
+        'items.*.qty' => 'required|integer|min:1',
+        'items.*.price' => 'nullable|numeric|min:0',
+    ]);
+
+    $total = 0;
+    foreach ($validated['items'] as $item) {
+        $price = (float) ($item['price'] ?? 0);
+        $total += $price * $item['qty'];
+    }
+
+    $order = Order::create([
+        'order_number' => 'MATRO-ORD-'.strtoupper(Str::random(6)),
+        'user_id' => auth()->id(),
+        'customer_name' => $validated['customer_name'],
+        'customer_email' => $validated['customer_email'],
+        'customer_phone' => $validated['customer_phone'] ?? null,
+        'shipping_address' => $validated['shipping_address'] ?? 'Santos / Paranaguá Port Export Dispatch',
+        'total_amount' => $total,
+        'status' => 'pending',
+        'payment_method' => $validated['payment_method'] ?? 'Escrow / Wire Transfer',
+        'notes' => $validated['notes'] ?? 'Order placed via online commodity cart.',
+    ]);
+
+    foreach ($validated['items'] as $item) {
+        $price = (float) ($item['price'] ?? 0);
+        OrderItem::create([
+            'order_id' => $order->id,
+            'product_name' => $item['name'],
+            'price' => $price,
+            'quantity' => $item['qty'],
+            'subtotal' => $price * $item['qty'],
+        ]);
+    }
+
+    return response()->json([
+        'success' => true,
+        'order_number' => $order->order_number,
+        'total' => number_format($total, 2),
+        'message' => 'Your commodity sample order '.$order->order_number.' has been recorded. Our trade desk will contact you with shipping documentation.',
+    ]);
+})->name('checkout.store');
 
 /*
 |--------------------------------------------------------------------------
