@@ -15,9 +15,19 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertSee('Login');
-        $response->assertSee('Register');
-        $response->assertDontSee('Login | Signup Animation');
+    }
+
+    public function test_login_and_register_pages_render_design_one_portal(): void
+    {
+        $loginPage = $this->get('/login');
+        $loginPage->assertStatus(200);
+        $loginPage->assertSee('Login');
+        $loginPage->assertSee('Register');
+        $loginPage->assertDontSee('Login | Signup Animation');
+
+        $registerPage = $this->get('/register');
+        $registerPage->assertStatus(200);
+        $registerPage->assertSee('container active', false);
     }
 
     public function test_users_can_register_and_sign_in(): void

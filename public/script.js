@@ -320,6 +320,12 @@ loginForm.addEventListener('submit', async (e) => {
         lockoutNotice.style.display = 'none';
         showToast(data.message || 'Signed in successfully.', 'success');
         displayActiveSession(data.username || username);
+
+        if (data.redirect_url) {
+            setTimeout(() => {
+                window.location.href = data.redirect_url;
+            }, 900);
+        }
     } catch {
         showToast('Unable to reach server. Please try again.', 'error');
     } finally {
@@ -353,4 +359,3 @@ btnLogout.addEventListener('click', async () => {
     clearInputs();
     showToast('Signed out.', 'info');
 });
-

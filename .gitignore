@@ -25,3 +25,15 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Design references & archives
+*.zip
+/bootstrap-5.3.8-dist/
+/public/Agrovia.jpg
+
+# Agent and tool config
+/.agents/
+/.claude/
+/.mcp.json
+/boost.json
+/opencode.json

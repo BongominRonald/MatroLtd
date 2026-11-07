@@ -16,12 +16,24 @@ use Illuminate\View\View;
 class AuthController extends Controller
 {
     /**
-     * Display the authentication view.
+     * Display the authentication portal in login mode.
      */
-    public function show(): View
+    public function showLogin(): View
     {
         return view('home', [
             'authenticatedUser' => Auth::user(),
+            'initialMode' => 'login',
+        ]);
+    }
+
+    /**
+     * Display the authentication portal in register mode.
+     */
+    public function showRegister(): View
+    {
+        return view('home', [
+            'authenticatedUser' => Auth::user(),
+            'initialMode' => 'register',
         ]);
     }
 
@@ -48,6 +60,7 @@ class AuthController extends Controller
             'name' => $validated['username'],
             'email' => Str::lower($validated['email']),
             'password' => $validated['password'],
+            'role' => 'customer',
         ]);
 
         if ($request->expectsJson()) {
@@ -58,7 +71,7 @@ class AuthController extends Controller
             ], 201);
         }
 
-        return redirect()->route('home')
+        return redirect()->route('login')
             ->with('toast_success', 'Account created successfully. Please sign in.')
             ->with('registered_username', $user->name);
     }
@@ -127,15 +140,18 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
+        $redirectUrl = $user->isAdmin() ? route('admin.dashboard') : route('home');
+
         if ($request->expectsJson()) {
             return response()->json([
                 'status' => 'success',
                 'message' => 'Signed in successfully.',
                 'username' => $user->name,
+                'redirect_url' => $redirectUrl,
             ]);
         }
 
-        return redirect()->route('home')->with('toast_success', 'Signed in successfully.');
+        return redirect()->to($redirectUrl)->with('toast_success', 'Signed in successfully.');
     }
 
     /**
@@ -151,6 +167,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Signed out.',
+                'redirect_url' => route('home'),
             ]);
         }
 

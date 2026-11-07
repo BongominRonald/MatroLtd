@@ -23,7 +23,7 @@
     </div>
 
     <div class="wrapper">
-        <div class="container" id="container">
+        <div class="container {{ ($initialMode ?? 'login') === 'register' ? 'active' : '' }}" id="container">
             <!-- Curved Animated Background Shapes -->
             <div class="curved-shape"></div>
             <div class="curved-shape2"></div>
