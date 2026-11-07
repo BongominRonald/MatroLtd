@@ -49,7 +49,9 @@
             --sh-gold: #f59e0b;             /* Gold / Yellow Accent */
             --sh-black: #14141a;            /* Fume-style Deep Charcoal/Black */
             --sh-surface: #1b1b24;          /* Surface Card Background */
+            --sh-surface-alt: #161620;      /* Slightly darker section background */
             --sh-border: rgba(255, 255, 255, 0.12);
+            --sh-input-bg: #161620;
 
             --bs-body-bg: #14141a;
             --bs-body-color: #ececf1;
@@ -62,14 +64,70 @@
 
         html[data-theme="light"] {
             --sh-surface: #ffffff;
+            --sh-surface-alt: #f1f2f6;
             --sh-border: rgba(20, 20, 26, 0.12);
+            --sh-input-bg: #ffffff;
 
             --bs-body-bg: #f7f7f9;
             --bs-body-color: #17171c;
-            --bs-secondary-color: rgba(35, 35, 44, 0.65);
+            --bs-secondary-color: rgba(35, 35, 44, 0.72);
             --bs-border-color: rgba(20, 20, 26, 0.14);
             --bs-emphasis-color: #14141a;
             --bs-link-color: #5e8024;
+        }
+
+        /* Universal Theme Visibility Helpers */
+        .sh-text-title { color: var(--bs-emphasis-color) !important; }
+        .sh-text-body { color: var(--bs-body-color) !important; }
+        .sh-text-muted { color: var(--bs-secondary-color) !important; }
+        .sh-card-bg { background-color: var(--sh-surface) !important; border-color: var(--bs-border-color) !important; }
+        .sh-box-bg { background-color: var(--sh-surface-alt) !important; border-color: var(--bs-border-color) !important; }
+
+        /* Universal Dropdowns & Filter Buttons */
+        .dropdown-menu {
+            background-color: var(--sh-surface) !important;
+            border: 1px solid var(--bs-border-color) !important;
+        }
+        .dropdown-item {
+            color: var(--bs-body-color) !important;
+        }
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: rgba(120, 162, 47, 0.15) !important;
+            color: var(--sh-primary) !important;
+        }
+        .agro-filter-btn {
+            border-color: var(--bs-border-color) !important;
+            color: var(--bs-body-color) !important;
+            background: transparent;
+            transition: all .15s ease;
+        }
+        .agro-filter-btn:hover,
+        .agro-filter-btn.active {
+            background-color: var(--sh-primary) !important;
+            border-color: var(--sh-primary) !important;
+            color: #ffffff !important;
+        }
+        .sh-input {
+            background-color: var(--sh-input-bg) !important;
+            color: var(--bs-body-color) !important;
+            border: 1px solid var(--bs-border-color) !important;
+        }
+        .sh-input:focus {
+            background-color: var(--sh-input-bg) !important;
+            color: var(--bs-body-color) !important;
+            border-color: var(--sh-primary) !important;
+            box-shadow: 0 0 0 0.25rem rgba(120, 162, 47, 0.25) !important;
+        }
+        .sh-input::placeholder {
+            color: var(--bs-secondary-color) !important;
+            opacity: 0.75;
+        }
+        .sh-input option {
+            background-color: var(--sh-surface);
+            color: var(--bs-body-color);
+        }
+        .form-label {
+            color: var(--bs-emphasis-color) !important;
         }
 
         /* ===== Typography (Arovia / Matro Font Family) ===== */
@@ -85,15 +143,17 @@
         .sh-title, .navbar-brand, .sh-brand-title {
             font-family: 'Comic Relief', 'Open Sans', system-ui, sans-serif;
             font-weight: 700;
+            color: var(--bs-emphasis-color);
         }
 
         /* ===== Navbar (Straightline Horizontal Layout) ===== */
         .sh-navbar {
-            background: var(--sh-black);
-            border-bottom: 1px solid var(--sh-border);
+            background: var(--sh-surface);
+            border-bottom: 1px solid var(--bs-border-color);
             z-index: 1030;
             padding-top: 0.65rem !important;
             padding-bottom: 0.65rem !important;
+            transition: background-color .25s ease, border-color .25s ease;
         }
         @media (min-width: 992px) {
             .sh-nav-straightline {
@@ -110,7 +170,7 @@
             }
         }
         .sh-navbar .nav-link {
-            color: rgba(255, 255, 255, 0.82);
+            color: var(--bs-body-color);
             font-weight: 600;
             font-size: 0.88rem;
             padding: 0.4rem 0.55rem !important;
@@ -124,11 +184,11 @@
         }
         .sh-nav-dropdown .dropdown-menu {
             background: var(--sh-surface);
-            border: 1px solid var(--sh-border);
+            border: 1px solid var(--bs-border-color);
             border-radius: 10px;
             padding: 0.5rem 0;
             min-width: 220px;
-            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
         }
         .sh-nav-dropdown .dropdown-header {
             color: var(--sh-primary);
@@ -138,7 +198,7 @@
             padding: 0.4rem 1rem;
         }
         .sh-nav-dropdown .dropdown-item {
-            color: rgba(255, 255, 255, 0.82);
+            color: var(--bs-body-color);
             font-size: 0.86rem;
             padding: 0.45rem 1rem;
             transition: all .15s ease;
@@ -177,7 +237,7 @@
 
         .sh-cart-icon {
             position: relative;
-            color: #fff;
+            color: var(--bs-emphasis-color);
             font-size: 1.35rem;
             display: inline-flex;
             align-items: center;
@@ -185,6 +245,7 @@
             text-decoration: none;
             width: 38px;
             height: 38px;
+            transition: color .2s ease;
         }
         .sh-cart-icon:hover {
             color: var(--sh-primary);
@@ -206,19 +267,23 @@
             padding: 0 4px;
         }
 
+        .sh-icon-btn,
         .sh-theme-toggle {
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--bs-border-color);
             background: transparent;
-            color: #fff;
+            color: var(--bs-emphasis-color);
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-size: .95rem;
+            cursor: pointer;
             transition: all .2s ease;
+            text-decoration: none;
         }
+        .sh-icon-btn:hover,
         .sh-theme-toggle:hover {
             color: var(--sh-primary);
             border-color: var(--sh-primary);
@@ -229,7 +294,7 @@
             width: 40px;
             height: 36px;
             padding: 0;
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            border: 1px solid var(--bs-border-color);
             border-radius: 8px;
             background: transparent;
             display: inline-flex;
@@ -242,7 +307,7 @@
             display: block;
             width: 20px;
             height: 1.5px;
-            background: #fff;
+            background: var(--bs-emphasis-color);
             transition: transform .25s ease, opacity .2s ease;
         }
         .sh-toggler[aria-expanded="true"] .bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
@@ -295,6 +360,67 @@
             background: var(--bs-emphasis-color);
             color: var(--bs-body-bg);
             border-color: var(--bs-emphasis-color);
+        }
+
+        html[data-theme="light"] .btn-sh-outline-white {
+            color: var(--bs-emphasis-color);
+            border-color: var(--bs-border-color);
+            background: transparent;
+        }
+        html[data-theme="light"] .btn-sh-outline-white:hover {
+            background: var(--sh-primary);
+            border-color: var(--sh-primary);
+            color: #fff;
+        }
+
+        /* Hero buttons must always be white on the dark image background */
+        .sh-hero .btn-sh-outline-white,
+        html[data-theme="light"] .sh-hero .btn-sh-outline-white {
+            color: #ffffff !important;
+            border: 2px solid rgba(255, 255, 255, 0.45) !important;
+            background: rgba(255, 255, 255, 0.08) !important;
+        }
+        .sh-hero .btn-sh-outline-white:hover,
+        html[data-theme="light"] .sh-hero .btn-sh-outline-white:hover {
+            background: var(--sh-primary) !important;
+            border-color: var(--sh-primary) !important;
+            color: #ffffff !important;
+        }
+
+        .btn-close {
+            transition: filter .2s ease;
+        }
+        html[data-theme="dark"] .btn-close,
+        [data-theme="dark"] .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+        html[data-theme="light"] .btn-close,
+        [data-theme="light"] .btn-close {
+            filter: none;
+        }
+
+        /* ===== Accordion Theme Rules ===== */
+        .sh-accordion .accordion-item {
+            background-color: var(--sh-surface) !important;
+            border: 1px solid var(--bs-border-color) !important;
+        }
+        .sh-accordion .accordion-button {
+            background-color: var(--sh-surface) !important;
+            color: var(--bs-emphasis-color) !important;
+        }
+        .sh-accordion .accordion-button:not(.collapsed) {
+            background-color: rgba(120, 162, 47, 0.12) !important;
+            color: var(--sh-primary) !important;
+        }
+        .sh-accordion .accordion-body {
+            background-color: var(--sh-surface) !important;
+            color: var(--bs-secondary-color) !important;
+        }
+        html[data-theme="dark"] .sh-accordion .accordion-button::after {
+            filter: invert(1) grayscale(100%);
+        }
+        html[data-theme="light"] .sh-accordion .accordion-button::after {
+            filter: none;
         }
 
         /* ===== Hero Carousel ===== */
@@ -622,44 +748,49 @@
 
         /* ===== Footer (Horizontal Layout Across All Elements) ===== */
         .sh-footer {
-            background: var(--sh-black);
-            color: rgba(255, 255, 255, 0.68);
-            border-top: 1px solid var(--bs-border-color);
+            background: #111116 !important;
+            color: rgba(255, 255, 255, 0.72) !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
         }
-        .sh-footer h6 {
-            color: #fff;
+        .sh-footer h6,
+        .sh-footer .sh-footer-col h6,
+        .sh-footer .sh-footer-col-brand h6,
+        .sh-footer .sh-footer-col-contact h6 {
+            color: #ffffff !important;
             font-weight: 700;
             font-size: 0.95rem;
             margin-bottom: 1rem;
             letter-spacing: 0.5px;
         }
         .sh-footer a {
-            color: rgba(255, 255, 255, 0.65);
+            color: rgba(255, 255, 255, 0.7) !important;
             text-decoration: none;
             transition: color .2s ease;
         }
         .sh-footer a:hover {
-            color: var(--sh-primary);
+            color: var(--sh-primary) !important;
         }
         .sh-footer .social-icon {
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            background: rgba(255, 255, 255, 0.05);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
+            color: #ffffff !important;
             margin-right: .5rem;
             transition: all .2s ease;
         }
         .sh-footer .social-icon:hover {
-            background: var(--sh-primary);
-            border-color: var(--sh-primary);
-            color: #fff;
+            background: var(--sh-primary) !important;
+            border-color: var(--sh-primary) !important;
+            color: #ffffff !important;
         }
         .sh-footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: rgba(255, 255, 255, 0.6) !important;
         }
 
         .sh-footer-horizontal-wrap {
@@ -753,8 +884,18 @@
             position: relative;
             transition: color .18s ease;
         }
-        .sh-tabbar > a i { font-size: 1.25rem; }
         .sh-tabbar > a.active, .sh-tabbar > a:hover { color: var(--sh-primary); }
+        html[data-theme="light"] .sh-tabbar {
+            background: rgba(255, 255, 255, 0.98);
+            border-top: 1px solid rgba(20, 20, 26, 0.12);
+        }
+        html[data-theme="light"] .sh-tabbar > a {
+            color: rgba(20, 20, 26, 0.68);
+        }
+        html[data-theme="light"] .sh-tabbar > a.active,
+        html[data-theme="light"] .sh-tabbar > a:hover {
+            color: var(--sh-primary);
+        }
         .sh-tabbar-badge {
             position: absolute;
             top: -2px;
@@ -897,12 +1038,12 @@
                 <!-- Navbar Actions (Theme / Cart / Search / Auth) -->
                 <div class="sh-nav-actions d-flex align-items-center gap-2 gap-xl-3 ms-lg-auto mt-3 mt-lg-0">
                     <!-- Theme Toggle -->
-                    <button type="button" class="sh-theme-toggle" aria-label="Toggle dark / light theme" title="Toggle Theme">
+                    <button type="button" class="sh-icon-btn sh-theme-toggle" id="themeToggleBtn" aria-label="Toggle dark / light theme" title="Toggle Theme">
                         <i class="bi bi-moon-stars"></i>
                     </button>
 
                     <!-- Search Trigger Modal -->
-                    <button type="button" class="sh-theme-toggle" data-bs-toggle="modal" data-bs-target="#searchModal" title="Search Products">
+                    <button type="button" class="sh-icon-btn" data-bs-toggle="modal" data-bs-target="#searchModal" title="Search Products">
                         <i class="bi bi-search"></i>
                     </button>
 
@@ -918,9 +1059,9 @@
                             <button class="btn btn-sh-primary btn-sm dropdown-toggle d-inline-flex align-items-center gap-1" data-bs-toggle="dropdown">
                                 <i class="bi bi-person"></i> {{ Str::limit(auth()->user()->name, 12) }}
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="background: var(--sh-surface); border: 1px solid var(--bs-border-color);">
                                 <li class="px-3 py-2 border-bottom small text-muted">
-                                    Signed in as <strong class="d-block text-white">{{ auth()->user()->email }}</strong>
+                                    Signed in as <strong class="d-block sh-text-title">{{ auth()->user()->email }}</strong>
                                 </li>
                                 @if (auth()->user()->isAdmin())
                                     <li>
@@ -1048,11 +1189,11 @@
         </section>
 
         <!-- 3. SEARCH BAR STRIP (Under Hero, exact fume-main layout) -->
-        <section class="py-4" style="background: var(--sh-black); border-bottom: 1px solid var(--sh-border);">
+        <section class="py-4" style="background: var(--sh-surface-alt); border-bottom: 1px solid var(--bs-border-color);">
             <div class="container">
                 <form action="#products" method="GET" class="mx-auto" style="max-width: 620px;" onsubmit="event.preventDefault(); var q = $('#quickSearchInput').val().toLowerCase(); $('.agro-filter-btn[data-filter=\'all\']').click(); $('.product-item').each(function(){ var t = $(this).text().toLowerCase(); $(this).toggle(t.indexOf(q) !== -1); }); $('html, body').animate({scrollTop: $('#products').offset().top - 80}, 600);">
                     <div class="input-group">
-                        <input type="text" id="quickSearchInput" class="form-control form-control-lg" placeholder="Search Brazilian commodities, grades, harvest basins..." style="border: none; border-radius: 8px 0 0 8px; font-size: 1rem; background: var(--sh-surface); color: var(--bs-body-color);">
+                        <input type="text" id="quickSearchInput" class="form-control form-control-lg sh-input" placeholder="Search Brazilian commodities, grades, harvest basins..." style="border-radius: 8px 0 0 8px; font-size: 1rem;">
                         <button type="submit" class="btn btn-sh-primary btn-lg" style="border-radius: 0 8px 8px 0;">
                             <i class="bi bi-search"></i> Search
                         </button>
@@ -1222,12 +1363,12 @@
         </section>
 
         <!-- 6. CATEGORY CARDS & BASIN INSIGHTS -->
-        <section class="py-5" id="insights" style="background: var(--sh-black);">
+        <section class="py-5" id="insights" style="background: var(--sh-surface-alt); border-top: 1px solid var(--bs-border-color); border-bottom: 1px solid var(--bs-border-color);">
             <div class="container py-3">
                 <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
                     <div>
                         <div class="sh-eyebrow">Agro Basins</div>
-                        <h2 class="sh-title mb-0 text-white">Harvest Categories</h2>
+                        <h2 class="sh-title mb-0">Harvest Categories</h2>
                     </div>
                 </div>
                 <div class="row g-3 g-md-4">
@@ -1289,7 +1430,7 @@
         </section>
 
         <!-- 8. PROCESS: 4-Step Bulk Fulfillment Architecture -->
-        <section class="py-5" id="process" style="background: var(--sh-black); border-top: 1px solid var(--sh-border);">
+        <section class="py-5" id="process" style="background: var(--sh-surface-alt); border-top: 1px solid var(--bs-border-color);">
             <div class="container py-3">
                 <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
                     <div>
@@ -1300,31 +1441,31 @@
                 </div>
                 <div class="row g-4">
                     <div class="col-md-3">
-                        <div class="p-4 rounded-3 h-100" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
-                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.2); color: var(--sh-primary);">01</div>
-                            <h5 class="fw-bold text-white mb-2">Basin Sourcing</h5>
-                            <p class="small text-white-50 mb-0">Contract allocations secured directly from certified agricultural cooperatives across Mato Grosso, Paraná, and São Paulo.</p>
+                        <div class="p-4 rounded-3 h-100 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.16); color: var(--sh-primary);">01</div>
+                            <h5 class="fw-bold sh-text-title mb-2">Basin Sourcing</h5>
+                            <p class="small sh-text-muted mb-0">Contract allocations secured directly from certified agricultural cooperatives across Mato Grosso, Paraná, and São Paulo.</p>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="p-4 rounded-3 h-100" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
-                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.2); color: var(--sh-primary);">02</div>
-                            <h5 class="fw-bold text-white mb-2">SGS Lab Assays</h5>
-                            <p class="small text-white-50 mb-0">Independent pre-shipment sampling for moisture, protein, foreign matter, and MAPA phytosanitary compliance.</p>
+                        <div class="p-4 rounded-3 h-100 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.16); color: var(--sh-primary);">02</div>
+                            <h5 class="fw-bold sh-text-title mb-2">SGS Lab Assays</h5>
+                            <p class="small sh-text-muted mb-0">Independent pre-shipment sampling for moisture, protein, foreign matter, and MAPA phytosanitary compliance.</p>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="p-4 rounded-3 h-100" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
-                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.2); color: var(--sh-primary);">03</div>
-                            <h5 class="fw-bold text-white mb-2">Bank Escrow / LC</h5>
-                            <p class="small text-white-50 mb-0">Tier-1 escrow settlement and irrevocable documentary letters of credit ensure zero counterparty settlement risk.</p>
+                        <div class="p-4 rounded-3 h-100 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.16); color: var(--sh-primary);">03</div>
+                            <h5 class="fw-bold sh-text-title mb-2">Bank Escrow / LC</h5>
+                            <p class="small sh-text-muted mb-0">Tier-1 escrow settlement and irrevocable documentary letters of credit ensure zero counterparty settlement risk.</p>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="p-4 rounded-3 h-100" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
-                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.2); color: var(--sh-primary);">04</div>
-                            <h5 class="fw-bold text-white mb-2">Port Vessel Dispatch</h5>
-                            <p class="small text-white-50 mb-0">Terminal berth coordination at Port of Santos and Paranaguá with live vessel telemetry until discharge.</p>
+                        <div class="p-4 rounded-3 h-100 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.16); color: var(--sh-primary);">04</div>
+                            <h5 class="fw-bold sh-text-title mb-2">Port Vessel Dispatch</h5>
+                            <p class="small sh-text-muted mb-0">Terminal berth coordination at Port of Santos and Paranaguá with live vessel telemetry until discharge.</p>
                         </div>
                     </div>
                 </div>
@@ -1332,7 +1473,7 @@
         </section>
 
         <!-- 9. BLOG / TRADE INSIGHTS -->
-        <section class="py-5" id="blog">
+        <section class="py-5" id="blog" style="background: var(--bs-body-bg); border-top: 1px solid var(--bs-border-color);">
             <div class="container py-3">
                 <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
                     <div>
@@ -1342,26 +1483,26 @@
                 </div>
                 <div class="row g-4">
                     <div class="col-md-4">
-                        <div class="p-4 rounded-3 h-100 d-flex flex-column" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                        <div class="p-4 rounded-3 h-100 d-flex flex-column sh-card-bg" style="border: 1px solid var(--bs-border-color);">
                             <span class="badge bg-secondary align-self-start mb-2">Crop Outlook</span>
-                            <h5 class="fw-bold text-white mb-2">2026/27 Brazilian Soybean Crop Forecast</h5>
-                            <p class="small text-white-50 mb-3 flex-grow-1">Mato Grosso record yields and favorable moisture levels drive high export availability for early vessel bookings.</p>
+                            <h5 class="fw-bold sh-text-title mb-2">2026/27 Brazilian Soybean Crop Forecast</h5>
+                            <p class="small sh-text-muted mb-3 flex-grow-1">Mato Grosso record yields and favorable moisture levels drive high export availability for early vessel bookings.</p>
                             <a href="#rfq-desk" class="text-success small fw-semibold text-decoration-none">Inquire Basin Availability <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="p-4 rounded-3 h-100 d-flex flex-column" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                        <div class="p-4 rounded-3 h-100 d-flex flex-column sh-card-bg" style="border: 1px solid var(--bs-border-color);">
                             <span class="badge bg-secondary align-self-start mb-2">Trade Guide</span>
-                            <h5 class="fw-bold text-white mb-2">IncoTerms 2020: CIF vs FOB Port Risk</h5>
-                            <p class="small text-white-50 mb-3 flex-grow-1">Analyzing demurrage responsibility, marine insurance clauses, and title handover protocols for bulk buyers.</p>
+                            <h5 class="fw-bold sh-text-title mb-2">IncoTerms 2020: CIF vs FOB Port Risk</h5>
+                            <p class="small sh-text-muted mb-3 flex-grow-1">Analyzing demurrage responsibility, marine insurance clauses, and title handover protocols for bulk buyers.</p>
                             <a href="#rfq-desk" class="text-success small fw-semibold text-decoration-none">Inquire Terms Guide <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="p-4 rounded-3 h-100 d-flex flex-column" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                        <div class="p-4 rounded-3 h-100 d-flex flex-column sh-card-bg" style="border: 1px solid var(--bs-border-color);">
                             <span class="badge bg-secondary align-self-start mb-2">Logistics</span>
-                            <h5 class="fw-bold text-white mb-2">Raw Sugar (ICUMSA 45) Port Allocations</h5>
-                            <p class="small text-white-50 mb-3 flex-grow-1">Santos terminal conveyor upgrade schedule and containerized pallet shipment lead times for Middle East ports.</p>
+                            <h5 class="fw-bold sh-text-title mb-2">Raw Sugar (ICUMSA 45) Port Allocations</h5>
+                            <p class="small sh-text-muted mb-3 flex-grow-1">Santos terminal conveyor upgrade schedule and containerized pallet shipment lead times for Middle East ports.</p>
                             <a href="#rfq-desk" class="text-success small fw-semibold text-decoration-none">Inquire Port Schedules <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
@@ -1370,35 +1511,35 @@
         </section>
 
         <!-- 10. ABOUT US SECTION -->
-        <section class="py-5" id="about" style="background: var(--sh-black); border-top: 1px solid var(--sh-border);">
+        <section class="py-5" id="about" style="background: var(--sh-surface-alt); border-top: 1px solid var(--bs-border-color);">
             <div class="container py-3">
                 <div class="row align-items-center g-5">
                     <div class="col-lg-6">
                         <div class="sh-eyebrow">About Matro</div>
                         <h2 class="sh-title mb-3">Direct Brazilian Agro Trade Facilitation</h2>
-                        <p class="text-white-50 mb-3">
+                        <p class="sh-text-muted mb-3">
                             Matro connects international commodity buyers and institutional food conglomerates directly with certified agricultural cooperatives across Brazil's most productive basins.
                         </p>
-                        <p class="text-white-50 mb-4">
+                        <p class="sh-text-muted mb-4">
                             Headquartered on Avenida Paulista in São Paulo, our multi-lingual trade desk coordinates harvest basin allocations, laboratory assay verifications, and deepwater vessel logistics to deliver institutional grade commodities on FOB and CIF terms.
                         </p>
                         <div class="d-flex gap-4">
                             <div>
-                                <h3 class="fw-bold text-white mb-0" style="color: var(--sh-primary) !important;">100%</h3>
-                                <small class="text-white-50">SGS Assay Inspected</small>
+                                <h3 class="fw-bold mb-0" style="color: var(--sh-primary) !important;">100%</h3>
+                                <small class="sh-text-muted">SGS Assay Inspected</small>
                             </div>
                             <div class="border-start border-secondary ps-4">
-                                <h3 class="fw-bold text-white mb-0" style="color: var(--sh-primary) !important;">15+</h3>
-                                <small class="text-white-50">Certified Co-op Basins</small>
+                                <h3 class="fw-bold mb-0" style="color: var(--sh-primary) !important;">15+</h3>
+                                <small class="sh-text-muted">Certified Co-op Basins</small>
                             </div>
                             <div class="border-start border-secondary ps-4">
-                                <h3 class="fw-bold text-white mb-0" style="color: var(--sh-primary) !important;">Zero</h3>
-                                <small class="text-white-50">Counterparty Default</small>
+                                <h3 class="fw-bold mb-0" style="color: var(--sh-primary) !important;">Zero</h3>
+                                <small class="sh-text-muted">Counterparty Default</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="p-3 rounded-4" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                        <div class="p-3 rounded-4 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
                             <img src="{{ asset('img/about-2.jpg') }}" alt="About Matro Agro Desk" class="img-fluid rounded-3 w-100 object-fit-cover" style="max-height: 320px;" onerror="this.src='{{ asset('img/service-1.jpg') }}'">
                         </div>
                     </div>
@@ -1408,43 +1549,43 @@
 
         <!-- 11. DIRECT TRADE DESK & RFQ INQUIRIES (CONTACT) -->
         <div id="contact"></div>
-        <section class="py-5" id="rfq-desk" style="background: var(--sh-surface); border-top: 1px solid var(--sh-border); border-bottom: 1px solid var(--sh-border);">
+        <section class="py-5" id="rfq-desk" style="background: var(--bs-body-bg); border-top: 1px solid var(--bs-border-color); border-bottom: 1px solid var(--bs-border-color);">
             <div class="container py-3">
                 <div class="row g-5 align-items-start">
                     <div class="col-lg-5">
                         <div class="sh-eyebrow">Trade Desk</div>
                         <h2 class="sh-title mb-3">Institutional RFQ Inquiries</h2>
-                        <p class="text-muted mb-4">Connect directly with our Brazilian commodity export team. Request indicative FOB/CIF quotes, technical SGS assay sheets, or spot allocations.</p>
+                        <p class="sh-text-muted mb-4">Connect directly with our Brazilian commodity export team. Request indicative FOB/CIF quotes, technical SGS assay sheets, or spot allocations.</p>
 
-                        <div class="p-4 rounded-3 mb-4" style="background: var(--sh-black); border: 1px solid var(--sh-border);">
+                        <div class="p-4 rounded-3 mb-4 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <i class="bi bi-geo-alt fs-4 text-success" style="color: var(--sh-primary) !important;"></i>
                                 <div>
-                                    <strong class="d-block text-white">Trading Headquarters</strong>
-                                    <small class="text-white-50">Av. Paulista 1374, Bela Vista, São Paulo - SP, Brazil</small>
+                                    <strong class="d-block sh-text-title">Trading Headquarters</strong>
+                                    <small class="sh-text-muted">Av. Paulista 1374, Bela Vista, São Paulo - SP, Brazil</small>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <i class="bi bi-whatsapp fs-4 text-success"></i>
                                 <div>
-                                    <strong class="d-block text-white">Direct WhatsApp Desk</strong>
+                                    <strong class="d-block sh-text-title">Direct WhatsApp Desk</strong>
                                     <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold small">+55 (11) 95298-7545</a>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-3">
                                 <i class="bi bi-envelope fs-4 text-success" style="color: var(--sh-primary) !important;"></i>
                                 <div>
-                                    <strong class="d-block text-white">Corporate Desk</strong>
-                                    <small class="text-white-50">tradedesk@matro.com / inquiries@matro.com</small>
+                                    <strong class="d-block sh-text-title">Corporate Desk</strong>
+                                    <small class="sh-text-muted">tradedesk@matro.com / inquiries@matro.com</small>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-7">
-                        <div class="p-4 p-md-5 rounded-4" style="background: var(--sh-black); border: 1px solid var(--sh-border);">
-                            <h4 class="fw-bold text-white mb-2">Request Trade Quote (RFQ)</h4>
-                            <p class="text-white-50 small mb-4">Complete the form below to receive formal indicative pricing, SGS specifications, and vessel allocation schedule.</p>
+                        <div class="p-4 p-md-5 rounded-4 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
+                            <h4 class="fw-bold sh-text-title mb-2">Request Trade Quote (RFQ)</h4>
+                            <p class="sh-text-muted small mb-4">Complete the form below to receive formal indicative pricing, SGS specifications, and vessel allocation schedule.</p>
 
                             <div id="rfqAlert" class="alert d-none mb-3"></div>
 
@@ -1453,7 +1594,7 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Target Commodity *</label>
-                                        <select name="buyer_detail" class="form-select" style="background: var(--sh-surface); color: #fff; border: 1px solid var(--sh-border);" required>
+                                        <select name="buyer_detail" class="form-select sh-input" required>
                                             <option value="Brazilian Non-GMO Soybeans">Brazilian Non-GMO Soybeans</option>
                                             <option value="Refined Cane Sugar (ICUMSA 45)">Refined Cane Sugar (ICUMSA 45)</option>
                                             <option value="Yellow Corn (Maize Grade 2)">Yellow Corn (Maize Grade 2)</option>
@@ -1463,27 +1604,27 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Volume Required (Metric Tons) *</label>
-                                        <input type="text" name="volume" class="form-control" placeholder="e.g. 500 MT / 2,500 MT" style="background: var(--sh-surface); color: #fff; border: 1px solid var(--sh-border);" required>
+                                        <input type="text" name="volume" class="form-control sh-input" placeholder="e.g. 500 MT / 2,500 MT" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Full Name *</label>
-                                        <input type="text" name="name" class="form-control" placeholder="First and last name" style="background: var(--sh-surface); color: #fff; border: 1px solid var(--sh-border);" required>
+                                        <input type="text" name="name" class="form-control sh-input" placeholder="First and last name" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Corporate Email *</label>
-                                        <input type="email" name="email" class="form-control" placeholder="importer@company.com" style="background: var(--sh-surface); color: #fff; border: 1px solid var(--sh-border);" required>
+                                        <input type="email" name="email" class="form-control sh-input" placeholder="importer@company.com" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Company Name *</label>
-                                        <input type="text" name="company" class="form-control" placeholder="Trading company name" style="background: var(--sh-surface); color: #fff; border: 1px solid var(--sh-border);" required>
+                                        <input type="text" name="company" class="form-control sh-input" placeholder="Trading company name" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Discharge Port / Country *</label>
-                                        <input type="text" name="country" class="form-control" placeholder="e.g. Port of Rotterdam" style="background: var(--sh-surface); color: #fff; border: 1px solid var(--sh-border);" required>
+                                        <input type="text" name="country" class="form-control sh-input" placeholder="e.g. Port of Rotterdam" required>
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label small fw-bold">Contract Message &amp; Instructions</label>
-                                        <textarea name="message" class="form-control" rows="3" placeholder="Specify any moisture, protein or packaging requirements..." style="background: var(--sh-surface); color: #fff; border: 1px solid var(--sh-border);"></textarea>
+                                        <textarea name="message" class="form-control sh-input" rows="3" placeholder="Specify any moisture, protein or packaging requirements..."></textarea>
                                     </div>
                                     <div class="col-12 pt-2">
                                         <button type="submit" id="rfqSubmitBtn" class="btn btn-sh-primary w-100 py-3 text-white fw-bold">
@@ -1498,8 +1639,8 @@
             </div>
         </section>
 
-        <!-- 9. TESTIMONIALS SECTION (Exact fume-main layout) -->
-        <section class="py-5">
+        <!-- 12. TESTIMONIALS SECTION (Exact fume-main layout) -->
+        <section class="py-5" style="background: var(--bs-body-bg);">
             <div class="container py-3">
                 <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
                     <div>
@@ -1513,12 +1654,12 @@
                             <div class="sh-stars mb-3">
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                             </div>
-                            <p class="fst-italic text-white-50 mb-3">"Securing 12,500 MT of Brazilian Non-GMO Soybeans through Santos was handled with absolute professionalism. The pre-shipment SGS assay matched our exact feed parameters."</p>
+                            <p class="fst-italic sh-text-muted mb-3">"Securing 12,500 MT of Brazilian Non-GMO Soybeans through Santos was handled with absolute professionalism. The pre-shipment SGS assay matched our exact feed parameters."</p>
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('img/testimonial-1.jpg') }}" alt="" class="rounded-circle me-3 object-fit-cover" width="46" height="46">
                                 <div>
-                                    <h6 class="mb-0 text-white fw-bold">Pieter van der Berg</h6>
-                                    <small class="text-white-50">Procurement · Rotterdam, Netherlands</small>
+                                    <h6 class="mb-0 sh-text-title fw-bold">Pieter van der Berg</h6>
+                                    <small class="sh-text-muted">Procurement · Rotterdam, Netherlands</small>
                                 </div>
                             </div>
                         </div>
@@ -1528,12 +1669,12 @@
                             <div class="sh-stars mb-3">
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                             </div>
-                            <p class="fst-italic text-white-50 mb-3">"The ICUMSA 45 refined sugar arrived on time with complete phytosanitary certificates and zero broken bags. Matro's direct desk communicated vessel telemetry daily."</p>
+                            <p class="fst-italic sh-text-muted mb-3">"The ICUMSA 45 refined sugar arrived on time with complete phytosanitary certificates and zero broken bags. Matro's direct desk communicated vessel telemetry daily."</p>
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('img/testimonial-2.jpg') }}" alt="" class="rounded-circle me-3 object-fit-cover" width="46" height="46">
                                 <div>
-                                    <h6 class="mb-0 text-white fw-bold">Tariq Al-Mansoor</h6>
-                                    <small class="text-white-50">VP Supply Chain · Jebel Ali, Dubai</small>
+                                    <h6 class="mb-0 sh-text-title fw-bold">Tariq Al-Mansoor</h6>
+                                    <small class="sh-text-muted">VP Supply Chain · Jebel Ali, Dubai</small>
                                 </div>
                             </div>
                         </div>
@@ -1543,12 +1684,12 @@
                             <div class="sh-stars mb-3">
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                             </div>
-                            <p class="fst-italic text-white-50 mb-3">"Direct co-op pricing eliminated the broker markup we usually pay on yellow maize. Clean title handover at the discharge port made customs processing effortless."</p>
+                            <p class="fst-italic sh-text-muted mb-3">"Direct co-op pricing eliminated the broker markup we usually pay on yellow maize. Clean title handover at the discharge port made customs processing effortless."</p>
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('img/testimonial-3.jpg') }}" alt="" class="rounded-circle me-3 object-fit-cover" width="46" height="46">
                                 <div>
-                                    <h6 class="mb-0 text-white fw-bold">Wei Chen</h6>
-                                    <small class="text-white-50">Agro Commodity Trader · Qingdao, China</small>
+                                    <h6 class="mb-0 sh-text-title fw-bold">Wei Chen</h6>
+                                    <small class="sh-text-muted">Agro Commodity Trader · Qingdao, China</small>
                                 </div>
                             </div>
                         </div>
@@ -1558,7 +1699,7 @@
         </section>
 
         <!-- 13. FAQ SECTION -->
-        <section class="py-5" id="faq" style="background: var(--sh-black); border-top: 1px solid var(--sh-border);">
+        <section class="py-5" id="faq" style="background: var(--sh-surface-alt); border-top: 1px solid var(--bs-border-color);">
             <div class="container py-3">
                 <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
                     <div>
@@ -1566,51 +1707,51 @@
                         <h2 class="sh-title mb-0">Frequently Asked Questions</h2>
                     </div>
                 </div>
-                <div class="accordion" id="agroFaqAccordion">
-                    <div class="accordion-item mb-3 rounded-3 overflow-hidden" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                <div class="accordion sh-accordion" id="agroFaqAccordion">
+                    <div class="accordion-item mb-3 rounded-3 overflow-hidden">
                         <h2 class="accordion-header" id="faqH1">
-                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC1" style="background: var(--sh-surface); color: #fff;">
+                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC1">
                                 How does bank escrow protect international commodity buyers?
                             </button>
                         </h2>
                         <div id="faqC1" class="accordion-collapse collapse" data-bs-parent="#agroFaqAccordion">
-                            <div class="accordion-body small text-white-50" style="background: var(--sh-surface);">
+                            <div class="accordion-body small">
                                 Funds are deposited into a regulated Tier-1 escrow account and released only when verified SGS inspection assay certificates and official Bills of Lading are verified by the escrow agent.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item mb-3 rounded-3 overflow-hidden" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                    <div class="accordion-item mb-3 rounded-3 overflow-hidden">
                         <h2 class="accordion-header" id="faqH2">
-                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC2" style="background: var(--sh-surface); color: #fff;">
+                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC2">
                                 What quality assurance certificates accompany shipments?
                             </button>
                         </h2>
                         <div id="faqC2" class="accordion-collapse collapse" data-bs-parent="#agroFaqAccordion">
-                            <div class="accordion-body small text-white-50" style="background: var(--sh-surface);">
+                            <div class="accordion-body small">
                                 Every batch is accompanied by an independent SGS Laboratory Assay, MAPA (Brazilian Ministry of Agriculture) Phytosanitary Certificate, Certificate of Origin, and Fumigation Certificate.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item mb-3 rounded-3 overflow-hidden" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                    <div class="accordion-item mb-3 rounded-3 overflow-hidden">
                         <h2 class="accordion-header" id="faqH3">
-                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC3" style="background: var(--sh-surface); color: #fff;">
+                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC3">
                                 What is the minimum order quantity (MOQ) for bulk shipments?
                             </button>
                         </h2>
                         <div id="faqC3" class="accordion-collapse collapse" data-bs-parent="#agroFaqAccordion">
-                            <div class="accordion-body small text-white-50" style="background: var(--sh-surface);">
+                            <div class="accordion-body small">
                                 Standard containerized shipments start at 200 to 500 Metric Tons. For Panamax / Supramax breakbulk vessel allocations, spot contracts typically start at 12,500 Metric Tons.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item rounded-3 overflow-hidden" style="background: var(--sh-surface); border: 1px solid var(--sh-border);">
+                    <div class="accordion-item rounded-3 overflow-hidden">
                         <h2 class="accordion-header" id="faqH4">
-                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC4" style="background: var(--sh-surface); color: #fff;">
+                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC4">
                                 Which discharge ports are supported under CIF contracts?
                             </button>
                         </h2>
                         <div id="faqC4" class="accordion-collapse collapse" data-bs-parent="#agroFaqAccordion">
-                            <div class="accordion-body small text-white-50" style="background: var(--sh-surface);">
+                            <div class="accordion-body small">
                                 We regularly execute CIF charters to major deepwater ports including Rotterdam, Antwerp, Jebel Ali, Qingdao, Shanghai, Dammam, and Alexandria.
                             </div>
                         </div>
@@ -1769,34 +1910,34 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color);">
                 <div class="modal-header border-bottom border-secondary border-opacity-25 py-3">
-                    <h5 class="modal-title fw-bold" id="qvModalTitle">Commodity Quick View</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title fw-bold sh-text-title" id="qvModalTitle">Commodity Quick View</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="rounded-3 overflow-hidden mb-3" style="height: 200px;">
                         <img id="qvModalImg" src="" alt="" class="w-100 h-100 object-fit-cover">
                     </div>
-                    <h4 class="fw-bold mb-1" id="qvModalName"></h4>
+                    <h4 class="fw-bold sh-text-title mb-1" id="qvModalName"></h4>
                     <p class="fs-5 fw-bold mb-3" style="color: var(--sh-primary);" id="qvModalPrice"></p>
-                    <div class="p-3 rounded-3 mb-3 small" style="background: var(--sh-black); border: 1px solid var(--sh-border);">
+                    <div class="p-3 rounded-3 mb-3 small sh-box-bg" style="border: 1px solid var(--bs-border-color);">
                         <div class="d-flex justify-content-between mb-1">
-                            <span class="text-white-50">SGS Assay:</span>
-                            <span class="text-white fw-bold">100% Pre-Shipment Tested</span>
+                            <span class="sh-text-muted">SGS Assay:</span>
+                            <span class="sh-text-title fw-bold">100% Pre-Shipment Tested</span>
                         </div>
                         <div class="d-flex justify-content-between mb-1">
-                            <span class="text-white-50">Settlement:</span>
+                            <span class="sh-text-muted">Settlement:</span>
                             <span class="text-success fw-bold">Bank Escrow Protected</span>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <span class="text-white-50">Loading Port:</span>
-                            <span class="text-white fw-bold">Santos / Paranaguá (BR)</span>
+                            <span class="sh-text-muted">Loading Port:</span>
+                            <span class="sh-text-title fw-bold">Santos / Paranaguá (BR)</span>
                         </div>
                     </div>
                     <div class="d-flex gap-2">
                         <button type="button" id="qvAddToCartBtn" class="btn btn-sh-primary flex-fill">
                             <i class="bi bi-bag me-1"></i> Add to Sample Cart
                         </button>
-                        <button type="button" class="btn btn-sh-outline-white" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-sh-outline" data-bs-dismiss="modal">
                             Close
                         </button>
                     </div>
@@ -1810,12 +1951,12 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color);">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title fw-bold"><i class="bi bi-search me-2" style="color: var(--sh-primary);"></i>Search Commodities</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title fw-bold sh-text-title"><i class="bi bi-search me-2" style="color: var(--sh-primary);"></i>Search Commodities</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
-                    <input type="text" id="modalSearchInput" class="form-control form-control-lg rounded-pill mb-3" placeholder="Type commodity name, grade, or basin..." style="background: var(--sh-black); border: 1px solid var(--sh-border); color: #fff;">
-                    <div class="small text-muted">Press <kbd class="bg-dark text-light border border-secondary px-2 py-1">Esc</kbd> to exit.</div>
+                    <input type="text" id="modalSearchInput" class="form-control form-control-lg rounded-pill mb-3 sh-input" placeholder="Type commodity name, grade, or basin...">
+                    <div class="small sh-text-muted">Press <kbd class="sh-box-bg sh-text-title border border-secondary px-2 py-1">Esc</kbd> to exit.</div>
                 </div>
             </div>
         </div>
@@ -1833,13 +1974,13 @@
             var root = document.documentElement;
             function updateThemeIcons() {
                 var isLight = root.getAttribute('data-theme') === 'light';
-                document.querySelectorAll('.sh-theme-toggle i').forEach(function (icon) {
+                document.querySelectorAll('#themeToggleBtn i, .sh-theme-toggle i').forEach(function (icon) {
                     icon.className = isLight ? 'bi bi-sun' : 'bi bi-moon-stars';
                 });
             }
             updateThemeIcons();
 
-            document.querySelectorAll('.sh-theme-toggle').forEach(function (btn) {
+            document.querySelectorAll('#themeToggleBtn, .sh-theme-toggle').forEach(function (btn) {
                 btn.addEventListener('click', function () {
                     var current = root.getAttribute('data-theme') || 'dark';
                     var next = current === 'light' ? 'dark' : 'light';
