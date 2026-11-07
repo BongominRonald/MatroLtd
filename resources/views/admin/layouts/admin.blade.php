@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin Dashboard') — Matro E-Commerce</title>
+    <title>@yield('title', 'Admin Dashboard') — BRX AGRO GLOBAL</title>
 
     <!-- Bootstrap 5 CSS & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -438,11 +438,11 @@
     <!-- Sidebar -->
     <div class="matro-sidebar" id="adminSidebar">
         <div class="matro-sidebar-inner">
-            <a href="{{ route('admin.dashboard') }}" class="matro-brand" aria-label="Matro Administration">
-                <div class="matro-brand-mark"><i class="bi bi-box-seam"></i></div>
+            <a href="{{ route('admin.dashboard') }}" class="matro-brand" aria-label="BRX AGRO GLOBAL Administration">
+                <img src="{{ asset('img/BRX Agro Global Product Emblem.png') }}" alt="BRX AGRO GLOBAL" class="rounded-circle" style="width: 36px; height: 36px; object-fit: cover; border: 2px solid var(--matro-green); flex-shrink: 0;">
                 <div>
-                    <div class="matro-brand-title">MATRO</div>
-                    <div class="matro-brand-sub">Administration</div>
+                    <div class="matro-brand-title" style="font-size: 0.95rem; line-height: 1.1;">BRX <span style="color: var(--matro-green);">AGRO</span></div>
+                    <div class="matro-brand-sub" style="font-size: 0.52rem; letter-spacing: 0.8px;">GLOBAL LTDA</div>
                 </div>
             </a>
 

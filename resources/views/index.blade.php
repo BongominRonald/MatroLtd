@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="theme-color" content="#14141a">
-    <title>Matro - Brazilian Agro-Commodity Trading &amp; Store</title>
-    <meta content="Brazilian agro commodities, bulk soybeans, ICUMSA 45 sugar, yellow corn, green coffee, SGS inspection, escrow settlement, Port of Santos, Matro" name="keywords">
-    <meta content="Matro coordinates direct institutional origination of Brazilian agro-commodities for international buyers. Sourced from certified cooperatives, verified by SGS &amp; MAPA, and secured with Tier-1 bank escrow." name="description">
+    <title>BRX AGRO GLOBAL - Importação e Exportação Ltda | Brazilian Commodity Origination</title>
+    <meta content="BRX Agro Global, Importação e Exportação Ltda, Brazilian agro commodities, bulk soybeans, ICUMSA 45 sugar, yellow corn, green coffee, SGS inspection, escrow settlement, Port of Santos, CNPJ 38.471.480/0001-41" name="keywords">
+    <meta content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA coordinates direct institutional origination of Brazilian agro-commodities for international buyers. Sourced from certified cooperatives, verified by SGS &amp; MAPA, and secured with Tier-1 bank escrow." name="description">
 
     <link href="{{ asset('img/favicon.ico') }}" rel="icon">
 
@@ -146,14 +146,99 @@
             color: var(--bs-emphasis-color);
         }
 
+        /* ===== BRX AGRO GLOBAL Brand Emblem & Artistic Typography Lockup ===== */
+        .brx-navbar-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            padding: 0;
+            margin-right: 1.25rem;
+            flex-shrink: 0;
+            transition: opacity .2s ease;
+        }
+        .brx-navbar-brand:hover {
+            opacity: 0.94;
+        }
+        .brx-navbar-emblem {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+            border: 2px solid var(--sh-primary);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        .brx-navbar-brand:hover .brx-navbar-emblem {
+            transform: scale(1.06);
+            box-shadow: 0 4px 14px rgba(120, 162, 47, 0.4);
+        }
+        .brx-brand-wrap {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.1;
+        }
+        .brx-brand-row {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+        }
+        .brx-name-lead {
+            font-family: 'Comic Relief', 'Open Sans', system-ui, sans-serif;
+            font-weight: 900;
+            font-size: 1.16rem;
+            letter-spacing: 0.8px;
+            line-height: 1;
+        }
+        .brx-name-tag {
+            font-family: 'Comic Relief', 'Open Sans', system-ui, sans-serif;
+            font-weight: 800;
+            font-size: 0.94rem;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        .brx-legal-sub {
+            font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+            font-size: 0.52rem;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            display: block;
+            margin-top: 3px;
+            line-height: 1.1;
+            white-space: nowrap;
+        }
+
+        /* Light Theme Brand Colors */
+        html[data-theme="light"] .brx-name-lead {
+            color: #14532d !important; /* Deep Brazilian Emerald Green */
+        }
+        html[data-theme="light"] .brx-name-tag {
+            color: #5e8024 !important; /* Rich Olive */
+        }
+        html[data-theme="light"] .brx-legal-sub {
+            color: #334155 !important; /* Elegant Slate */
+        }
+
+        /* Dark Theme Brand Colors */
+        html[data-theme="dark"] .brx-name-lead {
+            color: #22c55e !important; /* Bright Emerald */
+        }
+        html[data-theme="dark"] .brx-name-tag {
+            color: #93c441 !important; /* Vibrant Olive */
+        }
+        html[data-theme="dark"] .brx-legal-sub {
+            color: rgba(255, 255, 255, 0.72) !important;
+        }
+
         /* ===== Navbar (Straightline Horizontal Layout) ===== */
         .sh-navbar {
-            background: var(--sh-surface);
-            border-bottom: 1px solid var(--bs-border-color);
             z-index: 1030;
-            padding-top: 0.65rem !important;
-            padding-bottom: 0.65rem !important;
-            transition: background-color .25s ease, border-color .25s ease;
+            padding-top: 0.55rem !important;
+            padding-bottom: 0.55rem !important;
+            transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
         }
         @media (min-width: 992px) {
             .sh-nav-straightline {
@@ -162,29 +247,35 @@
                 flex-wrap: nowrap !important;
                 align-items: center !important;
                 white-space: nowrap !important;
-                gap: 0.5rem !important;
+                gap: 0.2rem !important;
                 margin-bottom: 0;
             }
             .sh-nav-straightline .nav-item {
                 flex-shrink: 0;
             }
+            .sh-navbar .nav-link {
+                font-weight: 600;
+                font-size: 0.82rem;
+                padding: 0.35rem 0.45rem !important;
+                border-radius: 6px;
+                white-space: nowrap;
+                transition: color .2s ease, background-color .2s ease;
+            }
         }
-        .sh-navbar .nav-link {
-            color: var(--bs-body-color);
-            font-weight: 600;
-            font-size: 0.88rem;
-            padding: 0.4rem 0.55rem !important;
-            border-radius: 6px;
-            white-space: nowrap;
-            transition: color .2s ease, background-color .2s ease;
+        @media (min-width: 1400px) {
+            .sh-nav-straightline {
+                gap: 0.4rem !important;
+            }
+            .sh-navbar .nav-link {
+                font-size: 0.86rem;
+                padding: 0.4rem 0.55rem !important;
+            }
         }
         .sh-navbar .nav-link:hover,
         .sh-navbar .nav-link.active {
             color: var(--sh-primary) !important;
         }
         .sh-nav-dropdown .dropdown-menu {
-            background: var(--sh-surface);
-            border: 1px solid var(--bs-border-color);
             border-radius: 10px;
             padding: 0.5rem 0;
             min-width: 220px;
@@ -198,7 +289,6 @@
             padding: 0.4rem 1rem;
         }
         .sh-nav-dropdown .dropdown-item {
-            color: var(--bs-body-color);
             font-size: 0.86rem;
             padding: 0.45rem 1rem;
             transition: all .15s ease;
@@ -233,11 +323,30 @@
                 width: 100%;
                 padding-top: 0.5rem;
             }
+            .brx-name-lead { font-size: 1.05rem; }
+            .brx-name-tag { font-size: 0.85rem; }
+            .brx-legal-sub { font-size: 0.46rem; }
+            .brx-navbar-emblem { width: 38px; height: 38px; }
         }
 
+        /* ===== Navbar Actions (Theme, Search, Cart, Login, Signup) ===== */
+        .sh-icon-btn,
+        .sh-theme-toggle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all .2s ease;
+            text-decoration: none;
+            padding: 0;
+            flex-shrink: 0;
+        }
         .sh-cart-icon {
             position: relative;
-            color: var(--bs-emphasis-color);
             font-size: 1.35rem;
             display: inline-flex;
             align-items: center;
@@ -246,9 +355,7 @@
             width: 38px;
             height: 38px;
             transition: color .2s ease;
-        }
-        .sh-cart-icon:hover {
-            color: var(--sh-primary);
+            flex-shrink: 0;
         }
         .sh-cart-badge {
             position: absolute;
@@ -266,35 +373,24 @@
             justify-content: center;
             padding: 0 4px;
         }
-
-        .sh-icon-btn,
-        .sh-theme-toggle {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid var(--bs-border-color);
-            background: transparent;
-            color: var(--bs-emphasis-color);
+        .btn-sh-login {
+            font-family: 'Comic Relief', 'Open Sans', system-ui;
+            font-weight: 700;
+            font-size: 0.86rem;
+            padding: .42rem 1.15rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all .2s ease;
+            white-space: nowrap;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: .95rem;
-            cursor: pointer;
-            transition: all .2s ease;
-            text-decoration: none;
-        }
-        .sh-icon-btn:hover,
-        .sh-theme-toggle:hover {
-            color: var(--sh-primary);
-            border-color: var(--sh-primary);
-            background: rgba(120, 162, 47, 0.12);
         }
 
         .sh-toggler {
             width: 40px;
             height: 36px;
             padding: 0;
-            border: 1px solid var(--bs-border-color);
             border-radius: 8px;
             background: transparent;
             display: inline-flex;
@@ -307,21 +403,139 @@
             display: block;
             width: 20px;
             height: 1.5px;
-            background: var(--bs-emphasis-color);
             transition: transform .25s ease, opacity .2s ease;
         }
         .sh-toggler[aria-expanded="true"] .bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
         .sh-toggler[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
         .sh-toggler[aria-expanded="true"] .bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-        /* ===== Buttons ===== */
+        /* ===== LIGHT THEME: 100% Explicit High Contrast for Navbar Elements ===== */
+        html[data-theme="light"] .sh-navbar {
+            background-color: #ffffff !important;
+            border-bottom: 1px solid rgba(20, 20, 26, 0.12) !important;
+            box-shadow: 0 2px 14px rgba(0, 0, 0, 0.05) !important;
+        }
+        html[data-theme="light"] .sh-navbar .nav-link {
+            color: #1e293b !important;
+        }
+        html[data-theme="light"] .sh-navbar .nav-link:hover,
+        html[data-theme="light"] .sh-navbar .nav-link.active {
+            color: var(--sh-primary) !important;
+        }
+        html[data-theme="light"] .sh-navbar .sh-icon-btn,
+        html[data-theme="light"] .sh-navbar .sh-theme-toggle {
+            color: #0f172a !important;
+            border: 1.5px solid rgba(15, 23, 42, 0.22) !important;
+            background-color: #f1f5f9 !important;
+        }
+        html[data-theme="light"] .sh-navbar .sh-icon-btn i,
+        html[data-theme="light"] .sh-navbar .sh-theme-toggle i {
+            color: #0f172a !important;
+            font-weight: 700 !important;
+        }
+        html[data-theme="light"] .sh-navbar .sh-icon-btn:hover,
+        html[data-theme="light"] .sh-navbar .sh-theme-toggle:hover {
+            color: #ffffff !important;
+            background-color: var(--sh-primary) !important;
+            border-color: var(--sh-primary) !important;
+        }
+        html[data-theme="light"] .sh-navbar .sh-icon-btn:hover i,
+        html[data-theme="light"] .sh-navbar .sh-theme-toggle:hover i {
+            color: #ffffff !important;
+        }
+        html[data-theme="light"] .sh-navbar .sh-cart-icon,
+        html[data-theme="light"] .sh-navbar .sh-cart-icon i {
+            color: #0f172a !important;
+            font-weight: 700 !important;
+        }
+        html[data-theme="light"] .sh-navbar .sh-cart-icon:hover,
+        html[data-theme="light"] .sh-navbar .sh-cart-icon:hover i {
+            color: var(--sh-primary) !important;
+        }
+        html[data-theme="light"] .sh-navbar .btn-sh-login {
+            color: #0f172a !important;
+            border: 1.5px solid rgba(15, 23, 42, 0.25) !important;
+            background-color: #f1f5f9 !important;
+        }
+        html[data-theme="light"] .sh-navbar .btn-sh-login:hover {
+            color: #ffffff !important;
+            background-color: var(--sh-primary) !important;
+            border-color: var(--sh-primary) !important;
+        }
+        html[data-theme="light"] .sh-navbar .sh-toggler {
+            border: 1.5px solid rgba(15, 23, 42, 0.25) !important;
+            background-color: #f1f5f9 !important;
+        }
+        html[data-theme="light"] .sh-navbar .sh-toggler .bar {
+            background-color: #0f172a !important;
+        }
+
+        /* ===== DARK THEME: 100% Explicit High Contrast for Navbar Elements ===== */
+        html[data-theme="dark"] .sh-navbar {
+            background-color: #14141a !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45) !important;
+        }
+        html[data-theme="dark"] .sh-navbar .nav-link {
+            color: rgba(255, 255, 255, 0.88) !important;
+        }
+        html[data-theme="dark"] .sh-navbar .nav-link:hover,
+        html[data-theme="dark"] .sh-navbar .nav-link.active {
+            color: var(--sh-primary) !important;
+        }
+        html[data-theme="dark"] .sh-navbar .sh-icon-btn,
+        html[data-theme="dark"] .sh-navbar .sh-theme-toggle {
+            color: #ffffff !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
+        }
+        html[data-theme="dark"] .sh-navbar .sh-icon-btn i,
+        html[data-theme="dark"] .sh-navbar .sh-theme-toggle i {
+            color: #ffffff !important;
+        }
+        html[data-theme="dark"] .sh-navbar .sh-icon-btn:hover,
+        html[data-theme="dark"] .sh-navbar .sh-theme-toggle:hover {
+            color: #ffffff !important;
+            background-color: var(--sh-primary) !important;
+            border-color: var(--sh-primary) !important;
+        }
+        html[data-theme="dark"] .sh-navbar .sh-icon-btn:hover i,
+        html[data-theme="dark"] .sh-navbar .sh-theme-toggle:hover i {
+            color: #ffffff !important;
+        }
+        html[data-theme="dark"] .sh-navbar .sh-cart-icon,
+        html[data-theme="dark"] .sh-navbar .sh-cart-icon i {
+            color: #ffffff !important;
+        }
+        html[data-theme="dark"] .sh-navbar .sh-cart-icon:hover,
+        html[data-theme="dark"] .sh-navbar .sh-cart-icon:hover i {
+            color: var(--sh-primary) !important;
+        }
+        html[data-theme="dark"] .sh-navbar .btn-sh-login {
+            color: #ffffff !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+            background-color: rgba(255, 255, 255, 0.06) !important;
+        }
+        html[data-theme="dark"] .sh-navbar .btn-sh-login:hover {
+            color: #ffffff !important;
+            background-color: var(--sh-primary) !important;
+            border-color: var(--sh-primary) !important;
+        }
+        html[data-theme="dark"] .sh-navbar .sh-toggler {
+            border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+        }
+        html[data-theme="dark"] .sh-navbar .sh-toggler .bar {
+            background-color: #ffffff !important;
+        }
+
+        /* ===== General Buttons ===== */
         .btn-sh-primary {
             background: var(--sh-primary);
             border-color: var(--sh-primary);
             color: #fff;
             font-family: 'Comic Relief', 'Open Sans', system-ui;
             font-weight: 600;
-            padding: .6rem 1.4rem;
+            padding: .5rem 1.3rem;
             border-radius: 8px;
             transition: all .2s ease;
         }
@@ -1002,7 +1216,19 @@
 
     <!-- 1. STICKY TOP NAVBAR (Horizontal Straightline Layout) -->
     <nav class="navbar navbar-expand-lg sh-navbar sticky-top" id="top">
-        <div class="container-fluid px-3 px-xl-5" style="max-width: 1440px;">
+        <div class="container-fluid px-3 px-xl-4" style="max-width: 1540px;">
+            <!-- Brand Lockup with Emblem Logo and Balanced Typography -->
+            <a class="navbar-brand brx-navbar-brand py-0 me-2 me-xl-3" href="{{ route('home') }}" title="BRX Agro Global Importação e Exportação Ltda">
+                <img src="{{ asset('img/BRX Agro Global Product Emblem.png') }}" alt="BRX Agro Global Logo" class="brx-navbar-emblem">
+                <div class="brx-brand-wrap">
+                    <div class="brx-brand-row">
+                        <span class="brx-name-lead">BRX</span>
+                        <span class="brx-name-tag">AGRO GLOBAL</span>
+                    </div>
+                    <span class="brx-legal-sub">IMPORTAÇÃO E EXPORTAÇÃO LTDA</span>
+                </div>
+            </a>
+
             <!-- Mobile Hamburger Toggler (visible on small screens) -->
             <button class="navbar-toggler sh-toggler d-lg-none me-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="bar"></span>
@@ -1074,7 +1300,7 @@
                     </button>
 
                     <!-- Search Trigger Modal -->
-                    <button type="button" class="sh-icon-btn" data-bs-toggle="modal" data-bs-target="#searchModal" title="Search Products">
+                    <button type="button" class="sh-icon-btn" id="searchTriggerBtn" data-bs-toggle="modal" data-bs-target="#searchModal" title="Search Products">
                         <i class="bi bi-search"></i>
                     </button>
 
@@ -1097,7 +1323,7 @@
                                 @if (auth()->user()->isAdmin())
                                     <li>
                                         <a class="dropdown-item py-2 text-warning fw-bold" href="{{ route('admin.dashboard') }}">
-                                            <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
+                                             <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
                                         </a>
                                     </li>
                                     <li>
@@ -1546,13 +1772,13 @@
             <div class="container py-3">
                 <div class="row align-items-center g-5">
                     <div class="col-lg-6">
-                        <div class="sh-eyebrow">About Matro</div>
+                        <div class="sh-eyebrow">About BRX Agro Global</div>
                         <h2 class="sh-title mb-3">Direct Brazilian Agro Trade Facilitation</h2>
                         <p class="sh-text-muted mb-3">
-                            Matro connects international commodity buyers and institutional food conglomerates directly with certified agricultural cooperatives across Brazil's most productive basins.
+                            <strong>BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA</strong> connects international commodity buyers and institutional food conglomerates directly with certified agricultural cooperatives across Brazil's most productive basins.
                         </p>
                         <p class="sh-text-muted mb-4">
-                            Headquartered on Avenida Paulista in São Paulo, our multi-lingual trade desk coordinates harvest basin allocations, laboratory assay verifications, and deepwater vessel logistics to deliver institutional grade commodities on FOB and CIF terms.
+                            Headquartered at Rua Marconi, 87 Centro in São Paulo, our multi-lingual trade desk coordinates harvest basin allocations, laboratory assay verifications, and deepwater vessel logistics to deliver institutional grade commodities on FOB and CIF terms.
                         </p>
                         <div class="d-flex gap-4">
                             <div>
@@ -1571,7 +1797,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="p-3 rounded-4 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
-                            <img src="{{ asset('img/about-2.jpg') }}" alt="About Matro Agro Desk" class="img-fluid rounded-3 w-100 object-fit-cover" style="max-height: 320px;" onerror="this.src='{{ asset('img/service-1.jpg') }}'">
+                            <img src="{{ asset('img/about-2.jpg') }}" alt="About BRX Agro Global Desk" class="img-fluid rounded-3 w-100 object-fit-cover" style="max-height: 320px;" onerror="this.src='{{ asset('img/service-1.jpg') }}'">
                         </div>
                     </div>
                 </div>
@@ -1593,21 +1819,21 @@
                                 <i class="bi bi-geo-alt fs-4 text-success" style="color: var(--sh-primary) !important;"></i>
                                 <div>
                                     <strong class="d-block sh-text-title">Trading Headquarters</strong>
-                                    <small class="sh-text-muted">Av. Paulista 1374, Bela Vista, São Paulo - SP, Brazil</small>
+                                    <small class="sh-text-muted">Rua Marconi, 87 Centro, CEP 01047-906, São Paulo - SP, Brazil</small>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <i class="bi bi-whatsapp fs-4 text-success"></i>
                                 <div>
                                     <strong class="d-block sh-text-title">Direct WhatsApp Desk</strong>
-                                    <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold small">+55 (11) 95298-7545</a>
+                                    <a href="https://wa.me/5511958353433" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold small">+55 (11) 95835-3433</a>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-3">
                                 <i class="bi bi-envelope fs-4 text-success" style="color: var(--sh-primary) !important;"></i>
                                 <div>
                                     <strong class="d-block sh-text-title">Corporate Desk</strong>
-                                    <small class="sh-text-muted">tradedesk@matro.com / inquiries@matro.com</small>
+                                    <small class="sh-text-muted">tradedesk@brxagroglobal.com / inquiries@brxagroglobal.com</small>
                                 </div>
                             </div>
                         </div>
@@ -1700,7 +1926,7 @@
                             <div class="sh-stars mb-3">
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                             </div>
-                            <p class="fst-italic sh-text-muted mb-3">"The ICUMSA 45 refined sugar arrived on time with complete phytosanitary certificates and zero broken bags. Matro's direct desk communicated vessel telemetry daily."</p>
+                            <p class="fst-italic sh-text-muted mb-3">"The ICUMSA 45 refined sugar arrived on time with complete phytosanitary certificates and zero broken bags. BRX Agro Global's direct desk communicated vessel telemetry daily."</p>
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('img/testimonial-2.jpg') }}" alt="" class="rounded-circle me-3 object-fit-cover" width="46" height="46">
                                 <div>
@@ -1798,14 +2024,21 @@
             <div class="sh-footer-horizontal-wrap mb-4">
                 <!-- Col 1: Brand & Mission -->
                 <div class="sh-footer-col-brand">
-                    <h6 class="fs-5 text-white mb-2">MATRO <span style="color: var(--sh-primary);">AGRO</span></h6>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <img src="{{ asset('img/BRX Agro Global Product Emblem.png') }}" alt="BRX AGRO GLOBAL" class="rounded-circle" style="width: 44px; height: 44px; object-fit: cover; border: 2px solid var(--sh-primary); flex-shrink: 0;">
+                        <div>
+                            <div class="fw-bold text-white fs-6" style="letter-spacing: 0.5px; line-height: 1.1;">BRX <span style="color: var(--sh-primary);">AGRO GLOBAL</span></div>
+                            <small class="text-white-50 d-block" style="font-size: 0.52rem; letter-spacing: 1.2px; text-transform: uppercase;">Importação e Exportação Ltda</small>
+                        </div>
+                    </div>
+                    <div class="small text-success fw-semibold mb-2" style="font-size: 0.72rem; letter-spacing: 0.5px;">CNPJ: 38.471.480/0001-41</div>
                     <p class="small text-white-50 mb-3" style="line-height: 1.6;">
                         Direct institutional trade facilitation between certified Brazilian agricultural cooperatives and global commodity buyers.
                     </p>
                     <div class="d-flex align-items-center mt-3">
-                        <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="social-icon" title="WhatsApp Desk"><i class="bi bi-whatsapp"></i></a>
+                        <a href="https://wa.me/5511958353433" target="_blank" rel="noopener" class="social-icon" title="WhatsApp Desk"><i class="bi bi-whatsapp"></i></a>
                         <a href="#" class="social-icon" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                        <a href="mailto:tradedesk@matro.com" class="social-icon" title="Email Desk"><i class="bi bi-envelope"></i></a>
+                        <a href="mailto:tradedesk@brxagroglobal.com" class="social-icon" title="Email Desk"><i class="bi bi-envelope"></i></a>
                     </div>
                 </div>
 
@@ -1825,7 +2058,7 @@
                 <div class="sh-footer-col">
                     <h6>Company</h6>
                     <ul class="list-unstyled small mb-0">
-                        <li class="mb-2"><a href="#products">About Matro</a></li>
+                        <li class="mb-2"><a href="#about">About BRX Agro Global</a></li>
                         <li class="mb-2"><a href="#rfq-desk">Brazilian Trade Desk</a></li>
                         <li class="mb-2"><a href="#products">Harvest Basins</a></li>
                         <li class="mb-2"><a href="#rfq-desk">Contact Us</a></li>
@@ -1863,15 +2096,15 @@
                     <ul class="list-unstyled small mb-0">
                         <li class="mb-2 d-flex align-items-start gap-2">
                             <i class="bi bi-geo-alt me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0; margin-top: 3px;"></i>
-                            <span>Av. Paulista 1374, São Paulo - SP, Brazil</span>
+                            <span>Rua Marconi, 87 Centro, CEP 01047-906, São Paulo - SP, Brazil</span>
                         </li>
                         <li class="mb-2 d-flex align-items-center gap-2">
                             <i class="bi bi-whatsapp me-1 text-success" style="flex-shrink: 0;"></i>
-                            <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold">+55 (11) 95298-7545</a>
+                            <a href="https://wa.me/5511958353433" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold">+55 (11) 95835-3433</a>
                         </li>
                         <li class="mb-2 d-flex align-items-center gap-2">
                             <i class="bi bi-envelope me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
-                            <a href="mailto:tradedesk@matro.com" class="text-decoration-none text-white-50">tradedesk@matro.com</a>
+                            <a href="mailto:tradedesk@brxagroglobal.com" class="text-decoration-none text-white-50">tradedesk@brxagroglobal.com</a>
                         </li>
                         <li class="mb-0 d-flex align-items-center gap-2">
                             <i class="bi bi-clock me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
@@ -1884,7 +2117,7 @@
             <!-- Footer Bottom -->
             <div class="sh-footer-bottom mt-4 pt-4 text-center small text-white-50 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
                 <div>
-                    &copy; {{ date('Y') }} Matro Brazilian Agro-Commodity Platform. All rights reserved.
+                    &copy; {{ date('Y') }} BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA. CNPJ: 38.471.480/0001-41. All rights reserved.
                 </div>
                 <div class="d-flex gap-3">
                     <span><i class="bi bi-shield-check text-success me-1"></i> Bank Escrow Protected</span>
