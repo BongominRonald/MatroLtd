@@ -7,10 +7,6 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ShopController;
 use App\Models\Inquiry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,55 +14,23 @@ use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
-| Public Storefront & Catalog Routes
+| Public Storefront Routes
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/shop/{product:slug}', [ShopController::class, 'show'])->name('shop.show');
-
-/*
-|--------------------------------------------------------------------------
-| Shopping Cart & Slide-out Drawer
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('/cart/{product}/add', [CartController::class, 'add'])->name('cart.add');
-Route::patch('/cart/{product}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/{product}', [CartController::class, 'remove'])->name('cart.remove');
-Route::get('/cart/drawer', [CartController::class, 'drawer'])->name('cart.drawer');
-Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
-
-/*
-|--------------------------------------------------------------------------
-| Checkout & Order Confirmation
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
-Route::get('/orders/{order}/confirmation', [CheckoutController::class, 'confirmation'])->name('orders.confirmation');
-
-/*
-|--------------------------------------------------------------------------
-| Authentication Portal
-|--------------------------------------------------------------------------
-*/
+Route::get('/', function () {
+    return view('index');
+})->name('home');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-/*
-|--------------------------------------------------------------------------
-| Public Trade & RFQ Inquiry Form Submission
-|--------------------------------------------------------------------------
-*/
-
+// Public Trade & RFQ Inquiry Form Submission
 Route::post('/inquiries', function (Request $request) {
     $validated = $request->validate([
         'name' => 'required|string|max:255',
