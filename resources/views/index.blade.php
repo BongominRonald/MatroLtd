@@ -310,15 +310,54 @@
             }
         }
         @media (max-width: 991.98px) {
+            .sh-navbar .navbar-collapse {
+                max-height: calc(85vh - 65px) !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 14px !important;
+                padding: 1rem 1.25rem 1.5rem !important;
+                margin-top: 0.75rem !important;
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+            }
             .sh-navbar .navbar-nav {
-                text-align: center;
-                padding-top: 1rem;
-                padding-bottom: 1rem;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.25rem !important;
+                padding: 0.5rem 0 !important;
+                text-align: center !important;
+                width: 100% !important;
+            }
+            .sh-navbar .navbar-nav .nav-item {
+                width: 100% !important;
+            }
+            .sh-navbar .navbar-nav .nav-link {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 0.98rem !important;
+                font-weight: 600 !important;
+                padding: 0.65rem 1rem !important;
+                border-radius: 8px !important;
+                letter-spacing: 0.3px;
+                transition: all 0.2s ease !important;
+            }
+            .sh-navbar .sh-nav-dropdown .dropdown-menu {
+                position: static !important;
+                float: none !important;
+                width: 100% !important;
+                margin-top: 0.35rem !important;
+                margin-bottom: 0.5rem !important;
+                box-shadow: none !important;
+                border-radius: 10px !important;
+                padding: 0.5rem !important;
             }
             .sh-navbar .sh-nav-actions {
                 justify-content: center;
                 width: 100%;
-                padding-top: 0.5rem;
+                padding-top: 1rem;
+                margin-top: 0.75rem;
+                border-top: 1px solid var(--bs-border-color);
             }
             .brx-name-lead { font-size: 1.05rem; }
             .brx-name-tag { font-size: 0.85rem; }
@@ -470,12 +509,40 @@
             border-bottom: 1px solid rgba(20, 20, 26, 0.12) !important;
             box-shadow: 0 2px 14px rgba(0, 0, 0, 0.05) !important;
         }
+        html[data-theme="light"] .sh-navbar .navbar-collapse {
+            background-color: #ffffff !important;
+            border: 1px solid rgba(15, 23, 42, 0.14) !important;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12) !important;
+        }
         html[data-theme="light"] .sh-navbar .nav-link {
-            color: #1e293b !important;
+            color: #0f172a !important;
         }
         html[data-theme="light"] .sh-navbar .nav-link:hover,
+        html[data-theme="light"] .sh-navbar .nav-link:focus {
+            color: #15803d !important;
+            background-color: rgba(22, 101, 52, 0.08) !important;
+        }
         html[data-theme="light"] .sh-navbar .nav-link.active {
-            color: var(--sh-primary) !important;
+            color: #15803d !important;
+            background-color: rgba(22, 101, 52, 0.12) !important;
+            font-weight: 700 !important;
+        }
+        html[data-theme="light"] .sh-navbar .dropdown-menu {
+            background-color: #ffffff !important;
+            border: 1px solid rgba(15, 23, 42, 0.14) !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+        }
+        html[data-theme="light"] .sh-navbar .dropdown-header {
+            color: #15803d !important;
+            font-weight: 700 !important;
+        }
+        html[data-theme="light"] .sh-navbar .dropdown-item {
+            color: #0f172a !important;
+        }
+        html[data-theme="light"] .sh-navbar .dropdown-item:hover,
+        html[data-theme="light"] .sh-navbar .dropdown-item:focus {
+            color: #15803d !important;
+            background-color: rgba(22, 101, 52, 0.08) !important;
         }
         html[data-theme="light"] .sh-navbar .sh-icon-btn,
         html[data-theme="light"] .sh-navbar .sh-theme-toggle {
@@ -501,11 +568,15 @@
         html[data-theme="light"] .sh-navbar .sh-cart-icon,
         html[data-theme="light"] .sh-navbar .sh-cart-icon i {
             color: #0f172a !important;
+            background-color: #f1f5f9 !important;
+            border: 1.5px solid rgba(15, 23, 42, 0.22) !important;
             font-weight: 700 !important;
         }
         html[data-theme="light"] .sh-navbar .sh-cart-icon:hover,
         html[data-theme="light"] .sh-navbar .sh-cart-icon:hover i {
-            color: var(--sh-primary) !important;
+            color: #ffffff !important;
+            background-color: var(--sh-primary) !important;
+            border-color: var(--sh-primary) !important;
         }
         html[data-theme="light"] .sh-navbar .btn-sh-login {
             color: #0f172a !important;
@@ -531,12 +602,40 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
             box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45) !important;
         }
+        html[data-theme="dark"] .sh-navbar .navbar-collapse {
+            background-color: #181824 !important;
+            border: 1px solid rgba(255, 255, 255, 0.16) !important;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7) !important;
+        }
         html[data-theme="dark"] .sh-navbar .nav-link {
-            color: rgba(255, 255, 255, 0.88) !important;
+            color: #f1f5f9 !important;
         }
         html[data-theme="dark"] .sh-navbar .nav-link:hover,
+        html[data-theme="dark"] .sh-navbar .nav-link:focus {
+            color: #a3e635 !important;
+            background-color: rgba(255, 255, 255, 0.08) !important;
+        }
         html[data-theme="dark"] .sh-navbar .nav-link.active {
-            color: var(--sh-primary) !important;
+            color: #a3e635 !important;
+            background-color: rgba(163, 230, 53, 0.15) !important;
+            font-weight: 700 !important;
+        }
+        html[data-theme="dark"] .sh-navbar .dropdown-menu {
+            background-color: #13131c !important;
+            border: 1px solid rgba(255, 255, 255, 0.14) !important;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5) !important;
+        }
+        html[data-theme="dark"] .sh-navbar .dropdown-header {
+            color: #a3e635 !important;
+            font-weight: 700 !important;
+        }
+        html[data-theme="dark"] .sh-navbar .dropdown-item {
+            color: #f1f5f9 !important;
+        }
+        html[data-theme="dark"] .sh-navbar .dropdown-item:hover,
+        html[data-theme="dark"] .sh-navbar .dropdown-item:focus {
+            color: #a3e635 !important;
+            background-color: rgba(163, 230, 53, 0.16) !important;
         }
         html[data-theme="dark"] .sh-navbar .sh-icon-btn,
         html[data-theme="dark"] .sh-navbar .sh-theme-toggle {
@@ -561,6 +660,8 @@
         html[data-theme="dark"] .sh-navbar .sh-cart-icon,
         html[data-theme="dark"] .sh-navbar .sh-cart-icon i {
             color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
         }
         html[data-theme="dark"] .sh-navbar .sh-cart-icon:hover,
         html[data-theme="dark"] .sh-navbar .sh-cart-icon:hover i {
@@ -578,6 +679,7 @@
         }
         html[data-theme="dark"] .sh-navbar .sh-toggler {
             border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
         }
         html[data-theme="dark"] .sh-navbar .sh-toggler .bar {
             background-color: #ffffff !important;
@@ -2852,6 +2954,19 @@
                     try { localStorage.setItem('sh-theme', next); } catch (e) {}
                     updateThemeIcons();
                 });
+            });
+
+            // Auto-close mobile navbar when in-page anchor links are clicked
+            $('.navbar-nav .nav-link:not(.dropdown-toggle)').on('click', function () {
+                var $collapse = $('#mainNav');
+                if ($collapse.hasClass('show')) {
+                    var bsCollapse = bootstrap.Collapse.getInstance($collapse[0]);
+                    if (bsCollapse) {
+                        bsCollapse.hide();
+                    } else {
+                        $collapse.removeClass('show');
+                    }
+                }
             });
 
             // Cart State & Notification (Authentication Gating Enforced)

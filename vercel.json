@@ -1,0 +1,68 @@
+{
+  "version": 2,
+  "name": "brx-agro-global-importacao-e-exportacao-ltda",
+  "framework": null,
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.7.3",
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/img/(.*)",
+      "dest": "/public/img/$1"
+    },
+    {
+      "src": "/css/(.*)",
+      "dest": "/public/css/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/public/js/$1"
+    },
+    {
+      "src": "/lib/(.*)",
+      "dest": "/public/lib/$1"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/public/img/favicon.ico"
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/public/robots.txt"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php"
+    }
+  ],
+  "env": {
+    "APP_NAME": "BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA",
+    "APP_ENV": "production",
+    "APP_KEY": "base64:F0j88T37EJFWQGVvN0fzg+W6ovIdYYXYhiuSUnGIUFU=",
+    "APP_DEBUG": "false",
+    "APP_URL": "https://brx-agro-global-importacao-e-exportacao-ltda.vercel.app",
+    "APP_CONFIG_CACHE": "/tmp/config.php",
+    "APP_EVENTS_CACHE": "/tmp/events.php",
+    "APP_PACKAGES_CACHE": "/tmp/packages.php",
+    "APP_ROUTES_CACHE": "/tmp/routes.php",
+    "APP_SERVICES_CACHE": "/tmp/services.php",
+    "VIEW_COMPILED_PATH": "/tmp/views",
+    "CACHE_STORE": "array",
+    "SESSION_DRIVER": "cookie",
+    "SESSION_LIFETIME": "120",
+    "SESSION_ENCRYPT": "false",
+    "LOG_CHANNEL": "stderr",
+    "LOG_LEVEL": "error",
+    "DB_CONNECTION": "pgsql",
+    "DB_HOST": "ep-rough-salad-b6i230et.c-2.sa-east-1.aws.neon.tech",
+    "DB_PORT": "5432",
+    "DB_DATABASE": "neondb",
+    "DB_USERNAME": "neondb_owner",
+    "DB_PASSWORD": "npg_zSwR7Cmeuj5X",
+    "DB_SSLMODE": "require"
+  }
+}

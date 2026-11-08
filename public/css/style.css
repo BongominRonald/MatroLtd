@@ -148,7 +148,7 @@
     padding: 8px 14px;
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.88) !important;
+    color: rgba(255, 255, 255, 0.88);
     font-size: 14px;
     border-radius: 6px;
     outline: none;
@@ -220,12 +220,9 @@
 
 @media (max-width: 991.98px) {
     .navbar .navbar-collapse {
-        background: rgba(18, 22, 28, 0.98);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 12px;
-        padding: 18px;
+        border-radius: 14px;
+        padding: 16px 18px;
         margin-top: 10px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .navbar .navbar-nav .nav-link {

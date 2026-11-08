@@ -1,0 +1,10 @@
+.env
+.env.*
+.git
+.github
+tests
+storage/*.key
+database/*.sqlite
+node_modules
+*.png
+test-*.js
