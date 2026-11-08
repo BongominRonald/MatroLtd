@@ -11,8 +11,13 @@ class CheckoutTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_can_place_commodity_order_via_checkout_endpoint(): void
+    public function test_authenticated_user_can_place_commodity_order_via_checkout_endpoint(): void
     {
+        $user = User::factory()->create([
+            'name' => 'John Exporting Ltd',
+            'email' => 'procurement@johnexport.com',
+        ]);
+
         $payload = [
             'customer_name' => 'John Exporting Ltd',
             'customer_email' => 'procurement@johnexport.com',
@@ -34,7 +39,7 @@ class CheckoutTest extends TestCase
             ],
         ];
 
-        $response = $this->postJson(route('checkout.store'), $payload);
+        $response = $this->actingAs($user)->postJson(route('checkout.store'), $payload);
 
         $response->assertStatus(200);
         $response->assertJson([
@@ -43,6 +48,7 @@ class CheckoutTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('orders', [
+            'user_id' => $user->id,
             'customer_name' => 'John Exporting Ltd',
             'customer_email' => 'procurement@johnexport.com',
             'total_amount' => 1510.00,
@@ -66,6 +72,32 @@ class CheckoutTest extends TestCase
             'quantity' => 1,
             'subtotal' => 540.00,
         ]);
+    }
+
+    public function test_unauthenticated_guest_cannot_place_order_via_checkout_endpoint(): void
+    {
+        $payload = [
+            'customer_name' => 'Anonymous Trader',
+            'customer_email' => 'guest@example.com',
+            'items' => [
+                [
+                    'name' => 'Brazilian Non-GMO Soybeans',
+                    'price' => 485.00,
+                    'qty' => 1,
+                ],
+            ],
+        ];
+
+        $response = $this->postJson(route('checkout.store'), $payload);
+
+        $response->assertStatus(401);
+        $response->assertJson([
+            'success' => false,
+            'message' => 'Authentication required. Please log in to place a commodity order.',
+        ]);
+
+        $this->assertDatabaseCount('orders', 0);
+        $this->assertDatabaseCount('order_items', 0);
     }
 
     public function test_authenticated_user_id_is_recorded_with_order(): void
@@ -99,7 +131,9 @@ class CheckoutTest extends TestCase
 
     public function test_checkout_requires_valid_items_and_contact_info(): void
     {
-        $response = $this->postJson(route('checkout.store'), [
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->postJson(route('checkout.store'), [
             'customer_name' => '',
             'customer_email' => 'not-an-email',
             'items' => [],

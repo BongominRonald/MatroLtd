@@ -90,8 +90,16 @@ Route::post('/inquiries', function (Request $request) {
     return back()->with('status', 'Inquiry submitted successfully.');
 })->name('inquiries.store');
 
-// Public Commodity Cart Checkout & Order Placement
+// Public Commodity Cart Checkout & Order Placement (Authenticated Buyers Only)
 Route::post('/checkout', function (Request $request) {
+    if (! auth()->check()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Authentication required. Please log in to place a commodity order.',
+            'redirect' => route('login'),
+        ], 401);
+    }
+
     $validated = $request->validate([
         'customer_name' => 'required|string|max:255',
         'customer_email' => 'required|email|max:255',
