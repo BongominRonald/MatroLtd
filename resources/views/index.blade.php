@@ -1241,6 +1241,8 @@
             transition: transform .32s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
+            overflow: hidden !important;
+            box-sizing: border-box;
         }
         .sh-cart-offcanvas.show {
             transform: translateX(0);
@@ -1251,19 +1253,30 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-shrink: 0;
+            width: 100%;
+            box-sizing: border-box;
         }
         .sh-cart-offcanvas .offcanvas-body {
             padding: 1.25rem;
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
             flex: 1 1 auto;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box;
         }
         .sh-cart-items-container {
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
             margin-bottom: 1rem;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box;
+            overflow: hidden;
         }
         .sh-cart-item {
             background: var(--sh-surface-alt, rgba(255, 255, 255, 0.04));
@@ -1271,8 +1284,12 @@
             border-radius: 12px;
             padding: 12px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box;
+            overflow: hidden;
             transition: border-color .2s ease, transform .2s ease;
         }
         .sh-cart-item:hover {
@@ -1280,12 +1297,53 @@
             transform: translateY(-1px);
         }
         .sh-cart-thumb {
-            width: 60px;
-            height: 60px;
+            width: 58px;
+            height: 58px;
             border-radius: 8px;
             object-fit: cover;
             border: 1px solid var(--sh-border);
             flex-shrink: 0;
+        }
+        .sh-cart-item-details {
+            flex: 1 1 0;
+            min-width: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .sh-cart-item-title-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+            min-width: 0;
+        }
+        .sh-cart-item-title {
+            margin: 0;
+            font-weight: 700;
+            font-size: 0.88rem;
+            line-height: 1.35;
+            color: var(--bs-emphasis-color);
+            word-break: break-word;
+            overflow-wrap: break-word;
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+        .sh-cart-del-btn {
+            background: transparent;
+            border: none;
+            color: #dc3545;
+            font-size: 0.95rem;
+            line-height: 1;
+            padding: 2px 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: color .15s ease, transform .15s ease;
+        }
+        .sh-cart-del-btn:hover {
+            color: #b02a37;
+            transform: scale(1.1);
         }
         .sh-cart-qty-ctrl {
             display: inline-flex;
@@ -1294,6 +1352,9 @@
             border: 1px solid var(--sh-border);
             border-radius: 30px;
             padding: 2px 4px;
+            user-select: none;
+            -webkit-user-select: none;
+            flex-shrink: 0;
         }
         .sh-cart-qty-btn {
             background: transparent;
@@ -1308,18 +1369,28 @@
             font-size: .85rem;
             cursor: pointer;
             transition: background .15s ease, color .15s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            outline: none !important;
+            box-shadow: none !important;
         }
         .sh-cart-qty-btn:hover {
             background: var(--sh-primary);
             color: #fff;
         }
+        .sh-cart-qty-btn:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
         .sh-cart-qty-val {
             font-size: .85rem;
             font-weight: 700;
             padding: 0 8px;
-            min-width: 26px;
+            min-width: 24px;
             text-align: center;
             color: var(--bs-emphasis-color);
+            user-select: none;
+            -webkit-user-select: none;
         }
         .sh-cart-assurance-card {
             background: rgba(120, 162, 47, 0.08);
@@ -1327,12 +1398,48 @@
             border-radius: 10px;
             padding: 10px 14px;
             font-size: .8rem;
+            width: 100% !important;
+            box-sizing: border-box;
+            overflow: hidden;
+            word-break: break-word;
         }
         .sh-cart-summary-box {
             background: var(--sh-surface-alt, rgba(255, 255, 255, 0.04));
             border: 1px solid var(--sh-border);
             border-radius: 12px;
             padding: 14px;
+            width: 100% !important;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        html[data-theme="light"] .sh-cart-qty-ctrl {
+            background: #f1f2f6;
+            border-color: rgba(20, 20, 26, 0.15);
+        }
+        html[data-theme="light"] .sh-cart-qty-btn {
+            color: #14141a;
+        }
+        html[data-theme="light"] .sh-cart-qty-btn:hover {
+            background: var(--sh-primary);
+            color: #ffffff;
+        }
+        html[data-theme="light"] .sh-cart-qty-val {
+            color: #14141a;
+        }
+        html[data-theme="light"] .sh-cart-item {
+            background: #f8f9fa !important;
+            border-color: rgba(20, 20, 26, 0.1) !important;
+        }
+        html[data-theme="light"] .sh-cart-item:hover {
+            border-color: var(--sh-primary) !important;
+        }
+        html[data-theme="light"] .sh-cart-assurance-card {
+            background: rgba(120, 162, 47, 0.1) !important;
+            border-color: rgba(120, 162, 47, 0.3) !important;
+        }
+        html[data-theme="light"] .sh-cart-summary-box {
+            background: #f8f9fa !important;
+            border-color: rgba(20, 20, 26, 0.1) !important;
         }
 
         /* ===== Cart Toast ===== */
@@ -2693,7 +2800,14 @@
                 var backdrop = document.getElementById('agroviaCartBackdrop');
                 var drawer = document.getElementById('agroviaCartDrawer');
                 if (backdrop) backdrop.classList.add('show');
-                if (drawer) drawer.classList.add('show');
+                if (drawer) {
+                    drawer.classList.add('show');
+                    drawer.scrollLeft = 0;
+                    var body = drawer.querySelector('.offcanvas-body');
+                    if (body) {
+                        body.scrollLeft = 0;
+                    }
+                }
                 document.body.style.overflow = 'hidden';
             }
             window.openCartDrawer = openCartDrawer;
@@ -2738,27 +2852,27 @@
                     var itemHtml = `
                         <div class="sh-cart-item">
                             <img src="${item.image || '{{ asset('img/service-1.jpg') }}'}" alt="${item.name}" class="sh-cart-thumb">
-                            <div class="flex-grow-1 min-w-0">
-                                <div class="d-flex justify-content-between align-items-start gap-1">
-                                    <h6 class="mb-0 fw-bold sh-text-title text-truncate" style="font-size: 0.88rem;" title="${item.name}">${item.name}</h6>
-                                    <button type="button" class="btn btn-link text-danger p-0 border-0" onclick="removeCartItem(${index})" title="Remove item" style="font-size: 0.9rem; line-height: 1;">
+                            <div class="sh-cart-item-details">
+                                <div class="sh-cart-item-title-row">
+                                    <h6 class="sh-cart-item-title" title="${item.name}">${item.name}</h6>
+                                    <button type="button" class="sh-cart-del-btn" onclick="removeCartItem(${index})" title="Remove item">
                                         <i class="bi bi-trash3"></i>
                                     </button>
                                 </div>
-                                <div class="d-flex align-items-center gap-1 my-1">
+                                <div class="d-flex align-items-center gap-1 my-1 flex-wrap">
                                     <span class="badge" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.68rem; padding: 2px 6px;">
                                         ${item.origin || 'Brazil'}
                                     </span>
                                     <span class="text-muted" style="font-size: 0.72rem;">· SGS Assayed</span>
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap gap-2">
                                     <div class="sh-cart-qty-ctrl">
                                         <button type="button" class="sh-cart-qty-btn" onclick="changeItemQty(${index}, -1)" title="Decrease">-</button>
                                         <span class="sh-cart-qty-val">${qty}</span>
                                         <button type="button" class="sh-cart-qty-btn" onclick="changeItemQty(${index}, 1)" title="Increase">+</button>
                                     </div>
-                                    <div class="text-end">
-                                        <span class="fw-bold" style="color: var(--sh-primary); font-size: 0.95rem;">$${lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                    <div class="text-end ms-auto">
+                                        <span class="fw-bold d-block" style="color: var(--sh-primary); font-size: 0.95rem;">$${lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                                         <small class="text-muted d-block" style="font-size: 0.68rem;">($${price.toFixed(2)}/${item.unit || 'MT'})</small>
                                     </div>
                                 </div>
@@ -2916,12 +3030,12 @@
                     lotCount += qty;
 
                     $chkList.append(`
-                        <div class="d-flex justify-content-between align-items-center py-1 border-bottom border-secondary border-opacity-10">
-                            <div>
-                                <strong class="sh-text-title">${item.name}</strong>
-                                <span class="text-muted ms-1">(${qty} &times; $${price.toFixed(2)}/${item.unit || 'MT'})</span>
+                        <div class="d-flex justify-content-between align-items-center py-1 border-bottom border-secondary border-opacity-10 gap-2">
+                            <div style="min-width: 0; flex: 1 1 auto;">
+                                <strong class="sh-text-title d-block" style="word-break: break-word;">${item.name}</strong>
+                                <span class="text-muted small">(${qty} &times; $${price.toFixed(2)}/${item.unit || 'MT'})</span>
                             </div>
-                            <span class="fw-bold" style="color: var(--sh-primary);">$${sub.toFixed(2)}</span>
+                            <span class="fw-bold flex-shrink-0" style="color: var(--sh-primary);">$${sub.toFixed(2)}</span>
                         </div>
                     `);
                 });
