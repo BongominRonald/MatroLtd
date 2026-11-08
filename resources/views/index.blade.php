@@ -10,16 +10,19 @@
     <meta content="BRX Agro Global, Importação e Exportação Ltda, Brazilian agro commodities, bulk soybeans, ICUMSA 45 sugar, yellow corn, green coffee, SGS inspection, escrow settlement, Port of Santos, CNPJ 38.471.480/0001-41" name="keywords">
     <meta content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA coordinates direct institutional origination of Brazilian agro-commodities for international buyers. Sourced from certified cooperatives, verified by SGS &amp; MAPA, and secured with Tier-1 bank escrow." name="description">
 
-    <link href="{{ asset('img/favicon.ico') }}" rel="icon">
+    <!-- Badge Favicons -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('img/favicon-48x48.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-touch-icon.png') }}">
 
-    <!-- Fonts: Arovia / Matro Brand Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Self-Hosted Typography -->
+    <link rel="stylesheet" href="{{ asset('fonts/open-sans.css') }}">
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <!-- Self-Hosted Icons -->
+    <link rel="stylesheet" href="{{ asset('lib/bootstrap-icons/bootstrap-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib/font-awesome/all.min.css') }}">
 
     <!-- Stylesheets -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -2928,9 +2931,9 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Local Scripts -->
+    <script src="{{ asset('lib/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('lib/bootstrap/bootstrap.bundle.min.js') }}"></script>
 
     <script>
         (function () {

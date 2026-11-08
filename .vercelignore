@@ -6,5 +6,5 @@ tests
 storage/*.key
 database/*.sqlite
 node_modules
-*.png
+mobile-*.png
 test-*.js

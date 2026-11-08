@@ -1,15 +1,27 @@
 {
   "version": 2,
-  "name": "brx-agro-global-importacao-e-exportacao-ltda",
   "framework": null,
+  "outputDirectory": "public",
   "functions": {
     "api/index.php": {
-      "runtime": "vercel-php@0.7.3",
+      "runtime": "vercel-php@0.8.0",
       "memory": 1024,
       "maxDuration": 30
     }
   },
   "routes": [
+    {
+      "src": "/favicon.ico",
+      "dest": "/public/favicon.ico"
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/public/robots.txt"
+    },
+    {
+      "src": "/fonts/(.*)",
+      "dest": "/public/fonts/$1"
+    },
     {
       "src": "/img/(.*)",
       "dest": "/public/img/$1"
@@ -27,12 +39,20 @@
       "dest": "/public/lib/$1"
     },
     {
-      "src": "/favicon.ico",
-      "dest": "/public/img/favicon.ico"
+      "src": "/build/(.*)",
+      "dest": "/public/build/$1"
     },
     {
-      "src": "/robots.txt",
-      "dest": "/public/robots.txt"
+      "src": "/style.css",
+      "dest": "/public/style.css"
+    },
+    {
+      "src": "/script.js",
+      "dest": "/public/script.js"
+    },
+    {
+      "src": "/(.*\.(?:ico|png|jpg|jpeg|svg|webp|css|js|woff|woff2|ttf|eot|gif|map|json|txt))",
+      "dest": "/public/$1"
     },
     {
       "src": "/(.*)",

@@ -39,3 +39,4 @@ Thumbs.db
 /opencode.json
 
 .vercel
+.env*

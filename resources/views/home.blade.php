@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BRX AGRO GLOBAL — Sign In & Register</title>
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <!-- Badge Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-touch-icon.png') }}">
+
+    <!-- Local Self-Hosted Assets -->
+    <link rel="stylesheet" href="{{ asset('lib/boxicons/boxicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('fonts/poppins.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
     <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>
 
@@ -72,7 +77,7 @@
             <!-- ================= LOGIN INFO TEXT (RIGHT SIDE) ================= -->
             <div class="info-text Login">
                 <div class="produce-preview-card animation" style="--li: 0s; --lo: 0.35s;">
-                    <img src="{{ asset('img/sunflower-bg.jpg') }}" alt="Sunflower Plants and Sunflower Oil" class="produce-card-img">
+                    <img src="{{ asset('img/sunflower-bg.webp') }}" alt="Sunflower Plants and Sunflower Oil" class="produce-card-img" onerror="this.onerror=null;this.src='{{ asset('img/sunflower-bg.jpg') }}'">
                     <div class="produce-card-badge gold">
                         <i class='bx bxs-sun'></i> Sunflowers &amp; Pure Oil
                     </div>
@@ -87,7 +92,7 @@
             <div class="form-box Register">
                 <h2 class="animation" style="--li: 0s; --lo: 0.6s;">Register</h2>
                 <div class="register-peppers-strip animation" style="--li: 0.04s; --lo: 0.55s;">
-                    <img src="{{ asset('img/bell-peppers-bg.jpg') }}" alt="Green, Yellow &amp; Red Bell Peppers" class="peppers-strip-thumb">
+                    <img src="{{ asset('img/bell-peppers-bg.webp') }}" alt="Green, Yellow &amp; Red Bell Peppers" class="peppers-strip-thumb" onerror="this.onerror=null;this.src='{{ asset('img/bell-peppers-bg.jpg') }}'">
                     <div class="peppers-strip-text">
                         <span class="peppers-pill-group">
                             <span class="pill green">Green</span>
@@ -143,7 +148,7 @@
             <!-- ================= REGISTER INFO TEXT (LEFT SIDE) ================= -->
             <div class="info-text Register">
                 <div class="produce-preview-card animation" style="--li: 0s; --lo: 0.35s;">
-                    <img src="{{ asset('img/bell-peppers-bg.jpg') }}" alt="Fresh Green, Yellow and Red Bell Peppers" class="produce-card-img">
+                    <img src="{{ asset('img/bell-peppers-bg.webp') }}" alt="Fresh Green, Yellow and Red Bell Peppers" class="produce-card-img" onerror="this.onerror=null;this.src='{{ asset('img/bell-peppers-bg.jpg') }}'">
                     <div class="produce-card-badge peppers">
                         <span class="pepper-dot green"></span>
                         <span class="pepper-dot yellow"></span>
@@ -175,6 +180,7 @@
         </div>
     </div>
 
+    <script src="{{ asset('js/auth.js') }}"></script>
     <script src="{{ asset('script.js') }}"></script>
 </body>
 
