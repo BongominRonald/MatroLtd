@@ -120,7 +120,7 @@ Route::post('/checkout', function (Request $request) {
     }
 
     $order = Order::create([
-        'order_number' => 'MATRO-ORD-'.strtoupper(Str::random(6)),
+        'order_number' => 'BRX-ORD-'.strtoupper(Str::random(6)),
         'user_id' => auth()->id(),
         'customer_name' => $validated['customer_name'],
         'customer_email' => $validated['customer_email'],
@@ -128,7 +128,7 @@ Route::post('/checkout', function (Request $request) {
         'shipping_address' => $validated['shipping_address'] ?? 'Santos / Paranaguá Port Export Dispatch',
         'total_amount' => $total,
         'status' => 'pending',
-        'payment_method' => $validated['payment_method'] ?? 'Escrow / Wire Transfer',
+        'payment_method' => $validated['payment_method'] ?? 'CIF / FOB Destination Logistics',
         'notes' => $validated['notes'] ?? 'Order placed via online commodity cart.',
     ]);
 

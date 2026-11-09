@@ -57,7 +57,7 @@ class CheckoutTest extends TestCase
 
         $order = Order::where('customer_email', 'procurement@johnexport.com')->first();
         $this->assertNotNull($order);
-        $this->assertStringStartsWith('MATRO-ORD-', $order->order_number);
+        $this->assertStringStartsWith('BRX-ORD-', $order->order_number);
 
         $this->assertDatabaseHas('order_items', [
             'order_id' => $order->id,

@@ -7,8 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="theme-color" content="#14141a">
     <title>BRX AGRO GLOBAL - Importação e Exportação Ltda | Brazilian Commodity Origination</title>
-    <meta content="BRX Agro Global, Importação e Exportação Ltda, Brazilian agro commodities, bulk soybeans, ICUMSA 45 sugar, yellow corn, green coffee, SGS inspection, escrow settlement, Port of Santos, CNPJ 38.471.480/0001-41" name="keywords">
-    <meta content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA coordinates direct institutional origination of Brazilian agro-commodities for international buyers. Sourced from certified cooperatives, verified by SGS &amp; MAPA, and secured with Tier-1 bank escrow." name="description">
+    <meta content="BRX Agro Global, Importação e Exportação Ltda, Brazilian agro commodities, bulk soybeans, ICUMSA 45 sugar, yellow corn, green coffee, SGS inspection, Incoterms CIF & FOB delivery, Port of Santos, CNPJ 38.471.480/0001-41" name="keywords">
+    <meta content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA coordinates direct institutional origination of Brazilian agro-commodities for international buyers. Sourced from certified cooperatives, verified by SGS &amp; MAPA, and backed by certified Incoterms delivery." name="description">
 
     <!-- Badge Favicons -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
@@ -17,7 +17,8 @@
     <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('img/favicon-48x48.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-touch-icon.png') }}">
 
-    <!-- Self-Hosted Typography -->
+    <!-- Self-Hosted Typography (Arovia Brand Font) -->
+    <link rel="stylesheet" href="{{ asset('fonts/arovia.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/open-sans.css') }}">
 
     <!-- Self-Hosted Icons -->
@@ -132,7 +133,7 @@
             width: 100%;
         }
         body {
-            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-size: 1rem;
             background-color: var(--bs-body-bg);
             color: var(--bs-body-color);
@@ -141,7 +142,7 @@
 
         h1, h2, h3, h4, h5, h6,
         .sh-title, .navbar-brand, .sh-brand-title {
-            font-family: 'Comic Relief', 'Open Sans', system-ui, sans-serif;
+            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-weight: 700;
             color: var(--bs-emphasis-color);
         }
@@ -153,7 +154,7 @@
             gap: 10px;
             text-decoration: none;
             padding: 0;
-            margin-right: 1.25rem;
+            margin-right: 1rem;
             flex-shrink: 0;
             transition: opacity .2s ease;
         }
@@ -179,31 +180,33 @@
             flex-direction: column;
             justify-content: center;
             line-height: 1.1;
+            min-width: 0;
         }
         .brx-brand-row {
             display: flex;
             align-items: baseline;
             gap: 5px;
+            white-space: nowrap;
         }
         .brx-name-lead {
-            font-family: 'Comic Relief', 'Open Sans', system-ui, sans-serif;
+            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-weight: 900;
             font-size: 1.16rem;
             letter-spacing: 0.8px;
             line-height: 1;
         }
         .brx-name-tag {
-            font-family: 'Comic Relief', 'Open Sans', system-ui, sans-serif;
+            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-weight: 800;
             font-size: 0.94rem;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             line-height: 1;
         }
         .brx-legal-sub {
-            font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-size: 0.52rem;
             font-weight: 700;
-            letter-spacing: 1.4px;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
             display: block;
             margin-top: 3px;
@@ -211,34 +214,83 @@
             white-space: nowrap;
         }
 
+        /* Mobile Responsive Brand Scaling */
+        @media (max-width: 576px) {
+            .brx-navbar-brand {
+                gap: 8px;
+                margin-right: 0.35rem;
+                max-width: calc(100% - 56px);
+            }
+            .brx-navbar-emblem {
+                width: 36px;
+                height: 36px;
+            }
+            .brx-name-lead {
+                font-size: 1rem;
+            }
+            .brx-name-tag {
+                font-size: 0.82rem;
+            }
+            .brx-legal-sub {
+                font-size: 0.44rem;
+                letter-spacing: 0.6px;
+                white-space: normal;
+                line-height: 1.1;
+            }
+        }
+        @media (max-width: 380px) {
+            .brx-navbar-brand {
+                gap: 6px;
+                max-width: calc(100% - 50px);
+            }
+            .brx-navbar-emblem {
+                width: 32px;
+                height: 32px;
+            }
+            .brx-name-lead {
+                font-size: 0.92rem;
+            }
+            .brx-name-tag {
+                font-size: 0.76rem;
+            }
+            .brx-legal-sub {
+                display: none;
+            }
+        }
+
         /* Light Theme Brand Colors */
         html[data-theme="light"] .brx-name-lead {
-            color: #14532d !important; /* Deep Brazilian Emerald Green */
+            color: #14532d !important;
         }
         html[data-theme="light"] .brx-name-tag {
-            color: #5e8024 !important; /* Rich Olive */
+            color: #5e8024 !important;
         }
         html[data-theme="light"] .brx-legal-sub {
-            color: #334155 !important; /* Elegant Slate */
+            color: #334155 !important;
         }
 
         /* Dark Theme Brand Colors */
         html[data-theme="dark"] .brx-name-lead {
-            color: #22c55e !important; /* Bright Emerald */
+            color: #22c55e !important;
         }
         html[data-theme="dark"] .brx-name-tag {
-            color: #93c441 !important; /* Vibrant Olive */
+            color: #93c441 !important;
         }
         html[data-theme="dark"] .brx-legal-sub {
             color: rgba(255, 255, 255, 0.72) !important;
         }
 
-        /* ===== Navbar (Straightline Horizontal Layout) ===== */
+        /* ===== Navbar (Full Width & Straightline Layout) ===== */
         .sh-navbar {
             z-index: 1030;
             padding-top: 0.55rem !important;
             padding-bottom: 0.55rem !important;
+            width: 100% !important;
             transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
+        }
+        .sh-navbar .container-fluid {
+            width: 100% !important;
+            max-width: 100% !important;
         }
         @media (min-width: 992px) {
             .sh-nav-straightline {
@@ -247,7 +299,7 @@
                 flex-wrap: nowrap !important;
                 align-items: center !important;
                 white-space: nowrap !important;
-                gap: 0.2rem !important;
+                gap: 0.15rem !important;
                 margin-bottom: 0;
             }
             .sh-nav-straightline .nav-item {
@@ -255,20 +307,133 @@
             }
             .sh-navbar .nav-link {
                 font-weight: 600;
-                font-size: 0.82rem;
-                padding: 0.35rem 0.45rem !important;
+                font-size: 0.76rem;
+                padding: 0.28rem 0.35rem !important;
                 border-radius: 6px;
                 white-space: nowrap;
                 transition: color .2s ease, background-color .2s ease;
             }
+            .brx-navbar-brand {
+                margin-right: 0.35rem !important;
+                gap: 8px;
+            }
+            .brx-navbar-emblem {
+                width: 34px;
+                height: 34px;
+            }
+            .brx-name-lead {
+                font-size: 0.98rem;
+            }
+            .brx-name-tag {
+                font-size: 0.8rem;
+            }
+            .brx-legal-sub {
+                font-size: 0.42rem;
+            }
+            .sh-nav-actions {
+                gap: 0.3rem !important;
+            }
+            .sh-icon-btn,
+            .sh-theme-toggle,
+            .sh-cart-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+            .btn-sh-login,
+            .btn-sh-primary {
+                padding: 0.25rem 0.6rem !important;
+                font-size: 0.76rem !important;
+            }
+        }
+        @media (min-width: 1200px) {
+            .sh-nav-straightline {
+                gap: 0.28rem !important;
+            }
+            .sh-navbar .nav-link {
+                font-size: 0.82rem;
+                padding: 0.32rem 0.48rem !important;
+            }
+            .brx-navbar-brand {
+                margin-right: 0.6rem !important;
+                gap: 10px;
+            }
+            .brx-navbar-emblem {
+                width: 38px;
+                height: 38px;
+            }
+            .brx-name-lead {
+                font-size: 1.1rem;
+            }
+            .brx-name-tag {
+                font-size: 0.9rem;
+            }
+            .brx-legal-sub {
+                font-size: 0.46rem;
+            }
+            .sh-nav-actions {
+                gap: 0.5rem !important;
+            }
+            .sh-icon-btn,
+            .sh-theme-toggle,
+            .sh-cart-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .btn-sh-login,
+            .btn-sh-primary {
+                padding: 0.32rem 0.8rem !important;
+                font-size: 0.82rem !important;
+            }
         }
         @media (min-width: 1400px) {
             .sh-nav-straightline {
-                gap: 0.4rem !important;
+                gap: 0.5rem !important;
             }
             .sh-navbar .nav-link {
-                font-size: 0.86rem;
-                padding: 0.4rem 0.55rem !important;
+                font-size: 0.88rem;
+                padding: 0.4rem 0.68rem !important;
+            }
+            .brx-navbar-brand {
+                margin-right: 1rem !important;
+                gap: 12px;
+            }
+            .brx-navbar-emblem {
+                width: 44px;
+                height: 44px;
+            }
+            .brx-name-lead {
+                font-size: 1.25rem;
+            }
+            .brx-name-tag {
+                font-size: 1rem;
+            }
+            .brx-legal-sub {
+                font-size: 0.52rem;
+            }
+            .sh-nav-actions {
+                gap: 0.75rem !important;
+            }
+            .sh-icon-btn,
+            .sh-theme-toggle,
+            .sh-cart-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 1.05rem;
+            }
+            .btn-sh-login,
+            .btn-sh-primary {
+                padding: 0.38rem 1rem !important;
+                font-size: 0.88rem !important;
+            }
+        }
+
+        /* Hero Carousel Arrows - Hide on small screens */
+        @media (max-width: 767.98px) {
+            .carousel-control-prev,
+            .carousel-control-next {
+                display: none !important;
             }
         }
         .sh-navbar .nav-link:hover,
@@ -463,7 +628,7 @@
             background: #198754 !important;
             color: #ffffff !important;
             border: 2px solid #198754 !important;
-            font-family: 'Comic Relief', 'Open Sans', system-ui;
+            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-weight: 700;
             font-size: 0.86rem;
             padding: .38rem 1.1rem;
@@ -693,7 +858,7 @@
             background: var(--sh-primary);
             border-color: var(--sh-primary);
             color: #fff;
-            font-family: 'Comic Relief', 'Open Sans', system-ui;
+            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-weight: 600;
             padding: .5rem 1.3rem;
             border-radius: 8px;
@@ -707,7 +872,7 @@
         .btn-sh-outline-white {
             color: #fff;
             border: 2px solid rgba(255, 255, 255, 0.35);
-            font-family: 'Comic Relief', 'Open Sans', system-ui;
+            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-weight: 600;
             padding: .55rem 1.4rem;
             border-radius: 8px;
@@ -724,7 +889,7 @@
             background: #198754 !important;
             color: #ffffff !important;
             border: 2px solid #198754 !important;
-            font-family: 'Comic Relief', 'Open Sans', system-ui;
+            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-weight: 700;
             padding: .35rem 1rem;
             border-radius: 8px;
@@ -1623,7 +1788,7 @@
 
     <!-- 1. STICKY TOP NAVBAR (Horizontal Straightline Layout) -->
     <nav class="navbar navbar-expand-lg sh-navbar sticky-top" id="top">
-        <div class="container-fluid px-3 px-xl-4" style="max-width: 1540px;">
+        <div class="container-fluid px-2 px-sm-3 px-xl-4 w-100">
             <!-- Brand Lockup with Emblem Logo and Balanced Typography -->
             <a class="navbar-brand brx-navbar-brand py-0 me-2 me-xl-3" href="{{ route('home') }}" title="BRX Agro Global Importação e Exportação Ltda">
                 <img src="{{ asset('img/brx-emblem-nav.png') }}" alt="BRX Agro Global Logo" class="brx-navbar-emblem" width="44" height="44">
@@ -1637,7 +1802,7 @@
             </a>
 
             <!-- Mobile Hamburger Toggler (visible on small screens) -->
-            <button class="navbar-toggler sh-toggler d-lg-none me-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler sh-toggler d-lg-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -1781,7 +1946,7 @@
                             <div class="container sh-hero-content">
                                 <div class="eyebrow mb-3">Direct Harvest Basin Sourcing</div>
                                 <h1 class="mb-4">From Brazilian Farms to <span style="color: var(--sh-primary);">Global Tables</span></h1>
-                                <p class="lead mb-4">Direct bulk origination of Brazilian Non-GMO Soybeans, Refined Cane Sugar (ICUMSA 45), Yellow Corn, and Pulses. Backed by MAPA phytosanitary clearance, independent SGS assays, and secure bank escrow.</p>
+                                <p class="lead mb-4">Direct bulk origination of Brazilian Non-GMO Soybeans, Refined Cane Sugar (ICUMSA 45), Yellow Corn, and Pulses. Backed by MAPA phytosanitary clearance, independent SGS assays, and certified origin discharge documentation.</p>
                                 <div class="d-flex gap-3 flex-wrap">
                                     <a href="#products" class="btn btn-sh-primary btn-lg">Explore Agricultural Products</a>
                                     <a href="#rfq-desk" class="btn btn-sh-outline-white btn-lg">Request Bulk RFQ</a>
@@ -1797,7 +1962,7 @@
                                     </div>
                                     <div>
                                         <div class="fs-4 fw-bold text-white">Zero Risk</div>
-                                        <small class="text-white-50">Bank Escrow Protection</small>
+                                        <small class="text-white-50">Global Port Discharge</small>
                                     </div>
                                     <div>
                                         <div class="fs-4 fw-bold text-white">Santos &amp; Paranaguá</div>
@@ -1843,10 +2008,10 @@
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <button class="carousel-control-prev d-none d-md-flex" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <button class="carousel-control-next d-none d-md-flex" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon"></span>
                 </button>
             </div>
@@ -1877,7 +2042,7 @@
                     </div>
                     <div class="col-6 col-md-3 item d-flex flex-column align-items-center">
                         <i class="bi bi-shield-check"></i>
-                        <strong>Bank Escrow Settlement</strong>
+                        <strong>Destination Port Sourcing</strong>
                         <small>Zero default counterparty protection</small>
                     </div>
                     <div class="col-6 col-md-3 item d-flex flex-column align-items-center">
@@ -1918,7 +2083,7 @@
                         <div class="col product-item" data-category="{{ $product->category->name ?? 'Grains & Rice' }}">
                             <div class="sh-product-card">
                                 <div class="sh-product-img">
-                                    <a href="javascript:void(0)" class="quick-view-trigger" data-product="{{ $product->name }}" data-price="${{ number_format($product->price, 2) }} / {{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}">
+                                    <a href="javascript:void(0)" class="quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}">
                                         <img src="{{ asset($product->image ?: 'img/service-1.jpg') }}" alt="{{ $product->name }}" loading="lazy" decoding="async">
                                     </a>
                                     @if ($product->unit == 'Metric Ton')
@@ -1926,22 +2091,18 @@
                                     @elseif ($product->is_new)
                                         <span class="sh-badge-new">NEW</span>
                                     @endif
-                                    @if ($product->original_price)
-                                        <span class="sh-badge-original">${{ number_format($product->original_price, 2) }}</span>
-                                    @endif
+
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">{{ $product->origin ?? 'Brazil' }} · {{ $product->category->name ?? 'Agro' }}</div>
-                                    <a href="javascript:void(0)" class="text-decoration-none quick-view-trigger" data-product="{{ $product->name }}" data-price="${{ number_format($product->price, 2) }} / {{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}">
+                                    <a href="javascript:void(0)" class="text-decoration-none quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}">
                                         <div class="sh-card-name">{{ $product->name }}</div>
                                     </a>
                                     <div class="sh-card-price">
-                                        <span class="price-now">${{ number_format($product->price, 2) }}</span>
-                                        <small class="text-muted">/ {{ $product->unit ?? 'MT' }}</small>
-                                        @if ($product->original_price)
-                                            <span class="price-old">${{ number_format($product->original_price, 2) }}</span>
-                                            <span class="sh-discount-tag">-{{ round((1 - $product->price / $product->original_price) * 100) }}%</span>
-                                        @endif
+                                        <span class="price-now text-success fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.88rem;">
+                                            <i class="bi bi-geo-alt-fill"></i> Price by Destination
+                                        </span>
+                                        <small class="text-muted d-block" style="font-size: 0.72rem;">FOB Santos / CIF Port of Discharge</small>
                                     </div>
                                     <div class="sh-card-rating">
                                         <span class="stars">
@@ -1972,13 +2133,17 @@
                                 <div class="sh-product-img">
                                     <img src="{{ asset('img/service-1.jpg') }}" alt="Brazilian Non-GMO Soybeans" loading="lazy" decoding="async">
                                     <span class="sh-badge-sale">BULK</span>
-                                    <span class="sh-badge-original">$520.00</span>
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">Mato Grosso · Grains &amp; Rice</div>
                                     <div class="sh-card-name">Brazilian Non-GMO Soybeans</div>
-                                    <div class="sh-card-price"><span class="price-now">$485.00</span> <small class="text-muted">/ MT</small></div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Brazilian Non-GMO Soybeans" data-price="485.00" data-unit="MT" data-image="{{ asset('img/service-1.jpg') }}" data-origin="Mato Grosso">
+                                    <div class="sh-card-price">
+                                        <span class="price-now text-success fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.88rem;">
+                                            <i class="bi bi-geo-alt-fill"></i> Price by Destination
+                                        </span>
+                                        <small class="text-muted d-block" style="font-size: 0.72rem;">FOB Santos / CIF Port of Discharge</small>
+                                    </div>
+                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Brazilian Non-GMO Soybeans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-1.jpg') }}" data-origin="Mato Grosso">
                                         @auth
                                             <i class="bi bi-bag"></i> Add to Cart
                                         @else
@@ -1993,13 +2158,17 @@
                                 <div class="sh-product-img">
                                     <img src="{{ asset('img/service-2.jpg') }}" alt="Refined Cane Sugar ICUMSA 45" loading="lazy" decoding="async">
                                     <span class="sh-badge-sale">BULK</span>
-                                    <span class="sh-badge-original">$580.00</span>
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">São Paulo · Oil &amp; Sugar</div>
                                     <div class="sh-card-name">Refined Cane Sugar (ICUMSA 45)</div>
-                                    <div class="sh-card-price"><span class="price-now">$540.00</span> <small class="text-muted">/ MT</small></div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Refined Cane Sugar (ICUMSA 45)" data-price="540.00" data-unit="MT" data-image="{{ asset('img/service-2.jpg') }}" data-origin="São Paulo">
+                                    <div class="sh-card-price">
+                                        <span class="price-now text-success fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.88rem;">
+                                            <i class="bi bi-geo-alt-fill"></i> Price by Destination
+                                        </span>
+                                        <small class="text-muted d-block" style="font-size: 0.72rem;">FOB Santos / CIF Port of Discharge</small>
+                                    </div>
+                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Refined Cane Sugar (ICUMSA 45)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-2.jpg') }}" data-origin="São Paulo">
                                         @auth
                                             <i class="bi bi-bag"></i> Add to Cart
                                         @else
@@ -2018,8 +2187,13 @@
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">Goiás · Grains &amp; Rice</div>
                                     <div class="sh-card-name">Yellow Corn (Maize Grade 2)</div>
-                                    <div class="sh-card-price"><span class="price-now">$245.00</span> <small class="text-muted">/ MT</small></div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Yellow Corn (Maize Grade 2)" data-price="245.00" data-unit="MT" data-image="{{ asset('img/service-3.jpg') }}" data-origin="Goiás">
+                                    <div class="sh-card-price">
+                                        <span class="price-now text-success fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.88rem;">
+                                            <i class="bi bi-geo-alt-fill"></i> Price by Destination
+                                        </span>
+                                        <small class="text-muted d-block" style="font-size: 0.72rem;">FOB Santos / CIF Port of Discharge</small>
+                                    </div>
+                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Yellow Corn (Maize Grade 2)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-3.jpg') }}" data-origin="Goiás">
                                         @auth
                                             <i class="bi bi-bag"></i> Add to Cart
                                         @else
@@ -2038,8 +2212,13 @@
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">Minas Gerais · Specialty</div>
                                     <div class="sh-card-name">Arabica Green Coffee Beans</div>
-                                    <div class="sh-card-price"><span class="price-now">$3,850.00</span> <small class="text-muted">/ MT</small></div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Arabica Green Coffee Beans" data-price="3850.00" data-unit="MT" data-image="{{ asset('img/service-5.jpg') }}" data-origin="Minas Gerais">
+                                    <div class="sh-card-price">
+                                        <span class="price-now text-success fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.88rem;">
+                                            <i class="bi bi-geo-alt-fill"></i> Price by Destination
+                                        </span>
+                                        <small class="text-muted d-block" style="font-size: 0.72rem;">FOB Santos / CIF Port of Discharge</small>
+                                    </div>
+                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Arabica Green Coffee Beans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-5.jpg') }}" data-origin="Minas Gerais">
                                         @auth
                                             <i class="bi bi-bag"></i> Add to Cart
                                         @else
@@ -2111,7 +2290,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-8">
                             <h3 class="mb-2">Bulk Commercial Agro Allocations — FOB &amp; CIF Terms</h3>
-                            <p class="mb-0">Trade directly with accredited Brazilian farm cooperatives. All settlements are backed by Tier-1 bank escrow with certified pre-loading SGS assays.</p>
+                            <p class="mb-0">Trade directly with accredited Brazilian farm cooperatives. All shipments are backed by MAPA phytosanitary clearance and certified pre-loading SGS assays.</p>
                         </div>
                         <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
                             <a href="#rfq-desk" class="btn btn-light btn-lg fw-bold text-dark">Request Trade RFQ</a>
@@ -2129,7 +2308,7 @@
                         <div class="sh-eyebrow">Institutional Workflow</div>
                         <h2 class="sh-title mb-0">End-to-End Trade Fulfillment Process</h2>
                     </div>
-                    <span class="badge bg-success px-3 py-2 fs-6">SGS &amp; Escrow Compliant</span>
+                    <span class="badge bg-success px-3 py-2 fs-6">SGS &amp; MAPA Certified</span>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-3">
@@ -2149,8 +2328,8 @@
                     <div class="col-md-3">
                         <div class="p-4 rounded-3 h-100 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
                             <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.16); color: var(--sh-primary);">03</div>
-                            <h5 class="fw-bold sh-text-title mb-2">Bank Escrow / LC</h5>
-                            <p class="small sh-text-muted mb-0">Tier-1 escrow settlement and irrevocable documentary letters of credit ensure zero counterparty settlement risk.</p>
+                            <h5 class="fw-bold sh-text-title mb-2">Incoterms Delivery</h5>
+                            <p class="small sh-text-muted mb-0">Flexible shipment execution under FOB Santos / Paranaguá or CIF Destination Port based on international standards.</p>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -2403,12 +2582,12 @@
                     <div class="accordion-item mb-3 rounded-3 overflow-hidden">
                         <h2 class="accordion-header" id="faqH1">
                             <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqC1">
-                                How does bank escrow protect international commodity buyers?
+                                How are commodity prices and delivery terms determined?
                             </button>
                         </h2>
                         <div id="faqC1" class="accordion-collapse collapse" data-bs-parent="#agroFaqAccordion">
                             <div class="accordion-body small">
-                                Funds are deposited into a regulated Tier-1 escrow account and released only when verified SGS inspection assay certificates and official Bills of Lading are verified by the escrow agent.
+                                Commodity quotations are calculated dynamically based on your destination discharge port, shipment volume (MT), and preferred Incoterm (FOB Brazilian berth or CIF discharge port). Physical assays and SGS quality certificates are verified prior to vessel departure.
                             </div>
                         </div>
                     </div>
@@ -2520,7 +2699,7 @@
                     <h6>Legal</h6>
                     <ul class="list-unstyled small mb-0">
                         <li class="mb-2"><a href="javascript:void(0)">Phytosanitary Terms</a></li>
-                        <li class="mb-2"><a href="javascript:void(0)">Bank Escrow Rules</a></li>
+                        <li class="mb-2"><a href="javascript:void(0)">Incoterms 2020 Guide</a></li>
                         <li class="mb-2"><a href="javascript:void(0)">IncoTerms 2020 Guide</a></li>
                     </ul>
                 </div>
@@ -2555,7 +2734,7 @@
                     &copy; {{ date('Y') }} BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA. CNPJ: 38.471.480/0001-41. All rights reserved.
                 </div>
                 <div class="d-flex gap-3">
-                    <span><i class="bi bi-shield-check text-success me-1"></i> Bank Escrow Protected</span>
+                    <span><i class="bi bi-shield-check text-success me-1"></i> Verified Brazilian Origin</span>
                     <span><i class="bi bi-patch-check text-success me-1"></i> SGS Tested</span>
                     <span><i class="bi bi-award text-success me-1"></i> MAPA Certified</span>
                 </div>
@@ -2672,7 +2851,7 @@
                         <strong class="sh-text-title">SGS Assayed &amp; MAPA Phyto Cleared</strong>
                     </div>
                     <div class="text-muted" style="font-size: 0.78rem; line-height: 1.4;">
-                        Every lot includes physical assay verification, non-GMO certificates, and export clearance through Brazilian ports under zero-risk bank escrow protection.
+                        Every lot includes physical assay verification, non-GMO certificates, and export clearance through Brazilian ports under international Incoterms 2020 standards.
                     </div>
                 </div>
 
@@ -2687,21 +2866,21 @@
                         <span class="fw-semibold sh-text-title">Santos &amp; Paranaguá (BR)</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center mb-2 small">
-                        <span class="text-muted">Escrow &amp; Assay Protection:</span>
-                        <span class="text-success fw-bold"><i class="bi bi-check-circle me-1"></i>Included</span>
+                        <span class="text-muted">Origin &amp; Assays:</span>
+                        <span class="text-success fw-bold"><i class="bi bi-check-circle me-1"></i>SGS &amp; MAPA Certified</span>
                     </div>
                     <hr class="my-2 border-secondary border-opacity-25">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <div>
-                            <span class="d-block fw-bold sh-text-title" style="font-size: 0.95rem;">Estimated Total:</span>
-                            <small class="text-muted" style="font-size: 0.72rem;">FOB Santos / Paranaguá</small>
+                            <span class="d-block fw-bold sh-text-title" style="font-size: 0.95rem;">Commodity Pricing:</span>
+                            <small class="text-muted" style="font-size: 0.72rem;">Calculated by Destination Port (CIF/FOB)</small>
                         </div>
-                        <span class="fw-bold" style="color: var(--sh-primary); font-size: 1.35rem;" id="cartSummaryTotalVal">$0.00</span>
+                        <span class="badge bg-success px-2.5 py-1.5" style="font-size: 0.82rem;" id="cartSummaryTotalVal">Destination RFQ</span>
                     </div>
 
                     <!-- Action Buttons -->
                     <button type="button" id="btnOpenCheckout" class="btn btn-sh-primary w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2" style="font-size: 0.95rem;">
-                        <i class="bi bi-lock-fill"></i> Proceed to Trade Checkout
+                        <i class="bi bi-file-earmark-check-fill"></i> Request Destination Quotation
                     </button>
 
                     <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-secondary border-opacity-25">
@@ -2746,8 +2925,8 @@
                                 <!-- dynamically rendered items -->
                             </div>
                             <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
-                                <span class="fw-semibold text-muted small">Total Commercial Value:</span>
-                                <span class="fw-bold fs-5" style="color: var(--sh-primary);" id="checkoutTotalVal">$0.00</span>
+                                <span class="fw-semibold text-muted small">Pricing Basis:</span>
+                                <span class="fw-bold" style="color: var(--sh-primary); font-size: 0.95rem;" id="checkoutTotalVal">Quoted upon Destination Port (CIF/FOB)</span>
                             </div>
                         </div>
 
@@ -2781,18 +2960,19 @@
                             </div>
                         </div>
 
-                        <!-- Step 3: Settlement Instrument -->
+                        <!-- Step 3: Delivery IncoTerms & Port Logistics -->
                         <h6 class="fw-bold sh-text-title mb-3 small text-uppercase" style="letter-spacing: 0.5px;">
-                            <i class="bi bi-credit-card-2-front text-success me-1"></i> 2. Settlement &amp; Escrow Instrument
+                            <i class="bi bi-compass text-success me-1"></i> 2. Delivery IncoTerms &amp; Port Logistics
                         </h6>
                         <div class="row g-3 mb-4">
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold">Payment Instrument</label>
+                                <label class="form-label small fw-semibold">Delivery Incoterm (Maritime Bulk)</label>
                                 <select name="payment_method" class="form-select sh-input rounded-3">
-                                    <option value="Tier-1 Bank Escrow (LC / Irrevocable Documentary Credit)" selected>Tier-1 Bank Escrow (Irrevocable LC / MT700)</option>
-                                    <option value="Direct Bank Wire (SWIFT T/T against SGS Inspection Certificate)">Direct Bank Wire (SWIFT T/T against SGS Assays)</option>
-                                    <option value="Institutional Digital Settlement (USDT / USDC Escrow)">Digital Asset Escrow (USDT / USDC)</option>
+                                    <option value="CIF (Cost, Insurance &amp; Freight to Destination Port)" selected>CIF — Cost, Insurance &amp; Freight (Destination Port)</option>
+                                    <option value="FOB (Free On Board — Santos / Paranaguá Berth)">FOB — Free On Board (Santos / Paranaguá Berth)</option>
+                                    <option value="CFR (Cost &amp; Freight to Discharge Port)">CFR — Cost &amp; Freight (Discharge Port)</option>
                                 </select>
+                                <small class="text-muted d-block mt-1">Official Incoterms 2020 framework applied for maritime bulk export.</small>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Special Phytosanitary / Assay Instructions</label>
@@ -2803,7 +2983,7 @@
                         <!-- Assurance Strip -->
                         <div class="p-3 rounded-3 mb-4 small d-flex flex-wrap gap-3 align-items-center justify-content-between" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.25);">
                             <div><i class="bi bi-patch-check-fill text-success me-1"></i> 100% Pre-Shipment Assay</div>
-                            <div><i class="bi bi-shield-fill-check text-success me-1"></i> Bank Escrow Protected</div>
+                            <div><i class="bi bi-shield-fill-check text-success me-1"></i> SGS Inspection Guaranteed</div>
                             <div><i class="bi bi-file-earmark-lock text-success me-1"></i> Official MAPA Export Clearance</div>
                         </div>
 
@@ -2815,7 +2995,7 @@
                             <button type="submit" id="btnSubmitOrder" class="btn btn-sh-primary flex-grow-1 py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
                                 <span class="spinner-border spinner-border-sm d-none" id="orderSubmitSpinner" role="status"></span>
                                 <i class="bi bi-check2-circle fs-5" id="orderSubmitIcon"></i>
-                                <span id="orderSubmitText">Confirm &amp; Place Commodity Order</span>
+                                <span id="orderSubmitText">Submit Request for Quotation &amp; Dispatch</span>
                             </button>
                             <button type="button" class="btn btn-sh-outline px-4" data-bs-dismiss="modal">Cancel</button>
                         </div>
@@ -2881,15 +3061,15 @@
                         <h4 class="fw-bold sh-text-title mb-0" id="qvModalName"></h4>
                         <span class="badge rounded-pill" id="qvModalOrigin" style="background: rgba(120, 162, 47, 0.2); color: var(--sh-primary); border: 1px solid rgba(120, 162, 47, 0.3);">Brazil</span>
                     </div>
-                    <p class="fs-5 fw-bold mb-3" style="color: var(--sh-primary);" id="qvModalPrice" data-price="485.00" data-unit="MT"></p>
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3" style="background: rgba(120, 162, 47, 0.12); color: var(--sh-primary); font-weight: 700; font-size: 0.92rem;"><i class="bi bi-geo-alt-fill"></i> <span id="qvModalPrice" data-unit="MT">Price Calculated by Destination (FOB / CIF)</span></div>
                     <div class="p-3 rounded-3 mb-3 small sh-box-bg" style="border: 1px solid var(--bs-border-color);">
                         <div class="d-flex justify-content-between mb-1">
                             <span class="sh-text-muted">SGS Assay:</span>
                             <span class="sh-text-title fw-bold">100% Pre-Shipment Tested</span>
                         </div>
                         <div class="d-flex justify-content-between mb-1">
-                            <span class="sh-text-muted">Settlement:</span>
-                            <span class="text-success fw-bold">Bank Escrow Protected</span>
+                            <span class="sh-text-muted">Incoterms:</span>
+                            <span class="text-success fw-bold">FOB Santos / CIF Discharge Port</span>
                         </div>
                         <div class="d-flex justify-content-between">
                             <span class="sh-text-muted">Loading Port:</span>
@@ -3102,7 +3282,7 @@
                 if (!isAuthenticated || cart.length === 0) {
                     $empty.removeClass('d-none');
                     $pop.addClass('d-none');
-                    $('#cartSummaryTotalVal').text('$0.00');
+                    $('#cartSummaryTotalVal').text('Destination RFQ');
                     $('#cartSummaryLotCount').text('0');
                     return;
                 }
@@ -3144,8 +3324,8 @@
                                         <button type="button" class="sh-cart-qty-btn" onclick="changeItemQty(${index}, 1)" title="Increase">+</button>
                                     </div>
                                     <div class="text-end ms-auto flex-shrink-0" style="min-width: 0;">
-                                        <span class="fw-bold d-block" style="color: var(--sh-primary); font-size: 0.95rem;">$${lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                                        <small class="text-muted d-block" style="font-size: 0.68rem; white-space: nowrap;">($${price.toFixed(2)}/${item.unit || 'MT'})</small>
+                                        <span class="badge" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.78rem; font-weight: 700;">Price by Destination</span>
+                                        <small class="text-muted d-block" style="font-size: 0.68rem; white-space: nowrap;">FOB / CIF Quotation</small>
                                     </div>
                                 </div>
                             </div>
@@ -3155,7 +3335,7 @@
                 });
 
                 $('#cartSummaryLotCount').text(totalLots);
-                $('#cartSummaryTotalVal').text('$' + grandTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                $('#cartSummaryTotalVal').text('Destination RFQ');
             }
             window.renderCartDrawer = renderCartDrawer;
 
@@ -3247,7 +3427,7 @@
             // Quick View Trigger
             $(document).on('click', '.quick-view-trigger', function () {
                 currentQvProduct = $(this).attr('data-product') || 'Brazilian Agro Commodity';
-                var displayPrice = $(this).attr('data-price') || '$485.00 / MT';
+                var displayPrice = 'Price Calculated by Destination (FOB / CIF)';
                 currentQvImage = $(this).attr('data-image') || '{{ asset('img/service-1.jpg') }}';
                 currentQvOrigin = $(this).attr('data-origin') || 'Brazil';
                 currentQvUnit = $(this).attr('data-unit') || 'MT';
@@ -3331,15 +3511,15 @@
                         <div class="d-flex justify-content-between align-items-center py-1 border-bottom border-secondary border-opacity-10 gap-2">
                             <div style="min-width: 0; flex: 1 1 auto;">
                                 <strong class="sh-text-title d-block" style="word-break: break-word;">${item.name}</strong>
-                                <span class="text-muted small">(${qty} &times; $${price.toFixed(2)}/${item.unit || 'MT'})</span>
+                                <span class="text-muted small">${qty} ${item.unit || 'MT'} · Brazilian Origin</span>
                             </div>
-                            <span class="fw-bold flex-shrink-0" style="color: var(--sh-primary);">$${sub.toFixed(2)}</span>
+                            <span class="badge flex-shrink-0" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.78rem;">Price by Destination</span>
                         </div>
                     `);
                 });
 
                 $('#checkoutItemCountBadge').text(lotCount + (lotCount === 1 ? ' item' : ' items'));
-                $('#checkoutTotalVal').text('$' + totalVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                $('#checkoutTotalVal').text('Quoted upon Destination Port (CIF/FOB)');
                 $('#checkoutAlertBox').addClass('d-none');
 
                 var checkoutModal = new bootstrap.Modal(document.getElementById('agroviaCheckoutModal'));
