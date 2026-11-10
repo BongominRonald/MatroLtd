@@ -17,8 +17,8 @@
     <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('img/favicon-48x48.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-touch-icon.png') }}">
 
-    <!-- Self-Hosted Typography (Arovia Brand Font) -->
-    <link rel="stylesheet" href="{{ asset('fonts/arovia.css') }}">
+    <!-- Self-Hosted Typography (Agrovia Brand Fonts: Comic Relief for Headings & Buttons, Open Sans for Body) -->
+    <link rel="stylesheet" href="{{ asset('fonts/comic-relief.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/open-sans.css') }}">
 
     <!-- Self-Hosted Icons -->
@@ -133,7 +133,7 @@
             width: 100%;
         }
         body {
-            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-size: 1rem;
             background-color: var(--bs-body-bg);
             color: var(--bs-body-color);
@@ -142,7 +142,7 @@
 
         h1, h2, h3, h4, h5, h6,
         .sh-title, .navbar-brand, .sh-brand-title {
-            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Comic Relief', system-ui, sans-serif;
             font-weight: 700;
             color: var(--bs-emphasis-color);
         }
@@ -189,21 +189,21 @@
             white-space: nowrap;
         }
         .brx-name-lead {
-            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Comic Relief', system-ui, sans-serif;
             font-weight: 900;
             font-size: 1.16rem;
             letter-spacing: 0.8px;
             line-height: 1;
         }
         .brx-name-tag {
-            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Comic Relief', system-ui, sans-serif;
             font-weight: 800;
             font-size: 0.94rem;
             letter-spacing: 0.8px;
             line-height: 1;
         }
         .brx-legal-sub {
-            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-size: 0.52rem;
             font-weight: 700;
             letter-spacing: 1.2px;
@@ -628,7 +628,7 @@
             background: #198754 !important;
             color: #ffffff !important;
             border: 2px solid #198754 !important;
-            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Comic Relief', system-ui, sans-serif;
             font-weight: 700;
             font-size: 0.86rem;
             padding: .38rem 1.1rem;
@@ -858,7 +858,7 @@
             background: var(--sh-primary);
             border-color: var(--sh-primary);
             color: #fff;
-            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Comic Relief', system-ui, sans-serif;
             font-weight: 600;
             padding: .5rem 1.3rem;
             border-radius: 8px;
@@ -872,7 +872,7 @@
         .btn-sh-outline-white {
             color: #fff;
             border: 2px solid rgba(255, 255, 255, 0.35);
-            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Comic Relief', system-ui, sans-serif;
             font-weight: 600;
             padding: .55rem 1.4rem;
             border-radius: 8px;
@@ -889,7 +889,7 @@
             background: #198754 !important;
             color: #ffffff !important;
             border: 2px solid #198754 !important;
-            font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Comic Relief', system-ui, sans-serif;
             font-weight: 700;
             padding: .35rem 1rem;
             border-radius: 8px;

@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arovia', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
@@ -209,6 +209,7 @@ body {
 }
 
 .form-box h2 {
+    font-family: "Comic Relief", system-ui, sans-serif;
     font-size: 23px;
     color: #14532d;
     text-align: center;
@@ -603,6 +604,7 @@ body {
 }
 
 .info-text h2 {
+    font-family: "Comic Relief", system-ui, sans-serif;
     font-size: 21px;
     color: #ffffff;
     line-height: 1.15;

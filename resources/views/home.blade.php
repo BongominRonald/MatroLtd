@@ -14,7 +14,8 @@
 
     <!-- Local Self-Hosted Assets -->
     <link rel="stylesheet" href="{{ asset('lib/boxicons/boxicons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('fonts/arovia.css') }}">
+    <link rel="stylesheet" href="{{ asset('fonts/comic-relief.css') }}">
+    <link rel="stylesheet" href="{{ asset('fonts/open-sans.css') }}">
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
     <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>

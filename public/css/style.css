@@ -17,31 +17,31 @@
 
 /*** BG, Color & Fonts ***/
 .open-sans-regular {
-    font-family: 'Arovia', sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
     font-variation-settings:
-        "wdth"100;
+        "wdth" 100;
 }
 
 .open-sans-bold {
-    font-family: 'Arovia', sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
     font-variation-settings:
-        "wdth"100;
+        "wdth" 100;
 }
 
 .comic-relief-regular {
-    font-family: 'Arovia', sans-serif;
+    font-family: "Comic Relief", system-ui, sans-serif;
     font-weight: 400;
     font-style: normal;
 }
 
 .comic-relief-bold {
-    font-family: 'Arovia', sans-serif;
+    font-family: "Comic Relief", system-ui, sans-serif;
     font-weight: 700;
     font-style: normal;
 }
@@ -50,7 +50,7 @@
 /*** Button ***/
 .btn-custom {
     padding: 10px 25px;
-    font-family: 'Arovia', sans-serif;
+    font-family: "Comic Relief", system-ui, sans-serif;
     font-weight: 400;
     transition: .5s;
 }
@@ -139,14 +139,14 @@
 
 .navbar .navbar-brand {
     text-decoration: none;
-    font-family: 'Arovia', sans-serif;
+    font-family: "Comic Relief", system-ui, sans-serif;
     color: #fff !important;
 }
 
 .navbar .navbar-nav .nav-link {
     margin-right: 0;
     padding: 8px 14px;
-    font-family: 'Arovia', sans-serif;
+    font-family: "Comic Relief", system-ui, sans-serif;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.88);
     font-size: 14px;
@@ -470,7 +470,7 @@
     padding: 0;
     text-align: left;
     color: var(--bs-light);
-    font-family: 'Arovia', sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-weight: normal;
     text-transform: capitalize;
     transition: .3s;
@@ -516,7 +516,7 @@
     border-radius: 12px;
     padding: 16px 20px;
     display: none;
-    font-family: 'Arovia', sans-serif;
+    font-family: "Open Sans", sans-serif;
     animation: toastSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -614,7 +614,7 @@
     font-weight: 600;
     border-radius: 50px;
     transition: all 0.3s ease;
-    font-family: 'Arovia', sans-serif;
+    font-family: "Comic Relief", system-ui, sans-serif;
     font-size: 0.95rem;
 }
 

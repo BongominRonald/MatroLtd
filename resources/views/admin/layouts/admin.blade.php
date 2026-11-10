@@ -17,7 +17,8 @@
     <link href="{{ asset('lib/bootstrap-icons/bootstrap-icons.min.css') }}" rel="stylesheet">
 
     <!-- Local Fonts -->
-    <link href="{{ asset('fonts/arovia.css') }}" rel="stylesheet">
+    <link href="{{ asset('fonts/comic-relief.css') }}" rel="stylesheet">
+    <link href="{{ asset('fonts/open-sans.css') }}" rel="stylesheet">
 
     <style>
         :root {
@@ -30,10 +31,14 @@
         }
 
         body {
-            font-family: "Arovia", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: #f4f6f9;
             color: #212529;
             overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .brand-text, .btn {
+            font-family: "Comic Relief", system-ui, sans-serif;
         }
 
         .admin-shell {
