@@ -1838,7 +1838,12 @@
                             <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Oil & Sugar"><i class="bi bi-circle-fill text-success me-2 small"></i>Oil &amp; Sugar</a></li>
                             <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Nuts & Seeds"><i class="bi bi-circle-fill text-success me-2 small"></i>Nuts &amp; Seeds</a></li>
                             <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Lentils & Pulses"><i class="bi bi-circle-fill text-success me-2 small"></i>Lentils &amp; Pulses</a></li>
+                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Poultry & Meat"><i class="bi bi-circle-fill text-success me-2 small"></i>Poultry &amp; Meat</a></li>
+                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Meat & Seafood"><i class="bi bi-circle-fill text-success me-2 small"></i>Meat &amp; Seafood</a></li>
                             <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Spices & Specialty"><i class="bi bi-circle-fill text-success me-2 small"></i>Spices &amp; Specialty</a></li>
+                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Dairy Products"><i class="bi bi-circle-fill text-success me-2 small"></i>Dairy Products</a></li>
+                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Fruits & Vegetables"><i class="bi bi-circle-fill text-success me-2 small"></i>Fruits &amp; Vegetables</a></li>
+                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Juices & Drinks"><i class="bi bi-circle-fill text-success me-2 small"></i>Juices &amp; Drinks</a></li>
                             <li><hr class="dropdown-divider border-secondary my-1"></li>
                             <li><a class="dropdown-item fw-bold" href="#products"><i class="bi bi-grid-fill text-success me-2"></i>Shop All Products</a></li>
                         </ul>
@@ -1948,28 +1953,32 @@
     <main>
         <!-- 2. HERO CAROUSEL (Exact fume-main layout) -->
         <section class="sh-hero">
-            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner">
-                    <!-- Slide 1 -->
+                    <!-- Slide 1: Farm Origination & Port Export -->
                     <div class="carousel-item active">
                         <div class="sh-hero-slide">
-                            <img src="{{ asset('img/carousel-1.jpg') }}" alt="Brazilian Farm Sourcing" class="sh-hero-bg">
+                            <picture>
+                                <source srcset="{{ asset('img/banner-shipping.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/banner-shipping.jpg') }}" alt="Brazilian Direct Farm Sourcing & Deepwater Export" class="sh-hero-bg">
+                            </picture>
                             <div class="sh-hero-scrim"></div>
                             <div class="container sh-hero-content">
                                 <div class="eyebrow mb-3">Direct Harvest Basin Sourcing</div>
                                 <h1 class="mb-4">From Brazilian Farms to <span style="color: var(--sh-primary);">Global Tables</span></h1>
-                                <p class="lead mb-4">Direct bulk origination of Brazilian Non-GMO Soybeans, Refined Cane Sugar (ICUMSA 45), Yellow Corn, and Pulses. Backed by MAPA phytosanitary clearance, independent SGS assays, and certified origin discharge documentation.</p>
+                                <p class="lead mb-4">Direct bulk origination of Brazilian Non-GMO Soybeans, Refined Cane Sugar (ICUMSA 45), Yellow Corn, Poultry, Meats, and Pulses. Backed by MAPA phytosanitary clearance, independent SGS assays, and certified origin discharge documentation.</p>
                                 <div class="d-flex gap-3 flex-wrap">
                                     <a href="#products" class="btn btn-sh-primary btn-lg">Explore Agricultural Products</a>
                                     <a href="#rfq-desk" class="btn btn-sh-outline-white btn-lg">Request Bulk RFQ</a>
                                 </div>
                                 <div class="d-flex gap-4 mt-5 flex-wrap sh-hero-stats">
                                     <div>
-                                        <div class="fs-4 fw-bold text-white">{{ number_format($totalStock ?? 2500) }}+ MT</div>
+                                        <div class="fs-4 fw-bold text-white">{{ number_format($totalStock ?? 18500) }}+ MT</div>
                                         <small class="text-white-50">Active Supply</small>
                                     </div>
                                     <div>
@@ -1989,10 +1998,13 @@
                         </div>
                     </div>
 
-                    <!-- Slide 2 -->
+                    <!-- Slide 2: Certified Harvests & Direct Co-ops -->
                     <div class="carousel-item">
                         <div class="sh-hero-slide">
-                            <img src="{{ asset('img/carousel-2.jpg') }}" alt="Export Grade Commodities" class="sh-hero-bg" loading="lazy" decoding="async">
+                            <picture>
+                                <source srcset="{{ asset('img/banner-harvest.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/banner-harvest.jpg') }}" alt="Export Grade Brazilian Commodities" class="sh-hero-bg" loading="lazy" decoding="async">
+                            </picture>
                             <div class="sh-hero-scrim"></div>
                             <div class="container sh-hero-content">
                                 <div class="eyebrow mb-3">Bulk Contracts &amp; Spot Lots</div>
@@ -2004,8 +2016,8 @@
                                 </div>
                                 <div class="d-flex gap-4 mt-5 flex-wrap sh-hero-stats">
                                     <div>
-                                        <div class="fs-4 fw-bold text-white">Grade #1</div>
-                                        <small class="text-white-50">Export Quality</small>
+                                        <div class="fs-4 fw-bold text-white">10 Sectors</div>
+                                        <small class="text-white-50">Commodity Categories</small>
                                     </div>
                                     <div>
                                         <div class="fs-4 fw-bold text-white">FOB &amp; CIF</div>
@@ -2023,11 +2035,49 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Slide 3: Export Packaging, Cold Chain & 5 Continents -->
+                    <div class="carousel-item">
+                        <div class="sh-hero-slide">
+                            <picture>
+                                <source srcset="{{ asset('img/banner-warehouse.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/banner-warehouse.jpg') }}" alt="Export Packaging, Warehousing & Cold-Chain Fleet" class="sh-hero-bg" loading="lazy" decoding="async">
+                            </picture>
+                            <div class="sh-hero-scrim"></div>
+                            <div class="container sh-hero-content">
+                                <div class="eyebrow mb-3">Export Packaging &amp; Cold-Chain Fleet</div>
+                                <h1 class="mb-4">Supplying Worldwide Across <span style="color: var(--sh-primary);">5 Continents</span></h1>
+                                <p class="lead mb-4">From 25kg / 50kg multi-wall bags and bulk container liners to -18°C refrigerated containers. Certified supply chains across Poultry, Meats, Dairy, Pulses, Grains, Sugar, Spices, and Fresh Fruits with 24/7 Trade Desk support.</p>
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <a href="#products" class="btn btn-sh-primary btn-lg">Explore All 20 Products</a>
+                                    <a href="#rfq-desk" class="btn btn-sh-outline-white btn-lg">Request Trade Desk RFQ</a>
+                                </div>
+                                <div class="d-flex gap-4 mt-5 flex-wrap sh-hero-stats">
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">5 Continents</div>
+                                        <small class="text-white-50">Global Distribution</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">25kg - Bulk</div>
+                                        <small class="text-white-50">Customized Packaging</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">-18°C Reefer</div>
+                                        <small class="text-white-50">Cold Chain Integrity</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">MAPA / SIF</div>
+                                        <small class="text-white-50">Sanitary Clearance</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button class="carousel-control-prev d-none d-md-flex" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <button class="carousel-control-prev d-none d-md-flex" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev" aria-label="Previous">
                     <span class="carousel-control-prev-icon"></span>
                 </button>
-                <button class="carousel-control-next d-none d-md-flex" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <button class="carousel-control-next d-none d-md-flex" type="button" data-bs-target="#heroCarousel" data-bs-slide="next" aria-label="Next">
                     <span class="carousel-control-next-icon"></span>
                 </button>
             </div>
@@ -2099,7 +2149,7 @@
                         <div class="col product-item" data-category="{{ $product->category->name ?? 'Grains & Rice' }}">
                             <div class="sh-product-card">
                                 <div class="sh-product-img">
-                                    <a href="javascript:void(0)" class="quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}">
+                                    <a href="javascript:void(0)" class="quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
                                         <img src="{{ asset($product->image ?: 'img/service-1.jpg') }}" alt="{{ $product->name }}" loading="lazy" decoding="async">
                                     </a>
                                     @if ($product->unit == 'Metric Ton')
@@ -2111,7 +2161,7 @@
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">{{ $product->origin ?? 'Brazil' }} · {{ $product->category->name ?? 'Agro' }}</div>
-                                    <a href="javascript:void(0)" class="text-decoration-none quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}">
+                                    <a href="javascript:void(0)" class="text-decoration-none quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
                                         <div class="sh-card-name">{{ $product->name }}</div>
                                     </a>
                                     <div class="sh-card-price">
@@ -2260,8 +2310,11 @@
                 </div>
                 <div class="row g-3 g-md-4">
                     <div class="col-6 col-md-3">
-                        <a href="#products" class="sh-cat-card">
-                            <img src="{{ asset('img/service-1.jpg') }}" alt="Grains & Soybeans" loading="lazy" decoding="async">
+                        <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Grains & Rice\']').click();">
+                            <picture>
+                                <source srcset="{{ asset('img/service-1.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/service-1.jpg') }}" alt="Grains & Soybeans" loading="lazy" decoding="async">
+                            </picture>
                             <div class="label">
                                 <h5>Grains &amp; Soybeans</h5>
                                 <span>Mato Grosso &amp; Paraná</span>
@@ -2269,8 +2322,11 @@
                         </a>
                     </div>
                     <div class="col-6 col-md-3">
-                        <a href="#products" class="sh-cat-card">
-                            <img src="{{ asset('img/service-2.jpg') }}" alt="Cane Sugar & Oils" loading="lazy" decoding="async">
+                        <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Oil & Sugar\']').click();">
+                            <picture>
+                                <source srcset="{{ asset('img/service-2.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/service-2.jpg') }}" alt="Cane Sugar & Oils" loading="lazy" decoding="async">
+                            </picture>
                             <div class="label">
                                 <h5>Sugar &amp; Sweeteners</h5>
                                 <span>São Paulo Mills</span>
@@ -2278,20 +2334,74 @@
                         </a>
                     </div>
                     <div class="col-6 col-md-3">
-                        <a href="#products" class="sh-cat-card">
-                            <img src="{{ asset('img/service-5.jpg') }}" alt="Specialty Coffee" loading="lazy" decoding="async">
+                        <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Poultry & Meat\']').click();">
+                            <picture>
+                                <source srcset="{{ asset('img/chicken-meat.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/chicken-meat.jpg') }}" alt="Poultry & Chicken" loading="lazy" decoding="async">
+                            </picture>
                             <div class="label">
-                                <h5>Specialty Coffee</h5>
-                                <span>Sul de Minas Gerais</span>
+                                <h5>Poultry &amp; Halal Meat</h5>
+                                <span>Paraná Processing SIF</span>
                             </div>
                         </a>
                     </div>
                     <div class="col-6 col-md-3">
-                        <a href="#products" class="sh-cat-card">
-                            <img src="{{ asset('img/service-7.jpg') }}" alt="Pulses & Seeds" loading="lazy" decoding="async">
+                        <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Meat & Seafood\']').click();">
+                            <picture>
+                                <source srcset="{{ asset('img/beef-meat.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/beef-meat.jpg') }}" alt="Beef & Seafood" loading="lazy" decoding="async">
+                            </picture>
                             <div class="label">
-                                <h5>Pulses &amp; Seeds</h5>
-                                <span>Carioca &amp; Brazil Nuts</span>
+                                <h5>Beef &amp; Seafood</h5>
+                                <span>Mato Grosso &amp; Atlantic</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Nuts & Seeds\']').click();">
+                            <picture>
+                                <source srcset="{{ asset('img/cashew-nuts.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/cashew-nuts.jpg') }}" alt="Cashews & Brazil Nuts" loading="lazy" decoding="async">
+                            </picture>
+                            <div class="label">
+                                <h5>Nuts &amp; Kernels</h5>
+                                <span>Ceará &amp; Pará Harvest</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Lentils & Pulses\']').click();">
+                            <picture>
+                                <source srcset="{{ asset('img/red-split-lentils.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/red-split-lentils.jpg') }}" alt="Lentils & Pulses" loading="lazy" decoding="async">
+                            </picture>
+                            <div class="label">
+                                <h5>Lentils &amp; Pulses</h5>
+                                <span>Sortex Triple Cleaned</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Spices & Specialty\']').click();">
+                            <picture>
+                                <source srcset="{{ asset('img/black-pepper.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/black-pepper.jpg') }}" alt="Spices & Pepper" loading="lazy" decoding="async">
+                            </picture>
+                            <div class="label">
+                                <h5>Spices &amp; Seasonings</h5>
+                                <span>ASTA Black Pepper &amp; Spices</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Dairy Products\']').click();">
+                            <picture>
+                                <source srcset="{{ asset('img/milk-powder.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/milk-powder.jpg') }}" alt="Dairy Products" loading="lazy" decoding="async">
+                            </picture>
+                            <div class="label">
+                                <h5>Dairy &amp; Milk Powder</h5>
+                                <span>26-28% Full Cream 25kg</span>
                             </div>
                         </a>
                     </div>
@@ -2402,32 +2512,62 @@
             <div class="container py-3">
                 <div class="row align-items-center g-5">
                     <div class="col-lg-6">
-                        <div class="sh-eyebrow">About BRX Agro Global</div>
-                        <h2 class="sh-title mb-3">Direct Brazilian Agro Trade Facilitation</h2>
+                        <div class="sh-eyebrow">Privately Owned Enterprise · Global Trade</div>
+                        <h2 class="sh-title mb-3">Supplying Thousands of Metric Tons Across 5 Continents</h2>
                         <p class="sh-text-muted mb-3">
-                            <strong>BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA</strong> connects international commodity buyers and institutional food conglomerates directly with certified agricultural cooperatives across Brazil's most productive basins.
+                            <strong>BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA</strong> is a premier privately owned agribusiness enterprise operating globally. We supply thousands of metric tons annually to hundreds of customers worldwide, partnering with leading food manufacturers, retailers, wholesalers, and institutional buyers across 5 continents.
                         </p>
-                        <p class="sh-text-muted mb-4">
-                            Headquartered at Rua Marconi, 87 Centro in São Paulo, our multi-lingual trade desk coordinates harvest basin allocations, laboratory assay verifications, and deepwater vessel logistics to deliver institutional grade commodities on FOB and CIF terms.
+                        <p class="sh-text-muted mb-3">
+                            Our comprehensive supply chain management handles every step: from origin due diligence and harvest basin procurement across Mato Grosso, São Paulo, Paraná, Goiás, Ceará, and Rio Grande do Sul, through certified laboratory testing (MAPA, SIF, Halal, and SGS pre-shipment inspection), custom packaging (25kg, 50kg, bulk container liners, vacuum bags, and -18°C refrigerated containers), to deepwater maritime logistics.
                         </p>
-                        <div class="d-flex gap-4">
+                        <p class="sh-text-muted mb-4 small">
+                            <i class="bi bi-geo-alt-fill text-success me-1"></i> Headquarters: <strong>Av. Brig. Faria Lima, 3064 – Itaim Bibi, São Paulo – SP, 01451-001 Brazil.</strong>
+                        </p>
+                        <div class="d-flex gap-4 flex-wrap">
                             <div>
-                                <h3 class="fw-bold mb-0" style="color: var(--sh-primary) !important;">100%</h3>
-                                <small class="sh-text-muted">SGS Assay Inspected</small>
+                                <h3 class="fw-bold mb-0" style="color: var(--sh-primary) !important;">5 Continents</h3>
+                                <small class="sh-text-muted">Global Distribution</small>
                             </div>
                             <div class="border-start border-secondary ps-4">
-                                <h3 class="fw-bold mb-0" style="color: var(--sh-primary) !important;">15+</h3>
-                                <small class="sh-text-muted">Certified Co-op Basins</small>
+                                <h3 class="fw-bold mb-0" style="color: var(--sh-primary) !important;">Thousands MT</h3>
+                                <small class="sh-text-muted">Annual Bulk Volume</small>
                             </div>
                             <div class="border-start border-secondary ps-4">
-                                <h3 class="fw-bold mb-0" style="color: var(--sh-primary) !important;">Zero</h3>
-                                <small class="sh-text-muted">Counterparty Default</small>
+                                <h3 class="fw-bold mb-0" style="color: var(--sh-primary) !important;">100% SGS</h3>
+                                <small class="sh-text-muted">Pre-Shipment Tested</small>
+                            </div>
+                            <div class="border-start border-secondary ps-4">
+                                <h3 class="fw-bold mb-0" style="color: var(--sh-primary) !important;">10 Sectors</h3>
+                                <small class="sh-text-muted">Export Commodity Lines</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="p-3 rounded-4 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
-                            <img src="{{ asset('img/about-2.jpg') }}" alt="About BRX Agro Global Desk" class="img-fluid rounded-3 w-100 object-fit-cover" style="max-height: 320px;" onerror="this.src='{{ asset('img/service-1.jpg') }}'" loading="lazy" decoding="async">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="p-2 rounded-4 sh-card-bg shadow-sm" style="border: 1px solid var(--bs-border-color);">
+                                    <picture>
+                                        <source srcset="{{ asset('img/about-pic.webp') }}" type="image/webp">
+                                        <img src="{{ asset('img/about-pic.jpg') }}" alt="About BRX Agro Global Trade Operations" class="img-fluid rounded-3 w-100 object-fit-cover" style="max-height: 270px;" loading="lazy" decoding="async">
+                                    </picture>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="p-2 rounded-4 sh-card-bg shadow-sm" style="border: 1px solid var(--bs-border-color);">
+                                    <picture>
+                                        <source srcset="{{ asset('img/company-pic.webp') }}" type="image/webp">
+                                        <img src="{{ asset('img/company-pic.jpg') }}" alt="BRX Agro Global Corporate Logistics" class="img-fluid rounded-3 w-100 object-fit-cover" style="max-height: 160px;" loading="lazy" decoding="async">
+                                    </picture>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="p-2 rounded-4 sh-card-bg shadow-sm" style="border: 1px solid var(--bs-border-color);">
+                                    <picture>
+                                        <source srcset="{{ asset('img/banner-warehouse.webp') }}" type="image/webp">
+                                        <img src="{{ asset('img/banner-warehouse.jpg') }}" alt="Export Packaging & Cold-Chain Fleet" class="img-fluid rounded-3 w-100 object-fit-cover" style="max-height: 160px;" loading="lazy" decoding="async">
+                                    </picture>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2440,30 +2580,38 @@
             <div class="container py-3">
                 <div class="row g-5 align-items-start">
                     <div class="col-lg-5">
-                        <div class="sh-eyebrow">Trade Desk</div>
+                        <div class="sh-eyebrow">Trade Desk &amp; Sourcing</div>
                         <h2 class="sh-title mb-3">Institutional RFQ Inquiries</h2>
-                        <p class="sh-text-muted mb-4">Connect directly with our Brazilian commodity export team. Request indicative FOB/CIF quotes, technical SGS assay sheets, or spot allocations.</p>
+                        <p class="sh-text-muted mb-4">Connect directly with our Brazilian commodity export team. Request indicative FOB/CIF quotes, technical SGS assay sheets, customized packaging, or spot vessel allocations.</p>
 
                         <div class="p-4 rounded-3 mb-4 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
-                            <div class="d-flex align-items-center gap-3 mb-3">
-                                <i class="bi bi-geo-alt fs-4 text-success" style="color: var(--sh-primary) !important;"></i>
+                            <div class="d-flex align-items-start gap-3 mb-3">
+                                <i class="bi bi-geo-alt fs-4 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0; margin-top: 2px;"></i>
                                 <div>
                                     <strong class="d-block sh-text-title">Trading Headquarters</strong>
-                                    <small class="sh-text-muted">Rua Marconi, 87 Centro, CEP 01047-906, São Paulo - SP, Brazil</small>
+                                    <small class="sh-text-muted">Av. Brig. Faria Lima, 3064 – Itaim Bibi, São Paulo – SP, 01451-001 Brazil</small>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-3 mb-3">
-                                <i class="bi bi-whatsapp fs-4 text-success"></i>
+                                <i class="bi bi-whatsapp fs-4 text-success" style="flex-shrink: 0;"></i>
                                 <div>
-                                    <strong class="d-block sh-text-title">Direct WhatsApp Desk</strong>
-                                    <a href="https://wa.me/5511958353433" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold small">+55 (11) 95835-3433</a>
+                                    <strong class="d-block sh-text-title">Direct WhatsApp &amp; Phone Desk</strong>
+                                    <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold small">+55 (11) 95298-7545</a>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center gap-3">
-                                <i class="bi bi-envelope fs-4 text-success" style="color: var(--sh-primary) !important;"></i>
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <i class="bi bi-chat-dots fs-4 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
                                 <div>
-                                    <strong class="d-block sh-text-title">Corporate Desk</strong>
-                                    <small class="sh-text-muted">tradedesk@brxagroglobal.com / inquiries@brxagroglobal.com</small>
+                                    <strong class="d-block sh-text-title">WeChat Corporate ID</strong>
+                                    <span class="small fw-semibold text-secondary">BRX AGRO GLOBAL</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start gap-3">
+                                <i class="bi bi-envelope fs-4 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0; margin-top: 2px;"></i>
+                                <div>
+                                    <strong class="d-block sh-text-title">Corporate Trade Desks</strong>
+                                    <small class="sh-text-muted d-block"><a href="mailto:tradedesk@brxagroglobal.com" class="text-decoration-none text-reset">tradedesk@brxagroglobal.com</a></small>
+                                    <small class="sh-text-muted d-block"><a href="mailto:info@brxagroglobal.com" class="text-decoration-none text-reset">info@brxagroglobal.com</a> · <a href="mailto:sales@brxagroglobal.com" class="text-decoration-none text-reset">sales@brxagroglobal.com</a></small>
                                 </div>
                             </div>
                         </div>
@@ -2472,7 +2620,7 @@
                     <div class="col-lg-7">
                         <div class="p-4 p-md-5 rounded-4 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
                             <h4 class="fw-bold sh-text-title mb-2">Request Trade Quote (RFQ)</h4>
-                            <p class="sh-text-muted small mb-4">Complete the form below to receive formal indicative pricing, SGS specifications, and vessel allocation schedule.</p>
+                            <p class="sh-text-muted small mb-4">Complete the form below to receive formal indicative pricing, SGS specifications, packaging options, and vessel allocation schedule.</p>
 
                             <div id="rfqAlert" class="alert d-none mb-3"></div>
 
@@ -2485,13 +2633,26 @@
                                             <option value="Brazilian Non-GMO Soybeans">Brazilian Non-GMO Soybeans</option>
                                             <option value="Refined Cane Sugar (ICUMSA 45)">Refined Cane Sugar (ICUMSA 45)</option>
                                             <option value="Yellow Corn (Maize Grade 2)">Yellow Corn (Maize Grade 2)</option>
-                                            <option value="Arabica Green Coffee Beans">Arabica Green Coffee Beans</option>
-                                            <option value="Lentils & Pulses">Lentils &amp; Pulses</option>
+                                            <option value="Whole Frozen Brazilian Chicken (Grade A)">Whole Frozen Brazilian Chicken (Grade A)</option>
+                                            <option value="Frozen Boneless Beef Cuts (SIF/Halal)">Frozen Boneless Beef Cuts (SIF/Halal)</option>
+                                            <option value="Frozen Lamb & Mutton Carcasses">Frozen Lamb &amp; Mutton Carcasses</option>
+                                            <option value="Atlantic Frozen Seafood & Sea Fish">Atlantic Frozen Seafood &amp; Sea Fish</option>
+                                            <option value="Premium Brazilian Cashew Kernels (W-240 / W-320)">Premium Brazilian Cashew Kernels (W-240 / W-320)</option>
+                                            <option value="Whole Brazil Nuts (Bertholletia excelsa)">Whole Brazil Nuts (Bertholletia excelsa)</option>
+                                            <option value="Brazilian Premium Black Beans (Feijão Preto)">Brazilian Premium Black Beans (Feijão Preto)</option>
+                                            <option value="Red Split Lentils (Sortex Cleaned)">Red Split Lentils (Sortex Cleaned)</option>
+                                            <option value="Brazilian Whole Black Pepper (ASTA 550g/l)">Brazilian Whole Black Pepper (ASTA 550g/l)</option>
+                                            <option value="Sun-Dried Whole Red Chillies">Sun-Dried Whole Red Chillies</option>
+                                            <option value="Whole Dried Turmeric Finger & Spices">Whole Dried Turmeric Finger &amp; Spices</option>
+                                            <option value="Instant Full Cream Milk Powder">Instant Full Cream Milk Powder</option>
+                                            <option value="Fresh Brazilian Export Mangoes & Fruits">Fresh Brazilian Export Mangoes &amp; Fruits</option>
+                                            <option value="Crude Degummed Soybean Oil">Crude Degummed Soybean Oil</option>
+                                            <option value="Arabica Green Coffee Beans (NY 2/3)">Arabica Green Coffee Beans (NY 2/3)</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Volume Required (Metric Tons) *</label>
-                                        <input type="text" name="volume" class="form-control sh-input" placeholder="e.g. 500 MT / 2,500 MT" required>
+                                        <input type="text" name="volume" class="form-control sh-input" placeholder="e.g. 500 MT / 2,500 MT / 1 FCL" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Full Name *</label>
@@ -2507,11 +2668,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Discharge Port / Country *</label>
-                                        <input type="text" name="country" class="form-control sh-input" placeholder="e.g. Port of Rotterdam" required>
+                                        <input type="text" name="country" class="form-control sh-input" placeholder="e.g. Port of Rotterdam / Jebel Ali" required>
                                     </div>
                                     <div class="col-12">
-                                        <label class="form-label small fw-bold">Contract Message &amp; Instructions</label>
-                                        <textarea name="message" class="form-control sh-input" rows="3" placeholder="Specify any moisture, protein or packaging requirements..."></textarea>
+                                        <label class="form-label small fw-bold">Contract Message, Packaging &amp; Instructions</label>
+                                        <textarea name="message" class="form-control sh-input" rows="3" placeholder="Specify packaging (25kg/50kg bags, vacuum tins, bulk container liner, reefer) or quality parameters..."></textarea>
                                     </div>
                                     <div class="col-12 pt-2">
                                         <button type="submit" id="rfqSubmitBtn" class="btn btn-sh-primary w-100 py-3 text-white fw-bold">
@@ -2663,12 +2824,12 @@
                     </div>
                     <div class="small text-success fw-semibold mb-2" style="font-size: 0.72rem; letter-spacing: 0.5px;">CNPJ: 38.471.480/0001-41</div>
                     <p class="small text-white-50 mb-3" style="line-height: 1.6;">
-                        Direct institutional trade facilitation between certified Brazilian agricultural cooperatives and global commodity buyers.
+                        Privately owned enterprise supplying thousands of metric tons annually across 5 continents in direct partnership with leading food manufacturers, retailers, and wholesalers.
                     </p>
-                    <div class="d-flex align-items-center mt-3">
-                        <a href="https://wa.me/5511958353433" target="_blank" rel="noopener" class="social-icon" title="WhatsApp Desk"><i class="bi bi-whatsapp"></i></a>
-                        <a href="#" class="social-icon" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    <div class="d-flex align-items-center gap-2 mt-3">
+                        <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="social-icon" title="WhatsApp Desk"><i class="bi bi-whatsapp"></i></a>
                         <a href="mailto:tradedesk@brxagroglobal.com" class="social-icon" title="Email Desk"><i class="bi bi-envelope"></i></a>
+                        <a href="#rfq-desk" class="social-icon" title="Trade RFQ"><i class="bi bi-file-earmark-text"></i></a>
                     </div>
                 </div>
 
@@ -2676,11 +2837,12 @@
                 <div class="sh-footer-col">
                     <h6>Shop</h6>
                     <ul class="list-unstyled small mb-0">
-                        <li class="mb-2"><a href="#products">Soybeans &amp; Grains</a></li>
-                        <li class="mb-2"><a href="#products">ICUMSA 45 Sugar</a></li>
-                        <li class="mb-2"><a href="#products">Yellow Maize Grade 2</a></li>
-                        <li class="mb-2"><a href="#products">Specialty Coffee</a></li>
-                        <li class="mb-2"><a href="#products">Pulses &amp; Lentils</a></li>
+                        <li class="mb-2"><a href="#products">Soybeans &amp; Yellow Corn</a></li>
+                        <li class="mb-2"><a href="#products">Cane Sugar ICUMSA 45</a></li>
+                        <li class="mb-2"><a href="#products">Poultry, Beef &amp; Meats</a></li>
+                        <li class="mb-2"><a href="#products">Brazilian Cashews &amp; Nuts</a></li>
+                        <li class="mb-2"><a href="#products">Pulses &amp; Red Lentils</a></li>
+                        <li class="mb-2"><a href="#products">Spices, Seasonings &amp; Dairy</a></li>
                     </ul>
                 </div>
 
@@ -2690,7 +2852,7 @@
                     <ul class="list-unstyled small mb-0">
                         <li class="mb-2"><a href="#about">About BRX Agro Global</a></li>
                         <li class="mb-2"><a href="#rfq-desk">Brazilian Trade Desk</a></li>
-                        <li class="mb-2"><a href="#products">Harvest Basins</a></li>
+                        <li class="mb-2"><a href="#insights">Agro Basins</a></li>
                         <li class="mb-2"><a href="#rfq-desk">Contact Us</a></li>
                     </ul>
                 </div>
@@ -2715,9 +2877,9 @@
                 <div class="sh-footer-col">
                     <h6>Legal</h6>
                     <ul class="list-unstyled small mb-0">
-                        <li class="mb-2"><a href="javascript:void(0)">Phytosanitary Terms</a></li>
+                        <li class="mb-2"><a href="javascript:void(0)">Phytosanitary Terms (MAPA)</a></li>
                         <li class="mb-2"><a href="javascript:void(0)">Incoterms 2020 Guide</a></li>
-                        <li class="mb-2"><a href="javascript:void(0)">IncoTerms 2020 Guide</a></li>
+                        <li class="mb-2"><a href="javascript:void(0)">SGS Lab Assay Standards</a></li>
                     </ul>
                 </div>
 
@@ -2727,11 +2889,15 @@
                     <ul class="list-unstyled small mb-0">
                         <li class="mb-2 d-flex align-items-start gap-2">
                             <i class="bi bi-geo-alt me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0; margin-top: 3px;"></i>
-                            <span>Rua Marconi, 87 Centro, CEP 01047-906, São Paulo - SP, Brazil</span>
+                            <span>Av. Brig. Faria Lima, 3064 – Itaim Bibi, São Paulo – SP, 01451-001 Brazil</span>
                         </li>
                         <li class="mb-2 d-flex align-items-center gap-2">
                             <i class="bi bi-whatsapp me-1 text-success" style="flex-shrink: 0;"></i>
-                            <a href="https://wa.me/5511958353433" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold">+55 (11) 95835-3433</a>
+                            <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold">+55 (11) 95298-7545</a>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center gap-2">
+                            <i class="bi bi-chat-dots me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
+                            <span class="text-white-50">WeChat: <strong class="text-white">BRX AGRO GLOBAL</strong></span>
                         </li>
                         <li class="mb-2 d-flex align-items-center gap-2">
                             <i class="bi bi-envelope me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>

@@ -23,10 +23,10 @@ use Illuminate\Support\Str;
 */
 
 Route::get('/', function () {
-    $categories = Category::withCount('products')->get();
-    $products = Product::with('category')->latest('id')->take(8)->get();
-    $totalStock = Product::sum('stock') ?: 2500;
-    $productsCount = Product::count() ?: 8;
+    $categories = Category::withCount('products')->orderBy('name')->get();
+    $products = Product::with('category')->latest('id')->get();
+    $totalStock = Product::sum('stock') ?: 18500;
+    $productsCount = Product::count() ?: 20;
 
     return view('index', compact('categories', 'products', 'totalStock', 'productsCount'));
 })->name('home');
