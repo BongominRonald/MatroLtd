@@ -92,4 +92,36 @@ class ExampleTest extends TestCase
 
         $this->assertGuest();
     }
+
+    public function test_authenticated_user_account_portal_renders_without_errors(): void
+    {
+        $user = User::factory()->create([
+            'name' => 'client_buyer',
+            'email' => 'client@buyer.com',
+            'role' => 'user',
+        ]);
+
+        $response = $this->actingAs($user)->get('/');
+        $response->assertOk();
+        $response->assertSee('id="agroviaAccountModal"', false);
+        $response->assertSee('client_buyer');
+        $response->assertSee('Verified Commodity Buyer');
+        $response->assertSee('data-bs-target="#agroviaAccountModal"', false);
+
+        // Regular user accessing /account redirects to /#account without error
+        $accountRedirect = $this->actingAs($user)->get('/account');
+        $accountRedirect->assertRedirect(route('home').'#account');
+    }
+
+    public function test_admin_user_account_redirects_to_admin_dashboard(): void
+    {
+        $admin = User::factory()->create([
+            'name' => 'admin_user',
+            'email' => 'admin@matro.com',
+            'role' => 'admin',
+        ]);
+
+        $response = $this->actingAs($admin)->get('/account');
+        $response->assertRedirect(route('admin.dashboard'));
+    }
 }

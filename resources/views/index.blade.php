@@ -1801,12 +1801,23 @@
                 </div>
             </a>
 
-            <!-- Mobile Hamburger Toggler (visible on small screens) -->
-            <button class="navbar-toggler sh-toggler d-lg-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
+            <!-- Mobile Quick Actions & Hamburger Toggler (visible on small screens) -->
+            <div class="d-flex align-items-center gap-1 d-lg-none ms-auto">
+                @auth
+                    <button type="button" class="sh-icon-btn text-success" data-bs-toggle="modal" data-bs-target="#agroviaAccountModal" aria-label="My Account" title="My Account">
+                        <i class="bi bi-person-circle fs-5"></i>
+                    </button>
+                @else
+                    <a href="{{ route('login') }}" class="sh-icon-btn text-white-50" aria-label="Sign In" title="Sign In">
+                        <i class="bi bi-person fs-5"></i>
+                    </a>
+                @endauth
+                <button class="navbar-toggler sh-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
 
             <!-- Nav Links on a Straight Line Horizontally -->
             <div class="collapse navbar-collapse" id="mainNav">
@@ -1891,6 +1902,11 @@
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="background: var(--sh-surface); border: 1px solid var(--bs-border-color);">
                                 <li class="px-3 py-2 border-bottom small text-muted">
                                     Signed in as <strong class="d-block sh-text-title">{{ auth()->user()->email }}</strong>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agroviaAccountModal">
+                                        <i class="bi bi-person-badge text-success me-2"></i>My Account Portal
+                                    </a>
                                 </li>
                                 @if (auth()->user()->isAdmin())
                                     <li>
@@ -2686,10 +2702,11 @@
                         <li class="mb-2"><a href="{{ route('login') }}">Client Login</a></li>
                         <li class="mb-2"><a href="{{ route('register') }}">Register Account</a></li>
                         @auth
+                            <li class="mb-2"><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agroviaAccountModal">My Account Portal</a></li>
                             @if(auth()->user()->isAdmin())
                                 <li class="mb-2"><a href="{{ route('admin.dashboard') }}" class="text-warning fw-semibold"><i class="bi bi-speedometer2 me-1"></i>Admin Dashboard</a></li>
+                                <li class="mb-2"><a href="{{ route('admin.orders.index') }}">Manage Orders</a></li>
                             @endif
-                            <li class="mb-2"><a href="{{ route('admin.orders.index') }}">My Orders</a></li>
                         @endauth
                     </ul>
                 </div>
@@ -2761,10 +2778,17 @@
             <span>Cart</span>
             <span class="sh-tabbar-badge mobileCartBadge">0</span>
         </a>
-        <a href="{{ auth()->check() ? route('admin.dashboard') : route('login') }}">
-            <i class="bi bi-person{{ auth()->check() ? '-fill' : '' }}"></i>
-            <span>{{ auth()->check() ? 'Account' : 'Login' }}</span>
-        </a>
+        @auth
+            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agroviaAccountModal" aria-label="Account Portal">
+                <i class="bi bi-person-fill"></i>
+                <span>Account</span>
+            </a>
+        @else
+            <a href="{{ route('login') }}" aria-label="Sign In">
+                <i class="bi bi-person"></i>
+                <span>Login</span>
+            </a>
+        @endauth
     </nav>
 
     <!-- 12. CART TOAST NOTIFICATION (Exact fume-main architecture) -->
@@ -3110,6 +3134,109 @@
             </div>
         </div>
     </div>
+
+    <!-- ================= AUTHENTICATED USER ACCOUNT PORTAL MODAL ================= -->
+    @auth
+    <div class="modal fade" id="agroviaAccountModal" tabindex="-1" aria-labelledby="agroviaAccountModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
+                <!-- Modal Header -->
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 1.25rem;">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <div>
+                            <h5 class="modal-title fw-bold sh-text-title mb-0" id="agroviaAccountModalLabel" style="font-family: 'Comic Relief', system-ui, sans-serif; font-size: 1.15rem;">My Account</h5>
+                            <small class="text-muted" style="font-size: 0.76rem;">BRX AGRO GLOBAL Institutional Portal</small>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body p-4">
+                    <!-- User Info Card -->
+                    <div class="p-3 rounded-3 mb-3 sh-box-bg" style="border: 1px solid var(--bs-border-color);">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px; background: rgba(120, 162, 47, 0.18); color: var(--sh-primary); font-size: 1.75rem;">
+                                <i class="bi bi-person-check-fill"></i>
+                            </div>
+                            <div class="min-w-0 flex-grow-1">
+                                <h6 class="fw-bold sh-text-title mb-0 text-truncate" style="font-size: 1.05rem;">{{ auth()->user()->name }}</h6>
+                                <div class="text-muted small text-truncate">{{ auth()->user()->email }}</div>
+                                <div class="mt-1">
+                                    @if(auth()->user()->isAdmin())
+                                        <span class="badge bg-warning text-dark px-2 py-1 small fw-bold">
+                                            <i class="bi bi-shield-check me-1"></i>Administrator
+                                        </span>
+                                    @else
+                                        <span class="badge bg-success px-2 py-1 small fw-bold">
+                                            <i class="bi bi-patch-check-fill me-1"></i>Verified Commodity Buyer
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Direct Access (If Admin) -->
+                    @if(auth()->user()->isAdmin())
+                        <div class="mb-3">
+                            <div class="small fw-bold text-uppercase text-muted mb-2" style="letter-spacing: 0.5px;">Administration Desk</div>
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-warning w-100 py-2.5 mb-2 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-speedometer2 fs-5"></i> Open Admin Dashboard
+                            </a>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary w-100 py-2 small d-flex align-items-center justify-content-center gap-1">
+                                        <i class="bi bi-box-seam"></i> Products
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="{{ route('admin.inquiries.index') }}" class="btn btn-outline-secondary w-100 py-2 small d-flex align-items-center justify-content-center gap-1">
+                                        <i class="bi bi-envelope"></i> Inquiries
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="border-secondary border-opacity-25 my-3">
+                    @endif
+
+                    <!-- Quick Trade Actions -->
+                    <div class="mb-3">
+                        <div class="small fw-bold text-uppercase text-muted mb-2" style="letter-spacing: 0.5px;">Trade Desk Actions</div>
+                        <div class="d-grid gap-2">
+                            <a href="#rfq-desk" data-bs-dismiss="modal" class="btn btn-sh-primary py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-file-earmark-text fs-5"></i> Submit Commodity RFQ (500+ MT)
+                            </a>
+                            <button type="button" class="btn btn-outline-success py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" onclick="closeAccountModalAndOpenCart()">
+                                <i class="bi bi-basket3 fs-5"></i> View Commodity Sample Cart
+                            </button>
+                            <a href="https://wa.me/5565999999999?text=Hello%20BRX%20Agro%20Global%2C%20I%20am%20a%20registered%20buyer%20requesting%20commodity%20quotation." target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-whatsapp fs-5 text-success"></i> Contact Trade Desk WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Incoterms & Origination Info Strip -->
+                    <div class="p-2.5 rounded-3 mb-3 small d-flex align-items-center gap-2" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.22); font-size: 0.8rem;">
+                        <i class="bi bi-shield-lock-fill text-success fs-5 flex-shrink-0"></i>
+                        <span>All quotations &amp; contracts executed under Incoterms 2020 (CIF/FOB Santos) with official MAPA phytosanitary clearance.</span>
+                    </div>
+
+                    <!-- Sign Out Form -->
+                    <form action="{{ route('logout') }}" method="POST" class="m-0">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-danger w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-box-arrow-right fs-5"></i> Sign Out / Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endauth
 
     <!-- Local Scripts -->
     <script src="{{ asset('lib/jquery/jquery.min.js') }}"></script>
@@ -3715,6 +3842,25 @@
                     $(this).toggle(text.indexOf(val) !== -1);
                 });
             });
+
+            // Account Modal Helpers & Hash Listener
+            window.closeAccountModalAndOpenCart = function () {
+                var accEl = document.getElementById('agroviaAccountModal');
+                if (accEl) {
+                    var modal = bootstrap.Modal.getInstance(accEl);
+                    if (modal) modal.hide();
+                }
+                openCartDrawer();
+            };
+
+            // Deep-link #account opens the account modal if logged in
+            if (window.location.hash === '#account') {
+                var accModalEl = document.getElementById('agroviaAccountModal');
+                if (accModalEl) {
+                    var accModalInstance = new bootstrap.Modal(accModalEl);
+                    accModalInstance.show();
+                }
+            }
 
         })();
     </script>

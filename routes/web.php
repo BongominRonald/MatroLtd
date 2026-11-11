@@ -39,6 +39,17 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// User Account Portal Redirect / Modal Deep Link
+Route::get('/account', function () {
+    if (! auth()->check()) {
+        return redirect()->route('login');
+    }
+    if (auth()->user()->isAdmin()) {
+        return redirect()->route('admin.dashboard');
+    }
+    return redirect()->to(route('home').'#account');
+})->name('account');
+
 // Public Trade & RFQ Inquiry Form Submission
 Route::post('/inquiries', function (Request $request) {
     $validated = $request->validate([
