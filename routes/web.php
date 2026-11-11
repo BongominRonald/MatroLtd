@@ -25,8 +25,8 @@ use Illuminate\Support\Str;
 Route::get('/', function () {
     $categories = Category::withCount('products')->orderBy('name')->get();
     $products = Product::with('category')->latest('id')->get();
-    $totalStock = Product::sum('stock') ?: 18500;
-    $productsCount = Product::count() ?: 20;
+    $totalStock = Product::sum('stock') ?: 29000;
+    $productsCount = Product::count() ?: 28;
 
     return view('index', compact('categories', 'products', 'totalStock', 'productsCount'));
 })->name('home');

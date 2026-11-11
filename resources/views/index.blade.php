@@ -1242,7 +1242,7 @@
             color: var(--bs-emphasis-color);
         }
 
-        /* ===== Category Cards ===== */
+        /* ===== Category Cards (Harvest Categories / Agro Basins) ===== */
         .sh-cat-card {
             position: relative;
             border-radius: 14px;
@@ -1252,14 +1252,28 @@
             align-items: flex-end;
             text-decoration: none;
             border: 1px solid var(--bs-border-color);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
         }
-        .sh-cat-card img {
+        .sh-cat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+            border-color: rgba(163, 230, 53, 0.55);
+        }
+        .sh-cat-card picture {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
+            z-index: 1;
+            display: block;
+        }
+        .sh-cat-card img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            transition: transform .4s ease;
+            transition: transform .5s cubic-bezier(0.16, 1, 0.3, 1);
+            display: block;
         }
         .sh-cat-card:hover img {
             transform: scale(1.08);
@@ -1268,23 +1282,65 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(20, 20, 26, 0.88), rgba(20, 20, 26, 0.1));
+            background: linear-gradient(180deg, rgba(8, 10, 14, 0.15) 0%, rgba(8, 10, 14, 0.55) 45%, rgba(8, 10, 14, 0.92) 100%);
+            z-index: 2;
+            pointer-events: none;
+            transition: background 0.3s ease;
+        }
+        .sh-cat-card:hover::before {
+            background: linear-gradient(180deg, rgba(8, 10, 14, 0.25) 0%, rgba(8, 10, 14, 0.68) 45%, rgba(8, 10, 14, 0.96) 100%);
         }
         .sh-cat-card .label {
             position: relative;
-            z-index: 2;
-            padding: 1.25rem;
-            color: #fff;
+            z-index: 3;
+            width: calc(100% - 1.2rem);
+            margin: 0.6rem;
+            padding: 0.85rem 1rem;
+            background: rgba(12, 14, 18, 0.88);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 11px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.65);
+            transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+        .sh-cat-card:hover .label {
+            background: rgba(18, 22, 28, 0.95);
+            border-color: rgba(163, 230, 53, 0.5);
+            transform: translateY(-2px);
         }
         .sh-cat-card .label h5 {
-            font-weight: 700;
-            margin-bottom: .2rem;
-            color: #fff;
+            font-weight: 800;
+            font-size: 1.02rem;
+            margin-bottom: .25rem;
+            color: #ffffff !important;
+            letter-spacing: -0.01em;
+            line-height: 1.25;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
         }
         .sh-cat-card .label span {
-            color: var(--sh-primary);
-            font-weight: 600;
-            font-size: .85rem;
+            color: #bef264 !important;
+            font-weight: 700;
+            font-size: .82rem;
+            letter-spacing: 0.02em;
+            display: block;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95);
+        }
+        @media (max-width: 575.98px) {
+            .sh-cat-card {
+                height: 195px;
+            }
+            .sh-cat-card .label {
+                width: calc(100% - 0.8rem);
+                margin: 0.4rem;
+                padding: 0.65rem 0.75rem;
+            }
+            .sh-cat-card .label h5 {
+                font-size: 0.92rem;
+            }
+            .sh-cat-card .label span {
+                font-size: 0.75rem;
+            }
         }
 
         /* ===== Promo Banner ===== */
@@ -2312,24 +2368,24 @@
                     <div class="col-6 col-md-3">
                         <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Grains & Rice\']').click();">
                             <picture>
-                                <source srcset="{{ asset('img/service-1.webp') }}" type="image/webp">
-                                <img src="{{ asset('img/service-1.jpg') }}" alt="Grains & Soybeans" loading="lazy" decoding="async">
+                                <source srcset="{{ asset('img/white-rice.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/white-rice.jpg') }}" alt="Grains & Rice" loading="lazy" decoding="async">
                             </picture>
                             <div class="label">
-                                <h5>Grains &amp; Soybeans</h5>
-                                <span>Mato Grosso &amp; Paraná</span>
+                                <h5>Grains &amp; Rice</h5>
+                                <span>Soybeans, Rice &amp; Yellow Corn</span>
                             </div>
                         </a>
                     </div>
                     <div class="col-6 col-md-3">
                         <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Oil & Sugar\']').click();">
                             <picture>
-                                <source srcset="{{ asset('img/service-2.webp') }}" type="image/webp">
-                                <img src="{{ asset('img/service-2.jpg') }}" alt="Cane Sugar & Oils" loading="lazy" decoding="async">
+                                <source srcset="{{ asset('img/sunflower-oil.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/sunflower-oil.jpg') }}" alt="Cooking Oils & Sugar" loading="lazy" decoding="async">
                             </picture>
                             <div class="label">
-                                <h5>Sugar &amp; Sweeteners</h5>
-                                <span>São Paulo Mills</span>
+                                <h5>Cooking Oils &amp; Sugar</h5>
+                                <span>Sunflower, Corn, Palm &amp; ICUMSA 45</span>
                             </div>
                         </a>
                     </div>
@@ -2360,36 +2416,36 @@
                     <div class="col-6 col-md-3">
                         <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Nuts & Seeds\']').click();">
                             <picture>
-                                <source srcset="{{ asset('img/cashew-nuts.webp') }}" type="image/webp">
-                                <img src="{{ asset('img/cashew-nuts.jpg') }}" alt="Cashews & Brazil Nuts" loading="lazy" decoding="async">
+                                <source srcset="{{ asset('img/almonds-nuts.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/almonds-nuts.jpg') }}" alt="Almonds, Cashews & Brazil Nuts" loading="lazy" decoding="async">
                             </picture>
                             <div class="label">
                                 <h5>Nuts &amp; Kernels</h5>
-                                <span>Ceará &amp; Pará Harvest</span>
+                                <span>Almonds, Brazil Nuts &amp; Cashews</span>
                             </div>
                         </a>
                     </div>
                     <div class="col-6 col-md-3">
                         <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Lentils & Pulses\']').click();">
                             <picture>
-                                <source srcset="{{ asset('img/red-split-lentils.webp') }}" type="image/webp">
-                                <img src="{{ asset('img/red-split-lentils.jpg') }}" alt="Lentils & Pulses" loading="lazy" decoding="async">
+                                <source srcset="{{ asset('img/green-mung-beans.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/green-mung-beans.jpg') }}" alt="Green Mung Beans & Pulses" loading="lazy" decoding="async">
                             </picture>
                             <div class="label">
                                 <h5>Lentils &amp; Pulses</h5>
-                                <span>Sortex Triple Cleaned</span>
+                                <span>Green Mung, Black Beans &amp; Pulses</span>
                             </div>
                         </a>
                     </div>
                     <div class="col-6 col-md-3">
                         <a href="#products" class="sh-cat-card" onclick="$('.agro-filter-btn[data-filter=\'Spices & Specialty\']').click();">
                             <picture>
-                                <source srcset="{{ asset('img/black-pepper.webp') }}" type="image/webp">
-                                <img src="{{ asset('img/black-pepper.jpg') }}" alt="Spices & Pepper" loading="lazy" decoding="async">
+                                <source srcset="{{ asset('img/cardamom.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/cardamom.jpg') }}" alt="Cardamom, Coffee & Spices" loading="lazy" decoding="async">
                             </picture>
                             <div class="label">
-                                <h5>Spices &amp; Seasonings</h5>
-                                <span>ASTA Black Pepper &amp; Spices</span>
+                                <h5>Spices &amp; Coffee</h5>
+                                <span>Cardamom, Arabica Beans &amp; Pepper</span>
                             </div>
                         </a>
                     </div>
@@ -2633,21 +2689,29 @@
                                             <option value="Brazilian Non-GMO Soybeans">Brazilian Non-GMO Soybeans</option>
                                             <option value="Refined Cane Sugar (ICUMSA 45)">Refined Cane Sugar (ICUMSA 45)</option>
                                             <option value="Yellow Corn (Maize Grade 2)">Yellow Corn (Maize Grade 2)</option>
-                                            <option value="Whole Frozen Brazilian Chicken (Grade A)">Whole Frozen Brazilian Chicken (Grade A)</option>
-                                            <option value="Frozen Boneless Beef Cuts (SIF/Halal)">Frozen Boneless Beef Cuts (SIF/Halal)</option>
-                                            <option value="Frozen Lamb & Mutton Carcasses">Frozen Lamb &amp; Mutton Carcasses</option>
-                                            <option value="Atlantic Frozen Seafood & Sea Fish">Atlantic Frozen Seafood &amp; Sea Fish</option>
+                                            <option value="Brazilian Long Grain White Rice">Brazilian Long Grain White Rice</option>
+                                            <option value="Refined Sunflower Oil (Grade A)">Refined Sunflower Oil (Grade A)</option>
+                                            <option value="Refined Corn Oil (Pure Maize)">Refined Corn Oil (Pure Maize)</option>
+                                            <option value="Refined Palm Olein Oil (CP8/CP10)">Refined Palm Olein Oil (CP8/CP10)</option>
+                                            <option value="Pure Refined Soybean Oil (Food Grade)">Pure Refined Soybean Oil (Food Grade)</option>
+                                            <option value="Crude Degummed Soybean Oil">Crude Degummed Soybean Oil</option>
+                                            <option value="Premium Green Cardamom Pods">Premium Green Cardamom Pods</option>
+                                            <option value="Arabica Green Coffee Beans (NY 2/3)">Arabica Green Coffee Beans (NY 2/3)</option>
+                                            <option value="Brazilian Whole Green Mung Beans">Brazilian Whole Green Mung Beans</option>
+                                            <option value="Premium Raw Shelled Almonds">Premium Raw Shelled Almonds</option>
                                             <option value="Premium Brazilian Cashew Kernels (W-240 / W-320)">Premium Brazilian Cashew Kernels (W-240 / W-320)</option>
                                             <option value="Whole Brazil Nuts (Bertholletia excelsa)">Whole Brazil Nuts (Bertholletia excelsa)</option>
                                             <option value="Brazilian Premium Black Beans (Feijão Preto)">Brazilian Premium Black Beans (Feijão Preto)</option>
                                             <option value="Red Split Lentils (Sortex Cleaned)">Red Split Lentils (Sortex Cleaned)</option>
+                                            <option value="Whole Frozen Brazilian Chicken (Grade A)">Whole Frozen Brazilian Chicken (Grade A)</option>
+                                            <option value="Frozen Boneless Beef Cuts (SIF/Halal)">Frozen Boneless Beef Cuts (SIF/Halal)</option>
+                                            <option value="Frozen Lamb & Mutton Carcasses">Frozen Lamb &amp; Mutton Carcasses</option>
+                                            <option value="Atlantic Frozen Seafood & Sea Fish">Atlantic Frozen Seafood &amp; Sea Fish</option>
                                             <option value="Brazilian Whole Black Pepper (ASTA 550g/l)">Brazilian Whole Black Pepper (ASTA 550g/l)</option>
                                             <option value="Sun-Dried Whole Red Chillies">Sun-Dried Whole Red Chillies</option>
                                             <option value="Whole Dried Turmeric Finger & Spices">Whole Dried Turmeric Finger &amp; Spices</option>
                                             <option value="Instant Full Cream Milk Powder">Instant Full Cream Milk Powder</option>
                                             <option value="Fresh Brazilian Export Mangoes & Fruits">Fresh Brazilian Export Mangoes &amp; Fruits</option>
-                                            <option value="Crude Degummed Soybean Oil">Crude Degummed Soybean Oil</option>
-                                            <option value="Arabica Green Coffee Beans (NY 2/3)">Arabica Green Coffee Beans (NY 2/3)</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
