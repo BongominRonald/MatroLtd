@@ -221,13 +221,14 @@
 
         /* Topbar & Content */
         .admin-main {
-            min-width: 0;
-            max-width: 100%;
+            min-width: 0 !important;
+            max-width: 100% !important;
             width: 100%;
-            flex: 1 1 auto;
+            flex: 1 1 0% !important;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
+            overflow-x: hidden !important;
+            box-sizing: border-box !important;
         }
 
         .admin-topbar {
@@ -235,31 +236,71 @@
             position: sticky;
             top: 0;
             z-index: 1030;
-            width: 100%;
-            max-width: 100%;
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
             background: #fff;
             border-bottom: 1px solid #e5e8ec;
             box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-            overflow: hidden;
+            box-sizing: border-box !important;
             transition: background-color .2s ease, border-color .2s ease;
         }
 
         .admin-content {
-            padding: 1.5rem;
-            max-width: 1600px;
-            width: 100%;
-            min-width: 0;
-            margin: 0 auto;
-            flex: 1;
-            overflow-x: hidden;
-            box-sizing: border-box;
+            padding: 1.25rem 1.5rem !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            min-width: 0 !important;
+            margin: 0 !important;
+            flex: 1 1 auto;
+            overflow-x: hidden !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Universal Grid, Card & Table Overflow Defenses */
+        .min-w-0 {
+            min-width: 0 !important;
+        }
+
+        .admin-content .row {
+            margin-left: -0.75rem;
+            margin-right: -0.75rem;
+            max-width: calc(100% + 1.5rem);
+        }
+
+        .admin-content .row > * {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .admin-card,
+        .sh-stat-card,
+        .card {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            overflow: hidden !important;
+            box-sizing: border-box !important;
         }
 
         .table-responsive {
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch;
+            display: block !important;
             width: 100% !important;
             max-width: 100% !important;
+            min-width: 0 !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch;
+            box-sizing: border-box !important;
+        }
+
+        .table-responsive > .table {
+            margin-bottom: 0 !important;
+            white-space: nowrap !important;
+        }
+
+        .admin-content pre,
+        .admin-content code {
+            word-break: break-all !important;
         }
 
         .admin-page-heading h1 {
@@ -412,11 +453,21 @@
             color: #fff;
         }
 
-        /* Sidebar collapsed state (desktop) */
+        /* Sidebar layout & Responsive main bounds (Strict 0px Overflow) */
         @media (min-width: 992px) {
+            .admin-main {
+                width: calc(100% - var(--matro-sidebar)) !important;
+                max-width: calc(100% - var(--matro-sidebar)) !important;
+                flex: 0 0 calc(100% - var(--matro-sidebar)) !important;
+            }
             body.sidebar-collapsed .matro-sidebar {
                 width: var(--matro-sidebar-mini);
                 flex-basis: var(--matro-sidebar-mini);
+            }
+            body.sidebar-collapsed .admin-main {
+                width: calc(100% - var(--matro-sidebar-mini)) !important;
+                max-width: calc(100% - var(--matro-sidebar-mini)) !important;
+                flex: 0 0 calc(100% - var(--matro-sidebar-mini)) !important;
             }
             body.sidebar-collapsed .matro-brand {
                 justify-content: center;
@@ -448,6 +499,11 @@
 
         /* Mobile drawer */
         @media (max-width: 991.98px) {
+            .admin-main {
+                width: 100% !important;
+                max-width: 100% !important;
+                flex: 0 0 100% !important;
+            }
             .matro-sidebar {
                 position: fixed;
                 left: 0;
@@ -654,8 +710,8 @@
     <main class="admin-main">
         <!-- Topbar -->
         <header class="admin-topbar d-flex align-items-center justify-content-between px-3 px-lg-4">
-            <div class="d-flex align-items-center gap-3 min-w-0">
-                <button class="sh-collapse-btn" id="sidebarToggle" type="button" aria-label="Toggle sidebar">
+            <div class="d-flex align-items-center gap-2 gap-sm-3 min-w-0 flex-shrink-1">
+                <button class="sh-collapse-btn flex-shrink-0" id="sidebarToggle" type="button" aria-label="Toggle sidebar">
                     <i class="bi bi-layout-sidebar-inset"></i>
                 </button>
                 @php
@@ -676,8 +732,8 @@
                     $breadcrumbs = $breadcrumbMap[$adminRoute] ?? [];
                 @endphp
                 <div class="admin-page-heading min-w-0">
-                    <div class="sh-breadcrumbs">
-                        <ol>
+                    <div class="sh-breadcrumbs text-truncate">
+                        <ol class="text-truncate">
                             <li><a href="{{ route('admin.dashboard') }}">Admin</a></li>
                             @foreach ($breadcrumbs as $crumb)
                                 <li class="sh-breadcrumbs-sep">/</li>
@@ -691,12 +747,12 @@
                             @endforeach
                         </ol>
                     </div>
-                    <h1 class="text-truncate">@yield('page-title', 'Dashboard')</h1>
+                    <h1 class="text-truncate mb-0">@yield('page-title', 'Dashboard')</h1>
                 </div>
             </div>
 
             <!-- Topbar Notification Badges & User Menu -->
-            <div class="d-flex align-items-center gap-2 gap-md-3">
+            <div class="d-flex align-items-center gap-2 gap-md-3 flex-shrink-0 ms-2">
                 @php
                     $pendingOrdersCount = \App\Models\Order::where('status', 'pending')->count();
                     $unreadInquiriesCount = \App\Models\Inquiry::where('is_read', false)->count();

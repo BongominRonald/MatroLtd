@@ -77,7 +77,7 @@
         @if($order->notes)
             <div class="card admin-card p-4">
                 <h6 class="fw-bold mb-2"><i class="bi bi-sticky me-2 text-warning"></i>Buyer &amp; Contract Notes</h6>
-                <p class="text-muted mb-0 small">{{ $order->notes }}</p>
+                <p class="text-muted mb-0 small" style="word-break: break-word; overflow-wrap: anywhere;">{{ $order->notes }}</p>
             </div>
         @endif
     </div>
@@ -128,7 +128,7 @@
             </div>
             <div>
                 <small class="text-muted d-block">Delivery / Destination Port</small>
-                <div class="p-2 bg-light rounded border small">{{ $order->shipping_address ?? 'Not specified' }}</div>
+                <div class="p-2 bg-light rounded border small text-break" style="word-break: break-word; overflow-wrap: anywhere;">{{ $order->shipping_address ?? 'Not specified' }}</div>
             </div>
         </div>
     </div>

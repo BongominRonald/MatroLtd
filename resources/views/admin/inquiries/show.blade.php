@@ -19,10 +19,10 @@
             </div>
             <hr class="text-secondary opacity-25">
             <div class="p-3 bg-light rounded border mb-4">
-                <p class="mb-0 text-dark" style="white-space: pre-line; line-height: 1.7;">{{ $inquiry->message }}</p>
+                <p class="mb-0 text-dark" style="white-space: pre-line; line-height: 1.7; word-break: break-word; overflow-wrap: anywhere;">{{ $inquiry->message }}</p>
             </div>
 
-            <div class="d-flex gap-2">
+            <div class="d-flex flex-wrap gap-2">
                 <a href="mailto:{{ $inquiry->email }}?subject=RE: {{ urlencode($inquiry->subject ?: 'BRX Agro Global Trade Inquiry') }}" class="btn btn-matro rounded-pill">
                     <i class="bi bi-reply-fill me-1"></i>Reply via Email
                 </a>

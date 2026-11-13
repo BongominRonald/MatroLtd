@@ -28,14 +28,14 @@
         ];
     @endphp
     @foreach($kpis as $kpi)
-        <div class="col-6 col-md-4 col-xl-2">
+        <div class="col-6 col-sm-4 col-md-4 col-xl-2">
             @if($kpi['url'])<a href="{{ $kpi['url'] }}" class="text-decoration-none">@endif
             <div class="card sh-stat-card h-100 p-3">
                 <div class="sh-stat-icon mb-3" style="background:{{ $kpi['bg'] }};color:{{ $kpi['fg'] }}">
                     <i class="bi {{ $kpi['icon'] }}"></i>
                 </div>
                 <div class="fw-bold fs-5 text-dark text-truncate">{{ $kpi['value'] }}</div>
-                <small class="text-muted">{{ $kpi['label'] }}</small>
+                <small class="text-muted d-block text-truncate" title="{{ $kpi['label'] }}">{{ $kpi['label'] }}</small>
             </div>
             @if($kpi['url'])</a>@endif
         </div>
@@ -73,7 +73,7 @@
                 <span class="text-muted text-uppercase fw-semibold small">Order Fulfillment Pipeline</span>
                 <a href="{{ route('admin.orders.index') }}" class="small text-decoration-none text-success fw-bold">View all orders &rarr;</a>
             </div>
-            <div class="row g-2 row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-xl-6">
+            <div class="row g-2 row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-lg-3 row-cols-xxl-6">
                 @foreach($orders_by_status as $status => $count)
                     <div class="col">
                         <a href="{{ route('admin.orders.index', ['status' => $status]) }}" class="text-decoration-none">
