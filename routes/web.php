@@ -7,12 +7,18 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Mail\AdminInquiryAlertMail;
+use App\Mail\AdminOrderAlertMail;
+use App\Mail\InquiryConfirmationMail;
+use App\Mail\OrderConfirmationMail;
 use App\Models\Category;
 use App\Models\Inquiry;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -81,8 +87,9 @@ Route::post('/inquiries', function (Request $request) {
     }
 
     $fullMessage = (! empty($extraInfo) ? implode(' | ', $extraInfo)."\n\n" : '').($validated['message'] ?? '');
+    $reference = 'AGRO-INQ-'.strtoupper(Str::random(6));
 
-    Inquiry::create([
+    $inquiry = Inquiry::create([
         'name' => $validated['name'],
         'email' => $validated['email'],
         'phone' => $validated['phone'] ?? null,
@@ -93,10 +100,18 @@ Route::post('/inquiries', function (Request $request) {
         'is_read' => false,
     ]);
 
+    try {
+        Mail::to($validated['email'])->send(new InquiryConfirmationMail($inquiry, $reference));
+        $adminEmail = config('mail.from.address') ?: 'info@matogrossoexportltda.com.br';
+        Mail::to($adminEmail)->send(new AdminInquiryAlertMail($inquiry, $reference));
+    } catch (\Throwable $e) {
+        Log::warning('Inquiry notification email failed: ' . $e->getMessage());
+    }
+
     if ($request->wantsJson() || $request->ajax()) {
         return response()->json([
             'success' => true,
-            'reference' => 'AGRO-INQ-'.strtoupper(Str::random(6)),
+            'reference' => $reference,
             'message' => 'Your inquiry has been submitted. Our trade desk will contact you promptly.',
         ]);
     }
@@ -155,6 +170,16 @@ Route::post('/checkout', function (Request $request) {
             'quantity' => $item['qty'],
             'subtotal' => $price * $item['qty'],
         ]);
+    }
+
+    $order->load('items');
+
+    try {
+        Mail::to($validated['customer_email'])->send(new OrderConfirmationMail($order));
+        $adminEmail = config('mail.from.address') ?: 'info@matogrossoexportltda.com.br';
+        Mail::to($adminEmail)->send(new AdminOrderAlertMail($order));
+    } catch (\Throwable $e) {
+        Log::warning('Order notification email failed: ' . $e->getMessage());
     }
 
     return response()->json([

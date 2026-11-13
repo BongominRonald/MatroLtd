@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Order #' . $order->order_number . ' — Matro Administration')
+@section('title', 'Order #' . $order->order_number . ' — BRX Agro Global Administration')
 @section('page-title', 'Order Details')
 
 @section('content')

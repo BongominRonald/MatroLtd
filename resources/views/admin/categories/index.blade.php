@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Categories — Matro Administration')
+@section('title', 'Categories — BRX Agro Global Administration')
 @section('page-title', 'Commodity Categories')
 
 @section('content')

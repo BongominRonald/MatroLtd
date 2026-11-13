@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Mail\AdminOrderAlertMail;
+use App\Mail\OrderConfirmationMail;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class CheckoutTest extends TestCase
@@ -13,6 +16,8 @@ class CheckoutTest extends TestCase
 
     public function test_authenticated_user_can_place_commodity_order_via_checkout_endpoint(): void
     {
+        Mail::fake();
+
         $user = User::factory()->create([
             'name' => 'John Exporting Ltd',
             'email' => 'procurement@johnexport.com',
@@ -72,6 +77,12 @@ class CheckoutTest extends TestCase
             'quantity' => 1,
             'subtotal' => 540.00,
         ]);
+
+        Mail::assertSent(OrderConfirmationMail::class, function ($mail) {
+            return $mail->hasTo('procurement@johnexport.com');
+        });
+
+        Mail::assertSent(AdminOrderAlertMail::class);
     }
 
     public function test_unauthenticated_guest_cannot_place_order_via_checkout_endpoint(): void

@@ -3491,7 +3491,7 @@
                             <button type="button" class="btn btn-outline-success py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" onclick="closeAccountModalAndOpenCart()">
                                 <i class="bi bi-basket3 fs-5"></i> View Commodity Sample Cart
                             </button>
-                            <a href="https://wa.me/5565999999999?text=Hello%20BRX%20Agro%20Global%2C%20I%20am%20a%20registered%20buyer%20requesting%20commodity%20quotation." target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
+                            <a href="https://wa.me/5511952987545?text=Hello%20BRX%20Agro%20Global%2C%20I%20am%20a%20registered%20buyer%20requesting%20commodity%20quotation." target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
                                 <i class="bi bi-whatsapp fs-5 text-success"></i> Contact Trade Desk WhatsApp
                             </a>
                         </div>

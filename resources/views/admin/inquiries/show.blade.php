@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Inquiry from ' . $inquiry->name . ' — Matro Administration')
+@section('title', 'Inquiry from ' . $inquiry->name . ' — BRX Agro Global Administration')
 @section('page-title', 'Inquiry Details')
 
 @section('content')
@@ -23,7 +23,7 @@
             </div>
 
             <div class="d-flex gap-2">
-                <a href="mailto:{{ $inquiry->email }}?subject=RE: {{ urlencode($inquiry->subject ?: 'Matro Trade Inquiry') }}" class="btn btn-matro rounded-pill">
+                <a href="mailto:{{ $inquiry->email }}?subject=RE: {{ urlencode($inquiry->subject ?: 'BRX Agro Global Trade Inquiry') }}" class="btn btn-matro rounded-pill">
                     <i class="bi bi-reply-fill me-1"></i>Reply via Email
                 </a>
                 @if($inquiry->phone)

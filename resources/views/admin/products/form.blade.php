@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', ($product ? 'Edit ' . $product->name : 'Add New Product') . ' — Matro Administration')
+@section('title', ($product ? 'Edit ' . $product->name : 'Add New Product') . ' — BRX Agro Global Administration')
 @section('page-title', $product ? 'Edit Commodity' : 'Add New Commodity')
 
 @section('content')

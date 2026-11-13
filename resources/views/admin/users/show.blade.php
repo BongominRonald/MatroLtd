@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Customer Profile: ' . $user->name . ' — Matro Administration')
+@section('title', 'Customer Profile: ' . $user->name . ' — BRX Agro Global Administration')
 @section('page-title', 'Customer Profile')
 
 @section('content')

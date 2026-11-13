@@ -1,12 +1,12 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Dashboard — Matro Administration')
+@section('title', 'Dashboard — BRX Agro Global Administration')
 @section('page-title', 'Overview & Dashboard')
 
 @section('content')
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <p class="text-muted small mb-0">High-level telemetry, trade pipeline, and operations monitor for Matro.</p>
+        <p class="text-muted small mb-0">High-level telemetry, trade pipeline, and operations monitor for BRX Agro Global.</p>
     </div>
     <div class="d-flex gap-2">
         <a href="{{ route('admin.products.create') }}" class="btn btn-matro btn-sm"><i class="bi bi-plus-lg me-1"></i>Add Product</a>
