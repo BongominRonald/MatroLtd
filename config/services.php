@@ -41,4 +41,11 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI', env('APP_URL', 'http://localhost') . '/auth/google/callback'),
     ],
 
+    'company' => [
+        'name' => env('COMPANY_NAME', 'BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA'),
+        'trade_desk_email' => env('COMPANY_TRADE_DESK_EMAIL', 'tradedesk@brxagroglobal.com'),
+        'notification_emails' => env('COMPANY_NOTIFICATION_EMAIL', 'tradedesk@brxagroglobal.com,info@brxagroglobal.com'),
+        'notification_webhook' => env('ORDER_NOTIFICATION_WEBHOOK_URL'),
+    ],
+
 ];

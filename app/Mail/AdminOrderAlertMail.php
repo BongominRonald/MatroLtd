@@ -23,7 +23,7 @@ class AdminOrderAlertMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[TRADE DESK ALERT] New Commodity Order #' . $this->order->order_number . ' placed by ' . $this->order->customer_name
+            subject: '[TRADE DESK ALERT] New Commodity Order #' . $this->order->order_number . ' — ' . $this->order->customer_name . ' ($' . number_format($this->order->total_amount, 2) . ')'
         );
     }
 

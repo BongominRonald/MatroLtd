@@ -4224,7 +4224,8 @@
                         $alert.removeClass('d-none alert-danger').addClass('alert-success').html(`
                             <h6 class="fw-bold mb-1"><i class="bi bi-check-circle-fill me-1"></i> Order Recorded Successfully!</h6>
                             <p class="mb-1">Order Ref: <strong>${res.order_number}</strong></p>
-                            <p class="mb-0 small text-muted">${res.message}</p>
+                            <p class="mb-1 small text-dark">${res.message}</p>
+                            <div class="mt-2"><span class="badge bg-success text-white px-2 py-1"><i class="bi bi-bell-fill me-1"></i> BRX Agro Trade Desk Notified</span></div>
                         `);
 
                         // Clear cart

@@ -77,14 +77,17 @@
                             </table>
 
                             <div style="text-align: center; margin-top: 10px;">
-                                <a href="mailto:{{ $order->customer_email }}?subject=RE: {{ urlencode('BRX Agro Global Order #' . $order->order_number) }}" style="display: inline-block; background-color: #121820; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 10px 22px; border-radius: 6px; margin-right: 8px;">
+                                <a href="mailto:{{ $order->customer_email }}?subject=RE: {{ urlencode('BRX Agro Global Order #' . $order->order_number) }}" style="display: inline-block; background-color: #121820; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 10px 18px; border-radius: 6px; margin: 4px;">
                                     Contact Customer
                                 </a>
                                 @if($order->customer_phone)
-                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $order->customer_phone) }}" target="_blank" style="display: inline-block; background-color: #78a22f; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 10px 22px; border-radius: 6px;">
+                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $order->customer_phone) }}" target="_blank" style="display: inline-block; background-color: #78a22f; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 10px 18px; border-radius: 6px; margin: 4px;">
                                     WhatsApp Buyer
                                 </a>
                                 @endif
+                                <a href="{{ url('/admin/orders/' . $order->id) }}" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 10px 18px; border-radius: 6px; margin: 4px;">
+                                    View in Admin Portal
+                                </a>
                             </div>
                         </td>
                     </tr>

@@ -538,8 +538,31 @@
                 </div>
             </div>
 
-            <!-- User Menu -->
-            <div class="dropdown">
+            <!-- Topbar Notification Badges & User Menu -->
+            <div class="d-flex align-items-center gap-2 gap-md-3">
+                @php
+                    $pendingOrdersCount = \App\Models\Order::where('status', 'pending')->count();
+                    $unreadInquiriesCount = \App\Models\Inquiry::where('is_read', false)->count();
+                @endphp
+                <div class="d-flex align-items-center gap-2">
+                    <a href="{{ route('admin.orders.index', ['status' => 'pending']) }}" class="btn btn-sm btn-light border position-relative d-flex align-items-center gap-1 px-2 py-1" title="Pending Commodity Orders">
+                        <i class="bi bi-bell-fill text-warning"></i>
+                        <span class="d-none d-sm-inline small fw-semibold">Orders</span>
+                        @if($pendingOrdersCount > 0)
+                            <span class="badge bg-danger rounded-pill">{{ $pendingOrdersCount }}</span>
+                        @endif
+                    </a>
+                    <a href="{{ route('admin.inquiries.index') }}" class="btn btn-sm btn-light border position-relative d-flex align-items-center gap-1 px-2 py-1" title="Unread Inquiries & Trade Desk Messages">
+                        <i class="bi bi-chat-dots-fill text-primary"></i>
+                        <span class="d-none d-sm-inline small fw-semibold">Desk</span>
+                        @if($unreadInquiriesCount > 0)
+                            <span class="badge bg-primary rounded-pill">{{ $unreadInquiriesCount }}</span>
+                        @endif
+                    </a>
+                </div>
+
+                <!-- User Menu -->
+                <div class="dropdown">
                 <button class="admin-user d-flex align-items-center gap-2" data-bs-toggle="dropdown" type="button">
                     <div class="admin-avatar">{{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}</div>
                     <span class="d-none d-md-block text-start">

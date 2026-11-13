@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use App\Mail\AdminOrderAlertMail;
 use App\Mail\OrderConfirmationMail;
+use App\Models\Inquiry;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -152,5 +154,72 @@ class CheckoutTest extends TestCase
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['customer_name', 'customer_email', 'items']);
+    }
+
+    public function test_company_is_notified_via_email_inquiry_sync_and_webhook_when_customer_orders(): void
+    {
+        Mail::fake();
+        Http::fake();
+
+        // Create an admin user who should receive notifications
+        $admin = User::factory()->create([
+            'name' => 'Trade Desk Chief Officer',
+            'email' => 'admin-officer@brxagroglobal.com',
+            'role' => 'admin',
+        ]);
+
+        // Configure custom company notification email and webhook URL
+        config([
+            'services.company.notification_emails' => 'tradedesk@brxagroglobal.com,operations@brxagroglobal.com',
+            'services.company.notification_webhook' => 'https://hooks.slack.com/services/test/alert/sample',
+        ]);
+
+        $customer = User::factory()->create([
+            'name' => 'Shanghai Agri Import Corp',
+            'email' => 'procurement@shanghai-agri.cn',
+        ]);
+
+        $payload = [
+            'customer_name' => 'Shanghai Agri Import Corp',
+            'customer_email' => 'procurement@shanghai-agri.cn',
+            'customer_phone' => '+86 21 8899 7700',
+            'shipping_address' => 'Shanghai Port (CNSHA) - CIF Incoterms 2020',
+            'payment_method' => 'Irrevocable Documentary Letter of Credit (DLC)',
+            'notes' => 'Requires CIQ clearance and non-GMO certification.',
+            'items' => [
+                [
+                    'name' => 'Brazilian Yellow Corn Grade 2',
+                    'price' => 240.00,
+                    'qty' => 5,
+                ],
+            ],
+        ];
+
+        $response = $this->actingAs($customer)->postJson(route('checkout.store'), $payload);
+
+        $response->assertStatus(200);
+        $response->assertJsonPath('notifications.company_alerted', true);
+        $response->assertJsonPath('notifications.desk_inbox_synced', true);
+
+        // Assert company trade desk alert mail sent to company recipients and admin
+        Mail::assertSent(AdminOrderAlertMail::class, function ($mail) {
+            return $mail->hasTo('tradedesk@brxagroglobal.com')
+                && $mail->hasTo('operations@brxagroglobal.com')
+                && $mail->hasTo('admin-officer@brxagroglobal.com');
+        });
+
+        // Assert in-app inquiry was created to alert trade desk officers
+        $this->assertDatabaseHas('inquiries', [
+            'email' => 'procurement@shanghai-agri.cn',
+            'role' => 'buyer',
+            'status' => 'new',
+            'is_read' => false,
+        ]);
+
+        // Assert outbound webhook was dispatched
+        Http::assertSent(function ($request) {
+            return $request->url() === 'https://hooks.slack.com/services/test/alert/sample'
+                && str_contains($request->body(), 'Shanghai Agri Import Corp');
+        });
     }
 }

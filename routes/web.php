@@ -16,6 +16,7 @@ use App\Models\Inquiry;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Services\OrderNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -110,7 +111,7 @@ Route::post('/inquiries', function (Request $request) {
 
     try {
         Mail::to($validated['email'])->send(new InquiryConfirmationMail($inquiry, $reference));
-        $adminEmail = config('mail.from.address') ?: 'info@matogrossoexportltda.com.br';
+        $adminEmail = config('services.company.trade_desk_email') ?: 'tradedesk@brxagroglobal.com';
         Mail::to($adminEmail)->send(new AdminInquiryAlertMail($inquiry, $reference));
     } catch (\Throwable $e) {
         Log::warning('Inquiry notification email failed: ' . $e->getMessage());
@@ -182,19 +183,18 @@ Route::post('/checkout', function (Request $request) {
 
     $order->load('items');
 
-    try {
-        Mail::to($validated['customer_email'])->send(new OrderConfirmationMail($order));
-        $adminEmail = config('mail.from.address') ?: 'info@matogrossoexportltda.com.br';
-        Mail::to($adminEmail)->send(new AdminOrderAlertMail($order));
-    } catch (\Throwable $e) {
-        Log::warning('Order notification email failed: ' . $e->getMessage());
-    }
+    // Notify company trade desk, administrators, and the customer
+    $notifications = app(OrderNotificationService::class)->notifyAll($order);
 
     return response()->json([
         'success' => true,
         'order_number' => $order->order_number,
         'total' => number_format($total, 2),
-        'message' => 'Your commodity sample order '.$order->order_number.' has been recorded. Our trade desk will contact you with shipping documentation.',
+        'message' => 'Your commodity sample order '.$order->order_number.' has been recorded and dispatched to the BRX Agro Global Trade Desk. Company officers have been notified and will contact you promptly.',
+        'notifications' => [
+            'company_alerted' => ! empty($notifications['company_emails']) || $notifications['inquiry_synced'],
+            'desk_inbox_synced' => $notifications['inquiry_synced'],
+        ],
     ]);
 })->name('checkout.store');
 
