@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->trustProxies(at: '*');
+        $middleware->validateCsrfTokens(except: [
+            'cookies/consent',
+        ]);
         $middleware->encryptCookies(except: [
             'brx_cookie_consent',
         ]);
