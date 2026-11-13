@@ -83,12 +83,12 @@
                                 For immediate assistance or urgent contracts, you can connect directly with our trading desk via WhatsApp or phone.
                             </p>
 
-                            <!-- Direct WhatsApp Action Button -->
+                            <!-- Direct Trade Desk Action Button -->
                             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td align="center">
-                                        <a href="https://wa.me/5511952987545?text=Hello%20BRX%20Agro%20Global%2C%20I%20have%20submitted%20inquiry%20{{ urlencode($reference) }}%20and%20would%20like%20to%20follow%20up." target="_blank" style="display: inline-block; background-color: #78a22f; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 14px; padding: 12px 28px; border-radius: 6px; box-shadow: 0 2px 6px rgba(120, 162, 47, 0.3);">
-                                            Contact Trade Desk on WhatsApp
+                                        <a href="https://brx-agro-global-importacao-e-export.vercel.app/#inbox" target="_blank" style="display: inline-block; background-color: #78a22f; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 14px; padding: 12px 28px; border-radius: 6px; box-shadow: 0 2px 6px rgba(120, 162, 47, 0.3);">
+                                            Open Trade Desk Online Inbox
                                         </a>
                                     </td>
                                 </tr>

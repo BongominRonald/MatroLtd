@@ -34,7 +34,15 @@ Route::get('/', function () {
     $totalStock = Product::sum('stock') ?: 29000;
     $productsCount = Product::count() ?: 28;
 
-    return view('index', compact('categories', 'products', 'totalStock', 'productsCount'));
+    $userInquiries = auth()->check()
+        ? Inquiry::where('email', auth()->user()->email)->latest('id')->take(8)->get()
+        : collect();
+
+    $userOrders = auth()->check()
+        ? Order::where('user_id', auth()->id())->with('items')->latest('id')->take(6)->get()
+        : collect();
+
+    return view('index', compact('categories', 'products', 'totalStock', 'productsCount', 'userInquiries', 'userOrders'));
 })->name('home');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

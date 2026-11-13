@@ -3485,17 +3485,63 @@
                     <div class="mb-3">
                         <div class="small fw-bold text-uppercase text-muted mb-2" style="letter-spacing: 0.5px;">Trade Desk Actions</div>
                         <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-outline-primary py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2" onclick="openTradeDeskInbox('Hello BRX Agro Global, I am a registered buyer requesting commodity quotation.')">
+                                <i class="bi bi-inbox-fill fs-5 text-success"></i> Open Trade Desk Inbox &amp; Messages
+                            </button>
                             <a href="#rfq-desk" data-bs-dismiss="modal" class="btn btn-sh-primary py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
                                 <i class="bi bi-file-earmark-text fs-5"></i> Submit Commodity RFQ (500+ MT)
                             </a>
                             <button type="button" class="btn btn-outline-success py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" onclick="closeAccountModalAndOpenCart()">
                                 <i class="bi bi-basket3 fs-5"></i> View Commodity Sample Cart
                             </button>
-                            <a href="https://wa.me/5511952987545?text=Hello%20BRX%20Agro%20Global%2C%20I%20am%20a%20registered%20buyer%20requesting%20commodity%20quotation." target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
-                                <i class="bi bi-whatsapp fs-5 text-success"></i> Contact Trade Desk WhatsApp
-                            </a>
                         </div>
                     </div>
+
+                    <!-- My Registered Inquiries & Messages in Account Box -->
+                    @if(isset($userInquiries) && $userInquiries->isNotEmpty())
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="small fw-bold text-uppercase text-muted" style="letter-spacing: 0.5px;">My Desk Inquiries ({{ $userInquiries->count() }})</span>
+                                <button type="button" class="btn btn-link btn-sm p-0 text-success text-decoration-none fw-semibold" onclick="openTradeDeskInbox()">New Message</button>
+                            </div>
+                            <div class="list-group list-group-flush rounded-3 border" style="max-height: 190px; overflow-y: auto;">
+                                @foreach($userInquiries as $inq)
+                                    <div class="list-group-item p-2.5 small" style="background: var(--sh-surface);">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <strong class="text-truncate me-2" style="max-width: 180px;">{{ $inq->subject ?: 'Trade Inquiry' }}</strong>
+                                            <span class="badge {{ $inq->status === 'resolved' ? 'bg-success' : ($inq->status === 'in_progress' ? 'bg-primary' : 'bg-secondary') }} rounded-pill" style="font-size: 0.65rem;">
+                                                {{ ucfirst($inq->status) }}
+                                            </span>
+                                        </div>
+                                        <div class="text-muted d-flex justify-content-between align-items-center" style="font-size: 0.72rem;">
+                                            <span>{{ $inq->created_at->format('M d, H:i') }}</span>
+                                            <a href="javascript:void(0)" onclick="openTradeDeskInbox(); $('#inboxMessagesTabBtn').tab('show');" class="text-success text-decoration-none fw-semibold">View in Desk Inbox</a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
+                    @if(isset($userOrders) && $userOrders->isNotEmpty())
+                        <div class="mb-3">
+                            <div class="small fw-bold text-uppercase text-muted mb-2" style="letter-spacing: 0.5px;">My Registered Orders ({{ $userOrders->count() }})</div>
+                            <div class="list-group list-group-flush rounded-3 border" style="max-height: 160px; overflow-y: auto;">
+                                @foreach($userOrders as $ord)
+                                    <div class="list-group-item p-2.5 small" style="background: var(--sh-surface);">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="fw-bold text-success">{{ $ord->order_number }}</span>
+                                            <span class="badge bg-warning text-dark rounded-pill" style="font-size: 0.65rem;">{{ ucfirst($ord->status) }}</span>
+                                        </div>
+                                        <div class="text-muted d-flex justify-content-between" style="font-size: 0.72rem;">
+                                            <span>{{ $ord->created_at->format('M d, Y') }}</span>
+                                            <span>${{ number_format($ord->total_amount, 2) }}</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
 
                     <!-- Incoterms & Origination Info Strip -->
                     <div class="p-2.5 rounded-3 mb-3 small d-flex align-items-center gap-2" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.22); font-size: 0.8rem;">
@@ -3515,6 +3561,192 @@
         </div>
     </div>
     @endauth
+
+    <!-- =========================================================================
+         15. ON-SITE TRADE DESK INBOX & MESSAGING BOX (No external WhatsApp app)
+         ========================================================================= -->
+    <div class="modal fade" id="tradeDeskInboxModal" tabindex="-1" aria-labelledby="tradeDeskInboxModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
+                
+                <!-- Modal Header -->
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4" style="background: linear-gradient(135deg, #121820 0%, #1a232f 100%);">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background: rgba(120, 162, 47, 0.2); border: 2px solid #78a22f; color: #78a22f; font-size: 1.35rem;">
+                            <i class="bi bi-inbox-fill"></i>
+                        </div>
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <h5 class="modal-title fw-bold text-white mb-0" id="tradeDeskInboxModalLabel" style="font-size: 1.15rem;">Trade Desk Online Inbox</h5>
+                                <span class="badge bg-success rounded-pill px-2 py-0.5" style="font-size: 0.68rem; letter-spacing: 0.5px;">
+                                    <i class="bi bi-circle-fill me-1" style="font-size: 0.45rem;"></i>SÃO PAULO DESK LIVE
+                                </span>
+                            </div>
+                            <small class="text-white-50" style="font-size: 0.76rem;">Direct commercial inquiry &amp; order execution desk — on-site message inbox</small>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Nav Tabs -->
+                <ul class="nav nav-tabs px-4 pt-2 border-bottom border-secondary border-opacity-25" id="inboxTabNav" role="tablist" style="background: rgba(120, 162, 47, 0.04);">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active fw-bold text-uppercase py-2.5 px-3 border-0" id="inboxComposeTabBtn" data-bs-toggle="tab" data-bs-target="#inboxComposeTab" type="button" role="tab" style="font-size: 0.8rem; letter-spacing: 0.5px;">
+                            <i class="bi bi-pencil-square me-1"></i> Send Desk Message / RFQ
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link fw-bold text-uppercase py-2.5 px-3 border-0" id="inboxMessagesTabBtn" data-bs-toggle="tab" data-bs-target="#inboxMessagesTab" type="button" role="tab" style="font-size: 0.8rem; letter-spacing: 0.5px;">
+                            <i class="bi bi-chat-left-text-fill me-1"></i> Desk Inquiries &amp; Messages
+                            <span class="badge bg-success rounded-pill ms-1" id="inboxBadgeCount">{{ isset($userInquiries) ? $userInquiries->count() : 0 }}</span>
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Modal Body -->
+                <div class="modal-body p-4">
+                    <div class="tab-content" id="inboxTabContent">
+                        
+                        <!-- TAB 1: COMPOSE MESSAGE / RFQ -->
+                        <div class="tab-pane fade show active" id="inboxComposeTab" role="tabpanel">
+                            <div id="deskInboxAlert" class="alert d-none mb-3 py-2 px-3 small rounded-3"></div>
+
+                            <form id="deskInboxForm">
+                                <input type="hidden" name="role" value="buyer">
+
+                                @auth
+                                    <input type="hidden" name="name" value="{{ auth()->user()->name }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <div class="p-2.5 rounded-3 mb-3 d-flex align-items-center justify-content-between" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.22); font-size: 0.82rem;">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="bi bi-person-badge text-success fs-5"></i>
+                                            <span>Signed in as <strong>{{ auth()->user()->name }}</strong> ({{ auth()->user()->email }})</span>
+                                        </div>
+                                        <span class="badge bg-success px-2 py-1">Verified Buyer</span>
+                                    </div>
+                                @else
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold mb-1">Your Name *</label>
+                                            <input type="text" name="name" class="form-control form-control-sm sh-input" placeholder="First and last name" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold mb-1">Corporate Email *</label>
+                                            <input type="email" name="email" class="form-control form-control-sm sh-input" placeholder="procurement@company.com" required>
+                                        </div>
+                                    </div>
+                                @endauth
+
+                                <div class="row g-2 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold mb-1">Phone / WhatsApp (Optional)</label>
+                                        <input type="text" name="phone" class="form-control form-control-sm sh-input" placeholder="+1 (555) 000-0000">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold mb-1">Commodity / Topic *</label>
+                                        <select name="buyer_detail" id="inboxCommoditySelect" class="form-select form-select-sm sh-input" required>
+                                            <option value="General Commercial RFQ">General Commercial Inquiry / Quotation</option>
+                                            <option value="Brazilian Non-GMO Soybeans">Brazilian Non-GMO Soybeans</option>
+                                            <option value="Refined Cane Sugar (ICUMSA 45)">Refined Cane Sugar (ICUMSA 45)</option>
+                                            <option value="Yellow Corn (Maize Grade 2)">Yellow Corn (Maize Grade 2)</option>
+                                            <option value="Brazilian Long Grain White Rice">Brazilian Long Grain White Rice</option>
+                                            <option value="Refined Sunflower Oil (Grade A)">Refined Sunflower Oil (Grade A)</option>
+                                            <option value="Refined Corn Oil (Pure Maize)">Refined Corn Oil (Pure Maize)</option>
+                                            <option value="Refined Palm Olein Oil (CP8/CP10)">Refined Palm Olein Oil (CP8/CP10)</option>
+                                            <option value="Pure Refined Soybean Oil (Food Grade)">Pure Refined Soybean Oil (Food Grade)</option>
+                                            <option value="Premium Green Cardamom Pods">Premium Green Cardamom Pods</option>
+                                            <option value="Arabica Green Coffee Beans (NY 2/3)">Arabica Green Coffee Beans (NY 2/3)</option>
+                                            <option value="Brazilian Whole Green Mung Beans">Brazilian Whole Green Mung Beans</option>
+                                            <option value="Premium Raw Shelled Almonds">Premium Raw Shelled Almonds</option>
+                                            <option value="Premium Brazilian Cashew Kernels (W-240 / W-320)">Premium Brazilian Cashew Kernels (W-240 / W-320)</option>
+                                            <option value="Whole Frozen Brazilian Chicken (Grade A)">Whole Frozen Brazilian Chicken (Grade A)</option>
+                                            <option value="Frozen Boneless Beef Cuts (SIF/Halal)">Frozen Boneless Beef Cuts (SIF/Halal)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold mb-1">Message / Requirements / Destination Port *</label>
+                                    <textarea name="message" id="inboxMessageText" class="form-control sh-input" rows="4" placeholder="Detail your target metric tons, target discharge port (CIF/FOB), packaging specifications, or trade questions..." required></textarea>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                    <small class="text-muted d-flex align-items-center gap-1" style="font-size: 0.76rem;">
+                                        <i class="bi bi-shield-check text-success"></i>
+                                        Direct delivery to desk inbox &amp; email
+                                    </small>
+                                    <button type="submit" id="btnSendInboxDesk" class="btn btn-sh-primary py-2 px-4 fw-bold d-flex align-items-center gap-2">
+                                        <i class="bi bi-send-fill"></i>
+                                        <span>Send to Desk Inbox</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- TAB 2: INBOX & MESSAGE THREADS -->
+                        <div class="tab-pane fade" id="inboxMessagesTab" role="tabpanel">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="small fw-bold text-uppercase text-muted" style="letter-spacing: 0.5px;">Trade Desk Communication Feed</span>
+                                <button type="button" class="btn btn-sm btn-outline-success" onclick="$('#inboxComposeTabBtn').tab('show');">
+                                    <i class="bi bi-plus-lg me-1"></i>New Inquiry
+                                </button>
+                            </div>
+
+                            <div id="inboxThreadContainer" style="max-height: 420px; overflow-y: auto; padding-right: 4px;">
+                                @if(isset($userInquiries) && $userInquiries->isNotEmpty())
+                                    @foreach($userInquiries as $inq)
+                                        <div class="inbox-msg-bubble inbox-msg-outgoing">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <strong class="text-dark">{{ $inq->subject ?: 'Trade Inquiry' }}</strong>
+                                                <span class="badge bg-success rounded-pill" style="font-size: 0.65rem;">Logged #{{ $inq->id }}</span>
+                                            </div>
+                                            <p class="mb-2 text-dark small" style="white-space: pre-line;">{{ $inq->message }}</p>
+                                            <div class="text-muted small d-flex justify-content-between align-items-center" style="font-size: 0.72rem;">
+                                                <span><i class="bi bi-clock me-1"></i>{{ $inq->created_at->format('M d, Y · H:i') }} UTC</span>
+                                                <span class="badge bg-light text-dark border">{{ ucfirst($inq->status) }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="inbox-msg-bubble inbox-msg-reply">
+                                            <div class="d-flex align-items-center gap-2 mb-1">
+                                                <i class="bi bi-headset text-success"></i>
+                                                <strong class="small">BRX Trade Desk (São Paulo HQ)</strong>
+                                                <span class="badge bg-light text-success border ms-auto" style="font-size: 0.65rem;">Automated Desk Receipt</span>
+                                            </div>
+                                            <p class="mb-0 small text-muted">
+                                                Inquiry received into our trading pipeline. Our counterparty logistics specialists are checking export allocations and assay sheets.
+                                            </p>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div id="inboxEmptyState" class="text-center py-5">
+                                        <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 56px; height: 56px; background: rgba(120, 162, 47, 0.12); color: var(--sh-primary); font-size: 1.6rem;">
+                                            <i class="bi bi-chat-square-dots"></i>
+                                        </div>
+                                        <h6 class="fw-bold sh-text-title mb-1">No Messages in Your Inbox Yet</h6>
+                                        <p class="text-muted small mb-3">Submit your commodity inquiry or contract question above. Your trade history and quotes will be tracked right here.</p>
+                                        <button type="button" class="btn btn-sh-primary btn-sm px-3" onclick="$('#inboxComposeTabBtn').tab('show');">
+                                            <i class="bi bi-pencil-square me-1"></i>Compose First Message
+                                        </button>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer border-top border-secondary border-opacity-25 py-2.5 px-4 d-flex justify-content-between align-items-center" style="background: var(--sh-surface);">
+                    <div class="small text-muted d-flex align-items-center gap-2" style="font-size: 0.76rem;">
+                        <i class="bi bi-building text-success"></i>
+                        <span>Av. Brig. Faria Lima, 3064, São Paulo - SP, Brasil · +55 (11) 95298-7545</span>
+                    </div>
+                    <button type="button" class="btn btn-outline-secondary btn-sm px-3" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!-- Local Scripts -->
     <script src="{{ asset('lib/jquery/jquery.min.js') }}"></script>
@@ -4139,6 +4371,116 @@
                     accModalInstance.show();
                 }
             }
+
+            // =========================================================================
+            // Trade Desk On-Site Inbox & Messaging Box Logic
+            // =========================================================================
+            window.openTradeDeskInbox = function (prefillMsg) {
+                var accEl = document.getElementById('agroviaAccountModal');
+                if (accEl) {
+                    var accInstance = bootstrap.Modal.getInstance(accEl);
+                    if (accInstance) accInstance.hide();
+                }
+                var inboxModalEl = document.getElementById('tradeDeskInboxModal');
+                if (inboxModalEl) {
+                    var inboxInstance = bootstrap.Modal.getInstance(inboxModalEl) || new bootstrap.Modal(inboxModalEl);
+                    if (prefillMsg) {
+                        $('#inboxMessageText').val(prefillMsg);
+                    }
+                    inboxInstance.show();
+                }
+            };
+
+            // Deep-link #inbox or #chat opens the on-site Desk Inbox
+            if (window.location.hash === '#inbox' || window.location.hash === '#chat') {
+                setTimeout(function () {
+                    window.openTradeDeskInbox();
+                }, 300);
+            }
+
+            // AJAX submission for Trade Desk Inbox form
+            $('#deskInboxForm').on('submit', function (e) {
+                e.preventDefault();
+                var $form = $(this);
+                var $btn = $('#btnSendInboxDesk');
+                var origBtn = $btn.html();
+                $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Transmitting...');
+
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                var formData = $form.serialize();
+                var subjectVal = $('#inboxCommoditySelect').val() || 'Trade Inquiry';
+                var msgVal = $('#inboxMessageText').val();
+
+                $.ajax({
+                    url: '/inquiries',
+                    type: 'POST',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    success: function (res) {
+                        var ref = res.reference || ('AGRO-INQ-' + Math.random().toString(36).substring(2, 8).toUpperCase());
+                        
+                        $('#deskInboxAlert').removeClass('d-none alert-danger').addClass('alert alert-success').html(
+                            '<strong>Delivered!</strong> Your inquiry has been registered in the Trade Desk Inbox. Ref: <code>' + ref + '</code>.'
+                        );
+
+                        // Remove empty state
+                        $('#inboxEmptyState').remove();
+
+                        // Prepend newly logged message to the thread
+                        var nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        var userBubble = '<div class="inbox-msg-bubble inbox-msg-outgoing">' +
+                            '<div class="d-flex justify-content-between align-items-center mb-1">' +
+                                '<strong class="text-dark">' + $('<div>').text(subjectVal).html() + '</strong>' +
+                                '<span class="badge bg-success rounded-pill" style="font-size: 0.65rem;">' + ref + '</span>' +
+                            '</div>' +
+                            '<p class="mb-2 text-dark small" style="white-space: pre-line;">' + $('<div>').text(msgVal).html() + '</p>' +
+                            '<div class="text-muted small d-flex justify-content-between align-items-center" style="font-size: 0.72rem;">' +
+                                '<span><i class="bi bi-clock me-1"></i>Just now (' + nowStr + ')</span>' +
+                                '<span class="badge bg-light text-dark border">Received</span>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="inbox-msg-bubble inbox-msg-reply">' +
+                            '<div class="d-flex align-items-center gap-2 mb-1">' +
+                                '<i class="bi bi-headset text-success"></i>' +
+                                '<strong class="small">BRX Trade Desk (São Paulo HQ)</strong>' +
+                                '<span class="badge bg-light text-success border ms-auto" style="font-size: 0.65rem;">Desk Confirmation</span>' +
+                            '</div>' +
+                            '<p class="mb-0 small text-muted">' +
+                                'Inquiry logged under reference <strong>' + ref + '</strong>. Our export desk has received your specifications and will follow up with SGS certification and FOB/CIF pricing.' +
+                            '</p>' +
+                        '</div>';
+
+                        $('#inboxThreadContainer').prepend(userBubble);
+
+                        // Increment badge count
+                        var curCount = parseInt($('#inboxBadgeCount').text(), 10) || 0;
+                        $('#inboxBadgeCount').text(curCount + 1);
+
+                        // Reset form fields
+                        $('#inboxMessageText').val('');
+
+                        // Switch to the Messages tab so the user immediately sees it in the inbox!
+                        setTimeout(function () {
+                            $('#inboxMessagesTabBtn').tab('show');
+                        }, 700);
+
+                        triggerToast('Message Sent to Desk Inbox! Ref: ' + ref, updateCartCount());
+                    },
+                    error: function (xhr) {
+                        var errorMsg = 'Failed to transmit message. Please check all required fields.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMsg = xhr.responseJSON.message;
+                        }
+                        $('#deskInboxAlert').removeClass('d-none alert-success').addClass('alert alert-danger').text(errorMsg);
+                    },
+                    complete: function () {
+                        $btn.prop('disabled', false).html(origBtn);
+                    }
+                });
+            });
 
         })();
     </script>
