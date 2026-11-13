@@ -11,16 +11,16 @@
 </div>
 
 <div class="card admin-card mb-4">
-    <div class="card-header bg-white">
+    <div class="card-header">
         <form action="{{ route('admin.inquiries.index') }}" method="GET" class="row g-2 align-items-center">
             <div class="col-md-5">
                 <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
-                    <input type="search" name="search" class="form-control border-start-0 bg-light" placeholder="Search inquiry name, email, or topic..." value="{{ request('search') }}">
+                    <span class="input-group-text border-end-0"><i class="bi bi-search text-muted"></i></span>
+                    <input type="search" name="search" class="form-control border-start-0" placeholder="Search inquiry name, email, or topic..." value="{{ request('search') }}">
                 </div>
             </div>
             <div class="col-md-3">
-                <select name="role" class="form-select bg-light" onchange="this.form.submit()">
+                <select name="role" class="form-select" onchange="this.form.submit()">
                     <option value="">All Roles (Buyers/Partners/Growers)</option>
                     <option value="buyer" {{ request('role') === 'buyer' ? 'selected' : '' }}>Buyers / Importers</option>
                     <option value="partner" {{ request('role') === 'partner' ? 'selected' : '' }}>Partners / Logistics</option>
@@ -112,7 +112,7 @@
     </div>
 
     @if($inquiries->hasPages())
-        <div class="card-footer bg-white d-flex justify-content-between align-items-center py-3">
+        <div class="card-footer d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
             <small class="text-muted">Showing {{ $inquiries->firstItem() }} to {{ $inquiries->lastItem() }} of {{ $inquiries->total() }} inquiries</small>
             <div>{{ $inquiries->links() }}</div>
         </div>

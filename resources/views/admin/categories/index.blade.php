@@ -14,7 +14,7 @@
     <!-- Category List Table -->
     <div class="col-lg-8">
         <div class="card admin-card">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class="fw-bold mb-0">Existing Segments</h6>
                 <span class="badge bg-light text-dark border">{{ $categories->count() }} categories</span>
             </div>

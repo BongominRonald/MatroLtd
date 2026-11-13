@@ -14,7 +14,7 @@
     <!-- Left Column: Items & Fulfillment -->
     <div class="col-lg-8">
         <div class="card admin-card mb-4">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <h5 class="fw-bold mb-0">Order #{{ $order->order_number }}</h5>
                     <small class="text-muted">Placed on {{ $order->created_at->format('F d, Y \a\t h:i A') }}</small>

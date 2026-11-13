@@ -652,6 +652,152 @@
         html[data-theme="dark"] .text-muted {
             color: #94a3b8 !important;
         }
+
+        /* ===== Admin Pagination Styling ===== */
+        .admin-card .card-footer {
+            background: #f8fafc;
+            border-top: 1px solid #edf2f7;
+            padding: 0.85rem 1.25rem;
+        }
+
+        .pagination {
+            margin: 0 !important;
+            display: flex !important;
+            flex-wrap: wrap !important;
+            align-items: center !important;
+            gap: 4px !important;
+        }
+
+        .pagination .page-item .page-link {
+            border-radius: 8px !important;
+            padding: 0.35rem 0.75rem !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            color: #334155 !important;
+            background-color: #ffffff !important;
+            border: 1px solid #cbd5e1 !important;
+            transition: all 0.15s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            text-decoration: none;
+        }
+
+        .pagination .page-item:not(.active):not(.disabled) .page-link:hover {
+            background-color: #f1f5f9 !important;
+            border-color: #94a3b8 !important;
+            color: var(--matro-green) !important;
+            transform: translateY(-1px);
+        }
+
+        .pagination .page-item.active .page-link {
+            background: var(--matro-green) !important;
+            border-color: var(--matro-green) !important;
+            color: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(120, 162, 47, 0.35) !important;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #94a3b8 !important;
+            background-color: #f8fafc !important;
+            border-color: #e2e8f0 !important;
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Dark Theme Pagination & Form Controls */
+        html[data-theme="dark"] .admin-card .card-footer {
+            background: #0f172a !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #94a3b8 !important;
+        }
+        html[data-theme="dark"] .pagination .page-item .page-link {
+            background-color: #1e293b !important;
+            border-color: rgba(255, 255, 255, 0.14) !important;
+            color: #cbd5e1 !important;
+        }
+        html[data-theme="dark"] .pagination .page-item:not(.active):not(.disabled) .page-link:hover {
+            background-color: #334155 !important;
+            border-color: rgba(255, 255, 255, 0.25) !important;
+            color: #ffffff !important;
+        }
+        html[data-theme="dark"] .pagination .page-item.active .page-link {
+            background: var(--matro-green) !important;
+            border-color: var(--matro-green) !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 12px rgba(120, 162, 47, 0.4) !important;
+        }
+        html[data-theme="dark"] .pagination .page-item.disabled .page-link {
+            background-color: #0f172a !important;
+            border-color: rgba(255, 255, 255, 0.08) !important;
+            color: #64748b !important;
+        }
+        html[data-theme="dark"] .form-control,
+        html[data-theme="dark"] .form-select {
+            background-color: #1e293b !important;
+            border-color: rgba(255, 255, 255, 0.14) !important;
+            color: #f8fafc !important;
+        }
+        html[data-theme="dark"] .form-control:focus,
+        html[data-theme="dark"] .form-select:focus {
+            background-color: #1e293b !important;
+            border-color: var(--matro-green) !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 0 0.25rem rgba(120, 162, 47, 0.25) !important;
+        }
+        html[data-theme="dark"] .form-control::placeholder {
+            color: #64748b !important;
+        }
+        html[data-theme="dark"] .input-group-text {
+            background-color: #0f172a !important;
+            border-color: rgba(255, 255, 255, 0.14) !important;
+            color: #94a3b8 !important;
+        }
+        html[data-theme="dark"] .modal-content {
+            background-color: #111827 !important;
+            border-color: rgba(255, 255, 255, 0.12) !important;
+            color: #f8fafc !important;
+        }
+        html[data-theme="dark"] .modal-header,
+        html[data-theme="dark"] .modal-footer {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        html[data-theme="dark"] .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+        html[data-theme="dark"] .bg-primary-subtle {
+            background-color: rgba(37, 99, 235, 0.2) !important;
+            color: #93c5fd !important;
+        }
+        html[data-theme="dark"] .bg-success-subtle {
+            background-color: rgba(22, 163, 74, 0.2) !important;
+            color: #86efac !important;
+        }
+        html[data-theme="dark"] .bg-warning-subtle {
+            background-color: rgba(217, 119, 6, 0.2) !important;
+            color: #fde68a !important;
+        }
+        html[data-theme="dark"] .bg-danger-subtle {
+            background-color: rgba(220, 38, 38, 0.2) !important;
+            color: #fca5a5 !important;
+        }
+        html[data-theme="dark"] .table-warning-subtle td {
+            background-color: rgba(217, 119, 6, 0.15) !important;
+        }
+        html[data-theme="dark"] .alert-warning {
+            background-color: #3b2a0c !important;
+            color: #fde68a !important;
+            border: 1px solid rgba(245, 158, 11, 0.3) !important;
+        }
+        html[data-theme="dark"] .alert-success {
+            background-color: #0c331e !important;
+            color: #86efac !important;
+            border: 1px solid rgba(34, 197, 94, 0.3) !important;
+        }
+        html[data-theme="dark"] .alert-danger {
+            background-color: #3b0c0c !important;
+            color: #fca5a5 !important;
+            border: 1px solid rgba(239, 68, 68, 0.3) !important;
+        }
     </style>
     @stack('styles')
 </head>

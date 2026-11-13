@@ -14,16 +14,16 @@
 </div>
 
 <div class="card admin-card mb-4">
-    <div class="card-header bg-white">
+    <div class="card-header">
         <form action="{{ route('admin.products.index') }}" method="GET" class="row g-2 align-items-center">
             <div class="col-md-5">
                 <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
-                    <input type="search" name="search" class="form-control border-start-0 bg-light" placeholder="Search product name, brand, or origin..." value="{{ request('search') }}">
+                    <span class="input-group-text border-end-0"><i class="bi bi-search text-muted"></i></span>
+                    <input type="search" name="search" class="form-control border-start-0" placeholder="Search product name, brand, or origin..." value="{{ request('search') }}">
                 </div>
             </div>
             <div class="col-md-4">
-                <select name="category_id" class="form-select bg-light" onchange="this.form.submit()">
+                <select name="category_id" class="form-select" onchange="this.form.submit()">
                     <option value="">All Categories</option>
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
@@ -126,7 +126,7 @@
     </div>
 
     @if($products->hasPages())
-        <div class="card-footer bg-white d-flex justify-content-between align-items-center py-3">
+        <div class="card-footer d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
             <small class="text-muted">Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} entries</small>
             <div>{{ $products->links() }}</div>
         </div>

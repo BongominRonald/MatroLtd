@@ -64,7 +64,7 @@
     <!-- Orders History -->
     <div class="col-lg-8">
         <div class="card admin-card">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class="fw-bold mb-0 text-dark">
                     <i class="bi bi-bag-check me-2 text-success"></i>Order History ({{ $user->orders->count() }})
                 </h6>

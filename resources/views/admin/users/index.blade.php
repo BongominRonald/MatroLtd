@@ -11,16 +11,16 @@
 </div>
 
 <div class="card admin-card mb-4">
-    <div class="card-header bg-white">
+    <div class="card-header">
         <form action="{{ route('admin.users.index') }}" method="GET" class="row g-2 align-items-center">
             <div class="col-md-6">
                 <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
-                    <input type="search" name="search" class="form-control border-start-0 bg-light" placeholder="Search customer name or email..." value="{{ request('search') }}">
+                    <span class="input-group-text border-end-0"><i class="bi bi-search text-muted"></i></span>
+                    <input type="search" name="search" class="form-control border-start-0" placeholder="Search customer name or email..." value="{{ request('search') }}">
                 </div>
             </div>
             <div class="col-md-3">
-                <select name="role" class="form-select bg-light" onchange="this.form.submit()">
+                <select name="role" class="form-select" onchange="this.form.submit()">
                     <option value="">All Roles</option>
                     <option value="customer" {{ request('role') === 'customer' ? 'selected' : '' }}>Customers</option>
                     <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>Administrators</option>
@@ -100,7 +100,7 @@
     </div>
 
     @if($users->hasPages())
-        <div class="card-footer bg-white d-flex justify-content-between align-items-center py-3">
+        <div class="card-footer d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
             <small class="text-muted">Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} users</small>
             <div>{{ $users->links() }}</div>
         </div>
