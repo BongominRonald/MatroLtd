@@ -18,7 +18,7 @@ class CookieTest extends TestCase
         $response->assertSee('cookiePolicyModal');
         $response->assertSee('btnFloatingCookieConsent');
         $response->assertSee('BRXCookieManager');
-        $response->assertSee('Institutional Cookie &amp; Data Privacy Notice', false);
+        $response->assertSee('We value your privacy', false);
         $response->assertSee('LGPD', false);
         $response->assertSee('GDPR', false);
         $response->assertSee('Strictly Necessary &amp; Security Cookies', false);

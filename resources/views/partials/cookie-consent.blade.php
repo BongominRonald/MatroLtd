@@ -1,27 +1,27 @@
 <!-- =========================================================================
-     BRX AGRO GLOBAL — INSTITUTIONAL COOKIE CONSENT & LGPD/GDPR GOVERNANCE
+     BRX AGRO GLOBAL — INSTITUTIONAL COOKIE CONSENT & PRIVACY PREFERENCES
+     Designed to the highest design & contrast standards (WCAG AAA / LGPD / GDPR)
      ========================================================================= -->
 
 <style>
-    /* Cookie Banner Container */
+    /* ===== Cookie Banner (High Contrast, Stripe/Linear/Apple-grade) ===== */
     #brxCookieBanner {
         position: fixed;
         bottom: 24px;
         left: 20px;
         right: 20px;
-        max-width: 960px;
+        max-width: 980px;
         margin: 0 auto;
         z-index: 1060;
-        background: rgba(18, 24, 32, 0.98);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border: 1px solid rgba(120, 162, 47, 0.45);
-        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.55), 0 0 20px rgba(120, 162, 47, 0.15);
+        background: #0f172a; /* Deepest midnight slate for maximum contrast */
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-top: 3.5px solid #78a22f; /* Signature BRX Agro Green accent line */
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 1px 1px rgba(255, 255, 255, 0.08);
         border-radius: 16px;
-        padding: 1.25rem 1.5rem;
-        color: #f1f5f9;
-        transform: translateY(160%);
-        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, visibility 0.35s;
+        padding: 1.4rem 1.75rem;
+        color: #ffffff;
+        transform: translateY(170%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, visibility 0.35s;
         opacity: 0;
         visibility: hidden;
     }
@@ -31,61 +31,211 @@
         visibility: visible;
     }
 
-    /* Floating Re-Open Cookie Trigger */
+    /* High contrast text hierarchy */
+    #brxCookieBanner .cookie-title {
+        color: #ffffff !important;
+        font-weight: 700;
+        font-size: 1.05rem;
+        letter-spacing: -0.2px;
+    }
+    #brxCookieBanner .cookie-body {
+        color: #e2e8f0 !important; /* 90% slate white: contrast ratio > 12:1 against #0f172a */
+        font-size: 0.86rem;
+        line-height: 1.55;
+    }
+    #brxCookieBanner .cookie-link {
+        color: #a3e635 !important; /* Bright accessible lime-green */
+        text-decoration: underline;
+        font-weight: 600;
+        transition: color 0.2s ease;
+    }
+    #brxCookieBanner .cookie-link:hover {
+        color: #ffffff !important;
+    }
+
+    /* Banner Buttons */
+    .btn-cookie-accept {
+        background-color: #78a22f !important;
+        border: 1px solid #78a22f !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        font-size: 0.88rem !important;
+        padding: 0.6rem 1.25rem !important;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 14px rgba(120, 162, 47, 0.35);
+        transition: all 0.2s ease !important;
+    }
+    .btn-cookie-accept:hover {
+        background-color: #648827 !important;
+        border-color: #648827 !important;
+        color: #ffffff !important;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(120, 162, 47, 0.45);
+    }
+    .btn-cookie-necessary {
+        background-color: #1e293b !important;
+        border: 1px solid #475569 !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        font-size: 0.84rem !important;
+        padding: 0.55rem 1rem !important;
+        border-radius: 10px !important;
+        transition: all 0.2s ease !important;
+    }
+    .btn-cookie-necessary:hover {
+        background-color: #334155 !important;
+        border-color: #64748b !important;
+        color: #ffffff !important;
+    }
+    .btn-cookie-manage {
+        background-color: transparent !important;
+        border: 1px solid #475569 !important;
+        color: #cbd5e1 !important;
+        font-weight: 600 !important;
+        font-size: 0.84rem !important;
+        padding: 0.55rem 1rem !important;
+        border-radius: 10px !important;
+        transition: all 0.2s ease !important;
+    }
+    .btn-cookie-manage:hover {
+        background-color: #1e293b !important;
+        border-color: #94a3b8 !important;
+        color: #ffffff !important;
+    }
+
+    /* ===== Floating Re-open Badge (Pill with Cookie Icon) ===== */
     #btnFloatingCookieConsent {
         position: fixed;
         bottom: 24px;
         left: 24px;
         z-index: 1040;
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        background: #121820;
-        border: 1.5px solid rgba(120, 162, 47, 0.5);
-        color: #78a22f;
-        display: flex;
+        background: #0f172a;
+        border: 2px solid #78a22f;
+        color: #ffffff;
+        padding: 7px 14px;
+        border-radius: 9999px;
+        display: inline-flex;
         align-items: center;
-        justify-content: center;
-        font-size: 1.15rem;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+        gap: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
         cursor: pointer;
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 0.2px;
         transition: all 0.25s ease;
     }
     #btnFloatingCookieConsent:hover {
         background: #78a22f;
+        border-color: #648827;
         color: #ffffff;
-        transform: scale(1.08);
-        box-shadow: 0 10px 28px rgba(120, 162, 47, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px rgba(120, 162, 47, 0.45);
+    }
+    @media (max-width: 575.98px) {
+        #btnFloatingCookieConsent span {
+            display: none;
+        }
+        #btnFloatingCookieConsent {
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            justify-content: center;
+            border-radius: 50%;
+        }
     }
 
-    /* Preference Switch styling */
-    .form-check-input:checked {
-        background-color: #78a22f;
-        border-color: #78a22f;
-    }
+    /* ===== Cookie Cards in Preferences Modal (Theme adaptive + High Contrast) ===== */
     .cookie-cat-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 12px;
-        padding: 1rem 1.25rem;
-        margin-bottom: 0.85rem;
-        transition: border-color 0.2s ease;
+        padding: 1.1rem 1.3rem;
+        margin-bottom: 0.9rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .cookie-cat-card:hover {
-        border-color: rgba(120, 162, 47, 0.3);
+    /* Dark Theme Modal */
+    html[data-theme="dark"] .cookie-cat-card {
+        background: #1e293b;
+        border: 1px solid #334155;
     }
-    [data-theme="light"] .cookie-cat-card {
-        background: #f8fafc;
-        border-color: #e2e8f0;
-    }
-    [data-theme="light"] .cookie-cat-card:hover {
+    html[data-theme="dark"] .cookie-cat-card:hover {
         border-color: #78a22f;
+    }
+    html[data-theme="dark"] .cookie-cat-title {
+        color: #ffffff !important;
+        font-weight: 700;
+        font-size: 0.96rem;
+    }
+    html[data-theme="dark"] .cookie-cat-desc {
+        color: #cbd5e1 !important; /* High contrast slate */
+        font-size: 0.84rem;
+        line-height: 1.55;
+    }
+    html[data-theme="dark"] .cookie-tech-code {
+        background: rgba(255, 255, 255, 0.08);
+        color: #93c5fd;
+        padding: 2px 7px;
+        border-radius: 4px;
+        font-size: 0.76rem;
+    }
+
+    /* Light Theme Modal */
+    html[data-theme="light"] .cookie-cat-card {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    html[data-theme="light"] .cookie-cat-card:hover {
+        border-color: #78a22f;
+        box-shadow: 0 4px 14px rgba(120, 162, 47, 0.12);
+    }
+    html[data-theme="light"] .cookie-cat-title {
+        color: #0f172a !important; /* Deep near-black for perfect contrast */
+        font-weight: 700;
+        font-size: 0.96rem;
+    }
+    html[data-theme="light"] .cookie-cat-desc {
+        color: #334155 !important; /* Slate-700, WCAG AAA compliant */
+        font-size: 0.84rem;
+        line-height: 1.55;
+    }
+    html[data-theme="light"] .cookie-tech-code {
+        background: #f1f5f9;
+        color: #0369a1;
+        padding: 2px 7px;
+        border-radius: 4px;
+        font-size: 0.76rem;
+        border: 1px solid #e2e8f0;
+    }
+
+    /* Switch Styling */
+    .cookie-switch {
+        width: 46px !important;
+        height: 24px !important;
+        cursor: pointer;
+    }
+    .cookie-switch:checked {
+        background-color: #78a22f !important;
+        border-color: #78a22f !important;
+    }
+    .cookie-switch:focus {
+        border-color: #78a22f !important;
+        box-shadow: 0 0 0 0.25rem rgba(120, 162, 47, 0.25) !important;
+    }
+
+    /* Badge Contrast */
+    .badge-always-active {
+        background-color: #15803d !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        font-size: 0.75rem !important;
+        padding: 0.35rem 0.65rem !important;
+        letter-spacing: 0.3px;
     }
 </style>
 
 <!-- Floating Re-open Badge -->
-<button type="button" id="btnFloatingCookieConsent" onclick="BRXCookieManager.openPreferences()" title="Cookie & Privacy Settings" aria-label="Open Cookie Preferences">
-    <i class="bi bi-shield-lock-fill"></i>
+<button type="button" id="btnFloatingCookieConsent" onclick="BRXCookieManager.openPreferences()" title="Review or update your cookie preferences" aria-label="Open Cookie Preferences">
+    <i class="bi bi-cookie text-warning fs-5"></i>
+    <span>Cookie Preferences</span>
 </button>
 
 <!-- 1. Floating Cookie Consent Banner -->
@@ -93,24 +243,26 @@
     <div class="row align-items-center g-3">
         <div class="col-lg-8">
             <div class="d-flex align-items-start gap-3">
-                <div class="rounded-circle d-none d-sm-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px; background: rgba(120, 162, 47, 0.18); color: #78a22f; font-size: 1.3rem;">
+                <div class="rounded-3 d-none d-sm-flex align-items-center justify-content-center flex-shrink-0" style="width: 46px; height: 46px; background: rgba(120, 162, 47, 0.25); color: #a3e635; font-size: 1.4rem; border: 1px solid rgba(120, 162, 47, 0.4);">
                     <i class="bi bi-shield-check"></i>
                 </div>
                 <div>
-                    <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                        <strong class="text-white" style="font-size: 0.98rem; letter-spacing: 0.3px;">Institutional Cookie &amp; Data Privacy Notice</strong>
-                        <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-25" style="font-size: 0.7rem;">LGPD &bull; GDPR Compliant</span>
+                    <div class="d-flex align-items-center gap-2 mb-1.5 flex-wrap">
+                        <span class="cookie-title">We value your privacy</span>
+                        <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-50 py-1 px-2" style="font-size: 0.72rem; font-weight: 700;">
+                            LGPD &bull; GDPR Compliant
+                        </span>
                     </div>
-                    <p class="mb-2 text-white-50 small" style="font-size: 0.82rem; line-height: 1.5;">
-                        <strong>BRX AGRO GLOBAL IMPORTA&Ccedil;&Atilde;O E EXPORTA&Ccedil;&Atilde;O LTDA</strong> utilizes cookies to authenticate institutional trade sessions, maintain export cart dispatches, and protect trade desk messages. With your consent, we also utilize functional preferences to optimize your commodity origination experience under Brazilian <strong>LGPD (Lei 13.709/18)</strong> and EU <strong>GDPR (Regulation 2016/679)</strong>.
+                    <p class="cookie-body mb-2">
+                        We use cookies and similar technologies to ensure our website operates securely, keep your trade sessions active, and remember your commodity cart preferences. With your permission, we also use cookies to improve performance and personalize your commercial experience.
                     </p>
-                    <div class="d-flex align-items-center gap-3 small" style="font-size: 0.78rem;">
-                        <a href="javascript:void(0)" onclick="BRXCookieManager.openPolicy()" class="text-success text-decoration-none fw-semibold">
-                            <i class="bi bi-file-earmark-text me-1"></i>Cookie Policy
+                    <div class="d-flex align-items-center gap-3 small flex-wrap" style="font-size: 0.8rem;">
+                        <a href="javascript:void(0)" onclick="BRXCookieManager.openPolicy()" class="cookie-link">
+                            <i class="bi bi-file-earmark-lock2 me-1"></i>Read Cookie &amp; Privacy Policy
                         </a>
                         <span class="text-white-50">&bull;</span>
-                        <a href="javascript:void(0)" onclick="BRXCookieManager.openPreferences()" class="text-white-50 text-decoration-underline">
-                            <i class="bi bi-sliders me-1"></i>Customize Preferences
+                        <a href="javascript:void(0)" onclick="BRXCookieManager.openPreferences()" class="cookie-link">
+                            <i class="bi bi-sliders me-1"></i>Customize Settings
                         </a>
                     </div>
                 </div>
@@ -118,14 +270,14 @@
         </div>
         <div class="col-lg-4">
             <div class="d-flex flex-column flex-sm-row flex-lg-column gap-2 justify-content-end">
-                <button type="button" class="btn btn-success fw-bold py-2 px-3 shadow-sm d-flex align-items-center justify-content-center gap-2" style="background-color: #78a22f; border-color: #78a22f; font-size: 0.88rem;" onclick="BRXCookieManager.acceptAll()">
-                    <i class="bi bi-check2-circle"></i> Accept All Cookies
+                <button type="button" class="btn btn-cookie-accept w-100 d-flex align-items-center justify-content-center gap-2" onclick="BRXCookieManager.acceptAll()">
+                    <i class="bi bi-check2-circle fs-6"></i> Accept all cookies
                 </button>
-                <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-outline-light btn-sm flex-fill py-1.5 fw-semibold" style="font-size: 0.8rem;" onclick="BRXCookieManager.rejectNonEssential()">
-                        Essential Only
+                <div class="d-flex gap-2 w-100">
+                    <button type="button" class="btn btn-cookie-necessary flex-fill text-nowrap" onclick="BRXCookieManager.rejectNonEssential()">
+                        Necessary only
                     </button>
-                    <button type="button" class="btn btn-outline-secondary btn-sm flex-fill py-1.5 fw-semibold text-white-50" style="font-size: 0.8rem;" onclick="BRXCookieManager.openPreferences()">
+                    <button type="button" class="btn btn-cookie-manage flex-fill text-nowrap" onclick="BRXCookieManager.openPreferences()">
                         Customize
                     </button>
                 </div>
@@ -136,25 +288,25 @@
 
 <!-- 2. Interactive Cookie Preferences Modal -->
 <div class="modal fade" id="cookiePreferencesModal" tabindex="-1" aria-labelledby="cookiePreferencesModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
             
-            <div class="modal-header border-bottom border-secondary border-opacity-25 px-4 py-3" style="background: #121820; color: #fff;">
+            <div class="modal-header border-bottom border-secondary border-opacity-25 px-4 py-3" style="background: #0f172a; color: #ffffff;">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(120, 162, 47, 0.2); color: #78a22f; font-size: 1.25rem;">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px; background: rgba(120, 162, 47, 0.25); color: #a3e635; font-size: 1.3rem; border: 1px solid rgba(120, 162, 47, 0.4);">
                         <i class="bi bi-sliders"></i>
                     </div>
                     <div>
-                        <h5 class="modal-title fw-bold text-white mb-0" id="cookiePreferencesModalLabel" style="font-size: 1.15rem;">Cookie Preference Center</h5>
-                        <small class="text-white-50" style="font-size: 0.76rem;">Manage your privacy and cookie authorizations &bull; BRX AGRO GLOBAL LTDA</small>
+                        <h5 class="modal-title fw-bold text-white mb-0" id="cookiePreferencesModalLabel" style="font-size: 1.15rem;">Cookie Preferences &amp; Settings</h5>
+                        <small class="text-white-50" style="font-size: 0.78rem;">BRX AGRO GLOBAL IMPORTA&Ccedil;&Atilde;O E EXPORTA&Ccedil;&Atilde;O LTDA &bull; CNPJ 38.471.480/0001-41</small>
                     </div>
                 </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="modal-body p-4" style="max-height: 65vh; overflow-y: auto;">
-                <p class="small text-muted mb-3" style="font-size: 0.84rem; line-height: 1.5;">
-                    When you visit our commercial trading platform, we store and retrieve information on your browser in the form of cookies. You can review each cookie category below and choose which optional cookies you authorize.
+            <div class="modal-body p-4">
+                <p class="small mb-3" style="color: var(--bs-secondary-color); font-size: 0.88rem; line-height: 1.55;">
+                    When you visit our commercial trading platform, we store and retrieve information on your browser in the form of cookies. You can review each cookie category below and choose which optional cookies you authorize. Your preferences can be updated at any time.
                 </p>
 
                 <!-- Category 1: Strictly Necessary -->
@@ -162,15 +314,19 @@
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <div class="d-flex align-items-center gap-2">
                             <i class="bi bi-shield-fill-check text-success fs-5"></i>
-                            <strong class="text-body fw-bold" style="font-size: 0.92rem;">Strictly Necessary &amp; Security Cookies</strong>
+                            <span class="cookie-cat-title">Strictly Necessary &amp; Security Cookies</span>
                         </div>
-                        <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-25 py-1 px-2" style="font-size: 0.72rem;">Always Active</span>
+                        <span class="badge badge-always-active rounded-pill">Always Active</span>
                     </div>
-                    <p class="small text-muted mb-2" style="font-size: 0.8rem;">
-                        Essential for basic platform operations, encrypted session security, CSRF defense, and cart order checkout. These cookies do not store personally unencrypted commercial data and cannot be turned off.
+                    <p class="cookie-cat-desc mb-2.5">
+                        These cookies are essential for you to browse the platform and use its core features, including logging into your Trade Desk account, keeping your commodity sample cart active, and protecting forms from security threats (CSRF). Because they are required for the website to function, they cannot be turned off.
                     </p>
-                    <div class="small text-muted-50 font-monospace" style="font-size: 0.72rem;">
-                        Cookies: <code>XSRF-TOKEN</code>, <code>brx_session</code>, <code>agrovia_cart</code>, <code>brx_cookie_consent</code>
+                    <div class="small font-monospace">
+                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">Active Cookies:</span>
+                        <code class="cookie-tech-code">XSRF-TOKEN</code>
+                        <code class="cookie-tech-code">brx_session</code>
+                        <code class="cookie-tech-code">agrovia_cart</code>
+                        <code class="cookie-tech-code">brx_cookie_consent</code>
                     </div>
                 </div>
 
@@ -179,17 +335,20 @@
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <div class="d-flex align-items-center gap-2">
                             <i class="bi bi-chat-left-quote-fill text-primary fs-5"></i>
-                            <strong class="text-body fw-bold" style="font-size: 0.92rem;">Trade Desk &amp; Functional Cookies</strong>
+                            <span class="cookie-cat-title">Functional &amp; Trade Desk Cookies</span>
                         </div>
                         <div class="form-check form-switch m-0">
-                            <input class="form-check-input" type="checkbox" role="switch" id="cookieSwitchFunctional" checked>
+                            <input class="form-check-input cookie-switch" type="checkbox" role="switch" id="cookieSwitchFunctional" checked>
                         </div>
                     </div>
-                    <p class="small text-muted mb-2" style="font-size: 0.8rem;">
-                        Powers real-time on-site Trade Desk message caching, device email sync preferences, and interface customizations (such as light/dark mode and delivery Incoterms memory).
+                    <p class="cookie-cat-desc mb-2.5">
+                        These cookies enable advanced site functionality and personalization. They remember your Trade Desk inbox preferences, device email composition defaults, and interface customization (such as Light or Dark display themes).
                     </p>
-                    <div class="small text-muted-50 font-monospace" style="font-size: 0.72rem;">
-                        Cookies: <code>brx_inbox_pref</code>, <code>sh-theme</code>, <code>brx_desk_sync</code>
+                    <div class="small font-monospace">
+                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">Active Cookies:</span>
+                        <code class="cookie-tech-code">brx_inbox_pref</code>
+                        <code class="cookie-tech-code">sh-theme</code>
+                        <code class="cookie-tech-code">brx_desk_sync</code>
                     </div>
                 </div>
 
@@ -198,17 +357,19 @@
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <div class="d-flex align-items-center gap-2">
                             <i class="bi bi-graph-up text-info fs-5"></i>
-                            <strong class="text-body fw-bold" style="font-size: 0.92rem;">Analytics &amp; Origination Performance</strong>
+                            <span class="cookie-cat-title">Analytics &amp; Performance Cookies</span>
                         </div>
                         <div class="form-check form-switch m-0">
-                            <input class="form-check-input" type="checkbox" role="switch" id="cookieSwitchAnalytics">
+                            <input class="form-check-input cookie-switch" type="checkbox" role="switch" id="cookieSwitchAnalytics">
                         </div>
                     </div>
-                    <p class="small text-muted mb-2" style="font-size: 0.8rem;">
-                        Enables anonymous traffic telemetry, CDN latency tracking, and commodity catalog interaction measurement to improve export order processing speed globally.
+                    <p class="cookie-cat-desc mb-2.5">
+                        These cookies help us understand how international buyers interact with our commodity listings. All information is aggregated and anonymous, helping our technical team optimize catalog load speeds and international CDN delivery times.
                     </p>
-                    <div class="small text-muted-50 font-monospace" style="font-size: 0.72rem;">
-                        Cookies: <code>_brx_perf</code>, <code>_brx_analytics</code>
+                    <div class="small font-monospace">
+                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">Active Cookies:</span>
+                        <code class="cookie-tech-code">_brx_perf</code>
+                        <code class="cookie-tech-code">_brx_analytics</code>
                     </div>
                 </div>
 
@@ -217,32 +378,34 @@
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <div class="d-flex align-items-center gap-2">
                             <i class="bi bi-bullseye text-warning fs-5"></i>
-                            <strong class="text-body fw-bold" style="font-size: 0.92rem;">Commercial Attribution &amp; RFQ Tracking</strong>
+                            <span class="cookie-cat-title">Marketing &amp; Trade Attribution Cookies</span>
                         </div>
                         <div class="form-check form-switch m-0">
-                            <input class="form-check-input" type="checkbox" role="switch" id="cookieSwitchMarketing">
+                            <input class="form-check-input cookie-switch" type="checkbox" role="switch" id="cookieSwitchMarketing">
                         </div>
                     </div>
-                    <p class="small text-muted mb-2" style="font-size: 0.8rem;">
-                        Identifies referring trade channels and institutional campaigns to ensure your designated export origination officer is assigned to your account.
+                    <p class="cookie-cat-desc mb-2.5">
+                        These cookies track the referral source of incoming institutional trade inquiries and RFQs. This ensures your account is assigned to the appropriate commodity desk officer (Grain, Sugar, Coffee, or Fertilizer).
                     </p>
-                    <div class="small text-muted-50 font-monospace" style="font-size: 0.72rem;">
-                        Cookies: <code>_brx_rfq_source</code>, <code>_brx_partner_ref</code>
+                    <div class="small font-monospace">
+                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">Active Cookies:</span>
+                        <code class="cookie-tech-code">_brx_rfq_source</code>
+                        <code class="cookie-tech-code">_brx_partner_ref</code>
                     </div>
                 </div>
 
             </div>
 
-            <div class="modal-footer border-top border-secondary border-opacity-25 px-4 py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
-                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="BRXCookieManager.rejectNonEssential()">
-                    Reject Non-Essential
+            <div class="modal-footer border-top border-secondary border-opacity-25 px-4 py-3 d-flex flex-wrap justify-content-between align-items-center gap-2" style="background: var(--sh-surface);">
+                <button type="button" class="btn btn-outline-secondary btn-sm px-3 fw-semibold" onclick="BRXCookieManager.rejectNonEssential()">
+                    Reject non-essential
                 </button>
                 <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-outline-success btn-sm px-3" onclick="BRXCookieManager.saveCustom()">
-                        Save Preferences
+                    <button type="button" class="btn btn-outline-success btn-sm px-3 fw-bold" onclick="BRXCookieManager.saveCustom()">
+                        Save preferences
                     </button>
                     <button type="button" class="btn btn-success btn-sm px-3 fw-bold" style="background-color: #78a22f; border-color: #78a22f;" onclick="BRXCookieManager.acceptAll()">
-                        Accept All
+                        Accept all
                     </button>
                 </div>
             </div>
@@ -256,99 +419,99 @@
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
             
-            <div class="modal-header border-bottom border-secondary border-opacity-25 px-4 py-3" style="background: #121820; color: #fff;">
+            <div class="modal-header border-bottom border-secondary border-opacity-25 px-4 py-3" style="background: #0f172a; color: #ffffff;">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(120, 162, 47, 0.2); color: #78a22f; font-size: 1.25rem;">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px; background: rgba(120, 162, 47, 0.25); color: #a3e635; font-size: 1.3rem; border: 1px solid rgba(120, 162, 47, 0.4);">
                         <i class="bi bi-file-earmark-lock2-fill"></i>
                     </div>
                     <div>
-                        <h5 class="modal-title fw-bold text-white mb-0" id="cookiePolicyModalLabel" style="font-size: 1.15rem;">Cookie &amp; Data Governance Policy</h5>
-                        <small class="text-white-50" style="font-size: 0.76rem;">LGPD (Lei 13.709/2018) &bull; GDPR (Regulation 2016/679)</small>
+                        <h5 class="modal-title fw-bold text-white mb-0" id="cookiePolicyModalLabel" style="font-size: 1.15rem;">Cookie &amp; Privacy Policy</h5>
+                        <small class="text-white-50" style="font-size: 0.78rem;">Compliance with Brazilian LGPD (Lei 13.709/2018) &amp; EU GDPR (Regulation 2016/679)</small>
                     </div>
                 </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="modal-body p-4" style="font-size: 0.85rem; line-height: 1.6;">
-                <h6 class="fw-bold text-success mb-2 text-uppercase" style="letter-spacing: 0.5px; font-size: 0.82rem;">1. Data Controller Identification</h6>
-                <p class="text-muted mb-3">
-                    <strong>BRX AGRO GLOBAL IMPORTA&Ccedil;&Atilde;O E EXPORTA&Ccedil;&Atilde;O LTDA</strong><br>
+            <div class="modal-body p-4" style="font-size: 0.88rem; line-height: 1.65;">
+                <h6 class="fw-bold text-success mb-2 text-uppercase" style="letter-spacing: 0.5px; font-size: 0.84rem;">1. Data Controller Details</h6>
+                <p class="mb-3" style="color: var(--bs-body-color);">
+                    <strong>Company Name:</strong> BRX AGRO GLOBAL IMPORTA&Ccedil;&Atilde;O E EXPORTA&Ccedil;&Atilde;O LTDA<br>
                     <strong>CNPJ:</strong> 38.471.480/0001-41<br>
-                    <strong>Headquarters:</strong> Av. Brig. Faria Lima, 3064 &ndash; Itaim Bibi, S&atilde;o Paulo &ndash; SP, 01451-001, Brazil<br>
-                    <strong>Trade Desk Email:</strong> <a href="mailto:tradedesk@brxagroglobal.com" class="text-success text-decoration-none">tradedesk@brxagroglobal.com</a> &bull; <strong>DPO Contact:</strong> <a href="mailto:privacy@brxagroglobal.com" class="text-success text-decoration-none">privacy@brxagroglobal.com</a>
+                    <strong>Registered Address:</strong> Av. Brig. Faria Lima, 3064 &ndash; Itaim Bibi, S&atilde;o Paulo &ndash; SP, 01451-001, Brazil<br>
+                    <strong>Trade Desk Email:</strong> <a href="mailto:tradedesk@brxagroglobal.com" class="text-success text-decoration-none fw-semibold">tradedesk@brxagroglobal.com</a> &bull; <strong>DPO:</strong> <a href="mailto:privacy@brxagroglobal.com" class="text-success text-decoration-none fw-semibold">privacy@brxagroglobal.com</a>
                 </p>
 
-                <h6 class="fw-bold text-success mb-2 text-uppercase" style="letter-spacing: 0.5px; font-size: 0.82rem;">2. What Are Cookies?</h6>
-                <p class="text-muted mb-3">
-                    Cookies are small alphanumeric files transferred to your computer or mobile device through your browser. They enable our servers to recognize your authenticated trade sessions, store commodity inquiry lot carts, and secure our institutional trading portal against malicious automated requests.
+                <h6 class="fw-bold text-success mb-2 text-uppercase" style="letter-spacing: 0.5px; font-size: 0.84rem;">2. What Are Cookies and How Are They Used?</h6>
+                <p class="mb-3" style="color: var(--bs-body-color);">
+                    Cookies are small text files placed on your computer, tablet, or phone when you access our platform. They allow our systems to recognize your browser, maintain authenticated buyer sessions, remember selected commodity lots in your cart, and secure trade communications against unauthorized access.
                 </p>
 
-                <h6 class="fw-bold text-success mb-2 text-uppercase" style="letter-spacing: 0.5px; font-size: 0.82rem;">3. Comprehensive Table of Cookies Used</h6>
+                <h6 class="fw-bold text-success mb-2 text-uppercase" style="letter-spacing: 0.5px; font-size: 0.84rem;">3. Cookies Used on This Platform</h6>
                 <div class="table-responsive mb-3">
-                    <table class="table table-sm table-bordered small">
+                    <table class="table table-bordered small align-middle" style="color: var(--bs-body-color);">
                         <thead class="table-dark">
                             <tr>
                                 <th>Cookie Name</th>
-                                <th>Category</th>
-                                <th>Purpose</th>
-                                <th>Lifespan</th>
+                                <th>Classification</th>
+                                <th>Purpose &amp; Description</th>
+                                <th>Duration</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><code>XSRF-TOKEN</code></td>
-                                <td><span class="badge bg-secondary">Essential</span></td>
-                                <td>Cross-Site Request Forgery (CSRF) token defense on RFQs and orders.</td>
-                                <td>Session / 2h</td>
+                                <td><code class="cookie-tech-code">XSRF-TOKEN</code></td>
+                                <td><span class="badge bg-secondary">Strictly Necessary</span></td>
+                                <td>Protects submitted trade requests, forms, and order checkouts against Cross-Site Request Forgery attacks.</td>
+                                <td>Session / 2 hours</td>
                             </tr>
                             <tr>
-                                <td><code>brx_session</code></td>
-                                <td><span class="badge bg-secondary">Essential</span></td>
-                                <td>Encrypted user session identifier for authorized buyer authentication.</td>
+                                <td><code class="cookie-tech-code">brx_session</code></td>
+                                <td><span class="badge bg-secondary">Strictly Necessary</span></td>
+                                <td>Maintains encrypted buyer session and portal authentication state.</td>
                                 <td>2 hours</td>
                             </tr>
                             <tr>
-                                <td><code>brx_cookie_consent</code></td>
-                                <td><span class="badge bg-secondary">Essential</span></td>
-                                <td>Records your explicit cookie governance preferences (LGPD/GDPR).</td>
+                                <td><code class="cookie-tech-code">brx_cookie_consent</code></td>
+                                <td><span class="badge bg-secondary">Strictly Necessary</span></td>
+                                <td>Records your explicit cookie authorizations and consent preferences.</td>
                                 <td>1 year</td>
                             </tr>
                             <tr>
-                                <td><code>agrovia_cart</code></td>
-                                <td><span class="badge bg-secondary">Essential</span></td>
-                                <td>Preserves commodity sample quantities and CIF/FOB selections during browsing.</td>
+                                <td><code class="cookie-tech-code">agrovia_cart</code></td>
+                                <td><span class="badge bg-secondary">Strictly Necessary</span></td>
+                                <td>Saves commodity lot selections, quantities, and CIF/FOB delivery terms during browsing.</td>
                                 <td>Session</td>
                             </tr>
                             <tr>
-                                <td><code>brx_inbox_pref</code></td>
+                                <td><code class="cookie-tech-code">brx_inbox_pref</code></td>
                                 <td><span class="badge bg-primary">Functional</span></td>
-                                <td>Remembers Trade Desk inbox drawer state and compose preferences.</td>
+                                <td>Stores Trade Desk inbox drawer view states and device composer settings.</td>
                                 <td>30 days</td>
                             </tr>
                             <tr>
-                                <td><code>_brx_analytics</code></td>
-                                <td><span class="badge bg-info">Analytics</span></td>
-                                <td>Measures platform response time and catalog exploration patterns (anonymized).</td>
+                                <td><code class="cookie-tech-code">_brx_analytics</code></td>
+                                <td><span class="badge bg-info text-dark">Analytics</span></td>
+                                <td>Aggregates anonymous website usage and server response times to improve platform reliability.</td>
                                 <td>90 days</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <h6 class="fw-bold text-success mb-2 text-uppercase" style="letter-spacing: 0.5px; font-size: 0.82rem;">4. Legal Bases for Processing</h6>
-                <p class="text-muted mb-3">
-                    In compliance with the Brazilian General Data Protection Law (<strong>LGPD, Art. 7, V</strong>) and the European General Data Protection Regulation (<strong>GDPR, Art. 6(1)(b)</strong>), essential cookies are processed for the performance of preliminary procedures related to commercial contracts. Optional cookies are processed based exclusively on your explicit consent (<strong>LGPD Art. 7, I</strong> and <strong>GDPR Art. 6(1)(a)</strong>).
+                <h6 class="fw-bold text-success mb-2 text-uppercase" style="letter-spacing: 0.5px; font-size: 0.84rem;">4. Legal Framework &amp; International Compliance</h6>
+                <p class="mb-3" style="color: var(--bs-body-color);">
+                    In compliance with the Brazilian General Data Protection Law (<strong>LGPD, Art. 7, V</strong>) and the European General Data Protection Regulation (<strong>GDPR, Art. 6(1)(b)</strong>), strictly necessary cookies are processed for the execution of trade inquiries, contracts, and platform security. All optional cookies are processed strictly based on your affirmative, informed consent (<strong>LGPD Art. 7, I</strong> and <strong>GDPR Art. 6(1)(a)</strong>).
                 </p>
 
-                <h6 class="fw-bold text-success mb-2 text-uppercase" style="letter-spacing: 0.5px; font-size: 0.82rem;">5. Revocation &amp; Browser Management</h6>
-                <p class="text-muted mb-0">
-                    You may adjust or revoke your cookie authorizations at any time by clicking the floating shield button on our website or through your web browser preferences (Google Chrome, Apple Safari, Mozilla Firefox, Microsoft Edge). Disabling essential cookies may impair the ability to place commodity orders or access your trading account.
+                <h6 class="fw-bold text-success mb-2 text-uppercase" style="letter-spacing: 0.5px; font-size: 0.84rem;">5. Managing and Deleting Cookies</h6>
+                <p class="mb-0" style="color: var(--bs-body-color);">
+                    You can change or withdraw your consent at any time by clicking the <strong>Cookie Preferences</strong> button in our website footer or the floating badge at the bottom-left of the page. You may also configure your web browser (Chrome, Safari, Firefox, Edge) to block or delete cookies. Note that disabling strictly necessary cookies will prevent order checkout and account access.
                 </p>
             </div>
 
-            <div class="modal-footer border-top border-secondary border-opacity-25 px-4 py-2.5 d-flex justify-content-between align-items-center">
-                <button type="button" class="btn btn-outline-success btn-sm" onclick="BRXCookieManager.openPreferences()">
-                    <i class="bi bi-sliders me-1"></i>Edit Preferences
+            <div class="modal-footer border-top border-secondary border-opacity-25 px-4 py-2.5 d-flex justify-content-between align-items-center" style="background: var(--sh-surface);">
+                <button type="button" class="btn btn-outline-success btn-sm fw-bold" onclick="BRXCookieManager.openPreferences()">
+                    <i class="bi bi-sliders me-1"></i>Change Preferences
                 </button>
                 <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal">Close</button>
             </div>
@@ -357,7 +520,7 @@
     </div>
 </div>
 
-<!-- 4. Cookie Management Script -->
+<!-- 4. Universal Cookie Governance JavaScript -->
 <script>
     (function (window, document) {
         "use strict";
@@ -367,7 +530,7 @@
 
         var BRXCookieManager = {
             /**
-             * Get current consent object from cookie or localStorage
+             * Retrieve consent object from localStorage or browser cookie
              */
             getConsent: function () {
                 var stored = null;
@@ -385,7 +548,7 @@
             },
 
             /**
-             * Save preferences locally and push to backend
+             * Save user authorization choices and sync with backend
              */
             savePreferences: function (prefs) {
                 var fullConsent = {
@@ -401,12 +564,12 @@
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(fullConsent));
                 } catch (e) {}
 
-                // Set cookie for 365 days
+                // Store in browser cookie for 365 days
                 var d = new Date();
                 d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
                 document.cookie = COOKIE_NAME + "=" + encodeURIComponent(JSON.stringify(fullConsent)) + ";expires=" + d.toUTCString() + ";path=/;SameSite=Lax";
 
-                // Server-side sync via AJAX
+                // Post to backend API
                 try {
                     fetch('/cookies/consent', {
                         method: 'POST',
@@ -422,7 +585,7 @@
                 this.hideBanner();
                 this.updateSwitches(fullConsent);
 
-                // Dispatch event so other components can react
+                // Dispatch global event for external scripts (e.g. analytics scripts)
                 window.dispatchEvent(new CustomEvent('brx:cookieConsentChanged', { detail: fullConsent }));
             },
 
@@ -505,7 +668,7 @@
             init: function () {
                 var consent = this.getConsent();
                 if (!consent) {
-                    // Show banner after short 700ms initial page view
+                    // Show banner after short 700ms initial view
                     setTimeout(function () {
                         BRXCookieManager.showBanner();
                     }, 700);
