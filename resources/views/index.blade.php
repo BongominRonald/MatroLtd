@@ -2697,11 +2697,15 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-start gap-3">
-                                <i class="bi bi-envelope fs-4 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0; margin-top: 2px;"></i>
+                                <i class="bi bi-envelope-at-fill fs-4 text-primary" style="flex-shrink: 0; margin-top: 2px;"></i>
                                 <div>
-                                    <strong class="d-block sh-text-title">Corporate Trade Desks</strong>
-                                    <small class="sh-text-muted d-block"><a href="mailto:tradedesk@brxagroglobal.com" class="text-decoration-none text-reset">tradedesk@brxagroglobal.com</a></small>
-                                    <small class="sh-text-muted d-block"><a href="mailto:info@brxagroglobal.com" class="text-decoration-none text-reset">info@brxagroglobal.com</a> · <a href="mailto:sales@brxagroglobal.com" class="text-decoration-none text-reset">sales@brxagroglobal.com</a></small>
+                                    <strong class="d-block sh-text-title">Corporate Email Desks (Tap to Compose)</strong>
+                                    <small class="sh-text-muted d-block mb-1">
+                                        <a href="mailto:tradedesk@brxagroglobal.com?subject=Commodity%20RFQ%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20Trade%20Desk%2C%0A%0AI%20would%20like%20to%20request%20an%20indicative%20FOB%2FCIF%20quotation%20and%20SGS%20lab%20analysis%20for%3A%0A-%20Commodity%3A%20%0A-%20Volume%20(MT)%3A%20%0A-%20Discharge%20Port%3A%20%0A%0ACompany%3A%20%0AName%3A%20" class="text-decoration-none fw-semibold text-primary"><i class="bi bi-envelope-open me-1"></i>tradedesk@brxagroglobal.com</a>
+                                    </small>
+                                    <small class="sh-text-muted d-block">
+                                        <a href="mailto:info@brxagroglobal.com?subject=Corporate%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global" class="text-decoration-none text-reset">info@brxagroglobal.com</a> · <a href="mailto:sales@brxagroglobal.com?subject=Agro%20Sales%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global" class="text-decoration-none text-reset">sales@brxagroglobal.com</a>
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -2925,8 +2929,8 @@
                         Privately owned enterprise supplying thousands of metric tons annually across 5 continents in direct partnership with leading food manufacturers, retailers, and wholesalers.
                     </p>
                     <div class="d-flex align-items-center gap-2 mt-3">
-                        <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="social-icon" title="WhatsApp Desk"><i class="bi bi-whatsapp"></i></a>
-                        <a href="mailto:tradedesk@brxagroglobal.com" class="social-icon" title="Email Desk"><i class="bi bi-envelope"></i></a>
+                        <a href="javascript:void(0)" onclick="openTradeDeskInbox()" class="social-icon" title="Open Desk Inbox"><i class="bi bi-chat-left-dots-fill"></i></a>
+                        <a href="mailto:tradedesk@brxagroglobal.com?subject=Commercial%20Trade%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20Trade%20Desk%2C%0A%0APlease%20provide%20quotation%20and%20specifications%20for%20Brazilian%20agro%20export%20commodities." class="social-icon" title="Compose Email on Your Device"><i class="bi bi-envelope-fill"></i></a>
                         <a href="#rfq-desk" class="social-icon" title="Trade RFQ"><i class="bi bi-file-earmark-text"></i></a>
                     </div>
                 </div>
@@ -2990,16 +2994,16 @@
                             <span>Av. Brig. Faria Lima, 3064 – Itaim Bibi, São Paulo – SP, 01451-001 Brazil</span>
                         </li>
                         <li class="mb-2 d-flex align-items-center gap-2">
-                            <i class="bi bi-whatsapp me-1 text-success" style="flex-shrink: 0;"></i>
-                            <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold">+55 (11) 95298-7545</a>
+                            <i class="bi bi-inbox-fill me-1 text-success" style="flex-shrink: 0;"></i>
+                            <a href="javascript:void(0)" onclick="openTradeDeskInbox()" class="text-success text-decoration-none fw-bold">+55 (11) 95298-7545 (Desk Inbox)</a>
                         </li>
                         <li class="mb-2 d-flex align-items-center gap-2">
                             <i class="bi bi-chat-dots me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
                             <span class="text-white-50">WeChat: <strong class="text-white">BRX AGRO GLOBAL</strong></span>
                         </li>
                         <li class="mb-2 d-flex align-items-center gap-2">
-                            <i class="bi bi-envelope me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
-                            <a href="mailto:tradedesk@brxagroglobal.com" class="text-decoration-none text-white-50">tradedesk@brxagroglobal.com</a>
+                            <i class="bi bi-envelope-at me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
+                            <a href="mailto:tradedesk@brxagroglobal.com?subject=Commercial%20Trade%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20BRX%20Agro%20Global%20Trade%20Desk%2C%0A%0AI%20would%20like%20to%20request%20quotations%20for%20Brazilian%20agro%20export%20commodities." class="text-decoration-none text-white-50" title="Click to compose immediately on your device">tradedesk@brxagroglobal.com (Compose)</a>
                         </li>
                         <li class="mb-0 d-flex align-items-center gap-2">
                             <i class="bi bi-clock me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
@@ -3488,6 +3492,9 @@
                             <button type="button" class="btn btn-outline-primary py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2" onclick="openTradeDeskInbox('Hello BRX Agro Global, I am a registered buyer requesting commodity quotation.')">
                                 <i class="bi bi-inbox-fill fs-5 text-success"></i> Open Trade Desk Inbox &amp; Messages
                             </button>
+                            <a href="mailto:tradedesk@brxagroglobal.com?subject=Commercial%20Inquiry%20%E2%80%94%20{{ urlencode(auth()->user()->name) }}&body=Hello%20BRX%20Agro%20Global%20Trade%20Desk%2C%0A%0AMy%20registered%20buyer%20account%20is%20{{ urlencode(auth()->user()->email) }}.%0A%0APlease%20provide%20official%20FOB%2FCIF%20pricing%20and%20SGS%20specifications%20for%3A%0A-%20Target%20Commodity%3A%20%0A-%20Volume%20(MT)%3A%20%0A-%20Destination%20Port%3A%20%0A%0AThank%20you%2C%0A{{ urlencode(auth()->user()->name) }}" class="btn btn-outline-secondary py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" title="Compose email directly on your device">
+                                <i class="bi bi-envelope-arrow-up-fill fs-5 text-primary"></i> Compose Email on Device
+                            </a>
                             <a href="#rfq-desk" data-bs-dismiss="modal" class="btn btn-sh-primary py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
                                 <i class="bi bi-file-earmark-text fs-5"></i> Submit Commodity RFQ (500+ MT)
                             </a>
@@ -3670,15 +3677,21 @@
                                     <textarea name="message" id="inboxMessageText" class="form-control sh-input" rows="4" placeholder="Detail your target metric tons, target discharge port (CIF/FOB), packaging specifications, or trade questions..." required></textarea>
                                 </div>
 
-                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
                                     <small class="text-muted d-flex align-items-center gap-1" style="font-size: 0.76rem;">
                                         <i class="bi bi-shield-check text-success"></i>
                                         Direct delivery to desk inbox &amp; email
                                     </small>
-                                    <button type="submit" id="btnSendInboxDesk" class="btn btn-sh-primary py-2 px-4 fw-bold d-flex align-items-center gap-2">
-                                        <i class="bi bi-send-fill"></i>
-                                        <span>Send to Desk Inbox</span>
-                                    </button>
+                                    <div class="d-flex gap-2">
+                                        <a id="btnComposeDeviceEmail" href="mailto:tradedesk@brxagroglobal.com?subject=Commodity%20Trade%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20BRX%20Agro%20Global%20Trade%20Desk%2C%0A%0AI%20would%20like%20to%20request%20an%20indicative%20quote%20and%20specifications%20for%20Brazilian%20agro%20export%20commodities.%0A%0AThank%20you." class="btn btn-outline-secondary py-2 px-3 fw-semibold d-flex align-items-center gap-2" title="Immediately open your device email composer">
+                                            <i class="bi bi-envelope-arrow-up-fill text-primary"></i>
+                                            <span>Compose on Device</span>
+                                        </a>
+                                        <button type="submit" id="btnSendInboxDesk" class="btn btn-sh-primary py-2 px-3 fw-bold d-flex align-items-center gap-2">
+                                            <i class="bi bi-send-fill"></i>
+                                            <span>Send to Desk Inbox</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -4375,6 +4388,18 @@
             // =========================================================================
             // Trade Desk On-Site Inbox & Messaging Box Logic
             // =========================================================================
+            function syncDeviceMailto() {
+                var commodity = $('#inboxCommoditySelect').val() || 'General Commercial RFQ';
+                var text = $('#inboxMessageText').val() || '';
+                var subject = 'Trade Inquiry: ' + commodity + ' — BRX AGRO GLOBAL';
+                var body = 'Hello BRX AGRO GLOBAL Trade Desk,\n\n' +
+                    (text ? text + '\n\n' : 'I am requesting formal FOB/CIF pricing, SGS laboratory assays, and vessel allocation for ' + commodity + '.\n\n') +
+                    'Sent from BRX AGRO GLOBAL Platform';
+                var mailtoUrl = 'mailto:tradedesk@brxagroglobal.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                $('#btnComposeDeviceEmail').attr('href', mailtoUrl);
+            }
+            $('#inboxCommoditySelect, #inboxMessageText').on('input change keyup', syncDeviceMailto);
+
             window.openTradeDeskInbox = function (prefillMsg) {
                 var accEl = document.getElementById('agroviaAccountModal');
                 if (accEl) {
@@ -4387,6 +4412,7 @@
                     if (prefillMsg) {
                         $('#inboxMessageText').val(prefillMsg);
                     }
+                    syncDeviceMailto();
                     inboxInstance.show();
                 }
             };
