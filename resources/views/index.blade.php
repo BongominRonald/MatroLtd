@@ -486,6 +486,22 @@
         }
 
         /* Products Mega Menu Theme Styling (WCAG AAA High Contrast) */
+        .sh-mega-badge {
+            background: #14532d !important;
+            color: #ffffff !important;
+            font-weight: 800 !important;
+            font-size: 0.74rem !important;
+            border: 1.5px solid #4ade80 !important;
+            border-radius: 999px !important;
+            padding: 0.28rem 0.75rem !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+            white-space: nowrap !important;
+        }
         html[data-theme="light"] .sh-products-mega-menu {
             background: #ffffff !important;
             border: 1px solid rgba(15, 23, 42, 0.15) !important;
@@ -495,6 +511,15 @@
             background: #f8fafc !important;
             border-bottom: 1px solid #e2e8f0 !important;
             color: #0f172a !important;
+        }
+        html[data-theme="light"] .sh-mega-badge {
+            background: #166534 !important;
+            color: #ffffff !important;
+            border: 1.5px solid #22c55e !important;
+            box-shadow: 0 2px 6px rgba(22, 101, 52, 0.3) !important;
+        }
+        html[data-theme="light"] .sh-mega-badge i {
+            color: #86efac !important;
         }
         html[data-theme="light"] .sh-mega-item {
             color: #1e293b !important;
@@ -532,6 +557,15 @@
             background: #1e293b !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
             color: #f8fafc !important;
+        }
+        html[data-theme="dark"] .sh-mega-badge {
+            background: #14532d !important;
+            color: #ffffff !important;
+            border: 1.5px solid #4ade80 !important;
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.35) !important;
+        }
+        html[data-theme="dark"] .sh-mega-badge i {
+            color: #4ade80 !important;
         }
         html[data-theme="dark"] .sh-mega-item {
             color: #e2e8f0 !important;
@@ -2008,11 +2042,12 @@
                         <div class="dropdown-menu sh-products-mega-menu shadow-lg p-0">
                             <!-- Mega Menu Header -->
                             <div class="px-3 py-2 border-bottom d-flex align-items-center justify-content-between sh-mega-header">
-                                <span class="fw-bold text-uppercase d-flex align-items-center gap-1.5" style="letter-spacing: 0.8px; font-size: 0.72rem;">
+                                <span class="fw-bold text-uppercase d-flex align-items-center gap-1.5" style="letter-spacing: 0.8px; font-size: 0.74rem;">
                                     <i class="bi bi-boxes text-success"></i> Commodity Sectors
                                 </span>
-                                <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-50" style="font-size: 0.68rem; font-weight: 700;">
-                                    10 Export Categories
+                                <span class="sh-mega-badge" style="background: #14532d !important; color: #ffffff !important; font-weight: 800 !important; font-size: 0.74rem !important; border: 1.5px solid #4ade80 !important; border-radius: 999px !important; padding: 0.28rem 0.75rem !important; display: inline-flex !important; align-items: center !important; gap: 5px !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important; white-space: nowrap !important;">
+                                    <i class="bi bi-patch-check-fill" style="color: #4ade80 !important;"></i>
+                                    <span>10 Export Categories</span>
                                 </span>
                             </div>
 
