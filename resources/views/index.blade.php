@@ -280,17 +280,20 @@
             color: rgba(255, 255, 255, 0.72) !important;
         }
 
-        /* ===== Navbar (Full Width & Straightline Layout) ===== */
+        /* ===== Navbar (Full Width, Generous Breadth & Translucent Frosted Glass) ===== */
         .sh-navbar {
             z-index: 1030;
-            padding-top: 0.55rem !important;
-            padding-bottom: 0.55rem !important;
+            padding-top: 0.85rem !important;
+            padding-bottom: 0.85rem !important;
             width: 100% !important;
-            transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
+            max-width: 100% !important;
+            transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease, backdrop-filter .25s ease;
         }
         .sh-navbar .container-fluid {
             width: 100% !important;
             max-width: 100% !important;
+            padding-left: clamp(1rem, 2.5vw, 2.75rem) !important;
+            padding-right: clamp(1rem, 2.5vw, 2.75rem) !important;
         }
         @media (min-width: 992px) {
             .sh-nav-straightline {
@@ -299,7 +302,7 @@
                 flex-wrap: nowrap !important;
                 align-items: center !important;
                 white-space: nowrap !important;
-                gap: 0.15rem !important;
+                gap: 0.35rem !important;
                 margin-bottom: 0;
             }
             .sh-nav-straightline .nav-item {
@@ -307,113 +310,76 @@
             }
             .sh-navbar .nav-link {
                 font-weight: 600;
-                font-size: 0.76rem;
-                padding: 0.28rem 0.35rem !important;
-                border-radius: 6px;
+                font-size: 0.88rem;
+                padding: 0.42rem 0.65rem !important;
+                border-radius: 8px;
                 white-space: nowrap;
                 transition: color .2s ease, background-color .2s ease;
             }
             .brx-navbar-brand {
-                margin-right: 0.35rem !important;
-                gap: 8px;
-            }
-            .brx-navbar-emblem {
-                width: 34px;
-                height: 34px;
-            }
-            .brx-name-lead {
-                font-size: 0.98rem;
-            }
-            .brx-name-tag {
-                font-size: 0.8rem;
-            }
-            .brx-legal-sub {
-                font-size: 0.42rem;
-            }
-            .sh-nav-actions {
-                gap: 0.3rem !important;
-            }
-            .sh-icon-btn,
-            .sh-theme-toggle,
-            .sh-cart-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 0.9rem;
-            }
-            .btn-sh-login,
-            .btn-sh-primary {
-                padding: 0.25rem 0.6rem !important;
-                font-size: 0.76rem !important;
-            }
-        }
-        @media (min-width: 1200px) {
-            .sh-nav-straightline {
-                gap: 0.28rem !important;
-            }
-            .sh-navbar .nav-link {
-                font-size: 0.82rem;
-                padding: 0.32rem 0.48rem !important;
-            }
-            .brx-navbar-brand {
-                margin-right: 0.6rem !important;
+                margin-right: 0.85rem !important;
                 gap: 10px;
             }
             .brx-navbar-emblem {
-                width: 38px;
-                height: 38px;
+                width: 42px;
+                height: 42px;
             }
             .brx-name-lead {
-                font-size: 1.1rem;
+                font-size: 1.15rem;
             }
             .brx-name-tag {
-                font-size: 0.9rem;
+                font-size: 0.92rem;
             }
             .brx-legal-sub {
-                font-size: 0.46rem;
+                font-size: 0.48rem;
             }
             .sh-nav-actions {
-                gap: 0.5rem !important;
+                gap: 0.45rem !important;
             }
             .sh-icon-btn,
             .sh-theme-toggle,
             .sh-cart-icon {
                 width: 36px;
                 height: 36px;
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
             .btn-sh-login,
             .btn-sh-primary {
-                padding: 0.32rem 0.8rem !important;
-                font-size: 0.82rem !important;
+                padding: 0.36rem 0.85rem !important;
+                font-size: 0.84rem !important;
             }
         }
-        @media (min-width: 1400px) {
+        @media (min-width: 1200px) {
+            .sh-navbar {
+                padding-top: 0.95rem !important;
+                padding-bottom: 0.95rem !important;
+            }
             .sh-nav-straightline {
                 gap: 0.5rem !important;
             }
             .sh-navbar .nav-link {
-                font-size: 0.88rem;
-                padding: 0.4rem 0.68rem !important;
+                font-size: 0.92rem;
+                padding: 0.48rem 0.8rem !important;
             }
             .brx-navbar-brand {
-                margin-right: 1rem !important;
+                margin-right: 1.25rem !important;
                 gap: 12px;
             }
             .brx-navbar-emblem {
-                width: 44px;
-                height: 44px;
+                width: 46px;
+                height: 46px;
             }
             .brx-name-lead {
                 font-size: 1.25rem;
             }
             .brx-name-tag {
-                font-size: 1rem;
+                font-size: 0.98rem;
             }
             .brx-legal-sub {
                 font-size: 0.52rem;
             }
             .sh-nav-actions {
-                gap: 0.75rem !important;
+                gap: 0.65rem !important;
             }
             .sh-icon-btn,
             .sh-theme-toggle,
@@ -424,8 +390,53 @@
             }
             .btn-sh-login,
             .btn-sh-primary {
-                padding: 0.38rem 1rem !important;
+                padding: 0.42rem 1rem !important;
                 font-size: 0.88rem !important;
+            }
+        }
+        @media (min-width: 1400px) {
+            .sh-navbar {
+                padding-top: 1.05rem !important;
+                padding-bottom: 1.05rem !important;
+            }
+            .sh-nav-straightline {
+                gap: 0.75rem !important;
+            }
+            .sh-navbar .nav-link {
+                font-size: 0.96rem;
+                padding: 0.52rem 0.95rem !important;
+            }
+            .brx-navbar-brand {
+                margin-right: 1.75rem !important;
+                gap: 14px;
+            }
+            .brx-navbar-emblem {
+                width: 50px;
+                height: 50px;
+            }
+            .brx-name-lead {
+                font-size: 1.35rem;
+            }
+            .brx-name-tag {
+                font-size: 1.08rem;
+            }
+            .brx-legal-sub {
+                font-size: 0.56rem;
+            }
+            .sh-nav-actions {
+                gap: 0.85rem !important;
+            }
+            .sh-icon-btn,
+            .sh-theme-toggle,
+            .sh-cart-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 1.15rem;
+            }
+            .btn-sh-login,
+            .btn-sh-primary {
+                padding: 0.48rem 1.15rem !important;
+                font-size: 0.92rem !important;
             }
         }
 
@@ -671,11 +682,13 @@
         .sh-toggler[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
         .sh-toggler[aria-expanded="true"] .bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-        /* ===== LIGHT THEME: 100% Explicit High Contrast for Navbar Elements ===== */
+        /* ===== LIGHT THEME: Frosted Glass Translucency with High Contrast ===== */
         html[data-theme="light"] .sh-navbar {
-            background-color: #ffffff !important;
-            border-bottom: 1px solid rgba(20, 20, 26, 0.12) !important;
-            box-shadow: 0 2px 14px rgba(0, 0, 0, 0.05) !important;
+            background-color: rgba(255, 255, 255, 0.88) !important;
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
         }
         .sh-navbar .navbar-collapse,
         .sh-navbar .navbar-nav,
@@ -781,11 +794,13 @@
             background-color: #0f172a !important;
         }
 
-        /* ===== DARK THEME: 100% Explicit High Contrast for Navbar Elements ===== */
+        /* ===== DARK THEME: Frosted Glass Translucency with High Contrast ===== */
         html[data-theme="dark"] .sh-navbar {
-            background-color: #14141a !important;
+            background-color: rgba(15, 23, 42, 0.84) !important;
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
             border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45) !important;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.45) !important;
         }
         @media (max-width: 991.98px) {
             html[data-theme="dark"] .sh-navbar .navbar-collapse {
@@ -795,16 +810,16 @@
             }
         }
         html[data-theme="dark"] .sh-navbar .nav-link {
-            color: #f1f5f9 !important;
+            color: #ffffff !important;
         }
         html[data-theme="dark"] .sh-navbar .nav-link:hover,
         html[data-theme="dark"] .sh-navbar .nav-link:focus {
-            color: #a3e635 !important;
-            background-color: rgba(255, 255, 255, 0.08) !important;
+            color: #4ade80 !important;
+            background-color: rgba(255, 255, 255, 0.1) !important;
         }
         html[data-theme="dark"] .sh-navbar .nav-link.active {
-            color: #a3e635 !important;
-            background-color: rgba(163, 230, 53, 0.15) !important;
+            color: #4ade80 !important;
+            background-color: rgba(74, 222, 128, 0.18) !important;
             font-weight: 700 !important;
         }
         html[data-theme="dark"] .sh-navbar .dropdown-menu {
@@ -2686,7 +2701,7 @@
                                 <i class="bi bi-whatsapp fs-4 text-success" style="flex-shrink: 0;"></i>
                                 <div>
                                     <strong class="d-block sh-text-title">Direct WhatsApp &amp; Phone Desk</strong>
-                                    <a href="https://wa.me/5511952987545" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold small">+55 (11) 95298-7545</a>
+                                    <a href="https://wa.me/5511958353433" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold small">+55 11 95835-3433</a>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-3 mb-3">
@@ -2699,12 +2714,9 @@
                             <div class="d-flex align-items-start gap-3">
                                 <i class="bi bi-envelope-at-fill fs-4 text-primary" style="flex-shrink: 0; margin-top: 2px;"></i>
                                 <div>
-                                    <strong class="d-block sh-text-title">Corporate Email Desks (Tap to Compose)</strong>
+                                    <strong class="d-block sh-text-title">Official Corporate Email (Tap to Compose)</strong>
                                     <small class="sh-text-muted d-block mb-1">
-                                        <a href="mailto:tradedesk@brxagroglobal.com?subject=Commodity%20RFQ%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20Trade%20Desk%2C%0A%0AI%20would%20like%20to%20request%20an%20indicative%20FOB%2FCIF%20quotation%20and%20SGS%20lab%20analysis%20for%3A%0A-%20Commodity%3A%20%0A-%20Volume%20(MT)%3A%20%0A-%20Discharge%20Port%3A%20%0A%0ACompany%3A%20%0AName%3A%20" class="text-decoration-none fw-semibold text-primary"><i class="bi bi-envelope-open me-1"></i>tradedesk@brxagroglobal.com</a>
-                                    </small>
-                                    <small class="sh-text-muted d-block">
-                                        <a href="mailto:info@brxagroglobal.com?subject=Corporate%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global" class="text-decoration-none text-reset">info@brxagroglobal.com</a> · <a href="mailto:sales@brxagroglobal.com?subject=Agro%20Sales%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global" class="text-decoration-none text-reset">sales@brxagroglobal.com</a>
+                                        <a href="mailto:brxagroglobal@gmail.com?subject=Commodity%20RFQ%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20Trade%20Desk%2C%0A%0AI%20would%20like%20to%20request%20an%20indicative%20FOB%2FCIF%20quotation%20and%20SGS%20lab%20analysis%20for%3A%0A-%20Commodity%3A%20%0A-%20Volume%20(MT)%3A%20%0A-%20Discharge%20Port%3A%20%0A%0ACompany%3A%20%0AName%3A%20" class="text-decoration-none fw-semibold text-primary"><i class="bi bi-envelope-open me-1"></i>brxagroglobal@gmail.com</a>
                                     </small>
                                 </div>
                             </div>
@@ -2929,8 +2941,9 @@
                         Privately owned enterprise supplying thousands of metric tons annually across 5 continents in direct partnership with leading food manufacturers, retailers, and wholesalers.
                     </p>
                     <div class="d-flex align-items-center gap-2 mt-3">
+                        <a href="https://wa.me/5511958353433" target="_blank" rel="noopener" class="social-icon" title="WhatsApp Trade Desk (+55 11 95835-3433)"><i class="bi bi-whatsapp"></i></a>
                         <a href="javascript:void(0)" onclick="openTradeDeskInbox()" class="social-icon" title="Open Desk Inbox"><i class="bi bi-chat-left-dots-fill"></i></a>
-                        <a href="mailto:tradedesk@brxagroglobal.com?subject=Commercial%20Trade%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20Trade%20Desk%2C%0A%0APlease%20provide%20quotation%20and%20specifications%20for%20Brazilian%20agro%20export%20commodities." class="social-icon" title="Compose Email on Your Device"><i class="bi bi-envelope-fill"></i></a>
+                        <a href="mailto:brxagroglobal@gmail.com?subject=Commercial%20Trade%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20Trade%20Desk%2C%0A%0APlease%20provide%20quotation%20and%20specifications%20for%20Brazilian%20agro%20export%20commodities." class="social-icon" title="Compose Email on Your Device"><i class="bi bi-envelope-fill"></i></a>
                         <a href="#rfq-desk" class="social-icon" title="Trade RFQ"><i class="bi bi-file-earmark-text"></i></a>
                     </div>
                 </div>
@@ -2996,8 +3009,12 @@
                             <span>Av. Brig. Faria Lima, 3064 – Itaim Bibi, São Paulo – SP, 01451-001 Brazil</span>
                         </li>
                         <li class="mb-2 d-flex align-items-center gap-2">
+                            <i class="bi bi-whatsapp me-1 text-success" style="flex-shrink: 0;"></i>
+                            <a href="https://wa.me/5511958353433" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold">+55 11 95835-3433 (WhatsApp)</a>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center gap-2">
                             <i class="bi bi-inbox-fill me-1 text-success" style="flex-shrink: 0;"></i>
-                            <a href="javascript:void(0)" onclick="openTradeDeskInbox()" class="text-success text-decoration-none fw-bold">+55 (11) 95298-7545 (Desk Inbox)</a>
+                            <a href="javascript:void(0)" onclick="openTradeDeskInbox()" class="text-success text-decoration-none fw-bold">Trade Desk Inbox</a>
                         </li>
                         <li class="mb-2 d-flex align-items-center gap-2">
                             <i class="bi bi-chat-dots me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
@@ -3005,7 +3022,7 @@
                         </li>
                         <li class="mb-2 d-flex align-items-center gap-2">
                             <i class="bi bi-envelope-at me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
-                            <a href="mailto:tradedesk@brxagroglobal.com?subject=Commercial%20Trade%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20BRX%20Agro%20Global%20Trade%20Desk%2C%0A%0AI%20would%20like%20to%20request%20quotations%20for%20Brazilian%20agro%20export%20commodities." class="text-decoration-none text-white-50" title="Click to compose immediately on your device">tradedesk@brxagroglobal.com (Compose)</a>
+                            <a href="mailto:brxagroglobal@gmail.com?subject=Commercial%20Trade%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20BRX%20Agro%20Global%20Trade%20Desk%2C%0A%0AI%20would%20like%20to%20request%20quotations%20for%20Brazilian%20agro%20export%20commodities." class="text-decoration-none text-white-50" title="Click to compose immediately on your device">brxagroglobal@gmail.com (Compose)</a>
                         </li>
                         <li class="mb-0 d-flex align-items-center gap-2">
                             <i class="bi bi-clock me-1 text-success" style="color: var(--sh-primary) !important; flex-shrink: 0;"></i>
@@ -3496,7 +3513,7 @@
                             <button type="button" class="btn btn-outline-primary py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2" onclick="openTradeDeskInbox('Hello BRX Agro Global, I am a registered buyer requesting commodity quotation.')">
                                 <i class="bi bi-inbox-fill fs-5 text-success"></i> Open Trade Desk Inbox &amp; Messages
                             </button>
-                            <a href="mailto:tradedesk@brxagroglobal.com?subject=Commercial%20Inquiry%20%E2%80%94%20{{ urlencode(auth()->user()->name) }}&body=Hello%20BRX%20Agro%20Global%20Trade%20Desk%2C%0A%0AMy%20registered%20buyer%20account%20is%20{{ urlencode(auth()->user()->email) }}.%0A%0APlease%20provide%20official%20FOB%2FCIF%20pricing%20and%20SGS%20specifications%20for%3A%0A-%20Target%20Commodity%3A%20%0A-%20Volume%20(MT)%3A%20%0A-%20Destination%20Port%3A%20%0A%0AThank%20you%2C%0A{{ urlencode(auth()->user()->name) }}" class="btn btn-outline-secondary py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" title="Compose email directly on your device">
+                            <a href="mailto:brxagroglobal@gmail.com?subject=Commercial%20Inquiry%20%E2%80%94%20{{ urlencode(auth()->user()->name) }}&body=Hello%20BRX%20Agro%20Global%20Trade%20Desk%2C%0A%0AMy%20registered%20buyer%20account%20is%20{{ urlencode(auth()->user()->email) }}.%0A%0APlease%20provide%20official%20FOB%2FCIF%20pricing%20and%20SGS%20specifications%20for%3A%0A-%20Target%20Commodity%3A%20%0A-%20Volume%20(MT)%3A%20%0A-%20Destination%20Port%3A%20%0A%0AThank%20you%2C%0A{{ urlencode(auth()->user()->name) }}" class="btn btn-outline-secondary py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" title="Compose email directly on your device">
                                 <i class="bi bi-envelope-arrow-up-fill fs-5 text-primary"></i> Compose Email on Device
                             </a>
                             <a href="#rfq-desk" data-bs-dismiss="modal" class="btn btn-sh-primary py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
@@ -3687,7 +3704,7 @@
                                         Direct delivery to desk inbox &amp; email
                                     </small>
                                     <div class="d-flex gap-2">
-                                        <a id="btnComposeDeviceEmail" href="mailto:tradedesk@brxagroglobal.com?subject=Commodity%20Trade%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20BRX%20Agro%20Global%20Trade%20Desk%2C%0A%0AI%20would%20like%20to%20request%20an%20indicative%20quote%20and%20specifications%20for%20Brazilian%20agro%20export%20commodities.%0A%0AThank%20you." class="btn btn-outline-secondary py-2 px-3 fw-semibold d-flex align-items-center gap-2" title="Immediately open your device email composer">
+                                        <a id="btnComposeDeviceEmail" href="mailto:brxagroglobal@gmail.com?subject=Commodity%20Trade%20Inquiry%20%E2%80%94%20BRX%20Agro%20Global&body=Hello%20BRX%20Agro%20Global%20Trade%20Desk%2C%0A%0AI%20would%20like%20to%20request%20an%20indicative%20quote%20and%20specifications%20for%20Brazilian%20agro%20export%20commodities.%0A%0AThank%20you." class="btn btn-outline-secondary py-2 px-3 fw-semibold d-flex align-items-center gap-2" title="Immediately open your device email composer">
                                             <i class="bi bi-envelope-arrow-up-fill text-primary"></i>
                                             <span>Compose on Device</span>
                                         </a>
@@ -3756,7 +3773,7 @@
                 <div class="modal-footer border-top border-secondary border-opacity-25 py-2.5 px-4 d-flex justify-content-between align-items-center" style="background: var(--sh-surface);">
                     <div class="small text-muted d-flex align-items-center gap-2" style="font-size: 0.76rem;">
                         <i class="bi bi-building text-success"></i>
-                        <span>Av. Brig. Faria Lima, 3064, São Paulo - SP, Brasil · +55 (11) 95298-7545</span>
+                        <span>Av. Brig. Faria Lima, 3064, São Paulo - SP, Brasil · +55 11 95835-3433</span>
                     </div>
                     <button type="button" class="btn btn-outline-secondary btn-sm px-3" data-bs-dismiss="modal">Close</button>
                 </div>
@@ -4403,7 +4420,7 @@
                 var body = 'Hello BRX AGRO GLOBAL Trade Desk,\n\n' +
                     (text ? text + '\n\n' : 'I am requesting formal FOB/CIF pricing, SGS laboratory assays, and vessel allocation for ' + commodity + '.\n\n') +
                     'Sent from BRX AGRO GLOBAL Platform';
-                var mailtoUrl = 'mailto:tradedesk@brxagroglobal.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                var mailtoUrl = 'mailto:brxagroglobal@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
                 $('#btnComposeDeviceEmail').attr('href', mailtoUrl);
             }
             $('#inboxCommoditySelect, #inboxMessageText').on('input change keyup', syncDeviceMailto);

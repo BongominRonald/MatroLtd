@@ -20,6 +20,13 @@
     <link href="{{ asset('fonts/comic-relief.css') }}" rel="stylesheet">
     <link href="{{ asset('fonts/open-sans.css') }}" rel="stylesheet">
 
+    <script>
+        (function() {
+            var savedTheme = localStorage.getItem('sh_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
     <style>
         :root {
             --matro-green: #78a22f;
@@ -35,6 +42,8 @@
             background: #f4f6f9;
             color: #212529;
             overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
         }
 
         h1, h2, h3, h4, h5, h6, .brand-text, .btn {
@@ -44,6 +53,10 @@
         .admin-shell {
             min-height: 100vh;
             display: flex;
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            position: relative;
         }
 
         /* Sidebar Styling (Borrowed from shoe-haven concept) */
@@ -209,9 +222,12 @@
         /* Topbar & Content */
         .admin-main {
             min-width: 0;
-            flex: 1;
+            max-width: 100%;
+            width: 100%;
+            flex: 1 1 auto;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         .admin-topbar {
@@ -219,17 +235,31 @@
             position: sticky;
             top: 0;
             z-index: 1030;
+            width: 100%;
+            max-width: 100%;
             background: #fff;
             border-bottom: 1px solid #e5e8ec;
             box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            overflow: hidden;
+            transition: background-color .2s ease, border-color .2s ease;
         }
 
         .admin-content {
             padding: 1.5rem;
             max-width: 1600px;
             width: 100%;
+            min-width: 0;
             margin: 0 auto;
             flex: 1;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        .table-responsive {
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch;
+            width: 100% !important;
+            max-width: 100% !important;
         }
 
         .admin-page-heading h1 {
@@ -439,6 +469,133 @@
                 padding: 1rem;
             }
         }
+
+        /* ===== Dark Theme Adaptations for Admin Dashboard ===== */
+        html[data-theme="dark"] body {
+            background: #0b0f17;
+            color: #e2e8f0;
+        }
+        html[data-theme="dark"] .admin-topbar {
+            background: rgba(17, 24, 39, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        html[data-theme="dark"] .admin-page-heading h1 {
+            color: #ffffff;
+        }
+        html[data-theme="dark"] .sh-breadcrumbs a {
+            color: #94a3b8;
+        }
+        html[data-theme="dark"] .sh-breadcrumbs-sep {
+            color: #475569;
+        }
+        html[data-theme="dark"] .sh-collapse-btn {
+            background: #1e293b;
+            border-color: rgba(255, 255, 255, 0.14);
+            color: #f1f5f9;
+        }
+        html[data-theme="dark"] .sh-collapse-btn:hover {
+            background: #334155;
+            color: #ffffff;
+        }
+        html[data-theme="dark"] .admin-card,
+        html[data-theme="dark"] .sh-stat-card {
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #f8fafc;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
+        html[data-theme="dark"] .admin-card .card-header {
+            background: #111827;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+        html[data-theme="dark"] .admin-card .card-header h5 {
+            color: #ffffff;
+        }
+        html[data-theme="dark"] .admin-table th {
+            background: #0f172a;
+            color: #94a3b8;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        html[data-theme="dark"] .admin-table td {
+            color: #e2e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        html[data-theme="dark"] .admin-table tr:hover td {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        html[data-theme="dark"] .admin-user {
+            background: #1e293b;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #f8fafc;
+        }
+        html[data-theme="dark"] .admin-user:hover {
+            background: #334155;
+        }
+        html[data-theme="dark"] .admin-user strong {
+            color: #ffffff !important;
+        }
+        html[data-theme="dark"] .admin-thumb {
+            background: #1e293b;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        html[data-theme="dark"] .list-group-item {
+            background: #111827;
+            border-color: rgba(255, 255, 255, 0.08);
+            color: #f8fafc;
+        }
+        html[data-theme="dark"] .list-group-item strong,
+        html[data-theme="dark"] .list-group-item .fw-semibold {
+            color: #ffffff !important;
+        }
+        html[data-theme="dark"] .dropdown-menu {
+            background: #0f172a;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
+        }
+        html[data-theme="dark"] .dropdown-item {
+            color: #e2e8f0;
+        }
+        html[data-theme="dark"] .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+        html[data-theme="dark"] .btn-outline-dark {
+            color: #e2e8f0;
+            border-color: #475569;
+        }
+        html[data-theme="dark"] .btn-outline-dark:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+        html[data-theme="dark"] .btn-outline-secondary {
+            color: #cbd5e1;
+            border-color: #475569;
+        }
+        html[data-theme="dark"] .btn-outline-secondary:hover {
+            background: #475569;
+            color: #ffffff;
+        }
+        html[data-theme="dark"] .btn-light {
+            background-color: #1e293b !important;
+            border-color: rgba(255, 255, 255, 0.14) !important;
+            color: #f8fafc !important;
+        }
+        html[data-theme="dark"] .btn-light:hover {
+            background-color: #334155 !important;
+            color: #ffffff !important;
+        }
+        html[data-theme="dark"] .bg-light {
+            background-color: #1e293b !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        html[data-theme="dark"] .text-dark {
+            color: #f8fafc !important;
+        }
+        html[data-theme="dark"] .text-muted {
+            color: #94a3b8 !important;
+        }
     </style>
     @stack('styles')
 </head>
@@ -545,6 +702,9 @@
                     $unreadInquiriesCount = \App\Models\Inquiry::where('is_read', false)->count();
                 @endphp
                 <div class="d-flex align-items-center gap-2">
+                    <button type="button" class="btn btn-sm btn-light border d-flex align-items-center justify-content-center px-2 py-1" id="adminThemeToggle" title="Toggle Light / Dark Mode" aria-label="Toggle Theme">
+                        <i class="bi bi-moon-stars-fill" id="adminThemeIcon"></i>
+                    </button>
                     <a href="{{ route('admin.orders.index', ['status' => 'pending']) }}" class="btn btn-sm btn-light border position-relative d-flex align-items-center gap-1 px-2 py-1" title="Pending Commodity Orders">
                         <i class="bi bi-bell-fill text-warning"></i>
                         <span class="d-none d-sm-inline small fw-semibold">Orders</span>
@@ -662,6 +822,29 @@
             document.body.classList.add('sidebar-collapsed');
         }
     } catch(e) {}
+
+    // Admin Theme Switcher
+    var themeToggleBtn = document.getElementById('adminThemeToggle');
+    var themeIcon = document.getElementById('adminThemeIcon');
+    function updateThemeIcon(theme) {
+        if (!themeIcon) return;
+        if (theme === 'dark') {
+            themeIcon.className = 'bi bi-sun-fill text-warning';
+        } else {
+            themeIcon.className = 'bi bi-moon-stars-fill text-dark';
+        }
+    }
+    var currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    updateThemeIcon(currentTheme);
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function() {
+            var active = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', active);
+            try { localStorage.setItem('sh_theme', active); } catch(e) {}
+            updateThemeIcon(active);
+        });
+    }
 })();
 </script>
 

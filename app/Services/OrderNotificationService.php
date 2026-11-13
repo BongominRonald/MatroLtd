@@ -114,7 +114,7 @@ class OrderNotificationService
         }
 
         // Primary Trade Desk Email Fallback
-        $tradeDeskEmail = config('services.company.trade_desk_email', 'tradedesk@brxagroglobal.com');
+        $tradeDeskEmail = config('services.company.trade_desk_email', 'brxagroglobal@gmail.com');
         if (filter_var($tradeDeskEmail, FILTER_VALIDATE_EMAIL)) {
             $recipients[] = $tradeDeskEmail;
         }

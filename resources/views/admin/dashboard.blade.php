@@ -73,13 +73,13 @@
                 <span class="text-muted text-uppercase fw-semibold small">Order Fulfillment Pipeline</span>
                 <a href="{{ route('admin.orders.index') }}" class="small text-decoration-none text-success fw-bold">View all orders &rarr;</a>
             </div>
-            <div class="row g-2">
+            <div class="row g-2 row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-xl-6">
                 @foreach($orders_by_status as $status => $count)
                     <div class="col">
                         <a href="{{ route('admin.orders.index', ['status' => $status]) }}" class="text-decoration-none">
-                            <div class="p-2 rounded-3 text-center bg-light border">
+                            <div class="p-2 rounded-3 text-center bg-light border h-100">
                                 <div class="fw-bold fs-6 text-dark">{{ $count }}</div>
-                                <small class="text-muted text-capitalize" style="font-size: 11px;">{{ $status }}</small>
+                                <small class="text-muted text-capitalize d-block text-truncate" style="font-size: 11px;">{{ $status }}</small>
                             </div>
                         </a>
                     </div>

@@ -43,8 +43,11 @@ return [
 
     'company' => [
         'name' => env('COMPANY_NAME', 'BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA'),
-        'trade_desk_email' => env('COMPANY_TRADE_DESK_EMAIL', 'tradedesk@brxagroglobal.com'),
-        'notification_emails' => env('COMPANY_NOTIFICATION_EMAIL', 'tradedesk@brxagroglobal.com,info@brxagroglobal.com'),
+        'trade_desk_email' => env('COMPANY_TRADE_DESK_EMAIL', 'brxagroglobal@gmail.com'),
+        'notification_emails' => env('COMPANY_NOTIFICATION_EMAIL', 'brxagroglobal@gmail.com'),
+        'phone' => env('COMPANY_PHONE', '+55 11 95835-3433'),
+        'whatsapp' => env('COMPANY_WHATSAPP', '+55 11 95835-3433'),
+        'whatsapp_raw' => env('COMPANY_WHATSAPP_RAW', '5511958353433'),
         'notification_webhook' => env('ORDER_NOTIFICATION_WEBHOOK_URL'),
     ],
 

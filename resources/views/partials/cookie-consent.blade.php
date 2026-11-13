@@ -247,10 +247,11 @@
                     <i class="bi bi-shield-check"></i>
                 </div>
                 <div>
-                    <div class="d-flex align-items-center gap-2 mb-1.5 flex-wrap">
+                    <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
                         <span class="cookie-title">We value your privacy</span>
-                        <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-50 py-1 px-2" style="font-size: 0.72rem; font-weight: 700;">
-                            LGPD &bull; GDPR Compliant
+                        <span class="badge d-inline-flex align-items-center gap-1.5" style="background: #14532d; color: #ffffff !important; border: 1.5px solid #4ade80; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.6px; padding: 5px 12px; border-radius: 9999px; text-transform: uppercase; box-shadow: 0 2px 8px rgba(0,0,0,0.4);">
+                            <i class="bi bi-shield-fill-check" style="color: #4ade80; font-size: 0.85rem;"></i>
+                            <span style="color: #ffffff !important; font-weight: 800 !important;">LGPD &bull; GDPR Compliant</span>
                         </span>
                     </div>
                     <p class="cookie-body mb-2">
@@ -426,7 +427,7 @@
                     </div>
                     <div>
                         <h5 class="modal-title fw-bold text-white mb-0" id="cookiePolicyModalLabel" style="font-size: 1.15rem;">Cookie &amp; Privacy Policy</h5>
-                        <small class="text-white-50" style="font-size: 0.78rem;">Compliance with Brazilian LGPD (Lei 13.709/2018) &amp; EU GDPR (Regulation 2016/679)</small>
+                        <small style="font-size: 0.78rem; color: #cbd5e1 !important;">Compliance with Brazilian LGPD (Lei 13.709/2018) &amp; EU GDPR (Regulation 2016/679)</small>
                     </div>
                 </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -438,7 +439,7 @@
                     <strong>Company Name:</strong> BRX AGRO GLOBAL IMPORTA&Ccedil;&Atilde;O E EXPORTA&Ccedil;&Atilde;O LTDA<br>
                     <strong>CNPJ:</strong> 38.471.480/0001-41<br>
                     <strong>Registered Address:</strong> Av. Brig. Faria Lima, 3064 &ndash; Itaim Bibi, S&atilde;o Paulo &ndash; SP, 01451-001, Brazil<br>
-                    <strong>Trade Desk Email:</strong> <a href="mailto:tradedesk@brxagroglobal.com" class="text-success text-decoration-none fw-semibold">tradedesk@brxagroglobal.com</a> &bull; <strong>DPO:</strong> <a href="mailto:privacy@brxagroglobal.com" class="text-success text-decoration-none fw-semibold">privacy@brxagroglobal.com</a>
+                    <strong>WhatsApp Desk:</strong> <a href="https://wa.me/5511958353433" target="_blank" rel="noopener" class="text-success text-decoration-none fw-bold">+55 11 95835-3433</a> &bull; <strong>Official Email:</strong> <a href="mailto:brxagroglobal@gmail.com" class="text-success text-decoration-none fw-semibold">brxagroglobal@gmail.com</a>
                 </p>
 
                 <h6 class="fw-bold text-success mb-2 text-uppercase" style="letter-spacing: 0.5px; font-size: 0.84rem;">2. What Are Cookies and How Are They Used?</h6>

@@ -111,7 +111,7 @@ Route::post('/inquiries', function (Request $request) {
 
     try {
         Mail::to($validated['email'])->send(new InquiryConfirmationMail($inquiry, $reference));
-        $adminEmail = config('services.company.trade_desk_email') ?: 'tradedesk@brxagroglobal.com';
+        $adminEmail = config('services.company.trade_desk_email') ?: 'brxagroglobal@gmail.com';
         Mail::to($adminEmail)->send(new AdminInquiryAlertMail($inquiry, $reference));
     } catch (\Throwable $e) {
         Log::warning('Inquiry notification email failed: ' . $e->getMessage());

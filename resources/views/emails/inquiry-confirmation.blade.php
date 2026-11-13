@@ -103,10 +103,10 @@
                                 BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA
                             </div>
                             <div style="margin-bottom: 8px;">
-                                CNPJ: 49.882.204/0001-99 · Av. Brigadeiro Faria Lima, 1461, 4º andar, São Paulo - SP, Brasil
+                                CNPJ: 38.471.480/0001-41 · Av. Brig. Faria Lima, 3064, São Paulo - SP, Brasil
                             </div>
-                            <div style="font-size: 11px; color: #718096;">
-                                WhatsApp / Phone: +55 (11) 95298-7545 · Email: info@matogrossoexportltda.com.br
+                            <div style="font-size: 11px; color: #a0aec0;">
+                                WhatsApp: <a href="https://wa.me/5511958353433" style="color: #4ade80; text-decoration: none; font-weight: bold;">+55 11 95835-3433</a> · Email: <a href="mailto:brxagroglobal@gmail.com" style="color: #4ade80; text-decoration: none;">brxagroglobal@gmail.com</a>
                             </div>
                         </td>
                     </tr>
