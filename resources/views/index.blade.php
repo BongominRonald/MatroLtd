@@ -292,8 +292,12 @@
         .sh-navbar .container-fluid {
             width: 100% !important;
             max-width: 100% !important;
-            padding-left: clamp(1rem, 2.5vw, 2.75rem) !important;
-            padding-right: clamp(1rem, 2.5vw, 2.75rem) !important;
+            padding-left: clamp(0.75rem, 1.8vw, 2rem) !important;
+            padding-right: clamp(0.75rem, 1.8vw, 2rem) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            min-width: 0 !important;
         }
         @media (min-width: 992px) {
             .sh-nav-straightline {
@@ -302,141 +306,59 @@
                 flex-wrap: nowrap !important;
                 align-items: center !important;
                 white-space: nowrap !important;
-                gap: 0.35rem !important;
+                gap: clamp(0.25rem, 0.6vw, 0.65rem) !important;
                 margin-bottom: 0;
+                min-width: 0 !important;
             }
             .sh-nav-straightline .nav-item {
                 flex-shrink: 0;
             }
             .sh-navbar .nav-link {
                 font-weight: 600;
-                font-size: 0.88rem;
-                padding: 0.42rem 0.65rem !important;
+                font-size: clamp(0.82rem, 0.82vw, 0.92rem);
+                padding: 0.38rem clamp(0.42rem, 0.65vw, 0.75rem) !important;
                 border-radius: 8px;
                 white-space: nowrap;
                 transition: color .2s ease, background-color .2s ease;
             }
             .brx-navbar-brand {
-                margin-right: 0.85rem !important;
-                gap: 10px;
+                margin-right: clamp(0.5rem, 1.2vw, 1.5rem) !important;
+                gap: clamp(8px, 0.9vw, 14px);
+                flex-shrink: 0 !important;
             }
             .brx-navbar-emblem {
-                width: 42px;
-                height: 42px;
+                width: clamp(38px, 2.5vw, 46px);
+                height: clamp(38px, 2.5vw, 46px);
+                flex-shrink: 0 !important;
             }
             .brx-name-lead {
-                font-size: 1.15rem;
+                font-size: clamp(1.05rem, 1.1vw, 1.28rem);
             }
             .brx-name-tag {
-                font-size: 0.92rem;
+                font-size: clamp(0.82rem, 0.88vw, 1rem);
             }
             .brx-legal-sub {
-                font-size: 0.48rem;
+                font-size: clamp(0.42rem, 0.45vw, 0.52rem);
             }
             .sh-nav-actions {
-                gap: 0.45rem !important;
+                gap: clamp(0.35rem, 0.5vw, 0.65rem) !important;
+                flex-shrink: 0 !important;
+                white-space: nowrap !important;
             }
             .sh-icon-btn,
             .sh-theme-toggle,
             .sh-cart-icon {
-                width: 36px;
-                height: 36px;
+                width: clamp(34px, 2.2vw, 38px);
+                height: clamp(34px, 2.2vw, 38px);
                 font-size: 0.95rem;
+                flex-shrink: 0 !important;
             }
             .btn-sh-login,
             .btn-sh-primary {
-                padding: 0.36rem 0.85rem !important;
-                font-size: 0.84rem !important;
-            }
-        }
-        @media (min-width: 1200px) {
-            .sh-navbar {
-                padding-top: 0.95rem !important;
-                padding-bottom: 0.95rem !important;
-            }
-            .sh-nav-straightline {
-                gap: 0.5rem !important;
-            }
-            .sh-navbar .nav-link {
-                font-size: 0.92rem;
-                padding: 0.48rem 0.8rem !important;
-            }
-            .brx-navbar-brand {
-                margin-right: 1.25rem !important;
-                gap: 12px;
-            }
-            .brx-navbar-emblem {
-                width: 46px;
-                height: 46px;
-            }
-            .brx-name-lead {
-                font-size: 1.25rem;
-            }
-            .brx-name-tag {
-                font-size: 0.98rem;
-            }
-            .brx-legal-sub {
-                font-size: 0.52rem;
-            }
-            .sh-nav-actions {
-                gap: 0.65rem !important;
-            }
-            .sh-icon-btn,
-            .sh-theme-toggle,
-            .sh-cart-icon {
-                width: 38px;
-                height: 38px;
-                font-size: 1.05rem;
-            }
-            .btn-sh-login,
-            .btn-sh-primary {
-                padding: 0.42rem 1rem !important;
-                font-size: 0.88rem !important;
-            }
-        }
-        @media (min-width: 1400px) {
-            .sh-navbar {
-                padding-top: 1.05rem !important;
-                padding-bottom: 1.05rem !important;
-            }
-            .sh-nav-straightline {
-                gap: 0.75rem !important;
-            }
-            .sh-navbar .nav-link {
-                font-size: 0.96rem;
-                padding: 0.52rem 0.95rem !important;
-            }
-            .brx-navbar-brand {
-                margin-right: 1.75rem !important;
-                gap: 14px;
-            }
-            .brx-navbar-emblem {
-                width: 50px;
-                height: 50px;
-            }
-            .brx-name-lead {
-                font-size: 1.35rem;
-            }
-            .brx-name-tag {
-                font-size: 1.08rem;
-            }
-            .brx-legal-sub {
-                font-size: 0.56rem;
-            }
-            .sh-nav-actions {
-                gap: 0.85rem !important;
-            }
-            .sh-icon-btn,
-            .sh-theme-toggle,
-            .sh-cart-icon {
-                width: 42px;
-                height: 42px;
-                font-size: 1.15rem;
-            }
-            .btn-sh-login,
-            .btn-sh-primary {
-                padding: 0.48rem 1.15rem !important;
-                font-size: 0.92rem !important;
+                padding: 0.35rem clamp(0.65rem, 0.8vw, 1rem) !important;
+                font-size: clamp(0.8rem, 0.82vw, 0.88rem) !important;
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
             }
         }
 
@@ -1930,9 +1852,6 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('home') }}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
-                    </li>
                     <li class="nav-item dropdown sh-nav-dropdown">
                         <a class="nav-link dropdown-toggle" href="#products" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Products
@@ -1951,34 +1870,28 @@
                             <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Juices & Drinks"><i class="bi bi-circle-fill text-success me-2 small"></i>Juices &amp; Drinks</a></li>
                             <li><hr class="dropdown-divider border-secondary my-1"></li>
                             <li><a class="dropdown-item fw-bold" href="#products"><i class="bi bi-grid-fill text-success me-2"></i>Shop All Products</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown sh-nav-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#products" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Store
-                        </a>
-                        <ul class="dropdown-menu shadow">
-                            <li><a class="dropdown-item py-2 fw-semibold" href="#products"><i class="bi bi-bag-check text-success me-2"></i>Shop All</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="#rfq-desk"><i class="bi bi-file-earmark-text text-success me-2"></i>Direct RFQ</a></li>
-                            <li><hr class="dropdown-divider border-secondary my-1"></li>
-                            <li><a class="dropdown-item py-2" href="#insights"><i class="bi bi-geo-alt text-success me-2"></i>Harvest Basins</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="#rfq-desk"><i class="bi bi-file-earmark-text text-success me-2"></i>Direct RFQ Desk</a></li>
                             <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="document.getElementById('cartTriggerBtn').click()"><i class="bi bi-cart3 text-success me-2"></i>Sample Cart</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#process">Process</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#insights">Insights</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#blog">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#faq">FAQ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About Us</a>
+                    <li class="nav-item dropdown sh-nav-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#about" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Company
+                        </a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2" href="#about"><i class="bi bi-building text-success me-2"></i>About BRX Agro</a></li>
+                            <li><a class="dropdown-item py-2" href="#insights"><i class="bi bi-geo-alt text-success me-2"></i>Agro Basins &amp; Insights</a></li>
+                            <li><a class="dropdown-item py-2" href="#blog"><i class="bi bi-newspaper text-success me-2"></i>Market Blog</a></li>
+                            <li><a class="dropdown-item py-2" href="#faq"><i class="bi bi-question-circle text-success me-2"></i>Frequently Asked Questions</a></li>
+                            <li><hr class="dropdown-divider border-secondary my-1"></li>
+                            <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="openTradeDeskInbox()"><i class="bi bi-chat-dots text-success me-2"></i>Trade Desk Inbox</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
@@ -1986,27 +1899,27 @@
                 </ul>
 
                 <!-- Navbar Actions (Theme / Cart / Search / Auth) -->
-                <div class="sh-nav-actions d-flex align-items-center gap-2 gap-xl-3 ms-lg-auto mt-3 mt-lg-0">
+                <div class="sh-nav-actions d-flex align-items-center gap-1.5 gap-sm-2 ms-lg-auto mt-3 mt-lg-0 flex-shrink-0">
                     <!-- Theme Toggle -->
-                    <button type="button" class="sh-icon-btn sh-theme-toggle" id="themeToggleBtn" aria-label="Toggle dark / light theme" title="Toggle Theme">
+                    <button type="button" class="sh-icon-btn sh-theme-toggle flex-shrink-0" id="themeToggleBtn" aria-label="Toggle dark / light theme" title="Toggle Theme">
                         <i class="bi bi-moon-stars"></i>
                     </button>
 
                     <!-- Search Trigger Modal -->
-                    <button type="button" class="sh-icon-btn" id="searchTriggerBtn" data-bs-toggle="modal" data-bs-target="#searchModal" title="Search Products">
+                    <button type="button" class="sh-icon-btn flex-shrink-0" id="searchTriggerBtn" data-bs-toggle="modal" data-bs-target="#searchModal" title="Search Products">
                         <i class="bi bi-search"></i>
                     </button>
 
                     <!-- Cart Icon with Badge -->
-                    <a href="javascript:void(0)" class="sh-cart-icon" id="cartTriggerBtn" aria-label="Cart" title="View Cart">
+                    <a href="javascript:void(0)" class="sh-cart-icon flex-shrink-0" id="cartTriggerBtn" aria-label="Cart" title="View Cart">
                         <i class="bi bi-cart3"></i>
                         <span class="sh-cart-badge" id="cartCountBadge">0</span>
                     </a>
 
                     <!-- Auth Dropdown / Buttons -->
                     @auth
-                        <div class="dropdown">
-                            <button class="btn btn-sh-primary btn-sm dropdown-toggle d-inline-flex align-items-center gap-1" data-bs-toggle="dropdown">
+                        <div class="dropdown flex-shrink-0">
+                            <button class="btn btn-sh-primary btn-sm dropdown-toggle d-inline-flex align-items-center gap-1 text-nowrap" data-bs-toggle="dropdown">
                                 <i class="bi bi-person"></i> {{ Str::limit(auth()->user()->name, 12) }}
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="background: var(--sh-surface); border: 1px solid var(--bs-border-color);">
@@ -2040,15 +1953,15 @@
                                     <form action="{{ route('logout') }}" method="POST" class="m-0">
                                         @csrf
                                         <button type="submit" class="dropdown-item py-2 text-danger">
-                                            <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                             <i class="bi bi-box-arrow-right me-2"></i>Logout
                                         </button>
                                     </form>
                                 </li>
                             </ul>
                         </div>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-sh-login btn-sm">Log in</a>
-                        <a href="{{ route('register') }}" class="btn btn-sh-primary btn-sm">Sign Up</a>
+                        <a href="{{ route('login') }}" class="btn btn-sh-login btn-sm text-nowrap flex-shrink-0">Log in</a>
+                        <a href="{{ route('register') }}" class="btn btn-sh-primary btn-sm text-nowrap flex-shrink-0">Sign Up</a>
                     @endauth
                 </div>
             </div>
