@@ -128,6 +128,57 @@ Route::post('/inquiries', function (Request $request) {
     return back()->with('status', 'Inquiry submitted successfully.');
 })->name('inquiries.store');
 
+// Cookie Governance & LGPD/GDPR Preferences
+Route::post('/cookies/consent', function (Request $request) {
+    $validated = $request->validate([
+        'essential' => 'nullable|boolean',
+        'functional' => 'nullable|boolean',
+        'analytics' => 'nullable|boolean',
+        'marketing' => 'nullable|boolean',
+    ]);
+
+    $consent = [
+        'essential' => true,
+        'functional' => (bool) ($validated['functional'] ?? true),
+        'analytics' => (bool) ($validated['analytics'] ?? false),
+        'marketing' => (bool) ($validated['marketing'] ?? false),
+        'timestamp' => now()->toIso8601String(),
+        'version' => '1.0',
+    ];
+
+    $cookie = cookie(
+        'brx_cookie_consent',
+        json_encode($consent),
+        525600,
+        '/',
+        null,
+        request()->isSecure(),
+        false,
+        false,
+        'Lax'
+    );
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Cookie consent preferences recorded successfully.',
+        'consent' => $consent,
+    ])->withCookie($cookie);
+})->name('cookies.consent');
+
+Route::get('/cookies/consent', function (Request $request) {
+    $cookieValue = $request->cookie('brx_cookie_consent') ?? $request->cookies->get('brx_cookie_consent');
+    if (is_string($cookieValue)) {
+        $consent = json_decode($cookieValue, true);
+    } else {
+        $consent = is_array($cookieValue) ? $cookieValue : null;
+    }
+
+    return response()->json([
+        'has_consented' => ! empty($consent),
+        'consent' => $consent,
+    ]);
+})->name('cookies.status');
+
 // Public Commodity Cart Checkout & Order Placement (Authenticated Buyers Only)
 Route::post('/checkout', function (Request $request) {
     if (! auth()->check()) {

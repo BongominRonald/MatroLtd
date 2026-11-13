@@ -2975,10 +2975,12 @@
                     </ul>
                 </div>
 
-                <!-- Col 5: Legal -->
+                <!-- Col 5: Legal & Privacy -->
                 <div class="sh-footer-col">
-                    <h6>Legal</h6>
+                    <h6>Legal &amp; Privacy</h6>
                     <ul class="list-unstyled small mb-0">
+                        <li class="mb-2"><a href="javascript:void(0)" onclick="BRXCookieManager.openPreferences()"><i class="bi bi-sliders me-1 text-success"></i>Cookie Settings</a></li>
+                        <li class="mb-2"><a href="javascript:void(0)" onclick="BRXCookieManager.openPolicy()"><i class="bi bi-shield-check me-1 text-success"></i>Cookie &amp; Data Policy</a></li>
                         <li class="mb-2"><a href="javascript:void(0)">Phytosanitary Terms (MAPA)</a></li>
                         <li class="mb-2"><a href="javascript:void(0)">Incoterms 2020 Guide</a></li>
                         <li class="mb-2"><a href="javascript:void(0)">SGS Lab Assay Standards</a></li>
@@ -3018,10 +3020,12 @@
                 <div>
                     &copy; {{ date('Y') }} BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA. CNPJ: 38.471.480/0001-41. All rights reserved.
                 </div>
-                <div class="d-flex gap-3">
-                    <span><i class="bi bi-shield-check text-success me-1"></i> Verified Brazilian Origin</span>
-                    <span><i class="bi bi-patch-check text-success me-1"></i> SGS Tested</span>
-                    <span><i class="bi bi-award text-success me-1"></i> MAPA Certified</span>
+                <div class="d-flex align-items-center gap-3 flex-wrap justify-content-center">
+                    <a href="javascript:void(0)" onclick="BRXCookieManager.openPolicy()" class="text-white-50 text-decoration-none"><i class="bi bi-shield-lock me-1"></i>Privacy &amp; Cookies</a>
+                    <span class="text-white-50">&bull;</span>
+                    <a href="javascript:void(0)" onclick="BRXCookieManager.openPreferences()" class="text-white-50 text-decoration-none"><i class="bi bi-sliders me-1"></i>Cookie Preferences</a>
+                    <span class="text-white-50">&bull;</span>
+                    <span><i class="bi bi-shield-check text-success me-1"></i> MAPA &amp; SGS Verified</span>
                 </div>
             </div>
         </div>
@@ -3760,6 +3764,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Institutional Cookie Consent & LGPD/GDPR Preference Center -->
+    @include('partials.cookie-consent')
 
     <!-- Local Scripts -->
     <script src="{{ asset('lib/jquery/jquery.min.js') }}"></script>
