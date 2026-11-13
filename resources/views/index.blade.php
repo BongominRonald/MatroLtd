@@ -409,6 +409,155 @@
                 transform: translateY(6px);
                 transition: opacity .2s ease, transform .2s ease;
             }
+            /* Horizontal Mega Menu for Products */
+            .sh-mega-dropdown {
+                position: relative !important;
+            }
+            .sh-products-mega-menu {
+                width: 620px !important;
+                min-width: 600px !important;
+                max-width: calc(100vw - 32px) !important;
+                border-radius: 12px !important;
+                overflow: hidden !important;
+                left: 0 !important;
+                right: auto !important;
+                padding: 0 !important;
+                margin-top: 0.5rem !important;
+                box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28) !important;
+            }
+            .sh-mega-grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 5px 10px !important;
+            }
+            .sh-mega-item {
+                display: flex !important;
+                align-items: center !important;
+                padding: 0.45rem 0.65rem !important;
+                border-radius: 8px !important;
+                font-size: 0.84rem !important;
+                font-weight: 600 !important;
+                white-space: nowrap !important;
+                transition: all 0.18s ease !important;
+            }
+            .sh-mega-footer {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 8px !important;
+            }
+        }
+        @media (max-width: 991.98px) {
+            .sh-products-mega-menu {
+                width: 100% !important;
+                min-width: 100% !important;
+                box-shadow: none !important;
+                border-radius: 10px !important;
+                overflow: hidden !important;
+                padding: 0 !important;
+                margin: 0.35rem 0 0.5rem 0 !important;
+            }
+            .sh-mega-grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 4px 8px !important;
+            }
+            .sh-mega-item {
+                display: flex !important;
+                align-items: center !important;
+                padding: 0.4rem 0.5rem !important;
+                font-size: 0.8rem !important;
+                border-radius: 6px !important;
+            }
+            .sh-mega-footer {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 4px !important;
+            }
+            .sh-mega-footer .dropdown-item {
+                width: 100% !important;
+                justify-content: flex-start !important;
+            }
+        }
+        @media (max-width: 520px) {
+            .sh-mega-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Products Mega Menu Theme Styling (WCAG AAA High Contrast) */
+        html[data-theme="light"] .sh-products-mega-menu {
+            background: #ffffff !important;
+            border: 1px solid rgba(15, 23, 42, 0.15) !important;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14) !important;
+        }
+        html[data-theme="light"] .sh-mega-header {
+            background: #f8fafc !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+            color: #0f172a !important;
+        }
+        html[data-theme="light"] .sh-mega-item {
+            color: #1e293b !important;
+            background: transparent !important;
+        }
+        html[data-theme="light"] .sh-mega-item:hover {
+            background: rgba(22, 101, 52, 0.08) !important;
+            color: #15803d !important;
+            font-weight: 700 !important;
+            transform: translateX(3px);
+        }
+        html[data-theme="light"] .sh-mega-footer {
+            background: #f8fafc !important;
+            border-top: 1px solid #e2e8f0 !important;
+        }
+        html[data-theme="light"] .sh-mega-footer a {
+            color: #334155 !important;
+        }
+        html[data-theme="light"] .sh-mega-footer a.text-success {
+            color: #166534 !important;
+        }
+        html[data-theme="light"] .sh-mega-footer a.text-primary {
+            color: #1d4ed8 !important;
+        }
+        html[data-theme="light"] .sh-mega-footer a:hover {
+            background: rgba(22, 101, 52, 0.1) !important;
+        }
+
+        html[data-theme="dark"] .sh-products-mega-menu {
+            background: #0f172a !important;
+            border: 1px solid rgba(255, 255, 255, 0.14) !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65) !important;
+        }
+        html[data-theme="dark"] .sh-mega-header {
+            background: #1e293b !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #f8fafc !important;
+        }
+        html[data-theme="dark"] .sh-mega-item {
+            color: #e2e8f0 !important;
+            background: transparent !important;
+        }
+        html[data-theme="dark"] .sh-mega-item:hover {
+            background: rgba(74, 222, 128, 0.15) !important;
+            color: #4ade80 !important;
+            font-weight: 700 !important;
+            transform: translateX(3px);
+        }
+        html[data-theme="dark"] .sh-mega-footer {
+            background: #1e293b !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        html[data-theme="dark"] .sh-mega-footer a {
+            color: #cbd5e1 !important;
+        }
+        html[data-theme="dark"] .sh-mega-footer a.text-success {
+            color: #4ade80 !important;
+        }
+        html[data-theme="dark"] .sh-mega-footer a.text-primary {
+            color: #60a5fa !important;
+        }
+        html[data-theme="dark"] .sh-mega-footer a:hover {
+            background: rgba(74, 222, 128, 0.18) !important;
         }
         @media (max-width: 991.98px) {
             .sh-navbar .navbar-collapse {
@@ -1852,27 +2001,80 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('home') }}">Home</a>
                     </li>
-                    <li class="nav-item dropdown sh-nav-dropdown">
+                    <li class="nav-item dropdown sh-nav-dropdown sh-mega-dropdown">
                         <a class="nav-link dropdown-toggle" href="#products" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Products
                         </a>
-                        <ul class="dropdown-menu shadow">
-                            <li class="dropdown-header text-uppercase">Commodity Sectors</li>
-                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Grains & Rice"><i class="bi bi-circle-fill text-success me-2 small"></i>Grains &amp; Rice</a></li>
-                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Oil & Sugar"><i class="bi bi-circle-fill text-success me-2 small"></i>Oil &amp; Sugar</a></li>
-                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Nuts & Seeds"><i class="bi bi-circle-fill text-success me-2 small"></i>Nuts &amp; Seeds</a></li>
-                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Lentils & Pulses"><i class="bi bi-circle-fill text-success me-2 small"></i>Lentils &amp; Pulses</a></li>
-                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Poultry & Meat"><i class="bi bi-circle-fill text-success me-2 small"></i>Poultry &amp; Meat</a></li>
-                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Meat & Seafood"><i class="bi bi-circle-fill text-success me-2 small"></i>Meat &amp; Seafood</a></li>
-                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Spices & Specialty"><i class="bi bi-circle-fill text-success me-2 small"></i>Spices &amp; Specialty</a></li>
-                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Dairy Products"><i class="bi bi-circle-fill text-success me-2 small"></i>Dairy Products</a></li>
-                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Fruits & Vegetables"><i class="bi bi-circle-fill text-success me-2 small"></i>Fruits &amp; Vegetables</a></li>
-                            <li><a class="dropdown-item agro-nav-cat-filter" href="#products" data-filter="Juices & Drinks"><i class="bi bi-circle-fill text-success me-2 small"></i>Juices &amp; Drinks</a></li>
-                            <li><hr class="dropdown-divider border-secondary my-1"></li>
-                            <li><a class="dropdown-item fw-bold" href="#products"><i class="bi bi-grid-fill text-success me-2"></i>Shop All Products</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="#rfq-desk"><i class="bi bi-file-earmark-text text-success me-2"></i>Direct RFQ Desk</a></li>
-                            <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="document.getElementById('cartTriggerBtn').click()"><i class="bi bi-cart3 text-success me-2"></i>Sample Cart</a></li>
-                        </ul>
+                        <div class="dropdown-menu sh-products-mega-menu shadow-lg p-0">
+                            <!-- Mega Menu Header -->
+                            <div class="px-3 py-2 border-bottom d-flex align-items-center justify-content-between sh-mega-header">
+                                <span class="fw-bold text-uppercase d-flex align-items-center gap-1.5" style="letter-spacing: 0.8px; font-size: 0.72rem;">
+                                    <i class="bi bi-boxes text-success"></i> Commodity Sectors
+                                </span>
+                                <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-50" style="font-size: 0.68rem; font-weight: 700;">
+                                    10 Export Categories
+                                </span>
+                            </div>
+
+                            <!-- Mega Menu Grid (Arranged Horizontally in 3 Columns) -->
+                            <div class="p-3">
+                                <div class="sh-mega-grid">
+                                    <a class="dropdown-item agro-nav-cat-filter sh-mega-item" href="#products" data-filter="Grains & Rice">
+                                        <i class="bi bi-circle-fill text-success me-2" style="font-size: 0.55rem;"></i>
+                                        <span>Grains &amp; Rice</span>
+                                    </a>
+                                    <a class="dropdown-item agro-nav-cat-filter sh-mega-item" href="#products" data-filter="Oil & Sugar">
+                                        <i class="bi bi-circle-fill text-success me-2" style="font-size: 0.55rem;"></i>
+                                        <span>Oil &amp; Sugar</span>
+                                    </a>
+                                    <a class="dropdown-item agro-nav-cat-filter sh-mega-item" href="#products" data-filter="Nuts & Seeds">
+                                        <i class="bi bi-circle-fill text-success me-2" style="font-size: 0.55rem;"></i>
+                                        <span>Nuts &amp; Seeds</span>
+                                    </a>
+                                    <a class="dropdown-item agro-nav-cat-filter sh-mega-item" href="#products" data-filter="Lentils & Pulses">
+                                        <i class="bi bi-circle-fill text-success me-2" style="font-size: 0.55rem;"></i>
+                                        <span>Lentils &amp; Pulses</span>
+                                    </a>
+                                    <a class="dropdown-item agro-nav-cat-filter sh-mega-item" href="#products" data-filter="Poultry & Meat">
+                                        <i class="bi bi-circle-fill text-success me-2" style="font-size: 0.55rem;"></i>
+                                        <span>Poultry &amp; Meat</span>
+                                    </a>
+                                    <a class="dropdown-item agro-nav-cat-filter sh-mega-item" href="#products" data-filter="Meat & Seafood">
+                                        <i class="bi bi-circle-fill text-success me-2" style="font-size: 0.55rem;"></i>
+                                        <span>Meat &amp; Seafood</span>
+                                    </a>
+                                    <a class="dropdown-item agro-nav-cat-filter sh-mega-item" href="#products" data-filter="Spices & Specialty">
+                                        <i class="bi bi-circle-fill text-success me-2" style="font-size: 0.55rem;"></i>
+                                        <span>Spices &amp; Specialty</span>
+                                    </a>
+                                    <a class="dropdown-item agro-nav-cat-filter sh-mega-item" href="#products" data-filter="Dairy Products">
+                                        <i class="bi bi-circle-fill text-success me-2" style="font-size: 0.55rem;"></i>
+                                        <span>Dairy Products</span>
+                                    </a>
+                                    <a class="dropdown-item agro-nav-cat-filter sh-mega-item" href="#products" data-filter="Fruits & Vegetables">
+                                        <i class="bi bi-circle-fill text-success me-2" style="font-size: 0.55rem;"></i>
+                                        <span>Fruits &amp; Vegetables</span>
+                                    </a>
+                                    <a class="dropdown-item agro-nav-cat-filter sh-mega-item" href="#products" data-filter="Juices & Drinks">
+                                        <i class="bi bi-circle-fill text-success me-2" style="font-size: 0.55rem;"></i>
+                                        <span>Juices &amp; Drinks</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Mega Menu Bottom Action Bar (Arranged Horizontally) -->
+                            <div class="px-3 py-2.5 border-top d-flex flex-wrap align-items-center justify-content-between gap-2 sh-mega-footer">
+                                <a class="dropdown-item fw-bold text-success d-inline-flex align-items-center gap-1.5 py-1 px-2.5 rounded-2 w-auto" href="#products">
+                                    <i class="bi bi-grid-fill"></i> Shop All Products
+                                </a>
+                                <a class="dropdown-item fw-semibold text-primary d-inline-flex align-items-center gap-1.5 py-1 px-2.5 rounded-2 w-auto" href="#rfq-desk">
+                                    <i class="bi bi-file-earmark-text-fill"></i> Direct RFQ Desk
+                                </a>
+                                <a class="dropdown-item fw-semibold d-inline-flex align-items-center gap-1.5 py-1 px-2.5 rounded-2 w-auto" href="javascript:void(0)" onclick="document.getElementById('cartTriggerBtn').click()">
+                                    <i class="bi bi-cart3 text-success"></i> Sample Cart
+                                </a>
+                            </div>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#services">Services</a>
