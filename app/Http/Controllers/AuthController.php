@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -172,5 +173,94 @@ class AuthController extends Controller
         }
 
         return redirect()->route('home')->with('toast_info', 'Signed out.');
+    }
+
+    /**
+     * Redirect the user to the Google authentication page.
+     */
+    public function redirectToGoogle(): RedirectResponse
+    {
+        $clientId = config('services.google.client_id');
+        $clientSecret = config('services.google.client_secret');
+
+        if (empty($clientId) || empty($clientSecret)) {
+            return redirect()->route('login')
+                ->with('toast_error', 'Google Sign-In is not configured yet. Please configure GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in the environment.');
+        }
+
+        try {
+            return Socialite::driver('google')->redirect();
+        } catch (\Throwable $e) {
+            return redirect()->route('login')
+                ->with('toast_error', 'Could not initiate Google authentication: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Obtain the user information from Google and authenticate.
+     */
+    public function handleGoogleCallback(): RedirectResponse
+    {
+        $clientId = config('services.google.client_id');
+        $clientSecret = config('services.google.client_secret');
+
+        if (empty($clientId) || empty($clientSecret)) {
+            return redirect()->route('login')
+                ->with('toast_error', 'Google Sign-In is not configured yet.');
+        }
+
+        try {
+            $googleUser = Socialite::driver('google')->user();
+        } catch (\Throwable $e) {
+            return redirect()->route('login')
+                ->with('toast_error', 'Google authentication was cancelled or failed.');
+        }
+
+        if (! $googleUser || empty($googleUser->getEmail())) {
+            return redirect()->route('login')
+                ->with('toast_error', 'Could not retrieve verified email from Google.');
+        }
+
+        $email = Str::lower($googleUser->getEmail());
+
+        // Find existing user by google_id or email
+        $user = User::where('google_id', (string) $googleUser->getId())
+            ->orWhere('email', $email)
+            ->first();
+
+        if ($user) {
+            $user->update([
+                'google_id' => $user->google_id ?: (string) $googleUser->getId(),
+                'avatar' => $googleUser->getAvatar() ?: $user->avatar,
+            ]);
+        } else {
+            // Build unique, clean username
+            $rawName = $googleUser->getName() ?: explode('@', $email)[0];
+            $cleanBase = preg_replace('/[^a-zA-Z0-9_]/', '', Str::slug($rawName, '_')) ?: 'user';
+            $cleanBase = Str::substr($cleanBase, 0, 16);
+            $username = $cleanBase;
+            $counter = 1;
+            while (User::where('name', $username)->exists()) {
+                $username = Str::substr($cleanBase, 0, 14) . $counter;
+                $counter++;
+            }
+
+            $user = User::create([
+                'name' => $username,
+                'email' => $email,
+                'google_id' => (string) $googleUser->getId(),
+                'avatar' => $googleUser->getAvatar(),
+                'password' => Hash::make(Str::random(32)),
+                'role' => 'customer',
+            ]);
+        }
+
+        Auth::login($user, true);
+        request()->session()->regenerate();
+
+        $redirectUrl = $user->isAdmin() ? route('admin.dashboard') : route('home');
+
+        return redirect()->intended($redirectUrl)
+            ->with('toast_success', 'Successfully signed in with Google as ' . $user->name . '.');
     }
 }

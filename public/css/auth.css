@@ -76,7 +76,7 @@ body {
 .container {
     position: relative;
     width: 660px;
-    height: 420px;
+    height: 480px;
     background: #ffffff;
     border: 2px solid #198754;
     box-shadow: 0 16px 40px rgba(25, 135, 84, 0.18),
@@ -512,6 +512,76 @@ body {
 .logreg-link a:hover {
     text-decoration: underline;
     color: #ca8a04;
+}
+
+/* ================= OAUTH & GOOGLE BUTTON ================= */
+.oauth-box {
+    width: 100%;
+    margin-top: 6px;
+}
+
+.form-box.Register .oauth-box {
+    margin-top: 4px;
+}
+
+.oauth-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 6px 0 6px;
+    position: relative;
+}
+
+.oauth-divider::before,
+.oauth-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(25, 135, 84, 0.22);
+}
+
+.oauth-divider span {
+    padding: 0 8px;
+    font-size: 10.5px;
+    color: #4b6354;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    height: 36px;
+    background: #ffffff;
+    color: #374151;
+    border: 1.5px solid rgba(25, 135, 84, 0.28);
+    border-radius: 36px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.form-box.Register .btn-google {
+    height: 34px;
+    font-size: 12.5px;
+}
+
+.btn-google:hover {
+    background: #f8fafc;
+    border-color: #4285F4;
+    color: #111827;
+    box-shadow: 0 4px 14px rgba(66, 133, 244, 0.25);
+    transform: translateY(-1px);
+}
+
+.btn-google svg {
+    flex-shrink: 0;
 }
 
 /* ================= PRODUCE PREVIEW CARD IN INFO TEXT ================= */

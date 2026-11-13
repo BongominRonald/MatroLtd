@@ -677,10 +677,27 @@
             border-bottom: 1px solid rgba(20, 20, 26, 0.12) !important;
             box-shadow: 0 2px 14px rgba(0, 0, 0, 0.05) !important;
         }
-        html[data-theme="light"] .sh-navbar .navbar-collapse {
-            background-color: #ffffff !important;
-            border: 1px solid rgba(15, 23, 42, 0.14) !important;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12) !important;
+        .sh-navbar .navbar-collapse,
+        .sh-navbar .navbar-nav,
+        .sh-nav-straightline {
+            border: none !important;
+        }
+        @media (min-width: 992px) {
+            .sh-navbar .navbar-collapse,
+            html[data-theme="light"] .sh-navbar .navbar-collapse,
+            html[data-theme="dark"] .sh-navbar .navbar-collapse {
+                background: transparent !important;
+                background-color: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+        @media (max-width: 991.98px) {
+            html[data-theme="light"] .sh-navbar .navbar-collapse {
+                background-color: #ffffff !important;
+                border: none !important;
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12) !important;
+            }
         }
         html[data-theme="light"] .sh-navbar .nav-link {
             color: #0f172a !important;
@@ -770,10 +787,12 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
             box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45) !important;
         }
-        html[data-theme="dark"] .sh-navbar .navbar-collapse {
-            background-color: #181824 !important;
-            border: 1px solid rgba(255, 255, 255, 0.16) !important;
-            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7) !important;
+        @media (max-width: 991.98px) {
+            html[data-theme="dark"] .sh-navbar .navbar-collapse {
+                background-color: #181824 !important;
+                border: none !important;
+                box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7) !important;
+            }
         }
         html[data-theme="dark"] .sh-navbar .nav-link {
             color: #f1f5f9 !important;
@@ -1783,6 +1802,21 @@
         html[data-theme="light"] .sh-cart-summary-box {
             background: #f8f9fa !important;
             border-color: rgba(20, 20, 26, 0.1) !important;
+        }
+
+        .sh-btn-google-modal {
+            background-color: var(--sh-surface) !important;
+            border: 1px solid var(--bs-border-color) !important;
+            color: var(--bs-emphasis-color) !important;
+            border-radius: 8px !important;
+            transition: all 0.2s ease;
+        }
+        .sh-btn-google-modal:hover {
+            background-color: var(--sh-surface-alt) !important;
+            border-color: #4285F4 !important;
+            color: var(--bs-emphasis-color) !important;
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
+            transform: translateY(-1px);
         }
 
         /* ===== Cart Toast ===== */
@@ -3284,6 +3318,20 @@
                         To request physical commodity samples, reserve export lots, and review SGS assay certificates, you must be signed in with a verified institutional account.
                     </p>
                     <div class="d-grid gap-2">
+                        <a href="{{ route('auth.google') }}" class="btn btn-outline-secondary py-2 fw-bold d-flex align-items-center justify-content-center gap-2 sh-btn-google-modal">
+                            <svg class="google-svg me-1" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+                                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                            </svg>
+                            <span>Continue with Google</span>
+                        </a>
+                        <div class="d-flex align-items-center my-1">
+                            <hr class="flex-grow-1 border-secondary border-opacity-25 m-0">
+                            <span class="px-2 text-muted small text-uppercase" style="font-size: 0.72rem;">or</span>
+                            <hr class="flex-grow-1 border-secondary border-opacity-25 m-0">
+                        </div>
                         <a href="{{ route('login') }}" class="btn btn-sh-login py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
                             <i class="bi bi-box-arrow-in-right fs-5"></i> Log In to Your Account
                         </a>
