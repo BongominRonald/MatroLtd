@@ -8,8 +8,9 @@
     <div>
         <p class="text-muted small mb-0">High-level telemetry, trade pipeline, and operations monitor for BRX Agro Global.</p>
     </div>
-    <div class="d-flex gap-2">
+    <div class="d-flex flex-wrap gap-2">
         <a href="{{ route('admin.products.create') }}" class="btn btn-matro btn-sm"><i class="bi bi-plus-lg me-1"></i>Add Product</a>
+        <a href="{{ route('admin.hero-slides.index') }}" class="btn btn-outline-success btn-sm"><i class="bi bi-images me-1"></i>Hero Slides</a>
         <a href="{{ route('admin.orders.index') }}" class="btn btn-outline-dark btn-sm"><i class="bi bi-bag me-1"></i>View Orders</a>
         <a href="{{ route('admin.inquiries.index') }}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-chat-left-text me-1"></i>Inquiries</a>
     </div>

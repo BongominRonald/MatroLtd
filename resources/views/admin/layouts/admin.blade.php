@@ -463,16 +463,26 @@
 
         /* Sidebar layout & Responsive main bounds (Strict 0px Overflow) */
         @media (min-width: 992px) {
+            .matro-sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                height: 100vh;
+            }
             .admin-main {
+                margin-left: var(--matro-sidebar);
                 width: calc(100% - var(--matro-sidebar)) !important;
                 max-width: calc(100% - var(--matro-sidebar)) !important;
                 flex: 0 0 calc(100% - var(--matro-sidebar)) !important;
+                transition: margin-left .25s ease, width .25s ease, max-width .25s ease;
             }
             body.sidebar-collapsed .matro-sidebar {
                 width: var(--matro-sidebar-mini);
                 flex-basis: var(--matro-sidebar-mini);
             }
             body.sidebar-collapsed .admin-main {
+                margin-left: var(--matro-sidebar-mini);
                 width: calc(100% - var(--matro-sidebar-mini)) !important;
                 max-width: calc(100% - var(--matro-sidebar-mini)) !important;
                 flex: 0 0 calc(100% - var(--matro-sidebar-mini)) !important;
@@ -936,26 +946,27 @@
 
                 <!-- User Menu -->
                 <div class="dropdown">
-                <button class="admin-user d-flex align-items-center gap-2" data-bs-toggle="dropdown" type="button">
-                    <div class="admin-avatar">{{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}</div>
-                    <span class="d-none d-md-block text-start">
-                        <strong class="d-block small text-dark">{{ auth()->user()->name ?? 'Admin' }}</strong>
-                        <small class="text-muted" style="font-size: 11px;">Administrator</small>
-                    </span>
-                    <i class="bi bi-chevron-down small text-muted"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 py-2">
-                    <li><span class="dropdown-item-text small text-muted">{{ auth()->user()->email ?? '' }}</span></li>
-                    <li><hr class="dropdown-divider my-1"></li>
-                    <li><a class="dropdown-item py-2" href="/"><i class="bi bi-shop me-2 text-primary"></i>View Front Store</a></li>
-                    <li><hr class="dropdown-divider my-1"></li>
-                    <li>
-                        <form action="/logout" method="POST" class="m-0 px-2">
-                            @csrf
-                            <button class="btn btn-sm btn-outline-danger w-100 rounded-pill"><i class="bi bi-box-arrow-right me-1"></i>Sign out</button>
-                        </form>
-                    </li>
-                </ul>
+                    <button class="admin-user d-flex align-items-center gap-2" data-bs-toggle="dropdown" type="button">
+                        <div class="admin-avatar">{{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}</div>
+                        <span class="d-none d-md-block text-start">
+                            <strong class="d-block small text-dark">{{ auth()->user()->name ?? 'Admin' }}</strong>
+                            <small class="text-muted" style="font-size: 11px;">Administrator</small>
+                        </span>
+                        <i class="bi bi-chevron-down small text-muted"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 py-2">
+                        <li><span class="dropdown-item-text small text-muted">{{ auth()->user()->email ?? '' }}</span></li>
+                        <li><hr class="dropdown-divider my-1"></li>
+                        <li><a class="dropdown-item py-2" href="/"><i class="bi bi-shop me-2 text-primary"></i>View Front Store</a></li>
+                        <li><hr class="dropdown-divider my-1"></li>
+                        <li>
+                            <form action="/logout" method="POST" class="m-0 px-2">
+                                @csrf
+                                <button class="btn btn-sm btn-outline-danger w-100 rounded-pill"><i class="bi bi-box-arrow-right me-1"></i>Sign out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </header>
 
