@@ -13,7 +13,7 @@
 <div class="card admin-card mb-4">
     <div class="card-header">
         <form action="{{ route('admin.users.index') }}" method="GET" class="row g-2 align-items-center">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="input-group">
                     <span class="input-group-text border-end-0"><i class="bi bi-search text-muted"></i></span>
                     <input type="search" name="search" class="form-control border-start-0" placeholder="Search customer name or email..." value="{{ request('search') }}">
@@ -26,9 +26,16 @@
                     <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>Administrators</option>
                 </select>
             </div>
-            <div class="col-md-3 text-md-end">
-                @if(request('search') || request('role'))
-                    <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">Reset Filters</a>
+            <div class="col-md-2">
+                <select name="status" class="form-select" onchange="this.form.submit()">
+                    <option value="" {{ request('status', '') === '' ? 'selected' : '' }}>Active Only</option>
+                    <option value="trashed" {{ request('status') === 'trashed' ? 'selected' : '' }}>Deactivated</option>
+                    <option value="all" {{ request('status') === 'all' ? 'selected' : '' }}>All Users</option>
+                </select>
+            </div>
+            <div class="col-md-2 text-md-end">
+                @if(request('search') || request('role') || request('status'))
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">Reset</a>
                 @endif
             </div>
         </form>
@@ -54,7 +61,12 @@
                                     {{ strtoupper(substr($user->name, 0, 1)) }}
                                 </div>
                                 <div>
-                                    <div class="fw-semibold text-dark">{{ $user->name }}</div>
+                                    <div class="fw-semibold text-dark">
+                                        {{ $user->name }}
+                                        @if($user->trashed())
+                                            <span class="badge bg-danger-subtle text-danger border ms-1">Deactivated</span>
+                                        @endif
+                                    </div>
                                     <small class="text-muted">{{ $user->email }}</small>
                                 </div>
                             </div>
@@ -82,9 +94,29 @@
                             <small class="text-muted">{{ $user->created_at->diffForHumans() }}</small>
                         </td>
                         <td class="text-end">
-                            <a href="{{ route('admin.users.show', $user) }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
-                                View History <i class="bi bi-chevron-right ms-1"></i>
-                            </a>
+                            <div class="d-inline-flex gap-1 align-items-center">
+                                <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+                                    Manage <i class="bi bi-chevron-right ms-1"></i>
+                                </a>
+                                @if($user->id !== auth()->id())
+                                    @if($user->trashed())
+                                        <form action="{{ route('admin.users.restore', $user->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-outline-success rounded-pill" title="Restore Account">
+                                                <i class="bi bi-arrow-counterclockwise"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Deactivate (soft-delete) this user account?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill" title="Deactivate Account">
+                                                <i class="bi bi-person-slash"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endif
+                            </div>
                         </td>
                     </tr>
                 @empty

@@ -62,27 +62,20 @@
   "env": {
     "APP_NAME": "BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA",
     "APP_ENV": "production",
-    "APP_KEY": "base64:F0j88T37EJFWQGVvN0fzg+W6ovIdYYXYhiuSUnGIUFU=",
     "APP_DEBUG": "false",
-    "APP_URL": "https://brx-agro-global-importacao-e-exportacao-ltda.vercel.app",
+    "APP_URL": "https://brx-agro-global-importacao-e-export.vercel.app",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
     "APP_PACKAGES_CACHE": "/tmp/packages.php",
     "APP_ROUTES_CACHE": "/tmp/routes.php",
     "APP_SERVICES_CACHE": "/tmp/services.php",
     "VIEW_COMPILED_PATH": "/tmp/views",
-    "CACHE_STORE": "array",
+    "CACHE_STORE": "database",
     "SESSION_DRIVER": "cookie",
     "SESSION_LIFETIME": "120",
-    "SESSION_ENCRYPT": "false",
+    "SESSION_ENCRYPT": "true",
     "LOG_CHANNEL": "stderr",
     "LOG_LEVEL": "error",
-    "DB_CONNECTION": "pgsql",
-    "DB_HOST": "ep-rough-salad-b6i230et.c-2.sa-east-1.aws.neon.tech",
-    "DB_PORT": "5432",
-    "DB_DATABASE": "neondb",
-    "DB_USERNAME": "neondb_owner",
-    "DB_PASSWORD": "npg_zSwR7Cmeuj5X",
-    "DB_SSLMODE": "require"
+    "DB_CONNECTION": "pgsql"
   }
 }

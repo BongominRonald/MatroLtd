@@ -13,7 +13,13 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $query = User::withCount('orders');
+        $status = $request->string('status')->toString();
+
+        $query = match ($status) {
+            'trashed' => User::onlyTrashed()->withCount('orders'),
+            'all' => User::withTrashed()->withCount('orders'),
+            default => User::withCount('orders'),
+        };
 
         if ($request->filled('search')) {
             $s = $request->string('search');
@@ -32,11 +38,50 @@ class UserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
-    public function show(User $user)
+    public function show(int $id)
     {
-        $user->load(['orders.items']);
+        $user = User::withTrashed()->with(['orders.items'])->findOrFail($id);
 
         return view('admin.users.show', compact('user'));
+    }
+
+    public function updateRole(Request $request, int $id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+
+        if ($user->id === auth()->id()) {
+            return back()->with('status', 'You cannot change your own administrator role.');
+        }
+
+        $validated = $request->validate([
+            'role' => ['required', 'in:admin,customer'],
+        ]);
+
+        $user->role = $validated['role'];
+        $user->save();
+
+        return back()->with('status', "Updated role for {$user->name} to '{$user->role}'.");
+    }
+
+    public function destroy(int $id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->id === auth()->id()) {
+            return back()->with('status', 'You cannot deactivate your own administrator account.');
+        }
+
+        $user->delete();
+
+        return back()->with('status', "User '{$user->name}' has been deactivated (soft-deleted).");
+    }
+
+    public function restore(int $id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+
+        return back()->with('status', "User '{$user->name}' has been restored.");
     }
 
     public function profile()

@@ -290,6 +290,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     // Users & Customers Directory
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::post('users/{user}/role', [UserController::class, 'updateRole'])->name('users.update-role');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
 
     // Admin Profile & Password Settings
     Route::get('profile', [UserController::class, 'profile'])->name('profile');

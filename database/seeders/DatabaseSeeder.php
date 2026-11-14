@@ -24,9 +24,12 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => env('ADMIN_NAME', 'Matro Admin'),
                 'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
-                'role' => 'admin',
             ]
         );
+        if ($admin->role !== 'admin') {
+            $admin->role = 'admin';
+            $admin->save();
+        }
 
         // 2. Create Sample Customer (without overwriting existing password on re-seed)
         $customer = User::firstOrCreate(
@@ -34,7 +37,6 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Carlos Silva',
                 'password' => Hash::make('password'),
-                'role' => 'customer',
             ]
         );
 

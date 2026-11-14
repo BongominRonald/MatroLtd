@@ -57,7 +57,43 @@
                     <span class="text-muted">Last Updated</span>
                     <span class="fw-semibold text-dark">{{ $user->updated_at->diffForHumans() }}</span>
                 </li>
+                <li class="list-group-item d-flex justify-content-between px-4 py-3">
+                    <span class="text-muted">Status</span>
+                    @if($user->trashed())
+                        <span class="badge bg-danger-subtle text-danger border">Deactivated ({{ $user->deleted_at->format('M d, Y') }})</span>
+                    @else
+                        <span class="badge bg-success-subtle text-success border">Active</span>
+                    @endif
+                </li>
             </ul>
+            @if($user->id !== auth()->id())
+                <div class="card-footer p-3 d-flex flex-column gap-2">
+                    <form action="{{ route('admin.users.update-role', $user->id) }}" method="POST" class="d-flex gap-2">
+                        @csrf
+                        <select name="role" class="form-select form-select-sm">
+                            <option value="customer" {{ $user->role === 'customer' ? 'selected' : '' }}>Customer Role</option>
+                            <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Administrator Role</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-matro text-nowrap">Update Role</button>
+                    </form>
+                    @if($user->trashed())
+                        <form action="{{ route('admin.users.restore', $user->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-outline-success w-100 rounded-pill">
+                                <i class="bi bi-arrow-counterclockwise me-1"></i>Restore User Account
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Deactivate (soft-delete) this user account?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-outline-danger w-100 rounded-pill">
+                                <i class="bi bi-person-slash me-1"></i>Deactivate Account (Soft Delete)
+                            </button>
+                        </form>
+                    @endif
+                </div>
+            @endif
         </div>
     </div>
 

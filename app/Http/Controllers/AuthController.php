@@ -61,7 +61,6 @@ class AuthController extends Controller
             'name' => $validated['username'],
             'email' => Str::lower($validated['email']),
             'password' => $validated['password'],
-            'role' => 'customer',
         ]);
 
         if ($request->expectsJson()) {
@@ -111,7 +110,7 @@ class AuthController extends Controller
             ->first();
 
         if (! $user || ! Hash::check($validated['password'], $user->password)) {
-            RateLimiter::hit($throttleKey, 30);
+            RateLimiter::hit($throttleKey, 300);
 
             if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
                 $seconds = RateLimiter::availableIn($throttleKey);
@@ -223,10 +222,18 @@ class AuthController extends Controller
 
         $email = Str::lower($googleUser->getEmail());
 
-        // Find existing user by google_id or email
-        $user = User::where('google_id', (string) $googleUser->getId())
-            ->orWhere('email', $email)
+        // Find existing user by google_id or email (including soft-deleted accounts)
+        $user = User::withTrashed()
+            ->where(function ($query) use ($googleUser, $email) {
+                $query->where('google_id', (string) $googleUser->getId())
+                    ->orWhere('email', $email);
+            })
             ->first();
+
+        if ($user && $user->trashed()) {
+            return redirect()->route('login')
+                ->with('toast_error', 'Your account has been deactivated. Please contact support.');
+        }
 
         if ($user) {
             $user->update([
@@ -240,7 +247,7 @@ class AuthController extends Controller
             $cleanBase = Str::substr($cleanBase, 0, 16);
             $username = $cleanBase;
             $counter = 1;
-            while (User::where('name', $username)->exists()) {
+            while (User::withTrashed()->where('name', $username)->exists()) {
                 $username = Str::substr($cleanBase, 0, 14) . $counter;
                 $counter++;
             }
@@ -251,7 +258,6 @@ class AuthController extends Controller
                 'google_id' => (string) $googleUser->getId(),
                 'avatar' => $googleUser->getAvatar(),
                 'password' => Hash::make(Str::random(32)),
-                'role' => 'customer',
             ]);
         }
 
