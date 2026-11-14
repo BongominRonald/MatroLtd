@@ -133,7 +133,7 @@ Route::post('/inquiries', function (Request $request) {
     }
 
     return back()->with('status', 'Inquiry submitted successfully.');
-})->name('inquiries.store');
+})->middleware('throttle:10,1')->name('inquiries.store');
 
 // Cookie Governance & LGPD/GDPR Preferences
 Route::post('/cookies/consent', function (Request $request) {
@@ -290,4 +290,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     // Users & Customers Directory
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
+
+    // Admin Profile & Password Settings
+    Route::get('profile', [UserController::class, 'profile'])->name('profile');
+    Route::put('profile', [UserController::class, 'updateProfile'])->name('profile.update');
 });

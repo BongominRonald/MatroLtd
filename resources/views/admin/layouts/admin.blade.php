@@ -957,6 +957,7 @@
                     <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 py-2">
                         <li><span class="dropdown-item-text small text-muted">{{ auth()->user()->email ?? '' }}</span></li>
                         <li><hr class="dropdown-divider my-1"></li>
+                        <li><a class="dropdown-item py-2" href="{{ route('admin.profile') }}"><i class="bi bi-person-gear me-2 text-success"></i>Profile &amp; Password</a></li>
                         <li><a class="dropdown-item py-2" href="/"><i class="bi bi-shop me-2 text-primary"></i>View Front Store</a></li>
                         <li><hr class="dropdown-divider my-1"></li>
                         <li>

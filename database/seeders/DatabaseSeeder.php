@@ -18,18 +18,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Create or Update Admin User
-        $admin = User::updateOrCreate(
-            ['email' => 'admin@matro.com'],
+        // 1. Create Admin User (without overwriting existing password on re-seed)
+        $admin = User::firstOrCreate(
+            ['email' => env('ADMIN_EMAIL', 'admin@matro.com')],
             [
-                'name' => 'Matro Admin',
-                'password' => Hash::make('password'),
+                'name' => env('ADMIN_NAME', 'Matro Admin'),
+                'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
                 'role' => 'admin',
             ]
         );
 
-        // 2. Create Sample Customer
-        $customer = User::updateOrCreate(
+        // 2. Create Sample Customer (without overwriting existing password on re-seed)
+        $customer = User::firstOrCreate(
             ['email' => 'buyer@globalagro.com'],
             [
                 'name' => 'Carlos Silva',
