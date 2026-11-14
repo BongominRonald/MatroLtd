@@ -127,7 +127,7 @@
             min-height: 0;
             overflow-y: auto;
             overflow-x: hidden;
-            padding: .65rem .85rem 1.2rem;
+            padding: .5rem .85rem .75rem;
             display: flex;
             flex-direction: column;
             scrollbar-width: thin;
@@ -138,7 +138,7 @@
         .matro-nav::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .2); border-radius: 99px; }
 
         .matro-nav-group {
-            margin-top: 1.2rem;
+            margin-top: .85rem;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -167,20 +167,28 @@
         }
 
         .matro-sidebar .nav-link {
-            height: 44px;
-            min-height: 44px;
-            padding: .5rem .85rem;
-            margin: .12rem 0;
+            height: 40px;
+            min-height: 40px;
+            padding: .45rem .85rem;
+            margin: .1rem 0;
             border-radius: 8px;
             color: rgba(255, 255, 255, .72);
             font-weight: 600;
-            font-size: .9rem;
+            font-size: .88rem;
             display: flex;
             align-items: center;
             gap: .85rem;
+            min-width: 0;
+            max-width: 100%;
             white-space: nowrap;
             text-decoration: none;
             transition: all .18s ease;
+        }
+
+        .matro-sidebar .nav-link span {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .matro-sidebar .nav-link i {
