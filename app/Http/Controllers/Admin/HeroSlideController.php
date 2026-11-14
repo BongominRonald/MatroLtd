@@ -130,7 +130,9 @@ class HeroSlideController extends Controller
             'secondary_cta_text' => $validated['secondary_cta_text'] ?? null,
             'secondary_cta_url' => $validated['secondary_cta_url'] ?? null,
             'image' => ! empty($validated['image']) ? $validated['image'] : ($existingSlide?->image ?? 'img/banner-shipping.jpg'),
-            'image_webp' => $validated['image_webp'] ?: null,
+            'image_webp' => array_key_exists('image_webp', $validated)
+                ? ($validated['image_webp'] ?: null)
+                : ($existingSlide?->image_webp ?? null),
             'sort_order' => (int) ($validated['sort_order'] ?? ($existingSlide?->sort_order ?? 0)),
             'is_active' => $request->has('is_active') ? $request->boolean('is_active') : ($existingSlide?->is_active ?? true),
             'stats' => $stats,
