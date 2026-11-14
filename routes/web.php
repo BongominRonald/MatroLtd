@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HeroSlideController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
@@ -12,6 +13,7 @@ use App\Mail\AdminOrderAlertMail;
 use App\Mail\InquiryConfirmationMail;
 use App\Mail\OrderConfirmationMail;
 use App\Models\Category;
+use App\Models\HeroSlide;
 use App\Models\Inquiry;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -21,6 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 /*
@@ -43,7 +46,11 @@ Route::get('/', function () {
         ? Order::where('user_id', auth()->id())->with('items')->latest('id')->take(6)->get()
         : collect();
 
-    return view('index', compact('categories', 'products', 'totalStock', 'productsCount', 'userInquiries', 'userOrders'));
+    $heroSlides = Schema::hasTable('hero_slides')
+        ? HeroSlide::where('is_active', true)->orderBy('sort_order')->orderBy('id')->get()
+        : collect();
+
+    return view('index', compact('categories', 'products', 'totalStock', 'productsCount', 'userInquiries', 'userOrders', 'heroSlides'));
 })->name('home');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -264,6 +271,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
 
     // Categories Management
     Route::resource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
+
+    // Hero Carousel Slides Management
+    Route::resource('hero-slides', HeroSlideController::class)->except(['show']);
+    Route::post('hero-slides/{hero_slide}/toggle-active', [HeroSlideController::class, 'toggleActive'])->name('hero-slides.toggle-active');
 
     // Order Fulfillment & Tracking
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');

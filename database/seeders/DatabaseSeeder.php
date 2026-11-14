@@ -627,5 +627,7 @@ class DatabaseSeeder extends Seeder
                 'is_read' => false,
             ]
         );
+
+        $this->call(HeroSlideSeeder::class);
     }
 }

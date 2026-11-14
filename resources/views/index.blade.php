@@ -2265,12 +2265,68 @@
         <!-- 2. HERO CAROUSEL (Exact fume-main layout) -->
         <section class="sh-hero">
             <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
+                @if(isset($heroSlides) && $heroSlides->isNotEmpty())
+                    <div class="carousel-indicators">
+                        @foreach($heroSlides as $index => $slide)
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}" aria-label="Slide {{ $index + 1 }}"></button>
+                        @endforeach
+                    </div>
+                    <div class="carousel-inner">
+                        @foreach($heroSlides as $index => $slide)
+                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                <div class="sh-hero-slide">
+                                    <picture>
+                                        @if($slide->resolvedWebpUrl())
+                                            <source srcset="{{ $slide->resolvedWebpUrl() }}" type="image/webp">
+                                        @endif
+                                        <img src="{{ $slide->resolvedImageUrl() }}" alt="{{ $slide->title }}" class="sh-hero-bg" @if($index > 0) loading="lazy" decoding="async" @endif>
+                                    </picture>
+                                    <div class="sh-hero-scrim"></div>
+                                    <div class="container sh-hero-content">
+                                        @if($slide->eyebrow)
+                                            <div class="eyebrow mb-3">{{ $slide->eyebrow }}</div>
+                                        @endif
+                                        <h1 class="mb-4">
+                                            {{ $slide->title }}
+                                            @if($slide->title_highlight)
+                                                <span style="color: var(--sh-primary);">{{ $slide->title_highlight }}</span>
+                                            @endif
+                                        </h1>
+                                        @if($slide->description)
+                                            <p class="lead mb-4">{{ $slide->description }}</p>
+                                        @endif
+                                        @if($slide->primary_cta_text || $slide->secondary_cta_text)
+                                            <div class="d-flex gap-3 flex-wrap">
+                                                @if($slide->primary_cta_text)
+                                                    <a href="{{ $slide->primary_cta_url ?: '#products' }}" class="btn btn-sh-primary btn-lg">{{ $slide->primary_cta_text }}</a>
+                                                @endif
+                                                @if($slide->secondary_cta_text)
+                                                    <a href="{{ $slide->secondary_cta_url ?: '#rfq-desk' }}" class="btn btn-sh-outline-white btn-lg">{{ $slide->secondary_cta_text }}</a>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if(!empty($slide->stats))
+                                            <div class="d-flex gap-4 mt-5 flex-wrap sh-hero-stats">
+                                                @foreach($slide->stats as $stat)
+                                                    <div>
+                                                        <div class="fs-4 fw-bold text-white">{{ str_replace('{total_stock}', number_format($totalStock ?? 18500), $stat['value'] ?? '') }}</div>
+                                                        <small class="text-white-50">{{ $stat['label'] ?? '' }}</small>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
                     <!-- Slide 1: Farm Origination & Port Export -->
                     <div class="carousel-item active">
                         <div class="sh-hero-slide">
@@ -2385,6 +2441,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 <button class="carousel-control-prev d-none d-md-flex" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev" aria-label="Previous">
                     <span class="carousel-control-prev-icon"></span>
                 </button>

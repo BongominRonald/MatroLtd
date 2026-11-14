@@ -47,6 +47,17 @@ return [
         ],
     ],
     [
+        'label' => 'Storefront',
+        'items' => [
+            [
+                'label' => 'Hero Slides',
+                'icon' => 'bi-images',
+                'route' => 'admin.hero-slides.index',
+                'pattern' => 'admin.hero-slides.*',
+            ],
+        ],
+    ],
+    [
         'label' => 'Trade Desk',
         'items' => [
             [
