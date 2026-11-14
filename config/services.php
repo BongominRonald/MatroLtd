@@ -39,7 +39,7 @@ return [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_URI', env('APP_URL', 'http://localhost') . '/auth/google/callback'),
-        'site_verification' => env('GOOGLE_SITE_VERIFICATION'),
+        'site_verification' => env('GOOGLE_SITE_VERIFICATION', 'XGuWzobvu29ryV6sWLpTYExrvu5iTbohMSbKazFlqpo'),
     ],
 
     'company' => [
