@@ -76,6 +76,7 @@
     "SESSION_ENCRYPT": "true",
     "LOG_CHANNEL": "stderr",
     "LOG_LEVEL": "error",
-    "DB_CONNECTION": "pgsql"
+    "DB_CONNECTION": "pgsql",
+    "GOOGLE_SITE_VERIFICATION": "3cxhqQ5SqG9YYE-tJcZo9FSWTRymvtjtsf038n0zXQk"
   }
 }
