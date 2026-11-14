@@ -12,7 +12,9 @@
     <meta name="author" content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     @if(!empty(config('services.google.site_verification')))
-        <meta name="google-site-verification" content="{{ config('services.google.site_verification') }}">
+        @foreach(array_filter(array_map('trim', explode(',', (string) config('services.google.site_verification')))) as $googleVerificationToken)
+            <meta name="google-site-verification" content="{{ $googleVerificationToken }}">
+        @endforeach
     @endif
     <meta name="geo.region" content="BR-SP">
     <meta name="geo.placename" content="São Paulo, Brazil">
