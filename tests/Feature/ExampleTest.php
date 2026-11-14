@@ -150,4 +150,47 @@ class ExampleTest extends TestCase
         $sitemap->assertSee(route('login'), false);
         $sitemap->assertSee(route('register'), false);
     }
+
+    public function test_admin_can_edit_hero_section_text_and_content(): void
+    {
+        $admin = User::factory()->create([
+            'name' => 'hero_admin',
+            'email' => 'hero-admin@matro.com',
+            'role' => 'admin',
+        ]);
+
+        // Visiting /admin/hero-slides auto-seeds default slides if empty
+        $indexResponse = $this->actingAs($admin)->get(route('admin.hero-slides.index'));
+        $indexResponse->assertOk();
+
+        $slide = \App\Models\HeroSlide::first();
+        $this->assertNotNull($slide);
+
+        $updateResponse = $this->actingAs($admin)->put(route('admin.hero-slides.update', $slide), [
+            'eyebrow' => 'Custom Admin Eyebrow Text',
+            'title' => 'Custom Admin Hero Headline',
+            'title_highlight' => 'Highlighted Phrase',
+            'description' => 'Custom admin lead paragraph description for the hero banner.',
+            'primary_cta_text' => 'Custom Primary Button',
+            'primary_cta_url' => '#products',
+            'secondary_cta_text' => 'Custom Secondary Button',
+            'secondary_cta_url' => '#rfq-desk',
+            'image' => 'img/banner-shipping.jpg',
+            'sort_order' => 1,
+            'is_active' => '1',
+            'stat_values' => ['25,000+ MT', '100% SGS'],
+            'stat_labels' => ['Export Volume', 'Lab Verified'],
+        ]);
+
+        $updateResponse->assertRedirect(route('admin.hero-slides.index'));
+
+        $homeResponse = $this->get('/');
+        $homeResponse->assertOk();
+        $homeResponse->assertSee('Custom Admin Eyebrow Text');
+        $homeResponse->assertSee('Custom Admin Hero Headline');
+        $homeResponse->assertSee('Highlighted Phrase');
+        $homeResponse->assertSee('Custom admin lead paragraph description for the hero banner.');
+        $homeResponse->assertSee('Custom Primary Button');
+        $homeResponse->assertSee('25,000+ MT');
+    }
 }

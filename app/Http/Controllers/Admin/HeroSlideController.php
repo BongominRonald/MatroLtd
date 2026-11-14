@@ -10,6 +10,10 @@ class HeroSlideController extends Controller
 {
     public function index()
     {
+        if (HeroSlide::count() === 0) {
+            (new \Database\Seeders\HeroSlideSeeder())->run();
+        }
+
         $slides = HeroSlide::orderBy('sort_order')->orderBy('id')->get();
 
         return view('admin.hero-slides.index', compact('slides'));
@@ -47,7 +51,7 @@ class HeroSlideController extends Controller
 
     public function update(Request $request, HeroSlide $heroSlide)
     {
-        $data = $this->validateSlide($request);
+        $data = $this->validateSlide($request, $heroSlide);
 
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('hero-slides', 'public');
@@ -58,7 +62,7 @@ class HeroSlideController extends Controller
         $heroSlide->update($data);
 
         return redirect()->route('admin.hero-slides.index')
-            ->with('status', 'Hero slide updated successfully.');
+            ->with('status', 'Hero section slide text and content updated successfully.');
     }
 
     public function destroy(HeroSlide $heroSlide)
@@ -80,7 +84,7 @@ class HeroSlideController extends Controller
         return back()->with('status', "Hero slide \"{$heroSlide->title}\" {$state}.");
     }
 
-    private function validateSlide(Request $request): array
+    private function validateSlide(Request $request, ?HeroSlide $existingSlide = null): array
     {
         $validated = $request->validate([
             'eyebrow' => 'nullable|string|max:120',
@@ -91,7 +95,7 @@ class HeroSlideController extends Controller
             'primary_cta_url' => 'nullable|string|max:255',
             'secondary_cta_text' => 'nullable|string|max:80',
             'secondary_cta_url' => 'nullable|string|max:255',
-            'image' => 'required|string|max:500',
+            'image' => 'nullable|string|max:500',
             'image_webp' => 'nullable|string|max:500',
             'image_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'sort_order' => 'nullable|integer|min:0|max:999',
@@ -125,10 +129,10 @@ class HeroSlideController extends Controller
             'primary_cta_url' => $validated['primary_cta_url'] ?? null,
             'secondary_cta_text' => $validated['secondary_cta_text'] ?? null,
             'secondary_cta_url' => $validated['secondary_cta_url'] ?? null,
-            'image' => $validated['image'],
+            'image' => ! empty($validated['image']) ? $validated['image'] : ($existingSlide?->image ?? 'img/banner-shipping.jpg'),
             'image_webp' => $validated['image_webp'] ?: null,
-            'sort_order' => (int) ($validated['sort_order'] ?? 0),
-            'is_active' => $request->boolean('is_active'),
+            'sort_order' => (int) ($validated['sort_order'] ?? ($existingSlide?->sort_order ?? 0)),
+            'is_active' => $request->has('is_active') ? $request->boolean('is_active') : ($existingSlide?->is_active ?? true),
             'stats' => $stats,
         ];
     }

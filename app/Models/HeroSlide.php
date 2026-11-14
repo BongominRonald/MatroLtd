@@ -36,7 +36,7 @@ class HeroSlide extends Model
     {
         $path = $this->image ?: 'img/banner-shipping.jpg';
 
-        return Str::startsWith($path, ['http://', 'https://', '//'])
+        return Str::startsWith($path, ['http://', 'https://', '//', 'data:image/'])
             ? $path
             : asset($path);
     }

@@ -1330,13 +1330,15 @@
             background: var(--sh-primary);
             display: inline-block;
         }
-        .sh-hero h1 {
+        .sh-hero h1,
+        .sh-hero h2.h1 {
             color: #fff;
             font-size: clamp(2.2rem, 4.5vw + .5rem, 3.8rem);
             line-height: 1.15;
             text-shadow: 0 2px 24px rgba(0, 0, 0, 0.6);
         }
-        .sh-hero h1 span {
+        .sh-hero h1 span,
+        .sh-hero h2.h1 span {
             color: var(--sh-primary);
         }
         .sh-hero p.lead {
@@ -2373,6 +2375,11 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a class="dropdown-item py-2" href="{{ route('admin.hero-slides.index') }}">
+                                            <i class="bi bi-images me-2"></i>Edit Hero Section
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a class="dropdown-item py-2" href="{{ route('admin.products.index') }}">
                                             <i class="bi bi-box-seam me-2"></i>Manage Products
                                         </a>
@@ -2421,19 +2428,37 @@
                                         @if($slide->resolvedWebpUrl())
                                             <source srcset="{{ $slide->resolvedWebpUrl() }}" type="image/webp">
                                         @endif
-                                        <img src="{{ $slide->resolvedImageUrl() }}" alt="{{ $slide->title }}" class="sh-hero-bg" @if($index > 0) loading="lazy" decoding="async" @endif>
+                                        <img src="{{ $slide->resolvedImageUrl() }}" alt="{{ $slide->title }}" class="sh-hero-bg" @if($index === 0) fetchpriority="high" decoding="sync" @else loading="lazy" decoding="async" @endif>
                                     </picture>
                                     <div class="sh-hero-scrim"></div>
                                     <div class="container sh-hero-content">
+                                        @auth
+                                            @if(auth()->user()->isAdmin())
+                                                <div class="mb-3">
+                                                    <a href="{{ route('admin.hero-slides.index') }}" class="btn btn-sm btn-warning fw-bold rounded-pill shadow-sm px-3 py-1">
+                                                        <i class="bi bi-pencil-square me-1"></i>Edit Hero Text &amp; Slides
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        @endauth
                                         @if($slide->eyebrow)
                                             <div class="eyebrow mb-3">{{ $slide->eyebrow }}</div>
                                         @endif
-                                        <h1 class="mb-4">
-                                            {{ $slide->title }}
-                                            @if($slide->title_highlight)
-                                                <span style="color: var(--sh-primary);">{{ $slide->title_highlight }}</span>
-                                            @endif
-                                        </h1>
+                                        @if($index === 0)
+                                            <h1 class="mb-4">
+                                                {{ $slide->title }}
+                                                @if($slide->title_highlight)
+                                                    <span style="color: var(--sh-primary);">{{ $slide->title_highlight }}</span>
+                                                @endif
+                                            </h1>
+                                        @else
+                                            <h2 class="h1 mb-4">
+                                                {{ $slide->title }}
+                                                @if($slide->title_highlight)
+                                                    <span style="color: var(--sh-primary);">{{ $slide->title_highlight }}</span>
+                                                @endif
+                                            </h2>
+                                        @endif
                                         @if($slide->description)
                                             <p class="lead mb-4">{{ $slide->description }}</p>
                                         @endif
@@ -3948,20 +3973,19 @@
                     @if(auth()->user()->isAdmin())
                         <div class="mb-3">
                             <div class="small fw-bold text-uppercase text-muted mb-2" style="letter-spacing: 0.5px;">Administration Desk</div>
-                            <a href="{{ route('admin.dashboard') }}" class="btn btn-warning w-100 py-2.5 mb-2 fw-bold d-flex align-items-center justify-content-center gap-2">
-                                <i class="bi bi-speedometer2 fs-5"></i> Open Admin Dashboard
-                            </a>
-                            <div class="row g-2">
-                                <div class="col-6">
-                                    <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary w-100 py-2 small d-flex align-items-center justify-content-center gap-1">
-                                        <i class="bi bi-box-seam"></i> Products
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="{{ route('admin.inquiries.index') }}" class="btn btn-outline-secondary w-100 py-2 small d-flex align-items-center justify-content-center gap-1">
-                                        <i class="bi bi-envelope"></i> Inquiries
-                                    </a>
-                                </div>
+                            <div class="d-grid gap-2">
+                                <a href="{{ route('admin.dashboard') }}" class="btn btn-warning w-100 py-2.5 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-speedometer2 fs-5"></i> Open Admin Dashboard
+                                </a>
+                                <a href="{{ route('admin.hero-slides.index') }}" class="btn btn-outline-success w-100 py-2 small fw-semibold d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-images"></i> Edit Hero Section &amp; Text
+                                </a>
+                                <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary w-100 py-2 small d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-box-seam"></i> Manage Products
+                                </a>
+                                <a href="{{ route('admin.inquiries.index') }}" class="btn btn-outline-secondary w-100 py-2 small d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-envelope"></i> Trade Inquiries
+                                </a>
                             </div>
                         </div>
                         <hr class="border-secondary border-opacity-25 my-3">
