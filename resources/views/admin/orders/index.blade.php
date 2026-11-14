@@ -54,8 +54,8 @@
                     <th>Order #</th>
                     <th>Buyer / Company</th>
                     <th>Date Placed</th>
-                    <th>Total Value</th>
-                    <th>Payment Method</th>
+                    <th>Terms / Value</th>
+                    <th>Incoterms / Channel</th>
                     <th>Status</th>
                     <th class="text-end">Action</th>
                 </tr>
@@ -78,10 +78,15 @@
                             <small class="text-muted">{{ $order->created_at->format('h:i A') }}</small>
                         </td>
                         <td>
-                            <span class="fw-bold text-success fs-6">${{ number_format($order->total_amount, 2) }}</span>
+                            @if($order->total_amount > 0)
+                                <span class="fw-bold text-success fs-6">${{ number_format($order->total_amount, 2) }}</span>
+                            @else
+                                <span class="badge bg-light text-dark border">Direct RFQ</span>
+                                <small class="text-muted d-block">{{ $order->items->sum('quantity') }} lot(s)</small>
+                            @endif
                         </td>
                         <td>
-                            <span class="badge bg-light text-secondary border">{{ $order->payment_method ?? 'Escrow' }}</span>
+                            <span class="badge bg-light text-secondary border">{{ $order->payment_method ?? 'CIF / FOB' }}</span>
                         </td>
                         <td>
                             @php

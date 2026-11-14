@@ -2533,10 +2533,10 @@
                                         <div class="sh-card-name">{{ $product->name }}</div>
                                     </a>
                                     <div class="sh-card-price">
-                                        <span class="price-now text-success fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.88rem;">
-                                            <i class="bi bi-geo-alt-fill"></i> Price by Destination
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
                                         </span>
-                                        <small class="text-muted d-block" style="font-size: 0.72rem;">FOB Santos / CIF Port of Discharge</small>
+                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
                                     </div>
                                     <div class="sh-card-rating">
                                         <span class="stars">
@@ -2549,7 +2549,7 @@
                                         <span class="count text-muted">({{ number_format($product->stock) }} {{ $product->unit == 'Metric Ton' ? 'MT' : 'units' }})</span>
                                     </div>
                                     <div class="d-flex gap-2 mt-auto pt-2">
-                                        <button type="button" class="sh-card-cart-btn btn-add-cart" data-name="{{ $product->name }}" data-price="{{ $product->price }}" data-unit="{{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}">
+                                        <button type="button" class="sh-card-cart-btn btn-add-cart" data-name="{{ $product->name }}" data-price="0" data-unit="{{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}">
                                             @auth
                                                 <i class="bi bi-bag"></i> Add to Cart
                                             @else
@@ -2572,10 +2572,10 @@
                                     <div class="sh-card-brand">Mato Grosso · Grains &amp; Rice</div>
                                     <div class="sh-card-name">Brazilian Non-GMO Soybeans</div>
                                     <div class="sh-card-price">
-                                        <span class="price-now text-success fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.88rem;">
-                                            <i class="bi bi-geo-alt-fill"></i> Price by Destination
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
                                         </span>
-                                        <small class="text-muted d-block" style="font-size: 0.72rem;">FOB Santos / CIF Port of Discharge</small>
+                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
                                     </div>
                                     <button class="sh-card-cart-btn btn-add-cart" data-name="Brazilian Non-GMO Soybeans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-1.jpg') }}" data-origin="Mato Grosso">
                                         @auth
@@ -2597,10 +2597,10 @@
                                     <div class="sh-card-brand">São Paulo · Oil &amp; Sugar</div>
                                     <div class="sh-card-name">Refined Cane Sugar (ICUMSA 45)</div>
                                     <div class="sh-card-price">
-                                        <span class="price-now text-success fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.88rem;">
-                                            <i class="bi bi-geo-alt-fill"></i> Price by Destination
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
                                         </span>
-                                        <small class="text-muted d-block" style="font-size: 0.72rem;">FOB Santos / CIF Port of Discharge</small>
+                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
                                     </div>
                                     <button class="sh-card-cart-btn btn-add-cart" data-name="Refined Cane Sugar (ICUMSA 45)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-2.jpg') }}" data-origin="São Paulo">
                                         @auth
@@ -2622,10 +2622,10 @@
                                     <div class="sh-card-brand">Goiás · Grains &amp; Rice</div>
                                     <div class="sh-card-name">Yellow Corn (Maize Grade 2)</div>
                                     <div class="sh-card-price">
-                                        <span class="price-now text-success fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.88rem;">
-                                            <i class="bi bi-geo-alt-fill"></i> Price by Destination
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
                                         </span>
-                                        <small class="text-muted d-block" style="font-size: 0.72rem;">FOB Santos / CIF Port of Discharge</small>
+                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
                                     </div>
                                     <button class="sh-card-cart-btn btn-add-cart" data-name="Yellow Corn (Maize Grade 2)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-3.jpg') }}" data-origin="Goiás">
                                         @auth
@@ -2647,10 +2647,10 @@
                                     <div class="sh-card-brand">Minas Gerais · Specialty</div>
                                     <div class="sh-card-name">Arabica Green Coffee Beans</div>
                                     <div class="sh-card-price">
-                                        <span class="price-now text-success fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.88rem;">
-                                            <i class="bi bi-geo-alt-fill"></i> Price by Destination
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
                                         </span>
-                                        <small class="text-muted d-block" style="font-size: 0.72rem;">FOB Santos / CIF Port of Discharge</small>
+                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
                                     </div>
                                     <button class="sh-card-cart-btn btn-add-cart" data-name="Arabica Green Coffee Beans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-5.jpg') }}" data-origin="Minas Gerais">
                                         @auth
@@ -3443,20 +3443,17 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center mb-2 small">
                         <span class="text-muted">Origin &amp; Assays:</span>
-                        <span class="text-success fw-bold"><i class="bi bi-check-circle me-1"></i>SGS &amp; MAPA Certified</span>
+                        <span class="text-success fw-bold"><i class="bi bi-check-circle-fill me-1"></i>SGS &amp; MAPA Phyto Certified</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3 small">
+                        <span class="text-muted">Commercial Terms:</span>
+                        <span class="fw-semibold text-secondary">Direct Wholesale IncoTerms</span>
                     </div>
                     <hr class="my-2 border-secondary border-opacity-25">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <span class="d-block fw-bold sh-text-title" style="font-size: 0.95rem;">Commodity Pricing:</span>
-                            <small class="text-muted" style="font-size: 0.72rem;">Calculated by Destination Port (CIF/FOB)</small>
-                        </div>
-                        <span class="badge bg-success px-2.5 py-1.5" style="font-size: 0.82rem;" id="cartSummaryTotalVal">Destination RFQ</span>
-                    </div>
 
                     <!-- Action Buttons -->
-                    <button type="button" id="btnOpenCheckout" class="btn btn-sh-primary w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2" style="font-size: 0.95rem;">
-                        <i class="bi bi-file-earmark-check-fill"></i> Request Destination Quotation
+                    <button type="button" id="btnOpenCheckout" class="btn btn-sh-primary w-100 py-2.5 fw-bold d-flex align-items-center justify-content-center gap-2" style="font-size: 0.95rem;">
+                        <i class="bi bi-send-check-fill"></i> Review &amp; Dispatch Order
                     </button>
 
                     <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-secondary border-opacity-25">
@@ -3479,11 +3476,11 @@
                 <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
                     <div class="d-flex align-items-center gap-2">
                         <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(120, 162, 47, 0.15); color: var(--sh-primary);">
-                            <i class="bi bi-shield-lock-fill fs-5"></i>
+                            <i class="bi bi-send-check-fill fs-5"></i>
                         </div>
                         <div>
-                            <h5 class="modal-title fw-bold sh-text-title mb-0" style="font-size: 1.15rem;">Commodity Dispatch &amp; Trade Checkout</h5>
-                            <small class="text-muted" style="font-size: 0.78rem;">Verified Brazilian Institutional Origination</small>
+                            <h5 class="modal-title fw-bold sh-text-title mb-0" style="font-size: 1.15rem;">Commodity Order Dispatch to Trade Desk</h5>
+                            <small class="text-muted" style="font-size: 0.78rem;">Automated backend transmission to BRX Agro Global devices</small>
                         </div>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -3501,8 +3498,8 @@
                                 <!-- dynamically rendered items -->
                             </div>
                             <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
-                                <span class="fw-semibold text-muted small">Pricing Basis:</span>
-                                <span class="fw-bold" style="color: var(--sh-primary); font-size: 0.95rem;" id="checkoutTotalVal">Quoted upon Destination Port (CIF/FOB)</span>
+                                <span class="fw-semibold text-muted small">Logistics Framework:</span>
+                                <span class="fw-bold text-success" style="font-size: 0.9rem;" id="checkoutTotalVal">Direct Wholesale IncoTerms 2020</span>
                             </div>
                         </div>
 
@@ -3516,7 +3513,7 @@
                                 <input type="text" name="customer_name" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->name : '' }}" placeholder="e.g. John Doe / Procuring Officer" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold">Corporate Email (for SGS &amp; Invoice) <span class="text-danger">*</span></label>
+                                <label class="form-label small fw-semibold">Corporate Email (for SGS &amp; Contract) <span class="text-danger">*</span></label>
                                 <input type="email" name="customer_email" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->email : '' }}" placeholder="buyer@company.com" required>
                             </div>
                             <div class="col-md-6">
@@ -3556,6 +3553,61 @@
                             </div>
                         </div>
 
+                        <!-- Step 4: Automated Transmission Channel to Business -->
+                        <h6 class="fw-bold sh-text-title mb-3 small text-uppercase" style="letter-spacing: 0.5px;">
+                            <i class="bi bi-broadcast-pin text-success me-1"></i> 3. Automated Dispatch Channel to BRX Agro Global
+                        </h6>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-4">
+                                <label class="sh-channel-card p-3 rounded-3 border d-flex flex-column h-100 cursor-pointer position-relative">
+                                    <div class="form-check p-0 m-0 d-flex align-items-center justify-content-between mb-2">
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small fw-bold">
+                                            <i class="bi bi-whatsapp me-1"></i> WhatsApp
+                                        </span>
+                                        <input class="form-check-input m-0" type="radio" name="order_channel" value="whatsapp" id="channelWhatsapp">
+                                    </div>
+                                    <div class="small fw-bold sh-text-title mb-1">Business WhatsApp</div>
+                                    <div class="text-muted" style="font-size: 0.72rem; line-height: 1.35;">
+                                        Dispatches alert directly to company WhatsApp device (+55 11 95835-3433).
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="sh-channel-card p-3 rounded-3 border d-flex flex-column h-100 cursor-pointer position-relative">
+                                    <div class="form-check p-0 m-0 d-flex align-items-center justify-content-between mb-2">
+                                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 small fw-bold">
+                                            <i class="bi bi-envelope-check me-1"></i> Email
+                                        </span>
+                                        <input class="form-check-input m-0" type="radio" name="order_channel" value="email" id="channelEmail">
+                                    </div>
+                                    <div class="small fw-bold sh-text-title mb-1">Business Email</div>
+                                    <div class="text-muted" style="font-size: 0.72rem; line-height: 1.35;">
+                                        Dispatches order notification to company inbox (brxagroglobal@gmail.com).
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="sh-channel-card p-3 rounded-3 border border-success d-flex flex-column h-100 cursor-pointer position-relative" style="background: rgba(120, 162, 47, 0.08);">
+                                    <div class="form-check p-0 m-0 d-flex align-items-center justify-content-between mb-2">
+                                        <span class="badge bg-success px-2 py-1 small fw-bold text-white">
+                                            <i class="bi bi-send-check me-1"></i> Both (Recommended)
+                                        </span>
+                                        <input class="form-check-input m-0" type="radio" name="order_channel" value="both" id="channelBoth" checked>
+                                    </div>
+                                    <div class="small fw-bold sh-text-title mb-1">Both Channels</div>
+                                    <div class="text-muted" style="font-size: 0.72rem; line-height: 1.35;">
+                                        Simultaneous automated delivery to company phone &amp; official email.
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="p-2.5 rounded-3 mb-4 small d-flex align-items-center gap-2" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.2);">
+                            <i class="bi bi-robot text-success fs-5 flex-shrink-0"></i>
+                            <div class="text-muted" style="font-size: 0.76rem; line-height: 1.4;">
+                                <strong>100% Automated Backend Dispatch:</strong> Everything is sent by our server directly to the business devices. You will not have to manually compose or type any messages.
+                            </div>
+                        </div>
+
                         <!-- Assurance Strip -->
                         <div class="p-3 rounded-3 mb-4 small d-flex flex-wrap gap-3 align-items-center justify-content-between" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.25);">
                             <div><i class="bi bi-patch-check-fill text-success me-1"></i> 100% Pre-Shipment Assay</div>
@@ -3568,10 +3620,10 @@
 
                         <!-- Form Actions -->
                         <div class="d-flex gap-2">
-                            <button type="submit" id="btnSubmitOrder" class="btn btn-sh-primary flex-grow-1 py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
+                            <button type="submit" id="btnSubmitOrder" class="btn btn-sh-primary flex-grow-1 py-2.5 fw-bold d-flex align-items-center justify-content-center gap-2">
                                 <span class="spinner-border spinner-border-sm d-none" id="orderSubmitSpinner" role="status"></span>
-                                <i class="bi bi-check2-circle fs-5" id="orderSubmitIcon"></i>
-                                <span id="orderSubmitText">Submit Request for Quotation &amp; Dispatch</span>
+                                <i class="bi bi-send-fill fs-5" id="orderSubmitIcon"></i>
+                                <span id="orderSubmitText">Transmit Order to BRX Agro Global Trade Desk</span>
                             </button>
                             <button type="button" class="btn btn-sh-outline px-4" data-bs-dismiss="modal">Cancel</button>
                         </div>
@@ -3651,7 +3703,7 @@
                         <h4 class="fw-bold sh-text-title mb-0" id="qvModalName"></h4>
                         <span class="badge rounded-pill" id="qvModalOrigin" style="background: rgba(120, 162, 47, 0.2); color: var(--sh-primary); border: 1px solid rgba(120, 162, 47, 0.3);">Brazil</span>
                     </div>
-                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3" style="background: rgba(120, 162, 47, 0.12); color: var(--sh-primary); font-weight: 700; font-size: 0.92rem;"><i class="bi bi-geo-alt-fill"></i> <span id="qvModalPrice" data-unit="MT">Price Calculated by Destination (FOB / CIF)</span></div>
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3" style="background: rgba(120, 162, 47, 0.12); color: var(--sh-primary); font-weight: 700; font-size: 0.86rem;"><i class="bi bi-patch-check-fill"></i> <span id="qvModalPrice" data-unit="MT">Physical Export Assay Assured · Incoterms 2020</span></div>
                     <div class="p-3 rounded-3 mb-3 small sh-box-bg" style="border: 1px solid var(--bs-border-color);">
                         <div class="d-flex justify-content-between mb-1">
                             <span class="sh-text-muted">SGS Assay:</span>
@@ -4106,7 +4158,7 @@
                     cart = cart.map(function (item) {
                         return {
                             name: item.name || 'Commodity Lot',
-                            price: parseFloat(item.price) || 485.00,
+                            price: 0,
                             unit: item.unit || 'MT',
                             image: item.image || '{{ asset('img/service-1.jpg') }}',
                             origin: item.origin || 'Brazil',
@@ -4219,7 +4271,7 @@
                 if (!isAuthenticated || cart.length === 0) {
                     $empty.removeClass('d-none');
                     $pop.addClass('d-none');
-                    $('#cartSummaryTotalVal').text('Destination RFQ');
+                    $('#cartSummaryTotalVal').text('0 Lots');
                     $('#cartSummaryLotCount').text('0');
                     return;
                 }
@@ -4228,14 +4280,10 @@
                 $pop.removeClass('d-none');
                 $list.empty();
 
-                var grandTotal = 0;
                 var totalLots = 0;
 
                 cart.forEach(function (item, index) {
-                    var price = parseFloat(item.price) || 0;
                     var qty = parseInt(item.qty, 10) || 1;
-                    var lineTotal = price * qty;
-                    grandTotal += lineTotal;
                     totalLots += qty;
 
                     var itemHtml = `
@@ -4261,8 +4309,8 @@
                                         <button type="button" class="sh-cart-qty-btn" onclick="changeItemQty(${index}, 1)" title="Increase">+</button>
                                     </div>
                                     <div class="text-end ms-auto flex-shrink-0" style="min-width: 0;">
-                                        <span class="badge" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.78rem; font-weight: 700;">Price by Destination</span>
-                                        <small class="text-muted d-block" style="font-size: 0.68rem; white-space: nowrap;">FOB / CIF Quotation</small>
+                                        <span class="badge" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.76rem; font-weight: 600;">Direct Export Lot</span>
+                                        <small class="text-muted d-block" style="font-size: 0.68rem; white-space: nowrap;">FOB / CIF IncoTerms</small>
                                     </div>
                                 </div>
                             </div>
@@ -4272,7 +4320,7 @@
                 });
 
                 $('#cartSummaryLotCount').text(totalLots);
-                $('#cartSummaryTotalVal').text('Destination RFQ');
+                $('#cartSummaryTotalVal').text(totalLots + (totalLots === 1 ? ' Lot' : ' Lots'));
             }
             window.renderCartDrawer = renderCartDrawer;
 
@@ -4325,7 +4373,6 @@
 
             // Add to Cart Buttons
             var currentQvProduct = '';
-            var currentQvPrice = 485.00;
             var currentQvUnit = 'MT';
             var currentQvImage = '{{ asset('img/service-1.jpg') }}';
             var currentQvOrigin = 'Brazil';
@@ -4337,7 +4384,6 @@
                     return;
                 }
                 var prodName = $(this).attr('data-name') || 'Agricultural Commodity';
-                var prodPrice = parseFloat($(this).attr('data-price')) || 485.00;
                 var prodUnit = $(this).attr('data-unit') || 'MT';
                 var prodImage = $(this).attr('data-image') || '{{ asset('img/service-1.jpg') }}';
                 var prodOrigin = $(this).attr('data-origin') || 'Brazil';
@@ -4348,7 +4394,7 @@
                 } else {
                     cart.push({
                         name: prodName,
-                        price: prodPrice,
+                        price: 0,
                         unit: prodUnit,
                         image: prodImage,
                         origin: prodOrigin,
@@ -4364,22 +4410,12 @@
             // Quick View Trigger
             $(document).on('click', '.quick-view-trigger', function () {
                 currentQvProduct = $(this).attr('data-product') || 'Brazilian Agro Commodity';
-                var displayPrice = 'Price Calculated by Destination (FOB / CIF)';
                 currentQvImage = $(this).attr('data-image') || '{{ asset('img/service-1.jpg') }}';
                 currentQvOrigin = $(this).attr('data-origin') || 'Brazil';
                 currentQvUnit = $(this).attr('data-unit') || 'MT';
 
-                var rawPrice = $(this).attr('data-rawprice');
-                if (rawPrice) {
-                    currentQvPrice = parseFloat(rawPrice) || 485.00;
-                } else {
-                    var match = displayPrice.replace(/[^0-9.]/g, '');
-                    currentQvPrice = parseFloat(match) || 485.00;
-                }
-
                 $('#qvModalTitle').text(currentQvProduct);
                 $('#qvModalName').text(currentQvProduct);
-                $('#qvModalPrice').text(displayPrice).attr('data-price', currentQvPrice).attr('data-unit', currentQvUnit);
                 $('#qvModalOrigin').text(currentQvOrigin);
                 $('#qvModalImg').attr('src', currentQvImage);
 
@@ -4399,7 +4435,7 @@
                 } else {
                     cart.push({
                         name: currentQvProduct,
-                        price: currentQvPrice,
+                        price: 0,
                         unit: currentQvUnit,
                         image: currentQvImage,
                         origin: currentQvOrigin,
@@ -4434,29 +4470,24 @@
 
                 var $chkList = $('#checkoutItemsList');
                 $chkList.empty();
-                var totalVal = 0;
                 var lotCount = 0;
 
                 cart.forEach(function (item) {
-                    var price = parseFloat(item.price) || 0;
                     var qty = parseInt(item.qty, 10) || 1;
-                    var sub = price * qty;
-                    totalVal += sub;
                     lotCount += qty;
 
                     $chkList.append(`
-                        <div class="d-flex justify-content-between align-items-center py-1 border-bottom border-secondary border-opacity-10 gap-2">
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary border-opacity-10 gap-2">
                             <div style="min-width: 0; flex: 1 1 auto;">
                                 <strong class="sh-text-title d-block" style="word-break: break-word;">${item.name}</strong>
-                                <span class="text-muted small">${qty} ${item.unit || 'MT'} · Brazilian Origin</span>
+                                <span class="text-muted small">${qty} ${item.unit || 'MT / Lot(s)'} · ${item.origin || 'Brazil'} Origin</span>
                             </div>
-                            <span class="badge flex-shrink-0" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.78rem;">Price by Destination</span>
+                            <span class="badge flex-shrink-0" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.78rem;">SGS Assayed Lot</span>
                         </div>
                     `);
                 });
 
                 $('#checkoutItemCountBadge').text(lotCount + (lotCount === 1 ? ' item' : ' items'));
-                $('#checkoutTotalVal').text('Quoted upon Destination Port (CIF/FOB)');
                 $('#checkoutAlertBox').addClass('d-none');
 
                 var checkoutModal = new bootstrap.Modal(document.getElementById('agroviaCheckoutModal'));
@@ -4477,10 +4508,12 @@
                 var $text = $('#orderSubmitText');
                 var $alert = $('#checkoutAlertBox');
 
+                var selectedChannel = $('input[name="order_channel"]:checked').val() || 'both';
+
                 $btn.prop('disabled', true);
                 $spinner.removeClass('d-none');
                 $icon.addClass('d-none');
-                $text.text('Transmitting Order to Brazilian Export Desk...');
+                $text.text('Transmitting Order to BRX Agro Global Devices...');
 
                 var formData = {
                     customer_name: $('input[name="customer_name"]').val(),
@@ -4488,12 +4521,14 @@
                     customer_phone: $('input[name="customer_phone"]').val(),
                     shipping_address: $('select[name="shipping_address"]').val(),
                     payment_method: $('select[name="payment_method"]').val(),
+                    channel: selectedChannel,
                     notes: $('input[name="notes"]').val(),
                     items: cart.map(function (item) {
                         return {
                             name: item.name,
+                            unit: item.unit || 'MT',
                             qty: parseInt(item.qty, 10) || 1,
-                            price: parseFloat(item.price) || 0
+                            price: 0
                         };
                     })
                 };
@@ -4508,11 +4543,30 @@
                         'Accept': 'application/json'
                     },
                     success: function (res) {
+                        var channelBadge = (selectedChannel === 'whatsapp') ? 'Business WhatsApp (+55 11 95835-3433)'
+                            : (selectedChannel === 'email') ? 'Corporate Email (brxagroglobal@gmail.com)'
+                            : 'WhatsApp (+55 11 95835-3433) & Corporate Email';
+
+                        var waButton = '';
+                        if (res.whatsapp_url && (selectedChannel === 'whatsapp' || selectedChannel === 'both')) {
+                            waButton = `
+                                <div class="mt-2.5 pt-2 border-top border-success border-opacity-25">
+                                    <a href="${res.whatsapp_url}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-success fw-bold d-inline-flex align-items-center gap-1.5 shadow-sm">
+                                        <i class="bi bi-whatsapp"></i> Open Direct WhatsApp Conversation (Pre-Composed)
+                                    </a>
+                                </div>
+                            `;
+                        }
+
                         $alert.removeClass('d-none alert-danger').addClass('alert-success').html(`
-                            <h6 class="fw-bold mb-1"><i class="bi bi-check-circle-fill me-1"></i> Order Recorded Successfully!</h6>
-                            <p class="mb-1">Order Ref: <strong>${res.order_number}</strong></p>
-                            <p class="mb-1 small text-dark">${res.message}</p>
-                            <div class="mt-2"><span class="badge bg-success text-white px-2 py-1"><i class="bi bi-bell-fill me-1"></i> BRX Agro Trade Desk Notified</span></div>
+                            <h6 class="fw-bold mb-1"><i class="bi bi-check-circle-fill me-1"></i> Order Recorded &amp; Transmitted!</h6>
+                            <p class="mb-1">Reference: <strong>#${res.order_number}</strong></p>
+                            <p class="mb-1 small">${res.message}</p>
+                            <div class="mt-2 d-flex flex-wrap gap-1">
+                                <span class="badge bg-success text-white px-2 py-1"><i class="bi bi-bell-fill me-1"></i> Dispatched to: ${channelBadge}</span>
+                                <span class="badge bg-dark text-white px-2 py-1"><i class="bi bi-shield-check me-1"></i> Saved for Accountability</span>
+                            </div>
+                            ${waButton}
                         `);
 
                         // Clear cart
@@ -4522,16 +4576,11 @@
                         renderCartDrawer();
 
                         setTimeout(function () {
-                            var chkModalEl = document.getElementById('agroviaCheckoutModal');
-                            var chkInstance = bootstrap.Modal.getInstance(chkModalEl);
-                            if (chkInstance) {
-                                chkInstance.hide();
-                            }
                             $btn.prop('disabled', false);
                             $spinner.addClass('d-none');
                             $icon.removeClass('d-none');
-                            $text.text('Confirm & Place Commodity Order');
-                            triggerToast('Order ' + res.order_number + ' Placed!', 0);
+                            $text.text('Transmit Order to BRX Agro Global Trade Desk');
+                            triggerToast('Order ' + res.order_number + ' Transmitted!', 0);
                         }, 2500);
                     },
                     error: function (xhr) {
@@ -4547,7 +4596,7 @@
                         $btn.prop('disabled', false);
                         $spinner.addClass('d-none');
                         $icon.removeClass('d-none');
-                        $text.text('Confirm & Place Commodity Order');
+                        $text.text('Transmit Order to BRX Agro Global Trade Desk');
                     }
                 });
             });

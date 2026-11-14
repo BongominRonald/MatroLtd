@@ -56,18 +56,36 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>${{ number_format($item->price, 2) }}</td>
                                 <td>
-                                    <span class="fw-semibold">{{ $item->quantity }}</span> {{ $item->product->unit ?? 'units' }}
+                                    @if($item->price > 0)
+                                        ${{ number_format($item->price, 2) }}
+                                    @else
+                                        <span class="badge bg-light text-secondary border">Wholesale RFQ</span>
+                                    @endif
                                 </td>
-                                <td class="text-end fw-bold text-dark">${{ number_format($item->subtotal, 2) }}</td>
+                                <td>
+                                    <span class="fw-semibold">{{ $item->quantity }}</span> {{ $item->product->unit ?? 'lot(s)' }}
+                                </td>
+                                <td class="text-end fw-bold text-dark">
+                                    @if($item->subtotal > 0)
+                                        ${{ number_format($item->subtotal, 2) }}
+                                    @else
+                                        <span class="text-success small fw-semibold">Wholesale Contract</span>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="3" class="text-end fw-semibold">Grand Total:</td>
-                            <td class="text-end fw-bold text-success fs-5">${{ number_format($order->total_amount, 2) }}</td>
+                            <td colspan="3" class="text-end fw-semibold">Valuation / Pricing Terms:</td>
+                            <td class="text-end fw-bold text-success fs-6">
+                                @if($order->total_amount > 0)
+                                    ${{ number_format($order->total_amount, 2) }}
+                                @else
+                                    Direct Wholesale RFQ (FOB / CIF)
+                                @endif
+                            </td>
                         </tr>
                     </tfoot>
                 </table>

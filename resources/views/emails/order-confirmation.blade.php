@@ -81,9 +81,8 @@
                                 <thead>
                                     <tr style="background-color: #f1f5f9; text-align: left; font-size: 12px; color: #475569; text-transform: uppercase;">
                                         <th style="padding: 10px; border-bottom: 1px solid #cbd5e1;">Item / Description</th>
-                                        <th style="padding: 10px; border-bottom: 1px solid #cbd5e1; text-align: center;">Qty</th>
-                                        <th style="padding: 10px; border-bottom: 1px solid #cbd5e1; text-align: right;">Unit Price</th>
-                                        <th style="padding: 10px; border-bottom: 1px solid #cbd5e1; text-align: right;">Subtotal</th>
+                                        <th style="padding: 10px; border-bottom: 1px solid #cbd5e1; text-align: center;">Qty / Lots</th>
+                                        <th style="padding: 10px; border-bottom: 1px solid #cbd5e1; text-align: right;">Contract Terms</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,24 +90,13 @@
                                     <tr style="border-bottom: 1px solid #f1f5f9;">
                                         <td style="padding: 10px; font-weight: 600; color: #1e293b;">{{ $item->product_name }}</td>
                                         <td style="padding: 10px; text-align: center; color: #64748b;">{{ $item->quantity }}</td>
-                                        <td style="padding: 10px; text-align: right; color: #64748b;">
-                                            {{ $item->price > 0 ? '$'.number_format($item->price, 2) : 'RFQ Quote' }}
-                                        </td>
-                                        <td style="padding: 10px; text-align: right; font-weight: 600; color: #1e293b;">
-                                            {{ $item->subtotal > 0 ? '$'.number_format($item->subtotal, 2) : 'RFQ Quote' }}
-                                        </td>
+                                        <td style="padding: 10px; text-align: right; color: #16a34a; font-weight: 600;">Direct Wholesale RFQ (FOB / CIF)</td>
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="4" style="padding: 12px; text-align: center; color: #94a3b8;">No items listed</td>
+                                        <td colspan="3" style="padding: 12px; text-align: center; color: #94a3b8;">No items listed</td>
                                     </tr>
                                     @endforelse
-                                    @if($order->total_amount > 0)
-                                    <tr style="background-color: #f8fafc; font-weight: 700;">
-                                        <td colspan="3" style="padding: 12px; text-align: right; color: #1e293b;">Estimated Total:</td>
-                                        <td style="padding: 12px; text-align: right; color: #16803c; font-size: 15px;">${{ number_format($order->total_amount, 2) }}</td>
-                                    </tr>
-                                    @endif
                                 </tbody>
                             </table>
 

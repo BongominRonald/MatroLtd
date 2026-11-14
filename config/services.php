@@ -48,6 +48,8 @@ return [
         'phone' => env('COMPANY_PHONE', '+55 11 95835-3433'),
         'whatsapp' => env('COMPANY_WHATSAPP', '+55 11 95835-3433'),
         'whatsapp_raw' => env('COMPANY_WHATSAPP_RAW', '5511958353433'),
+        'whatsapp_api_url' => env('WHATSAPP_API_URL'),
+        'whatsapp_api_token' => env('WHATSAPP_API_TOKEN'),
         'notification_webhook' => env('ORDER_NOTIFICATION_WEBHOOK_URL'),
     ],
 

@@ -202,18 +202,29 @@ Route::post('/checkout', function (Request $request) {
         'customer_phone' => 'nullable|string|max:50',
         'shipping_address' => 'nullable|string|max:500',
         'payment_method' => 'nullable|string|max:100',
+        'channel' => 'nullable|string|in:whatsapp,email,both',
         'notes' => 'nullable|string',
         'items' => 'required|array|min:1',
         'items.*.name' => 'required|string|max:255',
         'items.*.qty' => 'required|integer|min:1',
+        'items.*.unit' => 'nullable|string|max:50',
         'items.*.price' => 'nullable|numeric|min:0',
     ]);
 
+    $channel = $validated['channel'] ?? 'both';
+
+    // Commodity wholesale orders have no retail gateway pricing
     $total = 0;
     foreach ($validated['items'] as $item) {
         $price = (float) ($item['price'] ?? 0);
         $total += $price * $item['qty'];
     }
+
+    $channelNote = match ($channel) {
+        'whatsapp' => '[Direct Dispatch: Business WhatsApp Device (+55 11 95835-3433)]',
+        'email' => '[Direct Dispatch: Business Corporate Email (brxagroglobal@gmail.com)]',
+        default => '[Direct Dispatch: Both WhatsApp (+55 11 95835-3433) & Email]',
+    };
 
     $order = Order::create([
         'order_number' => 'BRX-ORD-'.strtoupper(Str::random(6)),
@@ -225,14 +236,15 @@ Route::post('/checkout', function (Request $request) {
         'total_amount' => $total,
         'status' => 'pending',
         'payment_method' => $validated['payment_method'] ?? 'CIF / FOB Destination Logistics',
-        'notes' => $validated['notes'] ?? 'Order placed via online commodity cart.',
+        'notes' => ! empty($validated['notes']) ? $validated['notes'] . ' ' . $channelNote : 'Wholesale commodity order. ' . $channelNote,
     ]);
 
     foreach ($validated['items'] as $item) {
         $price = (float) ($item['price'] ?? 0);
+        $unit = ! empty($item['unit']) ? ' (' . $item['unit'] . ')' : '';
         OrderItem::create([
             'order_id' => $order->id,
-            'product_name' => $item['name'],
+            'product_name' => $item['name'] . $unit,
             'price' => $price,
             'quantity' => $item['qty'],
             'subtotal' => $price * $item['qty'],
@@ -241,16 +253,26 @@ Route::post('/checkout', function (Request $request) {
 
     $order->load('items');
 
-    // Notify company trade desk, administrators, and the customer
-    $notifications = app(OrderNotificationService::class)->notifyAll($order);
+    // Notify company trade desk via selected channel (Email, WhatsApp, or Both)
+    $notifications = app(OrderNotificationService::class)->notifyAll($order, $channel);
+
+    $targetDevice = match ($channel) {
+        'whatsapp' => 'WhatsApp device (+55 11 95835-3433)',
+        'email' => 'Corporate Email (brxagroglobal@gmail.com)',
+        default => 'WhatsApp device (+55 11 95835-3433) and Corporate Email (brxagroglobal@gmail.com)',
+    };
 
     return response()->json([
         'success' => true,
         'order_number' => $order->order_number,
+        'channel' => $channel,
+        'whatsapp_url' => $notifications['whatsapp']['whatsapp_url'] ?? 'https://api.whatsapp.com/send?phone=5511958353433',
         'total' => number_format($total, 2),
-        'message' => 'Your commodity sample order '.$order->order_number.' has been recorded and dispatched to the BRX Agro Global Trade Desk. Company officers have been notified and will contact you promptly.',
+        'message' => 'Your commodity order '.$order->order_number.' has been recorded and automatically dispatched by our backend to the BRX Agro Global '.$targetDevice.'. Company officers have received your notification and will reach out promptly.',
         'notifications' => [
-            'company_alerted' => ! empty($notifications['company_emails']) || $notifications['inquiry_synced'],
+            'company_alerted' => ! empty($notifications['company_emails']) || ! empty($notifications['whatsapp']) || $notifications['inquiry_synced'],
+            'email_sent' => ! empty($notifications['company_emails']),
+            'whatsapp_sent' => ! empty($notifications['whatsapp']),
             'desk_inbox_synced' => $notifications['inquiry_synced'],
         ],
     ]);

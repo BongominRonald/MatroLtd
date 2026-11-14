@@ -16,7 +16,7 @@ class CheckoutTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_authenticated_user_can_place_commodity_order_via_checkout_endpoint(): void
+    public function test_authenticated_user_can_place_commodity_order_without_prices_via_checkout_endpoint(): void
     {
         Mail::fake();
 
@@ -30,17 +30,18 @@ class CheckoutTest extends TestCase
             'customer_email' => 'procurement@johnexport.com',
             'customer_phone' => '+1 (555) 998-1122',
             'shipping_address' => 'Port of Rotterdam (NLRTM) - CIF',
-            'payment_method' => 'Tier-1 Bank Escrow (Irrevocable LC / MT700)',
+            'payment_method' => 'CIF — Cost, Insurance & Freight',
+            'channel' => 'both',
             'notes' => 'Request SGS pre-shipment assay certificate and MAPA phytosanitary clearance.',
             'items' => [
                 [
                     'name' => 'Brazilian Non-GMO Soybeans',
-                    'price' => 485.00,
+                    'unit' => 'MT',
                     'qty' => 2,
                 ],
                 [
                     'name' => 'Refined Cane Sugar (ICUMSA 45)',
-                    'price' => 540.00,
+                    'unit' => 'MT',
                     'qty' => 1,
                 ],
             ],
@@ -51,14 +52,15 @@ class CheckoutTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson([
             'success' => true,
-            'total' => '1,510.00',
+            'channel' => 'both',
         ]);
+        $this->assertStringContainsString('5511958353433', $response->json('whatsapp_url'));
 
         $this->assertDatabaseHas('orders', [
             'user_id' => $user->id,
             'customer_name' => 'John Exporting Ltd',
             'customer_email' => 'procurement@johnexport.com',
-            'total_amount' => 1510.00,
+            'total_amount' => 0.00,
             'status' => 'pending',
         ]);
 
@@ -68,16 +70,16 @@ class CheckoutTest extends TestCase
 
         $this->assertDatabaseHas('order_items', [
             'order_id' => $order->id,
-            'product_name' => 'Brazilian Non-GMO Soybeans',
             'quantity' => 2,
-            'subtotal' => 970.00,
+            'price' => 0.00,
+            'subtotal' => 0.00,
         ]);
 
         $this->assertDatabaseHas('order_items', [
             'order_id' => $order->id,
-            'product_name' => 'Refined Cane Sugar (ICUMSA 45)',
             'quantity' => 1,
-            'subtotal' => 540.00,
+            'price' => 0.00,
+            'subtotal' => 0.00,
         ]);
 
         Mail::assertSent(OrderConfirmationMail::class, function ($mail) {
@@ -95,7 +97,6 @@ class CheckoutTest extends TestCase
             'items' => [
                 [
                     'name' => 'Brazilian Non-GMO Soybeans',
-                    'price' => 485.00,
                     'qty' => 1,
                 ],
             ],
@@ -113,20 +114,22 @@ class CheckoutTest extends TestCase
         $this->assertDatabaseCount('order_items', 0);
     }
 
-    public function test_authenticated_user_id_is_recorded_with_order(): void
+    public function test_authenticated_user_can_choose_whatsapp_channel_only(): void
     {
+        Mail::fake();
+
         $user = User::factory()->create([
-            'name' => 'Corporate Buyer',
-            'email' => 'buyer@institutional.com',
+            'name' => 'Agri Trader Asia',
+            'email' => 'trader@agri-asia.com',
         ]);
 
         $payload = [
-            'customer_name' => $user->name,
-            'customer_email' => $user->email,
+            'customer_name' => 'Agri Trader Asia',
+            'customer_email' => 'trader@agri-asia.com',
+            'channel' => 'whatsapp',
             'items' => [
                 [
                     'name' => 'Yellow Corn (Maize Grade 2)',
-                    'price' => 245.00,
                     'qty' => 3,
                 ],
             ],
@@ -135,11 +138,50 @@ class CheckoutTest extends TestCase
         $response = $this->actingAs($user)->postJson(route('checkout.store'), $payload);
 
         $response->assertStatus(200);
-        $this->assertDatabaseHas('orders', [
-            'user_id' => $user->id,
-            'customer_email' => 'buyer@institutional.com',
-            'total_amount' => 735.00,
+        $response->assertJsonPath('channel', 'whatsapp');
+        $this->assertStringContainsString('5511958353433', $response->json('whatsapp_url'));
+
+        // Customer chose WhatsApp only, so company email is not dispatched, but WhatsApp alert is logged
+        Mail::assertNotSent(AdminOrderAlertMail::class);
+
+        // In-app inquiry is always recorded for admin accountability
+        $this->assertDatabaseHas('inquiries', [
+            'email' => 'trader@agri-asia.com',
+            'role' => 'buyer',
+            'status' => 'new',
         ]);
+    }
+
+    public function test_authenticated_user_can_choose_email_channel_only(): void
+    {
+        Mail::fake();
+
+        $user = User::factory()->create([
+            'name' => 'European Grains BV',
+            'email' => 'procurement@eurograins.nl',
+        ]);
+
+        $payload = [
+            'customer_name' => 'European Grains BV',
+            'customer_email' => 'procurement@eurograins.nl',
+            'channel' => 'email',
+            'items' => [
+                [
+                    'name' => 'Arabica Green Coffee Beans',
+                    'qty' => 2,
+                ],
+            ],
+        ];
+
+        $response = $this->actingAs($user)->postJson(route('checkout.store'), $payload);
+
+        $response->assertStatus(200);
+        $response->assertJsonPath('channel', 'email');
+
+        Mail::assertSent(AdminOrderAlertMail::class);
+        Mail::assertSent(OrderConfirmationMail::class, function ($mail) {
+            return $mail->hasTo('procurement@eurograins.nl');
+        });
     }
 
     public function test_checkout_requires_valid_items_and_contact_info(): void
@@ -184,12 +226,13 @@ class CheckoutTest extends TestCase
             'customer_email' => 'procurement@shanghai-agri.cn',
             'customer_phone' => '+86 21 8899 7700',
             'shipping_address' => 'Shanghai Port (CNSHA) - CIF Incoterms 2020',
-            'payment_method' => 'Irrevocable Documentary Letter of Credit (DLC)',
+            'payment_method' => 'CIF — Cost, Insurance & Freight',
+            'channel' => 'both',
             'notes' => 'Requires CIQ clearance and non-GMO certification.',
             'items' => [
                 [
                     'name' => 'Brazilian Yellow Corn Grade 2',
-                    'price' => 240.00,
+                    'unit' => 'MT',
                     'qty' => 5,
                 ],
             ],

@@ -22,8 +22,10 @@ class AdminOrderAlertMail extends Mailable
 
     public function envelope(): Envelope
     {
+        $lotsCount = $this->order->items->sum('quantity') ?: $this->order->items->count();
+        $suffix = $lotsCount > 0 ? " ({$lotsCount} Lots)" : "";
         return new Envelope(
-            subject: '[TRADE DESK ALERT] New Commodity Order #' . $this->order->order_number . ' — ' . $this->order->customer_name . ' ($' . number_format($this->order->total_amount, 2) . ')'
+            subject: '[TRADE DESK ALERT] New Commodity Order #' . $this->order->order_number . ' — ' . $this->order->customer_name . $suffix
         );
     }
 

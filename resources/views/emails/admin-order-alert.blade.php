@@ -20,7 +20,7 @@
                                 New Commodity Order Placed #{{ $order->order_number }}
                             </h2>
                             <p style="color: #a0aec0; font-size: 13px; margin: 6px 0 0 0;">
-                                Placed by <strong>{{ $order->customer_name }}</strong> · Total: ${{ number_format($order->total_amount, 2) }}
+                                Placed by <strong>{{ $order->customer_name }}</strong> · Direct Wholesale Contract Order
                             </p>
                         </td>
                     </tr>
@@ -56,13 +56,13 @@
                                 @endif
                             </table>
 
-                            <div style="font-size: 12px; font-weight: 700; color: #1a202c; text-transform: uppercase; margin-bottom: 8px;">Order Line Items</div>
+                            <div style="font-size: 12px; font-weight: 700; color: #1a202c; text-transform: uppercase; margin-bottom: 8px;">Ordered Commodities &amp; Lots</div>
                             <table role="presentation" width="100%" cellspacing="0" cellpadding="8" border="0" style="border: 1px solid #e2e8f0; border-radius: 6px; font-size: 13px; margin-bottom: 24px; border-collapse: collapse;">
                                 <thead>
                                     <tr style="background-color: #f1f5f9; text-align: left; font-size: 11px; color: #475569; text-transform: uppercase;">
                                         <th style="padding: 8px; border-bottom: 1px solid #cbd5e1;">Commodity</th>
-                                        <th style="padding: 8px; border-bottom: 1px solid #cbd5e1; text-align: center;">Qty</th>
-                                        <th style="padding: 8px; border-bottom: 1px solid #cbd5e1; text-align: right;">Price</th>
+                                        <th style="padding: 8px; border-bottom: 1px solid #cbd5e1; text-align: center;">Qty / Lots</th>
+                                        <th style="padding: 8px; border-bottom: 1px solid #cbd5e1; text-align: right;">Contract Terms</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,7 +70,7 @@
                                     <tr style="border-bottom: 1px solid #f1f5f9;">
                                         <td style="padding: 8px; font-weight: 600;">{{ $item->product_name }}</td>
                                         <td style="padding: 8px; text-align: center;">{{ $item->quantity }}</td>
-                                        <td style="padding: 8px; text-align: right;">${{ number_format($item->subtotal, 2) }}</td>
+                                        <td style="padding: 8px; text-align: right; color: #16a34a; font-weight: 600;">Direct Wholesale RFQ (FOB/CIF)</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -81,10 +81,13 @@
                                     Contact Customer
                                 </a>
                                 @if($order->customer_phone)
-                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $order->customer_phone) }}" target="_blank" style="display: inline-block; background-color: #78a22f; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 10px 18px; border-radius: 6px; margin: 4px;">
+                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $order->customer_phone) }}" target="_blank" style="display: inline-block; background-color: #25d366; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 10px 18px; border-radius: 6px; margin: 4px;">
                                     WhatsApp Buyer
                                 </a>
                                 @endif
+                                <a href="https://wa.me/5511958353433?text={{ urlencode('Order #' . $order->order_number . ' alert for ' . $order->customer_name) }}" target="_blank" style="display: inline-block; background-color: #78a22f; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 10px 18px; border-radius: 6px; margin: 4px;">
+                                    Trade Desk Device (+55 11 95835-3433)
+                                </a>
                                 <a href="{{ url('/admin/orders/' . $order->id) }}" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 10px 18px; border-radius: 6px; margin: 4px;">
                                     View in Admin Portal
                                 </a>
