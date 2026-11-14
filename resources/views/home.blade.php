@@ -8,6 +8,9 @@
     <title>{{ ($initialMode ?? 'login') === 'register' ? 'Register Buyer Account — BRX AGRO GLOBAL' : 'Sign In — BRX AGRO GLOBAL' }}</title>
     <meta name="description" content="Sign in or register an institutional commodity buyer account with BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA to place sample orders, request FOB/CIF quotes, and track export shipments.">
     <meta name="robots" content="index, follow">
+    @if(!empty(config('services.google.site_verification')))
+        <meta name="google-site-verification" content="{{ config('services.google.site_verification') }}">
+    @endif
     <link rel="canonical" href="{{ ($initialMode ?? 'login') === 'register' ? route('register') : route('login') }}">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA">

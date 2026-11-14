@@ -127,13 +127,21 @@ class ExampleTest extends TestCase
 
     public function test_seo_metadata_structured_data_and_sitemap_xml_render_correctly(): void
     {
+        config(['services.google.site_verification' => 'gsc-test-token-12345']);
+
         $home = $this->get('/');
         $home->assertStatus(200);
         $home->assertSee('<link rel="canonical"', false);
         $home->assertSee('property="og:title"', false);
         $home->assertSee('name="twitter:card"', false);
+        $home->assertSee('name="google-site-verification" content="gsc-test-token-12345"', false);
         $home->assertSee('application/ld+json', false);
         $home->assertSee('38.471.480/0001-41', false);
+
+        $robots = $this->get('/robots.txt');
+        $robots->assertStatus(200);
+        $robots->assertSee('Sitemap: ' . url('/sitemap.xml'), false);
+        $robots->assertSee('Disallow: /admin', false);
 
         $sitemap = $this->get('/sitemap.xml');
         $sitemap->assertStatus(200);

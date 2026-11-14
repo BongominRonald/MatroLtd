@@ -16,7 +16,7 @@
     },
     {
       "src": "/robots.txt",
-      "dest": "/public/robots.txt"
+      "dest": "/api/index.php"
     },
     {
       "src": "/fonts/(.*)",
@@ -51,7 +51,7 @@
       "dest": "/public/script.js"
     },
     {
-      "src": "/(.*\\.(?:ico|png|jpg|jpeg|svg|webp|css|js|woff|woff2|ttf|eot|gif|map|json|txt|webmanifest))",
+      "src": "/(.*\\.(?:ico|png|jpg|jpeg|svg|webp|css|js|woff|woff2|ttf|eot|gif|map|json|webmanifest))",
       "dest": "/public/$1"
     },
     {

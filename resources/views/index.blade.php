@@ -11,6 +11,9 @@
     <meta name="keywords" content="BRX Agro Global, Importação e Exportação Ltda, Brazilian agro commodities, bulk soybeans exporter Brazil, ICUMSA 45 sugar supplier, Brazilian yellow corn Grade 2, Arabica green coffee beans, Halal frozen chicken Brazil, SIF beef exporter, SGS inspection, MAPA phytosanitary, Incoterms CIF FOB delivery, Port of Santos, Port of Paranaguá, CNPJ 38.471.480/0001-41">
     <meta name="author" content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    @if(!empty(config('services.google.site_verification')))
+        <meta name="google-site-verification" content="{{ config('services.google.site_verification') }}">
+    @endif
     <meta name="geo.region" content="BR-SP">
     <meta name="geo.placename" content="São Paulo, Brazil">
     <link rel="canonical" href="{{ url('/') }}">

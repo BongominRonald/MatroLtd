@@ -53,6 +53,24 @@ Route::get('/', function () {
     return view('index', compact('categories', 'products', 'totalStock', 'productsCount', 'userInquiries', 'userOrders', 'heroSlides'));
 })->name('home');
 
+// Dynamic robots.txt (automatically reflects current domain / custom domain)
+Route::get('/robots.txt', function () {
+    $lines = [
+        'User-agent: *',
+        'Allow: /',
+        'Disallow: /admin',
+        'Disallow: /admin/',
+        'Disallow: /account',
+        'Disallow: /checkout',
+        '',
+        'Sitemap: ' . url('/sitemap.xml'),
+    ];
+
+    return response(implode("\n", $lines) . "\n", 200, [
+        'Content-Type' => 'text/plain; charset=utf-8',
+    ]);
+})->name('robots');
+
 // Dynamic XML Sitemap (with Google Image Sitemap extension for Commodity Products)
 Route::get('/sitemap.xml', function () {
     $baseUrl = rtrim(url('/'), '/');
