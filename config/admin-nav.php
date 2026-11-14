@@ -44,11 +44,6 @@ return [
                 'route' => 'admin.categories.index',
                 'pattern' => 'admin.categories.*',
             ],
-        ],
-    ],
-    [
-        'label' => 'Storefront',
-        'items' => [
             [
                 'label' => 'Hero Slides',
                 'icon' => 'bi-images',

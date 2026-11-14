@@ -125,34 +125,31 @@
         .matro-nav {
             flex: 1 1 auto;
             min-height: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding: .5rem .85rem .75rem;
+            overflow: hidden !important;
+            padding: .4rem .85rem .5rem;
             display: flex;
-            flex-direction: column;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255, 255, 255, .2) transparent;
+            flex-direction: column !important;
+            flex-wrap: nowrap !important;
         }
-
-        .matro-nav::-webkit-scrollbar { width: 4px; }
-        .matro-nav::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .2); border-radius: 99px; }
 
         .matro-nav-group {
-            margin-top: .85rem;
+            margin-top: .55rem;
+            flex: 0 0 auto;
             width: 100%;
             display: flex;
-            flex-direction: column;
+            flex-direction: column !important;
+            flex-wrap: nowrap !important;
         }
 
-        .matro-nav-group:first-child { margin-top: .25rem; }
+        .matro-nav-group:first-child { margin-top: .15rem; }
 
         .matro-nav-label {
             color: rgba(255, 255, 255, .38);
-            font-size: .675rem;
+            font-size: .65rem;
             text-transform: uppercase;
             letter-spacing: .12em;
             font-weight: 700;
-            padding: 0 .6rem .45rem;
+            padding: 0 .6rem .3rem;
             white-space: nowrap;
             display: flex;
             align-items: center;
@@ -167,14 +164,16 @@
         }
 
         .matro-sidebar .nav-link {
-            height: 40px;
-            min-height: 40px;
-            padding: .45rem .85rem;
-            margin: .1rem 0;
+            width: 100%;
+            flex: 0 0 auto;
+            height: 36px;
+            min-height: 36px;
+            padding: .35rem .85rem;
+            margin: 1px 0;
             border-radius: 8px;
             color: rgba(255, 255, 255, .72);
             font-weight: 600;
-            font-size: .88rem;
+            font-size: .86rem;
             display: flex;
             align-items: center;
             gap: .85rem;
@@ -222,9 +221,12 @@
         .matro-sidebar-footer {
             flex: 0 0 auto;
             margin-top: auto;
-            padding: .65rem .85rem;
+            padding: .5rem .85rem;
             border-top: 1px solid rgba(255, 255, 255, .08);
             background: var(--matro-darker);
+            display: flex;
+            flex-direction: column !important;
+            flex-wrap: nowrap !important;
         }
 
         /* Topbar & Content */
@@ -832,7 +834,7 @@
                 </div>
             </a>
 
-            <nav class="matro-nav nav flex-column" aria-label="Admin navigation">
+            <nav class="matro-nav flex-column" aria-label="Admin navigation">
                 @foreach (config('admin-nav', []) as $group)
                     <div class="matro-nav-group">
                         <div class="matro-nav-label">{{ $group['label'] }}</div>
