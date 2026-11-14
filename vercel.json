@@ -63,7 +63,7 @@
     "APP_NAME": "BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA",
     "APP_ENV": "production",
     "APP_DEBUG": "false",
-    "APP_URL": "https://brx-agro-global-importacao-e-export.vercel.app",
+    "APP_URL": "https://brxagroglobal-exports.online",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
     "APP_PACKAGES_CACHE": "/tmp/packages.php",
