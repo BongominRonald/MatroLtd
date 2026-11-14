@@ -6,16 +6,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="theme-color" content="#14141a">
-    <title>BRX AGRO GLOBAL - Importação e Exportação Ltda | Brazilian Commodity Origination</title>
-    <meta content="BRX Agro Global, Importação e Exportação Ltda, Brazilian agro commodities, bulk soybeans, ICUMSA 45 sugar, yellow corn, green coffee, SGS inspection, Incoterms CIF & FOB delivery, Port of Santos, CNPJ 38.471.480/0001-41" name="keywords">
-    <meta content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA coordinates direct institutional origination of Brazilian agro-commodities for international buyers. Sourced from certified cooperatives, verified by SGS &amp; MAPA, and backed by certified Incoterms delivery." name="description">
+    <title>BRX AGRO GLOBAL - Importação e Exportação Ltda | Brazilian Commodity Origination &amp; Export</title>
+    <meta name="description" content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA coordinates direct institutional origination of Brazilian agro-commodities for international buyers: Non-GMO &amp; GMO Soybeans, ICUMSA 45 Sugar, Yellow Corn, Arabica Green Coffee, Edible Oils, and Halal Frozen Poultry &amp; Beef. Verified by SGS &amp; MAPA via Santos &amp; Paranaguá Ports (CIF/FOB).">
+    <meta name="keywords" content="BRX Agro Global, Importação e Exportação Ltda, Brazilian agro commodities, bulk soybeans exporter Brazil, ICUMSA 45 sugar supplier, Brazilian yellow corn Grade 2, Arabica green coffee beans, Halal frozen chicken Brazil, SIF beef exporter, SGS inspection, MAPA phytosanitary, Incoterms CIF FOB delivery, Port of Santos, Port of Paranaguá, CNPJ 38.471.480/0001-41">
+    <meta name="author" content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="geo.region" content="BR-SP">
+    <meta name="geo.placename" content="São Paulo, Brazil">
+    <link rel="canonical" href="{{ url('/') }}">
+    <link rel="alternate" hreflang="en" href="{{ url('/') }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url('/') }}">
 
-    <!-- Badge Favicons -->
+    <!-- Open Graph / WhatsApp / LinkedIn / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA">
+    <meta property="og:title" content="BRX AGRO GLOBAL — Brazilian Agro-Commodity Origination &amp; Global Export">
+    <meta property="og:description" content="Direct institutional supply of Brazilian Soybeans, ICUMSA 45 Cane Sugar, Yellow Corn, Arabica Coffee, Edible Oils, and SIF/Halal Frozen Proteins. SGS &amp; MAPA certified with CIF/FOB port execution.">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:image" content="{{ asset('img/carousel-1.jpg') }}">
+    <meta property="og:image:alt" content="BRX AGRO GLOBAL Brazilian Commodity Export Operations">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="pt_BR">
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BRX AGRO GLOBAL — Brazilian Agro-Commodity Origination &amp; Export">
+    <meta name="twitter:description" content="Direct institutional origination of Brazilian Soybeans, ICUMSA 45 Sugar, Yellow Corn, Green Coffee, Edible Oils &amp; Frozen Proteins. SGS &amp; MAPA verified.">
+    <meta name="twitter:image" content="{{ asset('img/carousel-1.jpg') }}">
+    <meta name="twitter:image:alt" content="BRX AGRO GLOBAL Brazilian Commodity Export Operations">
+
+    <!-- Badge Favicons & Web Manifest -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
     <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('img/favicon-48x48.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+
+    <!-- Structured Data (Schema.org JSON-LD: Corporation, WebSite, Commodity Catalog & FAQ) -->
+    @php
+        $schemaProductItems = [];
+        if (isset($products) && $products->isNotEmpty()) {
+            foreach ($products->take(28)->values() as $idx => $prod) {
+                $schemaProductItems[] = [
+                    '@type' => 'ListItem',
+                    'position' => $idx + 1,
+                    'item' => [
+                        '@type' => 'Product',
+                        'name' => $prod->name,
+                        'description' => $prod->description ?: ($prod->name . ' — Brazilian export grade agro-commodity supplied by BRX AGRO GLOBAL.'),
+                        'image' => asset($prod->image ?: 'img/carousel-1.jpg'),
+                        'sku' => 'BRX-COM-' . str_pad((string) $prod->id, 4, '0', STR_PAD_LEFT),
+                        'category' => optional($prod->category)->name ?: 'Brazilian Agro-Commodities',
+                        'brand' => [
+                            '@type' => 'Brand',
+                            'name' => 'BRX AGRO GLOBAL',
+                        ],
+                        'offers' => [
+                            '@type' => 'Offer',
+                            'url' => url('/') . '#products',
+                            'priceCurrency' => 'USD',
+                            'price' => number_format((float) ($prod->price ?: 0), 2, '.', ''),
+                            'availability' => ($prod->stock ?? 0) > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+                            'itemCondition' => 'https://schema.org/NewCondition',
+                            'seller' => [
+                                '@type' => 'Organization',
+                                'name' => 'BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA',
+                            ],
+                        ],
+                    ],
+                ];
+            }
+        }
+
+        $jsonLdGraph = [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'Corporation',
+                    '@id' => url('/') . '#organization',
+                    'name' => 'BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA',
+                    'alternateName' => 'BRX Agro Global',
+                    'url' => url('/'),
+                    'logo' => asset('img/BRX Agro Global Product Emblem.png'),
+                    'image' => asset('img/carousel-1.jpg'),
+                    'description' => 'Brazilian institutional agro-commodity origination and export trading house supplying Non-GMO & GMO Soybeans, ICUMSA 45 Cane Sugar, Yellow Corn, Arabica Green Coffee, Edible Oils, and SIF/Halal Frozen Proteins worldwide.',
+                    'taxID' => '38.471.480/0001-41',
+                    'email' => 'brxagroglobal@gmail.com',
+                    'telephone' => '+55-11-95835-3433',
+                    'address' => [
+                        '@type' => 'PostalAddress',
+                        'addressLocality' => 'São Paulo',
+                        'addressRegion' => 'SP',
+                        'addressCountry' => 'BR',
+                    ],
+                    'contactPoint' => [
+                        [
+                            '@type' => 'ContactPoint',
+                            'telephone' => '+55-11-95835-3433',
+                            'email' => 'brxagroglobal@gmail.com',
+                            'contactType' => 'sales',
+                            'areaServed' => 'Worldwide',
+                            'availableLanguage' => ['English', 'Portuguese', 'Spanish'],
+                        ],
+                    ],
+                ],
+                [
+                    '@type' => 'WebSite',
+                    '@id' => url('/') . '#website',
+                    'url' => url('/'),
+                    'name' => 'BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA',
+                    'publisher' => [
+                        '@id' => url('/') . '#organization',
+                    ],
+                    'inLanguage' => 'en',
+                ],
+                [
+                    '@type' => 'ItemList',
+                    '@id' => url('/') . '#commodity-catalog',
+                    'name' => 'BRX Agro Global Export Commodity Catalog',
+                    'itemListOrder' => 'https://schema.org/ItemListOrderAscending',
+                    'numberOfItems' => count($schemaProductItems),
+                    'itemListElement' => $schemaProductItems,
+                ],
+                [
+                    '@type' => 'FAQPage',
+                    '@id' => url('/') . '#faq',
+                    'mainEntity' => [
+                        [
+                            '@type' => 'Question',
+                            'name' => 'Which Brazilian export ports and Incoterms does BRX Agro Global support?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'BRX AGRO GLOBAL executes bulk vessel and containerized FCL shipments via the Port of Santos (BRSSZ) and Port of Paranaguá (BRPNG) under Incoterms 2020 FOB, CFR, and CIF delivery terms.',
+                            ],
+                        ],
+                        [
+                            '@type' => 'Question',
+                            'name' => 'Are BRX Agro Global shipments inspected by SGS and certified by MAPA?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'Yes. Every export allocation includes pre-loading independent quality, weight, and laboratory assay inspection by SGS (or equivalent surveyor) alongside official Brazilian MAPA phytosanitary and SIF/Halal health certificates.',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    @endphp
+    <script type="application/ld+json">{!! json_encode($jsonLdGraph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
     <!-- Self-Hosted Typography (Agrovia Brand Fonts: Comic Relief for Headings & Buttons, Open Sans for Body) -->
     <link rel="stylesheet" href="{{ asset('fonts/comic-relief.css') }}">

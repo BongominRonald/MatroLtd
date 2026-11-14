@@ -124,4 +124,22 @@ class ExampleTest extends TestCase
         $response = $this->actingAs($admin)->get('/account');
         $response->assertRedirect(route('admin.dashboard'));
     }
+
+    public function test_seo_metadata_structured_data_and_sitemap_xml_render_correctly(): void
+    {
+        $home = $this->get('/');
+        $home->assertStatus(200);
+        $home->assertSee('<link rel="canonical"', false);
+        $home->assertSee('property="og:title"', false);
+        $home->assertSee('name="twitter:card"', false);
+        $home->assertSee('application/ld+json', false);
+        $home->assertSee('38.471.480/0001-41', false);
+
+        $sitemap = $this->get('/sitemap.xml');
+        $sitemap->assertStatus(200);
+        $sitemap->assertHeader('Content-Type', 'application/xml; charset=utf-8');
+        $sitemap->assertSee('<urlset', false);
+        $sitemap->assertSee(route('login'), false);
+        $sitemap->assertSee(route('register'), false);
+    }
 }

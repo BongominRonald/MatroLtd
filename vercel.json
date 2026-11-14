@@ -51,7 +51,7 @@
       "dest": "/public/script.js"
     },
     {
-      "src": "/(.*\\.(?:ico|png|jpg|jpeg|svg|webp|css|js|woff|woff2|ttf|eot|gif|map|json|txt))",
+      "src": "/(.*\\.(?:ico|png|jpg|jpeg|svg|webp|css|js|woff|woff2|ttf|eot|gif|map|json|txt|webmanifest))",
       "dest": "/public/$1"
     },
     {

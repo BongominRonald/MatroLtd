@@ -5,12 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>BRX AGRO GLOBAL — Sign In & Register</title>
+    <title>{{ ($initialMode ?? 'login') === 'register' ? 'Register Buyer Account — BRX AGRO GLOBAL' : 'Sign In — BRX AGRO GLOBAL' }}</title>
+    <meta name="description" content="Sign in or register an institutional commodity buyer account with BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA to place sample orders, request FOB/CIF quotes, and track export shipments.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ ($initialMode ?? 'login') === 'register' ? route('register') : route('login') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA">
+    <meta property="og:title" content="{{ ($initialMode ?? 'login') === 'register' ? 'Register Buyer Account — BRX AGRO GLOBAL' : 'Sign In — BRX AGRO GLOBAL' }}">
+    <meta property="og:description" content="Institutional buyer portal for BRX AGRO GLOBAL Brazilian commodity origination and export.">
+    <meta property="og:url" content="{{ ($initialMode ?? 'login') === 'register' ? route('register') : route('login') }}">
+    <meta property="og:image" content="{{ asset('img/BRX Agro Global Product Emblem.png') }}">
     <!-- Badge Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
 
     <!-- Local Self-Hosted Assets -->
     <link rel="stylesheet" href="{{ asset('lib/boxicons/boxicons.min.css') }}">

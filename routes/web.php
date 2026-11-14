@@ -53,6 +53,57 @@ Route::get('/', function () {
     return view('index', compact('categories', 'products', 'totalStock', 'productsCount', 'userInquiries', 'userOrders', 'heroSlides'));
 })->name('home');
 
+// Dynamic XML Sitemap (with Google Image Sitemap extension for Commodity Products)
+Route::get('/sitemap.xml', function () {
+    $baseUrl = rtrim(url('/'), '/');
+    $latestProduct = Schema::hasTable('products') ? Product::latest('updated_at')->first() : null;
+    $lastMod = $latestProduct && $latestProduct->updated_at
+        ? $latestProduct->updated_at->toAtomString()
+        : now()->toAtomString();
+
+    $products = Schema::hasTable('products') ? Product::orderBy('id')->take(50)->get() : collect();
+
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+
+    // Primary Storefront & Commodity Catalog
+    $xml .= '  <url>' . "\n";
+    $xml .= '    <loc>' . e($baseUrl . '/') . '</loc>' . "\n";
+    $xml .= '    <lastmod>' . e($lastMod) . '</lastmod>' . "\n";
+    $xml .= '    <changefreq>daily</changefreq>' . "\n";
+    $xml .= '    <priority>1.0</priority>' . "\n";
+    foreach ($products as $prod) {
+        if (! empty($prod->image)) {
+            $xml .= '    <image:image>' . "\n";
+            $xml .= '      <image:loc>' . e(asset($prod->image)) . '</image:loc>' . "\n";
+            $xml .= '      <image:title>' . e($prod->name . ' — BRX AGRO GLOBAL') . '</image:title>' . "\n";
+            $xml .= '    </image:image>' . "\n";
+        }
+    }
+    $xml .= '  </url>' . "\n";
+
+    // Public Buyer Authentication & Registration Pages
+    $xml .= '  <url>' . "\n";
+    $xml .= '    <loc>' . e(route('login')) . '</loc>' . "\n";
+    $xml .= '    <lastmod>' . e($lastMod) . '</lastmod>' . "\n";
+    $xml .= '    <changefreq>monthly</changefreq>' . "\n";
+    $xml .= '    <priority>0.6</priority>' . "\n";
+    $xml .= '  </url>' . "\n";
+
+    $xml .= '  <url>' . "\n";
+    $xml .= '    <loc>' . e(route('register')) . '</loc>' . "\n";
+    $xml .= '    <lastmod>' . e($lastMod) . '</lastmod>' . "\n";
+    $xml .= '    <changefreq>monthly</changefreq>' . "\n";
+    $xml .= '    <priority>0.6</priority>' . "\n";
+    $xml .= '  </url>' . "\n";
+
+    $xml .= '</urlset>';
+
+    return response($xml, 200, [
+        'Content-Type' => 'application/xml; charset=utf-8',
+    ]);
+})->name('sitemap');
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 
