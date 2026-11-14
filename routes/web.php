@@ -275,15 +275,9 @@ Route::get('/cookies/consent', function (Request $request) {
     ]);
 })->name('cookies.status');
 
-// Public Commodity Cart Checkout & Order Placement (Authenticated Buyers Only)
+// Public Commodity Cart Checkout & Order Placement (Open to all buyers & institutional clients)
 Route::post('/checkout', function (Request $request) {
-    if (! auth()->check()) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Authentication required. Please log in to place a commodity order.',
-            'redirect' => route('login'),
-        ], 401);
-    }
+    $userId = auth()->check() ? auth()->id() : null;
 
     $validated = $request->validate([
         'customer_name' => 'required|string|max:255',
@@ -317,7 +311,7 @@ Route::post('/checkout', function (Request $request) {
 
     $order = Order::create([
         'order_number' => 'BRX-ORD-'.strtoupper(Str::random(6)),
-        'user_id' => auth()->id(),
+        'user_id' => $userId,
         'customer_name' => $validated['customer_name'],
         'customer_email' => $validated['customer_email'],
         'customer_phone' => $validated['customer_phone'] ?? null,

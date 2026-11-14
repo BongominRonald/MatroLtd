@@ -2692,11 +2692,7 @@
                                     </div>
                                     <div class="d-flex gap-2 mt-auto pt-2">
                                         <button type="button" class="sh-card-cart-btn btn-add-cart" data-name="{{ $product->name }}" data-price="0" data-unit="{{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}">
-                                            @auth
-                                                <i class="bi bi-bag"></i> Add to Cart
-                                            @else
-                                                <i class="bi bi-shield-lock"></i> Add to Cart
-                                            @endauth
+                                            <i class="bi bi-bag-plus"></i> Add to Cart
                                         </button>
                                     </div>
                                 </div>
@@ -2720,11 +2716,7 @@
                                         <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
                                     </div>
                                     <button class="sh-card-cart-btn btn-add-cart" data-name="Brazilian Non-GMO Soybeans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-1.jpg') }}" data-origin="Mato Grosso">
-                                        @auth
-                                            <i class="bi bi-bag"></i> Add to Cart
-                                        @else
-                                            <i class="bi bi-shield-lock"></i> Add to Cart
-                                        @endauth
+                                        <i class="bi bi-bag-plus"></i> Add to Cart
                                     </button>
                                 </div>
                             </div>
@@ -2745,11 +2737,7 @@
                                         <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
                                     </div>
                                     <button class="sh-card-cart-btn btn-add-cart" data-name="Refined Cane Sugar (ICUMSA 45)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-2.jpg') }}" data-origin="São Paulo">
-                                        @auth
-                                            <i class="bi bi-bag"></i> Add to Cart
-                                        @else
-                                            <i class="bi bi-shield-lock"></i> Add to Cart
-                                        @endauth
+                                        <i class="bi bi-bag-plus"></i> Add to Cart
                                     </button>
                                 </div>
                             </div>
@@ -2770,11 +2758,7 @@
                                         <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
                                     </div>
                                     <button class="sh-card-cart-btn btn-add-cart" data-name="Yellow Corn (Maize Grade 2)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-3.jpg') }}" data-origin="Goiás">
-                                        @auth
-                                            <i class="bi bi-bag"></i> Add to Cart
-                                        @else
-                                            <i class="bi bi-shield-lock"></i> Add to Cart
-                                        @endauth
+                                        <i class="bi bi-bag-plus"></i> Add to Cart
                                     </button>
                                 </div>
                             </div>
@@ -2795,11 +2779,7 @@
                                         <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
                                     </div>
                                     <button class="sh-card-cart-btn btn-add-cart" data-name="Arabica Green Coffee Beans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-5.jpg') }}" data-origin="Minas Gerais">
-                                        @auth
-                                            <i class="bi bi-bag"></i> Add to Cart
-                                        @else
-                                            <i class="bi bi-shield-lock"></i> Add to Cart
-                                        @endauth
+                                        <i class="bi bi-bag-plus"></i> Add to Cart
                                     </button>
                                 </div>
                             </div>
@@ -3535,28 +3515,13 @@
                 <div class="mb-3 text-muted opacity-50" style="font-size: 3.5rem;">
                     <i class="bi bi-basket3"></i>
                 </div>
-                <h5 class="fw-bold sh-text-title mb-2">Your Sample Cart is Empty</h5>
+                <h5 class="fw-bold sh-text-title mb-2">Your Commodity Cart is Empty</h5>
                 <p class="text-muted small mb-4 px-3">
-                    @auth
-                        You have not added any commodity lots yet. Browse our harvest catalog or select physical samples for laboratory analysis.
-                    @else
-                        Please sign in to your institutional account to reserve export lots and request physical commodity samples.
-                    @endauth
+                    You have not added any commodity lots yet. Browse our harvest catalog to select export lots for direct shipment or physical assay samples.
                 </p>
-                @auth
-                    <a href="#products" class="btn btn-sh-primary btn-sm px-4 py-2" onclick="closeCartDrawer()">
-                        <i class="bi bi-grid-3x3-gap me-1"></i> Browse Commodities
-                    </a>
-                @else
-                    <div class="d-flex justify-content-center gap-2">
-                        <a href="{{ route('login') }}" class="btn btn-sh-login btn-sm px-3 py-2">
-                            <i class="bi bi-box-arrow-in-right me-1"></i> Log In
-                        </a>
-                        <a href="{{ route('register') }}" class="btn btn-sh-primary btn-sm px-3 py-2">
-                            <i class="bi bi-person-plus me-1"></i> Sign Up
-                        </a>
-                    </div>
-                @endauth
+                <a href="#products" class="btn btn-sh-primary btn-sm px-4 py-2" onclick="closeCartDrawer()">
+                    <i class="bi bi-grid-3x3-gap me-1"></i> Browse Commodities
+                </a>
             </div>
 
             <!-- Populated Cart Content -->
@@ -3865,15 +3830,9 @@
                         </div>
                     </div>
                     <div class="d-flex gap-2">
-                        @auth
-                            <button type="button" id="qvAddToCartBtn" class="btn btn-sh-primary flex-fill">
-                                <i class="bi bi-bag me-1"></i> Add to Sample Cart
-                            </button>
-                        @else
-                            <button type="button" id="qvAddToCartBtn" class="btn btn-sh-primary flex-fill">
-                                <i class="bi bi-shield-lock me-1"></i> Sign In to Add to Cart
-                            </button>
-                        @endauth
+                        <button type="button" id="qvAddToCartBtn" class="btn btn-sh-primary flex-fill">
+                            <i class="bi bi-bag-plus me-1"></i> Add to Commodity Cart
+                        </button>
                         <button type="button" class="btn btn-sh-outline" data-bs-dismiss="modal">
                             Close
                         </button>
@@ -4024,7 +3983,7 @@
                                         </div>
                                         <div class="text-muted d-flex justify-content-between" style="font-size: 0.72rem;">
                                             <span>{{ $ord->created_at->format('M d, Y') }}</span>
-                                            <span>${{ number_format($ord->total_amount, 2) }}</span>
+                                            <span>{{ $ord->total_amount > 0 ? '$'.number_format($ord->total_amount, 2) : 'Direct Wholesale RFQ' }}</span>
                                         </div>
                                     </div>
                                 @endforeach
@@ -4321,22 +4280,12 @@
             }
 
             function saveCart() {
-                if (!isAuthenticated) {
-                    cart = [];
-                    try { localStorage.removeItem('agroviaCart'); } catch (e) {}
-                    return;
-                }
                 try {
                     localStorage.setItem('agroviaCart', JSON.stringify(cart));
                 } catch (e) {}
             }
 
             function updateCartCount() {
-                if (!isAuthenticated) {
-                    $('#cartCountBadge, .mobileCartBadge').text('0');
-                    $('#cartDrawerCountBadge').text('0 lots');
-                    return 0;
-                }
                 var total = cart.reduce(function (sum, item) { return sum + (parseInt(item.qty, 10) || 1); }, 0);
                 $('#cartCountBadge, .mobileCartBadge').text(total);
                 $('#cartDrawerCountBadge').text(total + (total === 1 ? ' lot' : ' lots'));
@@ -4356,30 +4305,6 @@
                     toast.classList.add('sh-toast-hide');
                 }, 3000);
             }
-
-            function requireAuthForCart() {
-                // If quick view modal is currently open, dismiss it
-                var qvEl = document.getElementById('quickViewModal');
-                if (qvEl) {
-                    var qvInstance = bootstrap.Modal.getInstance(qvEl);
-                    if (qvInstance) {
-                        qvInstance.hide();
-                    }
-                }
-
-                // Show notification toast explaining login requirement
-                triggerToast('Sign-in required: Please log in to add commodity samples.', 0);
-
-                // Show the institutional authentication required modal
-                var authModalEl = document.getElementById('authRequiredModal');
-                if (authModalEl) {
-                    var authModal = bootstrap.Modal.getInstance(authModalEl) || new bootstrap.Modal(authModalEl);
-                    authModal.show();
-                } else {
-                    window.location.href = "{{ route('login') }}";
-                }
-            }
-            window.requireAuthForCart = requireAuthForCart;
 
             // Agrovia Cart Drawer Functions
             function openCartDrawer() {
@@ -4409,16 +4334,12 @@
             window.closeCartDrawer = closeCartDrawer;
 
             function renderCartDrawer() {
-                if (!isAuthenticated) {
-                    cart = [];
-                    try { localStorage.removeItem('agroviaCart'); } catch (e) {}
-                }
                 updateCartCount();
                 var $empty = $('#cartEmptyState');
                 var $pop = $('#cartPopulatedContent');
                 var $list = $('#cartItemsList');
 
-                if (!isAuthenticated || cart.length === 0) {
+                if (cart.length === 0) {
                     $empty.removeClass('d-none');
                     $pop.addClass('d-none');
                     $('#cartSummaryTotalVal').text('0 Lots');
@@ -4475,10 +4396,6 @@
             window.renderCartDrawer = renderCartDrawer;
 
             function changeItemQty(index, delta) {
-                if (!isAuthenticated) {
-                    requireAuthForCart();
-                    return;
-                }
                 if (!cart[index]) return;
                 cart[index].qty = (parseInt(cart[index].qty, 10) || 1) + delta;
                 if (cart[index].qty <= 0) {
@@ -4491,10 +4408,6 @@
             window.changeItemQty = changeItemQty;
 
             function removeCartItem(index) {
-                if (!isAuthenticated) {
-                    requireAuthForCart();
-                    return;
-                }
                 if (!cart[index]) return;
                 var removedName = cart[index].name;
                 cart.splice(index, 1);
@@ -4505,12 +4418,6 @@
             window.removeCartItem = removeCartItem;
 
             function clearCart() {
-                if (!isAuthenticated) {
-                    cart = [];
-                    try { localStorage.removeItem('agroviaCart'); } catch (e) {}
-                    renderCartDrawer();
-                    return;
-                }
                 if (cart.length === 0) return;
                 if (confirm('Are you sure you want to clear your commodity sample cart?')) {
                     cart = [];
@@ -4529,10 +4436,6 @@
 
             $(document).on('click', '.btn-add-cart', function (e) {
                 e.preventDefault();
-                if (!isAuthenticated) {
-                    requireAuthForCart();
-                    return;
-                }
                 var prodName = $(this).attr('data-name') || 'Agricultural Commodity';
                 var prodUnit = $(this).attr('data-unit') || 'MT';
                 var prodImage = $(this).attr('data-image') || '{{ asset('img/service-1.jpg') }}';
@@ -4574,10 +4477,6 @@
             });
 
             $('#qvAddToCartBtn').on('click', function () {
-                if (!isAuthenticated) {
-                    requireAuthForCart();
-                    return;
-                }
                 if (!currentQvProduct) return;
                 var existing = cart.find(function (i) { return i.name === currentQvProduct; });
                 if (existing) {
@@ -4608,10 +4507,6 @@
 
             // Open Checkout Modal from Cart Drawer
             $('#btnOpenCheckout').on('click', function () {
-                if (!isAuthenticated) {
-                    requireAuthForCart();
-                    return;
-                }
                 if (cart.length === 0) {
                     alert('Your sample cart is currently empty. Please select commodity lots first.');
                     return;
@@ -4697,6 +4592,13 @@
                             : (selectedChannel === 'email') ? 'Corporate Email (brxagroglobal@gmail.com)'
                             : 'WhatsApp (+55 11 95835-3433) & Corporate Email';
 
+                        // Auto-open WhatsApp chat window directly on user's device if WhatsApp was selected
+                        if (res.whatsapp_url && (selectedChannel === 'whatsapp' || selectedChannel === 'both')) {
+                            try {
+                                window.open(res.whatsapp_url, '_blank');
+                            } catch (e) {}
+                        }
+
                         var waButton = '';
                         if (res.whatsapp_url && (selectedChannel === 'whatsapp' || selectedChannel === 'both')) {
                             waButton = `
@@ -4734,10 +4636,6 @@
                         }, 2500);
                     },
                     error: function (xhr) {
-                        if (xhr.status === 401) {
-                            window.location.href = "{{ route('login') }}";
-                            return;
-                        }
                         var errMsg = 'Unable to complete checkout. Please review form fields or contact our trade desk directly.';
                         if (xhr.responseJSON && xhr.responseJSON.message) {
                             errMsg = xhr.responseJSON.message;

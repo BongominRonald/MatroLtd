@@ -89,11 +89,14 @@ class CheckoutTest extends TestCase
         Mail::assertSent(AdminOrderAlertMail::class);
     }
 
-    public function test_unauthenticated_guest_cannot_place_order_via_checkout_endpoint(): void
+    public function test_guest_client_can_place_commodity_order_without_account(): void
     {
+        Mail::fake();
+
         $payload = [
             'customer_name' => 'Anonymous Trader',
             'customer_email' => 'guest@example.com',
+            'channel' => 'both',
             'items' => [
                 [
                     'name' => 'Brazilian Non-GMO Soybeans',
@@ -104,14 +107,19 @@ class CheckoutTest extends TestCase
 
         $response = $this->postJson(route('checkout.store'), $payload);
 
-        $response->assertStatus(401);
+        $response->assertStatus(200);
         $response->assertJson([
-            'success' => false,
-            'message' => 'Authentication required. Please log in to place a commodity order.',
+            'success' => true,
         ]);
 
-        $this->assertDatabaseCount('orders', 0);
-        $this->assertDatabaseCount('order_items', 0);
+        $this->assertDatabaseHas('orders', [
+            'user_id' => null,
+            'customer_name' => 'Anonymous Trader',
+            'customer_email' => 'guest@example.com',
+        ]);
+        $this->assertDatabaseCount('order_items', 1);
+
+        Mail::assertSent(AdminOrderAlertMail::class);
     }
 
     public function test_authenticated_user_can_choose_whatsapp_channel_only(): void
