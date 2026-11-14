@@ -122,6 +122,53 @@ Route::get('/sitemap.xml', function () {
     ]);
 })->name('sitemap');
 
+// Dynamic Google Merchant Center XML Product Feed (RSS 2.0 + g: namespace)
+Route::get('/merchant-feed.xml', function () {
+    $baseUrl = rtrim(url('/'), '/');
+    $products = Schema::hasTable('products')
+        ? Product::with('category')->orderBy('id')->get()
+        : collect();
+
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">' . "\n";
+    $xml .= '  <channel>' . "\n";
+    $xml .= '    <title>' . e(config('company.legal_name', 'BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA')) . ' — Product Catalog</title>' . "\n";
+    $xml .= '    <link>' . e($baseUrl . '/') . '</link>' . "\n";
+    $xml .= '    <description>Direct Brazilian Agricultural Commodity Export Catalog — Soybeans, ICUMSA 45 Sugar, Yellow Corn, Arabica Coffee, Edible Oils &amp; Frozen Proteins.</description>' . "\n";
+
+    foreach ($products as $prod) {
+        $productUrl = $baseUrl . '/?product=' . urlencode($prod->slug ?: ('item-' . $prod->id)) . '#products';
+        $imageUrl = ! empty($prod->image)
+            ? (Str::startsWith($prod->image, ['http://', 'https://']) ? $prod->image : asset($prod->image))
+            : asset('img/carousel-1.jpg');
+        $description = trim((string) ($prod->description ?: ($prod->name . ' — Institutional export grade Brazilian agro-commodity supplied by BRX AGRO GLOBAL (' . ($prod->unit ?: 'MT') . ').')));
+        $priceFormatted = number_format((float) ($prod->price ?: 450.00), 2, '.', '') . ' USD';
+        $availability = ((int) ($prod->stock ?? 100)) > 0 ? 'in_stock' : 'out_of_stock';
+        $categoryName = $prod->category?->name ?: 'Agricultural Commodities';
+
+        $xml .= '    <item>' . "\n";
+        $xml .= '      <g:id>' . e('BRX-' . $prod->id) . '</g:id>' . "\n";
+        $xml .= '      <g:title>' . e($prod->name . ($prod->unit ? ' (' . $prod->unit . ')' : '')) . '</g:title>' . "\n";
+        $xml .= '      <g:description>' . e($description) . '</g:description>' . "\n";
+        $xml .= '      <g:link>' . e($productUrl) . '</g:link>' . "\n";
+        $xml .= '      <g:image_link>' . e($imageUrl) . '</g:image_link>' . "\n";
+        $xml .= '      <g:condition>new</g:condition>' . "\n";
+        $xml .= '      <g:availability>' . $availability . '</g:availability>' . "\n";
+        $xml .= '      <g:price>' . e($priceFormatted) . '</g:price>' . "\n";
+        $xml .= '      <g:brand>' . e($prod->brand ?: 'BRX AGRO GLOBAL') . '</g:brand>' . "\n";
+        $xml .= '      <g:identifier_exists>no</g:identifier_exists>' . "\n";
+        $xml .= '      <g:product_type>' . e('Food, Beverages & Tobacco > Food Items > ' . $categoryName) . '</g:product_type>' . "\n";
+        $xml .= '    </item>' . "\n";
+    }
+
+    $xml .= '  </channel>' . "\n";
+    $xml .= '</rss>';
+
+    return response($xml, 200, [
+        'Content-Type' => 'application/xml; charset=utf-8',
+    ]);
+})->name('merchant.feed');
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 
