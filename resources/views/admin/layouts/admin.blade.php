@@ -41,7 +41,7 @@
             font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: #f4f6f9;
             color: #212529;
-            overflow-x: hidden;
+            overflow-x: clip;
             width: 100%;
             max-width: 100vw;
         }
@@ -55,7 +55,7 @@
             display: flex;
             width: 100%;
             max-width: 100vw;
-            overflow-x: hidden;
+            overflow-x: clip;
             position: relative;
         }
 
