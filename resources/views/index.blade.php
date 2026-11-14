@@ -1210,6 +1210,46 @@
         .sh-strip {
             background: var(--sh-primary);
             color: #fff;
+            overflow: hidden;
+        }
+        .sh-strip.has-scroll-anim .item {
+            opacity: 0;
+            transform: translateY(28px) scale(0.94);
+        }
+        .sh-strip.has-scroll-anim .item.is-visible {
+            animation: shStripBounceIn 0.72s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .sh-strip.has-scroll-anim .item:nth-child(2).is-visible { animation-delay: 0.1s; }
+        .sh-strip.has-scroll-anim .item:nth-child(3).is-visible { animation-delay: 0.2s; }
+        .sh-strip.has-scroll-anim .item:nth-child(4).is-visible { animation-delay: 0.3s; }
+
+        @keyframes shStripBounceIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.92);
+            }
+            55% {
+                opacity: 1;
+                transform: translateY(-8px) scale(1.04);
+            }
+            78% {
+                opacity: 1;
+                transform: translateY(3px) scale(0.99);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .sh-strip.has-scroll-anim .item {
+                opacity: 1;
+                transform: none;
+            }
+            .sh-strip.has-scroll-anim .item.is-visible {
+                animation: none;
+            }
         }
         .sh-strip .item i {
             font-size: 1.7rem;
@@ -1365,6 +1405,22 @@
         .sh-card-cart-btn:hover {
             background: var(--sh-primary-dark);
             color: #fff;
+        }
+        .sh-card-cart-btn.has-scroll-anim {
+            opacity: 0;
+            transform: translateY(20px) scale(0.94);
+        }
+        .sh-card-cart-btn.has-scroll-anim.is-visible {
+            animation: shStripBounceIn 0.72s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .sh-card-cart-btn.has-scroll-anim {
+                opacity: 1;
+                transform: none;
+            }
+            .sh-card-cart-btn.has-scroll-anim.is-visible {
+                animation: none;
+            }
         }
 
         /* ===== Section Titles ===== */
@@ -4682,6 +4738,61 @@
                     }
                 });
             });
+
+            // Feature Strip (#services) bounce-on-scroll animation
+            var servicesStrip = document.getElementById('services');
+            if (servicesStrip) {
+                var stripItems = servicesStrip.querySelectorAll('.item');
+                servicesStrip.classList.add('has-scroll-anim');
+
+                if ('IntersectionObserver' in window) {
+                    var stripObserver = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            stripItems.forEach(function (item) {
+                                if (entry.isIntersecting) {
+                                    item.classList.add('is-visible');
+                                } else {
+                                    item.classList.remove('is-visible');
+                                }
+                            });
+                        });
+                    }, { threshold: 0.2 });
+
+                    stripObserver.observe(servicesStrip);
+                } else {
+                    stripItems.forEach(function (item) {
+                        item.classList.add('is-visible');
+                    });
+                }
+            }
+
+            // Product Card "Add to Cart" buttons (.sh-card-cart-btn) bounce-on-scroll animation
+            var cartButtons = document.querySelectorAll('.sh-card-cart-btn');
+            if (cartButtons.length) {
+                cartButtons.forEach(function (btn) {
+                    btn.classList.add('has-scroll-anim');
+                });
+
+                if ('IntersectionObserver' in window) {
+                    var cartBtnObserver = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-visible');
+                            } else {
+                                entry.target.classList.remove('is-visible');
+                            }
+                        });
+                    }, { threshold: 0.15 });
+
+                    cartButtons.forEach(function (btn) {
+                        cartBtnObserver.observe(btn);
+                    });
+                } else {
+                    cartButtons.forEach(function (btn) {
+                        btn.classList.add('is-visible');
+                    });
+                }
+            }
 
         })();
     </script>
