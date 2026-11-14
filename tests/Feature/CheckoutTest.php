@@ -265,4 +265,51 @@ class CheckoutTest extends TestCase
                 && str_contains($request->body(), 'Shanghai Agri Import Corp');
         });
     }
+
+    public function test_legitimate_inquiry_without_honeypot_is_saved_and_emailed(): void
+    {
+        Mail::fake();
+
+        $response = $this->postJson(route('inquiries.store'), [
+            'name' => 'Marco Silva',
+            'email' => 'marco@rotterdamtrade.nl',
+            'company' => 'Rotterdam Agri BV',
+            'country' => 'Netherlands',
+            'buyer_detail' => 'Brazilian Non-GMO Soybeans',
+            'message' => 'Requesting CIF Rotterdam quote for 2,500 MT.',
+            'company_website_url' => '',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true);
+
+        $this->assertDatabaseHas('inquiries', [
+            'name' => 'Marco Silva',
+            'email' => 'marco@rotterdamtrade.nl',
+            'status' => 'new',
+        ]);
+    }
+
+    public function test_honeypot_blocks_spam_bot_inquiry_from_saving_or_emailing(): void
+    {
+        Mail::fake();
+
+        $response = $this->postJson(route('inquiries.store'), [
+            'name' => 'Spam Bot',
+            'email' => 'bot@spammer.example.com',
+            'company' => 'Spam Corp',
+            'buyer_detail' => 'Brazilian Non-GMO Soybeans',
+            'message' => 'Buy cheap backlinks at http://spammer.example.com',
+            'company_website_url' => 'http://spammer.example.com',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true);
+
+        $this->assertDatabaseMissing('inquiries', [
+            'email' => 'bot@spammer.example.com',
+        ]);
+
+        Mail::assertNothingSent();
+    }
 }

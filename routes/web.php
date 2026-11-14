@@ -77,6 +77,26 @@ Route::get('/account', function () {
 
 // Public Trade & RFQ Inquiry Form Submission
 Route::post('/inquiries', function (Request $request) {
+    // Honeypot bot protection: if the hidden trap field is filled, silently discard spam
+    if ($request->filled('company_website_url')) {
+        Log::info('Honeypot blocked automated spam inquiry submission.', [
+            'ip' => $request->ip(),
+            'email' => $request->input('email'),
+        ]);
+
+        $fakeRef = 'AGRO-INQ-'.strtoupper(Str::random(6));
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'reference' => $fakeRef,
+                'message' => 'Your inquiry has been submitted. Our trade desk will contact you promptly.',
+            ]);
+        }
+
+        return back()->with('status', 'Inquiry submitted successfully.');
+    }
+
     $validated = $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|email|max:255',

@@ -2995,6 +2995,10 @@
 
                             <form id="rfqInquiryForm">
                                 <input type="hidden" name="role" value="buyer">
+                                <div aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;">
+                                    <label for="rfq_company_website_url">Company Website URL</label>
+                                    <input type="text" id="rfq_company_website_url" name="company_website_url" value="" tabindex="-1" autocomplete="off">
+                                </div>
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Target Commodity *</label>
@@ -3956,6 +3960,10 @@
 
                             <form id="deskInboxForm">
                                 <input type="hidden" name="role" value="buyer">
+                                <div aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;">
+                                    <label for="inbox_company_website_url">Company Website URL</label>
+                                    <input type="text" id="inbox_company_website_url" name="company_website_url" value="" tabindex="-1" autocomplete="off">
+                                </div>
 
                                 @auth
                                     <input type="hidden" name="name" value="{{ auth()->user()->name }}">
