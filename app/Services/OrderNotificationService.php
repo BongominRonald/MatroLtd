@@ -47,11 +47,36 @@ class OrderNotificationService
             // Company & Trade Desk Alert Mail
             $recipients = $this->getCompanyRecipients();
             if (! empty($recipients)) {
+                $emailSent = false;
                 try {
                     Mail::to($recipients)->send(new AdminOrderAlertMail($order));
                     $results['company_emails'] = $recipients;
+                    $emailSent = true;
                 } catch (\Throwable $e) {
-                    Log::warning('Company order alert email failed: ' . $e->getMessage(), ['order' => $order->order_number]);
+                    Log::warning('Company order alert email failed via default mailer: ' . $e->getMessage(), ['order' => $order->order_number]);
+                }
+
+                // If default mailer is 'log' or failed, check for Resend API direct delivery
+                $resendKey = config('services.resend.key') ?: env('RESEND_API_KEY');
+                if (! empty($resendKey) && (! $emailSent || config('mail.default') === 'log')) {
+                    try {
+                        $fromAddress = config('mail.from.address', 'brxagroglobal@gmail.com');
+                        $fromName = config('mail.from.name', 'BRX AGRO GLOBAL');
+                        $resendResponse = Http::timeout(8)
+                            ->withToken($resendKey)
+                            ->post('https://api.resend.com/emails', [
+                                'from' => "{$fromName} <{$fromAddress}>",
+                                'to' => $recipients,
+                                'subject' => '[TRADE DESK ALERT] New Commodity Order #' . $order->order_number . ' — ' . $order->customer_name,
+                                'html' => view('emails.admin-order-alert', ['order' => $order, 'items' => $order->items])->render(),
+                            ]);
+                        if ($resendResponse->successful()) {
+                            $results['company_emails'] = $recipients;
+                            Log::info('Company order alert email dispatched via Resend REST API.', ['order' => $order->order_number]);
+                        }
+                    } catch (\Throwable $e) {
+                        Log::warning('Resend API direct dispatch failed: ' . $e->getMessage(), ['order' => $order->order_number]);
+                    }
                 }
             }
         }
@@ -185,6 +210,7 @@ class OrderNotificationService
 
     /**
      * Dispatch WhatsApp notification to the official company WhatsApp device (+55 11 95835-3433).
+     * Supports: CallMeBot, Meta Cloud API, Twilio, and Custom Webhook/Gateway.
      */
     public function dispatchWhatsAppAlert(Order $order, string $channel = 'both'): array
     {
@@ -194,12 +220,78 @@ class OrderNotificationService
         $directUrl = "https://api.whatsapp.com/send?phone={$targetNumber}&text={$encodedText}";
 
         $dispatched = false;
+        $providerUsed = null;
 
-        // Automated backend HTTP POST dispatch if WhatsApp Gateway API is configured
+        // 1. CallMeBot Gateway (Direct instant delivery to WhatsApp device via CallMeBot API key)
+        $callmebotKey = config('services.company.callmebot_api_key') ?: env('CALLMEBOT_API_KEY');
+        if (! empty($callmebotKey) && ! $dispatched) {
+            try {
+                $callmebotUrl = "https://api.callmebot.com/whatsapp.php?phone={$targetNumber}&text={$encodedText}&apikey={$callmebotKey}";
+                $response = Http::timeout(8)->get($callmebotUrl);
+                if ($response->successful()) {
+                    $dispatched = true;
+                    $providerUsed = 'callmebot';
+                }
+            } catch (\Throwable $e) {
+                Log::warning('CallMeBot WhatsApp dispatch failed: ' . $e->getMessage(), ['order' => $order->order_number]);
+            }
+        }
+
+        // 2. Meta WhatsApp Cloud API (Official WhatsApp Business Platform)
+        $cloudToken = config('services.company.whatsapp_cloud_token') ?: env('WHATSAPP_CLOUD_TOKEN');
+        $phoneId = config('services.company.whatsapp_phone_number_id') ?: env('WHATSAPP_PHONE_NUMBER_ID', env('WHATSAPP_PHONE_ID'));
+        if (! empty($cloudToken) && ! empty($phoneId) && ! $dispatched) {
+            try {
+                $response = Http::timeout(8)
+                    ->withToken($cloudToken)
+                    ->post("https://graph.facebook.com/v19.0/{$phoneId}/messages", [
+                        'messaging_product' => 'whatsapp',
+                        'recipient_type' => 'individual',
+                        'to' => $targetNumber,
+                        'type' => 'text',
+                        'text' => [
+                            'preview_url' => false,
+                            'body' => $message,
+                        ],
+                    ]);
+                if ($response->successful()) {
+                    $dispatched = true;
+                    $providerUsed = 'meta_cloud_api';
+                }
+            } catch (\Throwable $e) {
+                Log::warning('Meta WhatsApp Cloud dispatch failed: ' . $e->getMessage(), ['order' => $order->order_number]);
+            }
+        }
+
+        // 3. Twilio WhatsApp API
+        $twilioSid = config('services.company.twilio_sid') ?: env('TWILIO_SID', env('TWILIO_ACCOUNT_SID'));
+        $twilioToken = config('services.company.twilio_auth_token') ?: env('TWILIO_AUTH_TOKEN', env('TWILIO_TOKEN'));
+        $twilioFrom = config('services.company.twilio_whatsapp_from') ?: env('TWILIO_WHATSAPP_FROM', '+14155238886');
+        if (! empty($twilioSid) && ! empty($twilioToken) && ! $dispatched) {
+            try {
+                $fromFormatted = str_starts_with($twilioFrom, 'whatsapp:') ? $twilioFrom : 'whatsapp:' . $twilioFrom;
+                $toFormatted = 'whatsapp:+' . ltrim($targetNumber, '+');
+                $response = Http::timeout(8)
+                    ->withBasicAuth($twilioSid, $twilioToken)
+                    ->asForm()
+                    ->post("https://api.twilio.com/2010-04-01/Accounts/{$twilioSid}/Messages.json", [
+                        'From' => $fromFormatted,
+                        'To' => $toFormatted,
+                        'Body' => $message,
+                    ]);
+                if ($response->successful()) {
+                    $dispatched = true;
+                    $providerUsed = 'twilio';
+                }
+            } catch (\Throwable $e) {
+                Log::warning('Twilio WhatsApp dispatch failed: ' . $e->getMessage(), ['order' => $order->order_number]);
+            }
+        }
+
+        // 4. Custom WhatsApp API Gateway (Evolution API, UltraMsg, WPPConnect, Baileys)
         $apiUrl = config('services.company.whatsapp_api_url') ?: env('WHATSAPP_API_URL');
         $apiToken = config('services.company.whatsapp_api_token') ?: env('WHATSAPP_API_TOKEN');
-
-        if (! empty($apiUrl)) {
+        if (! empty($apiUrl) && ! $dispatched) {
             try {
                 $response = Http::timeout(8)
                     ->withHeaders($apiToken ? ['Authorization' => 'Bearer ' . $apiToken] : [])
@@ -210,7 +302,10 @@ class OrderNotificationService
                         'text' => $message,
                         'order_number' => $order->order_number,
                     ]);
-                $dispatched = $response->successful();
+                if ($response->successful()) {
+                    $dispatched = true;
+                    $providerUsed = 'custom_gateway';
+                }
             } catch (\Throwable $e) {
                 Log::warning('Automated WhatsApp API gateway dispatch failed: ' . $e->getMessage(), ['order' => $order->order_number]);
             }
@@ -220,10 +315,12 @@ class OrderNotificationService
             'order' => $order->order_number,
             'target_phone' => '+' . $targetNumber,
             'automated_api_dispatched' => $dispatched,
+            'provider' => $providerUsed,
         ]);
 
         return [
             'dispatched' => $dispatched,
+            'provider' => $providerUsed,
             'target_phone' => '+' . $targetNumber,
             'whatsapp_url' => $directUrl,
             'message' => $message,

@@ -4592,19 +4592,14 @@
                             : (selectedChannel === 'email') ? 'Corporate Email (brxagroglobal@gmail.com)'
                             : 'WhatsApp (+55 11 95835-3433) & Corporate Email';
 
-                        // Auto-open WhatsApp chat window directly on user's device if WhatsApp was selected
-                        if (res.whatsapp_url && (selectedChannel === 'whatsapp' || selectedChannel === 'both')) {
-                            try {
-                                window.open(res.whatsapp_url, '_blank');
-                            } catch (e) {}
-                        }
-
+                        // Automated backend transmission has completed; provide optional direct chat link without disruptive popup
                         var waButton = '';
                         if (res.whatsapp_url && (selectedChannel === 'whatsapp' || selectedChannel === 'both')) {
                             waButton = `
-                                <div class="mt-2.5 pt-2 border-top border-success border-opacity-25">
-                                    <a href="${res.whatsapp_url}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-success fw-bold d-inline-flex align-items-center gap-1.5 shadow-sm">
-                                        <i class="bi bi-whatsapp"></i> Open Direct WhatsApp Conversation (Pre-Composed)
+                                <div class="mt-3 pt-2.5 border-top border-success border-opacity-25 d-flex flex-wrap align-items-center justify-content-between gap-2">
+                                    <span class="small text-muted"><i class="bi bi-check2-all text-success me-1"></i> Dispatched automatically by server in real time</span>
+                                    <a href="${res.whatsapp_url}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success fw-semibold d-inline-flex align-items-center gap-1.5 shadow-sm">
+                                        <i class="bi bi-whatsapp"></i> Optional: Chat Directly with Trade Desk
                                     </a>
                                 </div>
                             `;
