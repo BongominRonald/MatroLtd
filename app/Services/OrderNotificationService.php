@@ -59,24 +59,30 @@ class OrderNotificationService
                 // If default mailer is 'log' or failed, check for Resend API direct delivery
                 $resendKey = config('services.resend.key') ?: env('RESEND_API_KEY');
                 if (! empty($resendKey) && (! $emailSent || config('mail.default') === 'log')) {
-                    try {
-                        $fromAddress = config('mail.from.address', 'brxagroglobal@gmail.com');
-                        $fromName = config('mail.from.name', 'BRX AGRO GLOBAL');
-                        $resendResponse = Http::timeout(8)
-                            ->withToken($resendKey)
-                            ->post('https://api.resend.com/emails', [
-                                'from' => "{$fromName} <{$fromAddress}>",
-                                'to' => $recipients,
-                                'subject' => '[TRADE DESK ALERT] New Commodity Order #' . $order->order_number . ' — ' . $order->customer_name,
-                                'html' => view('emails.admin-order-alert', ['order' => $order, 'items' => $order->items])->render(),
-                            ]);
-                        if ($resendResponse->successful()) {
-                            $results['company_emails'] = $recipients;
-                            Log::info('Company order alert email dispatched via Resend REST API.', ['order' => $order->order_number]);
+                    $fromAddress = config('services.resend.from') ?: env('RESEND_FROM_EMAIL', 'onboarding@resend.dev');
+                    $fromName = config('mail.from.name', 'BRX AGRO GLOBAL');
+
+                    foreach ($recipients as $recipient) {
+                        try {
+                            $resendResponse = Http::timeout(8)
+                                ->withToken($resendKey)
+                                ->post('https://api.resend.com/emails', [
+                                    'from' => "{$fromName} <{$fromAddress}>",
+                                    'to' => [$recipient],
+                                    'subject' => '[TRADE DESK ALERT] New Commodity Order #' . $order->order_number . ' — ' . $order->customer_name,
+                                    'html' => view('emails.admin-order-alert', ['order' => $order, 'items' => $order->items])->render(),
+                                ]);
+                            if ($resendResponse->successful()) {
+                                $results['company_emails'][] = $recipient;
+                                Log::info("Company order alert email dispatched via Resend to {$recipient}.", ['order' => $order->order_number]);
+                            } else {
+                                Log::warning("Resend dispatch to {$recipient} returned: " . $resendResponse->body());
+                            }
+                        } catch (\Throwable $e) {
+                            Log::warning('Resend API direct dispatch failed: ' . $e->getMessage(), ['order' => $order->order_number]);
                         }
-                    } catch (\Throwable $e) {
-                        Log::warning('Resend API direct dispatch failed: ' . $e->getMessage(), ['order' => $order->order_number]);
                     }
+                    $results['company_emails'] = array_values(array_unique($results['company_emails']));
                 }
             }
         }

@@ -213,6 +213,31 @@ Route::post('/inquiries', function (Request $request) {
         Log::warning('Inquiry notification email failed: ' . $e->getMessage());
     }
 
+    // Resend API alert dispatch for real-time mobile notifications
+    $resendKey = config('services.resend.key') ?: env('RESEND_API_KEY');
+    if (! empty($resendKey)) {
+        try {
+            $fromAddress = config('services.resend.from') ?: env('RESEND_FROM_EMAIL', 'onboarding@resend.dev');
+            $fromName = config('mail.from.name', 'BRX AGRO GLOBAL');
+            $recipients = array_filter([
+                env('RESEND_TEST_RECIPIENT', 'abonga029@gmail.com'),
+                config('services.company.trade_desk_email', 'brxagroglobal@gmail.com'),
+            ]);
+            foreach (array_unique($recipients) as $recipient) {
+                \Illuminate\Support\Facades\Http::timeout(6)
+                    ->withToken($resendKey)
+                    ->post('https://api.resend.com/emails', [
+                        'from' => "{$fromName} <{$fromAddress}>",
+                        'to' => [$recipient],
+                        'subject' => "[TRADE DESK INQUIRY] Ref: {$reference} — {$inquiry->name}",
+                        'html' => "<div style='font-family:sans-serif;padding:20px;'><h3 style='color:#78a22f;'>New Trade Desk Inquiry: {$reference}</h3><p><strong>Name:</strong> {$inquiry->name}<br><strong>Email:</strong> {$inquiry->email}<br><strong>Phone:</strong> {$inquiry->phone}<br><strong>Subject:</strong> {$inquiry->subject}</p><p><strong>Message:</strong><br>" . nl2br(e($inquiry->message)) . "</p></div>",
+                    ]);
+            }
+        } catch (\Throwable $e) {
+            Log::warning('Resend inquiry dispatch failed: ' . $e->getMessage());
+        }
+    }
+
     if ($request->wantsJson() || $request->ajax()) {
         return response()->json([
             'success' => true,
