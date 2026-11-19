@@ -370,6 +370,7 @@ Route::post('/checkout', function (Request $request) {
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('notifications/test', [DashboardController::class, 'sendTestNotification'])->name('notifications.test');
 
     // Products Management
     Route::resource('products', ProductController::class);

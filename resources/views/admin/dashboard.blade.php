@@ -53,6 +53,45 @@
 </div>
 @endif
 
+<!-- Live Communications & Real-Time Alerts Status Banner -->
+<div class="card admin-card p-3 mb-4 shadow-sm border-0" style="background: linear-gradient(135deg, rgba(120, 162, 47, 0.08) 0%, rgba(37, 99, 235, 0.06) 100%); border-left: 4px solid #78a22f !important;">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div class="d-flex align-items-center gap-3">
+            <div class="rounded-circle p-2 bg-success text-white d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+                <i class="bi bi-broadcast fs-5"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold mb-0 text-dark">Real-Time Dispatch &amp; Alert Telemetry</h6>
+                <div class="small text-muted d-flex flex-wrap align-items-center gap-3 mt-1">
+                    <span>
+                        <i class="bi bi-envelope-at text-primary me-1"></i>
+                        <strong>Email Mailer:</strong>
+                        <span class="badge {{ ($system_health['mailer'] ?? 'log') === 'log' ? 'bg-secondary' : 'bg-success' }} text-white text-uppercase px-2 py-0.5">{{ $system_health['mailer'] ?? 'log' }}</span>
+                        <span class="text-secondary small">({{ $system_health['trade_desk_email'] ?? 'brxagroglobal@gmail.com' }})</span>
+                    </span>
+                    <span>
+                        <i class="bi bi-whatsapp text-success me-1"></i>
+                        <strong>Trade Desk WhatsApp:</strong>
+                        <span class="badge bg-success text-white px-2 py-0.5">Device Connected</span>
+                        <span class="text-secondary small">({{ $system_health['whatsapp_device'] ?? '+55 11 95835-3433' }})</span>
+                    </span>
+                    <span>
+                        <i class="bi bi-database text-info me-1"></i>
+                        <strong>Database:</strong>
+                        <span class="badge bg-primary text-white px-2 py-0.5">PostgreSQL (Neon)</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <form action="{{ route('admin.notifications.test') }}" method="POST" class="d-flex align-items-center gap-2 m-0">
+            @csrf
+            <button type="submit" class="btn btn-sm btn-outline-success fw-bold d-inline-flex align-items-center gap-1 shadow-sm">
+                <i class="bi bi-send-check"></i> Send Test Verification Alert
+            </button>
+        </form>
+    </div>
+</div>
+
 <!-- Quick Notification Banner -->
 <div class="row g-3 mb-4">
     <div class="col-md-6 col-xl-4">
