@@ -4024,6 +4024,31 @@
                         </div>
                     @endif
 
+                    <!-- Active Session & Device Security Section -->
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="small fw-bold text-uppercase text-muted" style="letter-spacing: 0.5px;">Session &amp; Device Security</span>
+                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-0.5" style="font-size: 0.65rem;">
+                                <i class="bi bi-shield-check me-1"></i>Encrypted AES-256
+                            </span>
+                        </div>
+                        <div class="p-2.5 rounded-3 sh-box-bg mb-2" style="border: 1px solid var(--bs-border-color); font-size: 0.8rem;">
+                            <div class="d-flex align-items-center justify-content-between mb-1.5">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-laptop text-success fs-5"></i>
+                                    <div>
+                                        <strong class="d-block sh-text-title">Active Browser Session</strong>
+                                        <small class="text-muted">HttpOnly Cookie &bull; AuthenticateSession Guard Active</small>
+                                    </div>
+                                </div>
+                                <span class="badge bg-success rounded-pill px-2 py-0.5" style="font-size: 0.65rem;">This Device</span>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-danger w-100 mt-2 fw-semibold d-flex align-items-center justify-content-center gap-1.5" onclick="promptLogoutOtherSessions()">
+                                <i class="bi bi-box-arrow-right"></i> Log Out All Other Devices
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Incoterms & Origination Info Strip -->
                     <div class="p-2.5 rounded-3 mb-3 small d-flex align-items-center gap-2" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.22); font-size: 0.8rem;">
                         <i class="bi bi-shield-lock-fill text-success fs-5 flex-shrink-0"></i>
@@ -4037,6 +4062,36 @@
                             <i class="bi bi-box-arrow-right fs-5"></i> Sign Out / Logout
                         </button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Session Inactivity Warning Modal -->
+    <div class="modal fade" id="sessionTimeoutModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-sm mx-2 mx-sm-auto my-2 my-sm-4">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-clock-history text-warning fs-5"></i>
+                        <h6 class="modal-title fw-bold sh-text-title mb-0" style="font-size: 0.95rem;">Session Expiring Soon</h6>
+                    </div>
+                </div>
+                <div class="modal-body p-3 text-center">
+                    <p class="small text-muted mb-3" style="line-height: 1.5; font-size: 0.8rem;">
+                        For institutional trade security, your session will expire soon due to inactivity. Would you like to stay signed in?
+                    </p>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-sh-primary flex-grow-1 py-1.5 fw-bold small" onclick="extendUserSession()">
+                            Stay Signed In
+                        </button>
+                        <form action="{{ route('logout') }}" method="POST" class="m-0">
+                            @csrf
+                            <button type="submit" class="btn btn-sh-outline py-1.5 px-2.5 small">
+                                Sign Out
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -5139,6 +5194,81 @@
 
         window.addEventListener('offline', function () {
             triggerToast('Offline Mode Active', 0, 'Viewing cached catalog & specs');
+        });
+
+        // =========================================================================
+        // Session Management & Inactivity Invalidation Handling
+        // =========================================================================
+        var idleSeconds = 0;
+        var sessionLifetimeMinutes = {{ (int) config('session.lifetime', 120) }};
+
+        function resetIdleTimer() {
+            idleSeconds = 0;
+        }
+
+        ['mousedown', 'keydown', 'touchstart', 'scroll'].forEach(function (evt) {
+            window.addEventListener(evt, resetIdleTimer, { passive: true });
+        });
+
+        @auth
+        setInterval(function () {
+            idleSeconds += 60;
+            // Warn 5 minutes before expiration if user has been inactive for (lifetime - 5) minutes
+            if (idleSeconds >= (sessionLifetimeMinutes - 5) * 60) {
+                var modalEl = document.getElementById('sessionTimeoutModal');
+                if (modalEl && !modalEl.classList.contains('show')) {
+                    var timeoutModal = new bootstrap.Modal(modalEl);
+                    timeoutModal.show();
+                }
+            }
+        }, 60000);
+        @endauth
+
+        window.extendUserSession = function () {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
+            $.ajax({
+                url: '{{ route("session.keep-alive") }}',
+                type: 'POST',
+                headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
+                success: function (res) {
+                    resetIdleTimer();
+                    if (res.csrf_token) {
+                        $('meta[name="csrf-token"]').attr('content', res.csrf_token);
+                    }
+                    var modalEl = document.getElementById('sessionTimeoutModal');
+                    if (modalEl) {
+                        var modalInst = bootstrap.Modal.getInstance(modalEl);
+                        if (modalInst) modalInst.hide();
+                    }
+                    triggerToast('Session Extended', 0, 'Active security token refreshed');
+                }
+            });
+        };
+
+        window.promptLogoutOtherSessions = function () {
+            var pwd = prompt('Enter your account password to confirm signing out all other browser devices:');
+            if (!pwd) return;
+            var csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
+            $.ajax({
+                url: '{{ route("session.logout-other-devices") }}',
+                type: 'POST',
+                data: { password: pwd },
+                headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
+                success: function (res) {
+                    alert(res.message || 'All other devices logged out successfully.');
+                },
+                error: function (xhr) {
+                    var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Unable to log out other devices. Please check your password.';
+                    alert(msg);
+                }
+            });
+        };
+
+        // Global 419 Session Expiry Interceptor
+        $(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
+            if (jqXHR.status === 419) {
+                triggerToast('Session Expired', 0, 'Please refresh or sign in again');
+            }
         });
     </script>
 </body>

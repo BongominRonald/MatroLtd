@@ -86,8 +86,29 @@ class UserController extends Controller
 
     public function profile()
     {
+        $userId = auth()->id();
+        $currentSessionId = request()->session()->getId();
+
+        $sessions = \Illuminate\Support\Facades\DB::table('sessions')
+            ->where('user_id', $userId)
+            ->orderByDesc('last_activity')
+            ->get()
+            ->map(function ($s) use ($currentSessionId) {
+                $deviceInfo = \App\Http\Controllers\SessionController::parseUserAgent($s->user_agent);
+                return (object) [
+                    'id' => $s->id,
+                    'ip_address' => $s->ip_address ?: 'Unknown IP',
+                    'is_current_device' => ($s->id === $currentSessionId),
+                    'device_type' => $deviceInfo['device_type'],
+                    'browser' => $deviceInfo['browser'],
+                    'platform' => $deviceInfo['platform'],
+                    'last_active' => \Illuminate\Support\Carbon::createFromTimestamp($s->last_activity)->diffForHumans(),
+                ];
+            });
+
         return view('admin.users.profile', [
             'user' => auth()->user(),
+            'sessions' => $sessions,
         ]);
     }
 
@@ -108,9 +129,11 @@ class UserController extends Controller
 
         if (! empty($validated['new_password'])) {
             $user->password = Hash::make($validated['new_password']);
+            $user->save();
+            \Illuminate\Support\Facades\Auth::logoutOtherDevices($validated['new_password']);
+        } else {
+            $user->save();
         }
-
-        $user->save();
 
         return back()->with('status', 'Your profile settings and password have been updated successfully.');
     }

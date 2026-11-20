@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SessionController;
 use App\Mail\AdminInquiryAlertMail;
 use App\Mail\AdminOrderAlertMail;
 use App\Mail\InquiryConfirmationMail;
@@ -50,7 +51,27 @@ Route::get('/', function () {
         ? HeroSlide::where('is_active', true)->orderBy('sort_order')->orderBy('id')->get()
         : collect();
 
-    return view('index', compact('categories', 'products', 'totalStock', 'productsCount', 'userInquiries', 'userOrders', 'heroSlides'));
+    $currentSessionId = request()->session()->getId();
+    $userSessions = auth()->check() && Schema::hasTable('sessions')
+        ? DB::table('sessions')
+            ->where('user_id', auth()->id())
+            ->orderByDesc('last_activity')
+            ->get()
+            ->map(function ($s) use ($currentSessionId) {
+                $deviceInfo = \App\Http\Controllers\SessionController::parseUserAgent($s->user_agent);
+                return (object) [
+                    'id' => substr($s->id, 0, 8) . '...',
+                    'ip_address' => $s->ip_address ?: 'Unknown IP',
+                    'is_current' => ($s->id === $currentSessionId),
+                    'device_type' => $deviceInfo['device_type'],
+                    'browser' => $deviceInfo['browser'],
+                    'platform' => $deviceInfo['platform'],
+                    'last_active' => \Illuminate\Support\Carbon::createFromTimestamp($s->last_activity)->diffForHumans(),
+                ];
+            })
+        : collect();
+
+    return view('index', compact('categories', 'products', 'totalStock', 'productsCount', 'userInquiries', 'userOrders', 'heroSlides', 'userSessions'));
 })->name('home');
 
 // Dynamic robots.txt (automatically reflects current domain / custom domain)
@@ -133,6 +154,14 @@ Route::get('/offline', function () {
         'Content-Type' => 'text/html; charset=utf-8',
     ]);
 })->name('offline');
+
+// Session Management & Device Security Routes
+Route::get('/session/status', [SessionController::class, 'status'])->name('session.status');
+Route::post('/session/keep-alive', [SessionController::class, 'keepAlive'])->name('session.keep-alive');
+Route::middleware('auth')->group(function () {
+    Route::get('/session/devices', [SessionController::class, 'devices'])->name('session.devices');
+    Route::post('/session/logout-other-devices', [SessionController::class, 'logoutOtherDevices'])->name('session.logout-other-devices');
+});
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
