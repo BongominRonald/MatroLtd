@@ -150,4 +150,19 @@ class ExampleTest extends TestCase
         $sitemap->assertSee(route('login'), false);
         $sitemap->assertSee(route('register'), false);
     }
+
+    public function test_offline_page_and_service_worker_render_correctly(): void
+    {
+        $offline = $this->get('/offline');
+        $offline->assertStatus(200);
+        $offline->assertSee('Offline Mode Active');
+        $offline->assertSee('Browsing Offline');
+        $offline->assertSee('+55 11 95835-3433');
+
+        $home = $this->get('/');
+        $home->assertStatus(200);
+        $home->assertSee('/sw.js');
+        $home->assertSee('icon-192x192.png');
+        $home->assertSee('icon-512x512.png');
+    }
 }

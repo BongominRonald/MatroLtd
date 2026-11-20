@@ -122,6 +122,18 @@ Route::get('/sitemap.xml', function () {
     ]);
 })->name('sitemap');
 
+// Offline PWA Fallback Page
+Route::get('/offline', function () {
+    $path = public_path('offline.html');
+    if (! file_exists($path)) {
+        abort(404);
+    }
+
+    return response(file_get_contents($path), 200, [
+        'Content-Type' => 'text/html; charset=utf-8',
+    ]);
+})->name('offline');
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 

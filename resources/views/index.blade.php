@@ -4326,17 +4326,17 @@
             }
             updateCartCount();
 
-            function triggerToast(message, total) {
+            function triggerToast(message, total, subText) {
                 var toast = document.getElementById('sh-toast');
                 if (!toast) return;
                 document.getElementById('shToastMsg').textContent = message;
-                document.getElementById('shToastCount').textContent = (total || 0) + ' lot(s) in cart';
+                document.getElementById('shToastCount').textContent = subText || ((total || 0) + ' lot(s) in cart');
                 toast.classList.remove('sh-toast-hide');
                 toast.classList.add('sh-toast-show');
                 setTimeout(function () {
                     toast.classList.remove('sh-toast-show');
                     toast.classList.add('sh-toast-hide');
-                }, 3000);
+                }, 3500);
             }
 
             // Agrovia Cart Drawer Functions
@@ -4613,6 +4613,47 @@
                     })
                 };
 
+                // Seamless Offline Queueing
+                if (!navigator.onLine) {
+                    var offlineOrderNum = 'OFFLINE-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+                    var queuedOrders = JSON.parse(localStorage.getItem('brx_offline_orders') || '[]');
+                    queuedOrders.push(formData);
+                    localStorage.setItem('brx_offline_orders', JSON.stringify(queuedOrders));
+
+                    $alert.removeClass('d-none alert-danger').addClass('alert-success border-success-subtle shadow-sm p-3').html(`
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-cloud-arrow-up-fill text-warning fs-5 flex-shrink-0"></i>
+                            <h6 class="fw-bold mb-0 text-success" style="font-size: 1rem; line-height: 1.3;">Order Saved Locally (Offline Mode)</h6>
+                        </div>
+                        <div class="p-2 mb-2 rounded-2 bg-white bg-opacity-75 border border-success border-opacity-25 d-flex flex-wrap align-items-center justify-content-between gap-1" style="word-break: break-all;">
+                            <span class="text-muted small fw-semibold">Local Offline Reference:</span>
+                            <span class="font-monospace fw-bold text-success" style="font-size: 0.95rem;">#BRX-ORD-${offlineOrderNum}</span>
+                        </div>
+                        <p class="mb-2 text-dark small" style="line-height: 1.5; word-break: break-word; overflow-wrap: anywhere;">Your commodity order has been stored locally on this device. When your internet reconnects, it will automatically transmit to the BRX Agro Global trade desk.</p>
+                        <div class="d-flex flex-column flex-sm-row flex-wrap gap-2 mt-2.5">
+                            <div class="d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5 rounded-2 bg-warning text-dark small" style="white-space: normal; word-break: break-word; overflow-wrap: anywhere; line-height: 1.35; font-size: 0.78rem;">
+                                <i class="bi bi-wifi-off flex-shrink-0"></i>
+                                <span>Queued on Device Storage</span>
+                            </div>
+                            <div class="d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5 rounded-2 bg-dark text-white small" style="white-space: normal; word-break: break-word; line-height: 1.35; font-size: 0.78rem;">
+                                <i class="bi bi-shield-check flex-shrink-0 text-success"></i>
+                                <span>Auto-Syncs When Online</span>
+                            </div>
+                        </div>
+                    `);
+
+                    cart = [];
+                    saveCart();
+                    updateCartCount();
+                    renderCartDrawer();
+                    $btn.prop('disabled', false);
+                    $spinner.addClass('d-none');
+                    $icon.removeClass('d-none');
+                    $text.text('Transmit Order to BRX Agro Global Trade Desk');
+                    triggerToast('Order Queued Locally (Offline Mode)', 0, 'Auto-syncs on reconnection');
+                    return;
+                }
+
                 $.ajax({
                     url: '{{ route('checkout.store') }}',
                     type: 'POST',
@@ -4759,6 +4800,21 @@
                 var $form = $(this);
                 var $btn = $('#rfqSubmitBtn');
                 var origText = $btn.html();
+
+                if (!navigator.onLine) {
+                    var offlineRef = 'AGRO-INQ-OFFLINE-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+                    var queuedInquiries = JSON.parse(localStorage.getItem('brx_offline_inquiries') || '[]');
+                    queuedInquiries.push({ data: $form.serialize(), created_at: new Date().toISOString() });
+                    localStorage.setItem('brx_offline_inquiries', JSON.stringify(queuedInquiries));
+
+                    $('#rfqAlert').removeClass('d-none alert-danger').addClass('alert alert-success').html(
+                        '<strong>Inquiry Queued Locally (Offline Mode)!</strong> Reference: <code>' + offlineRef + '</code>. Your RFQ has been saved on this device and will transmit to our trade desk as soon as your device reconnects.'
+                    );
+                    triggerToast('RFQ Queued Locally (Offline)', 0, 'Auto-syncs on reconnection');
+                    $form[0].reset();
+                    return;
+                }
+
                 $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Transmitting to Brazilian Desk...');
 
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -5019,12 +5075,71 @@
 
         })();
 
-        // Register PWA Service Worker for App Installation
+        // Register PWA Service Worker for App Installation & Offline Caching
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
                 navigator.serviceWorker.register('/sw.js').catch(function () {});
             });
         }
+
+        // Automatic Offline Queue Sync
+        function syncOfflineQueues() {
+            var queuedOrders = JSON.parse(localStorage.getItem('brx_offline_orders') || '[]');
+            if (queuedOrders.length > 0) {
+                var orderPayload = queuedOrders[0];
+                var csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
+                $.ajax({
+                    url: '{{ route("checkout.store") }}',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(orderPayload),
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    success: function (res) {
+                        queuedOrders.shift();
+                        localStorage.setItem('brx_offline_orders', JSON.stringify(queuedOrders));
+                        triggerToast('Queued Order Transmitted!', 0, 'Order #' + res.order_number);
+                        if (queuedOrders.length > 0) {
+                            syncOfflineQueues();
+                        }
+                    }
+                });
+            }
+
+            var queuedInquiries = JSON.parse(localStorage.getItem('brx_offline_inquiries') || '[]');
+            if (queuedInquiries.length > 0) {
+                var inqPayload = queuedInquiries[0];
+                var csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
+                $.ajax({
+                    url: '/inquiries',
+                    type: 'POST',
+                    data: inqPayload.data,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    success: function (res) {
+                        queuedInquiries.shift();
+                        localStorage.setItem('brx_offline_inquiries', JSON.stringify(queuedInquiries));
+                        triggerToast('Queued RFQ Transmitted!', 0, 'Reference: ' + (res.reference || 'Done'));
+                        if (queuedInquiries.length > 0) {
+                            syncOfflineQueues();
+                        }
+                    }
+                });
+            }
+        }
+
+        window.addEventListener('online', function () {
+            triggerToast('Connection Restored!', 0, 'Live Trade Desk active');
+            syncOfflineQueues();
+        });
+
+        window.addEventListener('offline', function () {
+            triggerToast('Offline Mode Active', 0, 'Viewing cached catalog & specs');
+        });
     </script>
 </body>
 
