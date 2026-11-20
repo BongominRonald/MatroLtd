@@ -11,13 +11,14 @@ jobs:
     env:
       VERCEL_ORG_ID: team_VTJiZrKiymfGSpUMrKK0iz7o
       VERCEL_PROJECT_ID: prj_UATrJts9J14tRxABwRdkwKxwi8Sf
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Deploy to Vercel Production
-        if: ${{ secrets.VERCEL_TOKEN != '' }}
+        if: env.VERCEL_TOKEN != ''
         run: |
           npm install --global vercel@latest
-          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-          vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+          vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+          vercel deploy --prod --yes --token=$VERCEL_TOKEN
