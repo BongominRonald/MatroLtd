@@ -221,6 +221,7 @@ class OrderNotificationService
     public function dispatchWhatsAppAlert(Order $order, string $channel = 'both'): array
     {
         $targetNumber = config('services.company.whatsapp_raw', '5511958353433');
+        $callmebotPhone = config('services.company.callmebot_phone') ?: env('CALLMEBOT_PHONE', $targetNumber);
         $message = $this->formatWhatsAppOrderMessage($order, $channel);
         $encodedText = urlencode($message);
         $directUrl = "https://api.whatsapp.com/send?phone={$targetNumber}&text={$encodedText}";
@@ -232,9 +233,9 @@ class OrderNotificationService
         $callmebotKey = config('services.company.callmebot_api_key') ?: env('CALLMEBOT_API_KEY');
         if (! empty($callmebotKey) && ! $dispatched) {
             try {
-                $callmebotUrl = "https://api.callmebot.com/whatsapp.php?phone={$targetNumber}&text={$encodedText}&apikey={$callmebotKey}";
+                $callmebotUrl = "https://api.callmebot.com/whatsapp.php?phone={$callmebotPhone}&text={$encodedText}&apikey={$callmebotKey}";
                 $response = Http::timeout(8)->get($callmebotUrl);
-                if ($response->successful()) {
+                if ($response->successful() && ! str_contains(strtolower($response->body()), 'invalid')) {
                     $dispatched = true;
                     $providerUsed = 'callmebot';
                 }

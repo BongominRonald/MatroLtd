@@ -50,6 +50,7 @@ return [
         'whatsapp' => env('COMPANY_WHATSAPP', '+55 11 95835-3433'),
         'whatsapp_raw' => env('COMPANY_WHATSAPP_RAW', '5511958353433'),
         'callmebot_api_key' => env('CALLMEBOT_API_KEY'),
+        'callmebot_phone' => env('CALLMEBOT_PHONE'),
         'whatsapp_cloud_token' => env('WHATSAPP_CLOUD_TOKEN'),
         'whatsapp_phone_number_id' => env('WHATSAPP_PHONE_NUMBER_ID', env('WHATSAPP_PHONE_ID')),
         'twilio_sid' => env('TWILIO_SID', env('TWILIO_ACCOUNT_SID')),
