@@ -159,11 +159,11 @@ Route::post('/inquiries', function (Request $request) {
             return response()->json([
                 'success' => true,
                 'reference' => $fakeRef,
-                'message' => 'Your inquiry has been submitted. Our trade desk will contact you promptly.',
+                'message' => 'Thank you! Your inquiry (Reference: '.$fakeRef.') has been received. Our trade desk officers in São Paulo will review your specifications and contact you shortly.',
             ]);
         }
 
-        return back()->with('status', 'Inquiry submitted successfully.');
+        return back()->with('status', 'Thank you! Your inquiry (Reference: '.$fakeRef.') has been received. Our trade desk officers in São Paulo will review your specifications and contact you shortly.');
     }
 
     $validated = $request->validate([
@@ -177,6 +177,10 @@ Route::post('/inquiries', function (Request $request) {
         'service_type' => 'nullable|string|max:100',
         'grower_detail' => 'nullable|string|max:500',
         'message' => 'nullable|string',
+    ], [
+        'name.required' => 'Please provide your full name or company representative name.',
+        'email.required' => 'Please enter your email address so our trade desk can send your quotation.',
+        'email.email' => 'Please provide a valid email address (e.g., procurement@company.com).',
     ]);
 
     $detail = $validated['buyer_detail'] ?? $validated['service_type'] ?? $validated['grower_detail'] ?? null;
@@ -242,11 +246,11 @@ Route::post('/inquiries', function (Request $request) {
         return response()->json([
             'success' => true,
             'reference' => $reference,
-            'message' => 'Your inquiry has been submitted. Our trade desk will contact you promptly.',
+            'message' => 'Thank you! Your inquiry (Reference: '.$reference.') has been received. Our trade desk officers in São Paulo will review your specifications and contact you shortly.',
         ]);
     }
 
-    return back()->with('status', 'Inquiry submitted successfully.');
+    return back()->with('status', 'Thank you! Your inquiry (Reference: '.$reference.') has been received. Our trade desk officers in São Paulo will review your specifications and contact you shortly.');
 })->middleware('throttle:10,1')->name('inquiries.store');
 
 // Cookie Governance & LGPD/GDPR Preferences
@@ -281,7 +285,7 @@ Route::post('/cookies/consent', function (Request $request) {
 
     return response()->json([
         'success' => true,
-        'message' => 'Cookie consent preferences recorded successfully.',
+        'message' => 'Your privacy and cookie preferences have been saved.',
         'consent' => $consent,
     ])->withCookie($cookie);
 })->name('cookies.consent');
@@ -317,6 +321,15 @@ Route::post('/checkout', function (Request $request) {
         'items.*.qty' => 'required|integer|min:1',
         'items.*.unit' => 'nullable|string|max:50',
         'items.*.price' => 'nullable|numeric|min:0',
+    ], [
+        'customer_name.required' => 'Please provide your full name or company representative name.',
+        'customer_email.required' => 'Please provide your email address to receive order receipts and export documentation.',
+        'customer_email.email' => 'Please provide a valid email address (e.g., procurement@company.com).',
+        'items.required' => 'Your sample cart is empty. Please select at least one commodity lot before checking out.',
+        'items.min' => 'Your sample cart is empty. Please select at least one commodity lot before checking out.',
+        'items.*.name.required' => 'Each lot item in your cart must have a valid commodity name.',
+        'items.*.qty.required' => 'Please specify the quantity for each selected lot.',
+        'items.*.qty.min' => 'Quantity must be at least 1 lot/unit.',
     ]);
 
     $channel = $validated['channel'] ?? 'both';
@@ -376,7 +389,7 @@ Route::post('/checkout', function (Request $request) {
         'channel' => $channel,
         'whatsapp_url' => $notifications['whatsapp']['whatsapp_url'] ?? 'https://api.whatsapp.com/send?phone=5511958353433',
         'total' => number_format($total, 2),
-        'message' => 'Your commodity order '.$order->order_number.' has been recorded and automatically dispatched by our backend to the BRX Agro Global '.$targetDevice.'. Company officers have received your notification and will reach out promptly.',
+        'message' => 'Your commodity order #'.$order->order_number.' has been placed successfully! We have notified our trade desk via '.$targetDevice.', and a trade officer will follow up with you promptly regarding shipping logistics and export documentation.',
         'notifications' => [
             'company_alerted' => ! empty($notifications['company_emails']) || ! empty($notifications['whatsapp']) || $notifications['inquiry_synced'],
             'email_sent' => ! empty($notifications['company_emails']),

@@ -4419,7 +4419,7 @@
 
             function clearCart() {
                 if (cart.length === 0) return;
-                if (confirm('Are you sure you want to clear your commodity sample cart?')) {
+                if (confirm('Would you like to clear all commodity lots from your sample cart?')) {
                     cart = [];
                     saveCart();
                     renderCartDrawer();
@@ -4508,7 +4508,7 @@
             // Open Checkout Modal from Cart Drawer
             $('#btnOpenCheckout').on('click', function () {
                 if (cart.length === 0) {
-                    alert('Your sample cart is currently empty. Please select commodity lots first.');
+                    triggerToast('Your sample cart is currently empty. Please select commodity lots first.', 0);
                     return;
                 }
                 closeCartDrawer();
@@ -4543,7 +4543,9 @@
             $('#checkoutOrderForm').on('submit', function (e) {
                 e.preventDefault();
                 if (cart.length === 0) {
-                    alert('Your cart is empty.');
+                    $alert.removeClass('d-none alert-success').addClass('alert alert-danger').html(
+                        '<i class="bi bi-info-circle me-1"></i> Your sample cart is currently empty. Please select commodity lots first before placing an order.'
+                    );
                     return;
                 }
 
@@ -4632,10 +4634,19 @@
                     },
                     error: function (xhr) {
                         var errMsg = 'Unable to complete checkout. Please review form fields or contact our trade desk directly.';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            errMsg = xhr.responseJSON.message;
+                        if (xhr.responseJSON) {
+                            if (xhr.responseJSON.errors) {
+                                var errList = Object.values(xhr.responseJSON.errors).flat();
+                                errMsg = '<ul class="mb-0 ps-3 text-start">' + errList.map(function (e) {
+                                    return '<li>' + $('<div>').text(e).html() + '</li>';
+                                }).join('') + '</ul>';
+                            } else if (xhr.responseJSON.message) {
+                                errMsg = $('<div>').text(xhr.responseJSON.message).html();
+                            }
+                        } else if (xhr.status === 0) {
+                            errMsg = 'Unable to connect to our servers. Please check your internet connection and try again, or contact our trade desk on WhatsApp.';
                         }
-                        $alert.removeClass('d-none alert-success').addClass('alert-danger').text(errMsg);
+                        $alert.removeClass('d-none alert-success').addClass('alert-danger').html(errMsg);
                         $btn.prop('disabled', false);
                         $spinner.addClass('d-none');
                         $icon.removeClass('d-none');
@@ -4725,11 +4736,20 @@
                         $form[0].reset();
                     },
                     error: function (xhr) {
-                        var errorMsg = 'Failed to submit inquiry. Please check required fields or contact WhatsApp directly.';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            errorMsg = xhr.responseJSON.message;
+                        var errorMsg = 'We could not submit your inquiry. Please check the required fields or reach out directly on WhatsApp.';
+                        if (xhr.responseJSON) {
+                            if (xhr.responseJSON.errors) {
+                                var errList = Object.values(xhr.responseJSON.errors).flat();
+                                errorMsg = '<ul class="mb-0 ps-3 text-start">' + errList.map(function (e) {
+                                    return '<li>' + $('<div>').text(e).html() + '</li>';
+                                }).join('') + '</ul>';
+                            } else if (xhr.responseJSON.message) {
+                                errorMsg = $('<div>').text(xhr.responseJSON.message).html();
+                            }
+                        } else if (xhr.status === 0) {
+                            errorMsg = 'Unable to connect to our servers. Please check your internet connection and try again.';
                         }
-                        $('#rfqAlert').removeClass('d-none alert-success').addClass('alert alert-danger').text(errorMsg);
+                        $('#rfqAlert').removeClass('d-none alert-success').addClass('alert alert-danger').html(errorMsg);
                     },
                     complete: function () {
                         $btn.prop('disabled', false).html(origText);
@@ -4876,11 +4896,20 @@
                         triggerToast('Message Sent to Desk Inbox! Ref: ' + ref, updateCartCount());
                     },
                     error: function (xhr) {
-                        var errorMsg = 'Failed to transmit message. Please check all required fields.';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            errorMsg = xhr.responseJSON.message;
+                        var errorMsg = 'We could not transmit your message. Please check all required fields or try again shortly.';
+                        if (xhr.responseJSON) {
+                            if (xhr.responseJSON.errors) {
+                                var errList = Object.values(xhr.responseJSON.errors).flat();
+                                errorMsg = '<ul class="mb-0 ps-3 text-start">' + errList.map(function (e) {
+                                    return '<li>' + $('<div>').text(e).html() + '</li>';
+                                }).join('') + '</ul>';
+                            } else if (xhr.responseJSON.message) {
+                                errorMsg = $('<div>').text(xhr.responseJSON.message).html();
+                            }
+                        } else if (xhr.status === 0) {
+                            errorMsg = 'Unable to connect to our servers. Please check your internet connection and try again.';
                         }
-                        $('#deskInboxAlert').removeClass('d-none alert-success').addClass('alert alert-danger').text(errorMsg);
+                        $('#deskInboxAlert').removeClass('d-none alert-success').addClass('alert alert-danger').html(errorMsg);
                     },
                     complete: function () {
                         $btn.prop('disabled', false).html(origBtn);

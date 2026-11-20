@@ -171,7 +171,7 @@ regPassInput.addEventListener('input', (e) => {
 function startLockoutCountdown(seconds) {
     let remainingSec = Math.ceil(seconds);
     lockoutNotice.style.display = 'flex';
-    lockoutTimer.textContent = `Too many failed attempts. Try again in ${remainingSec}s.`;
+    lockoutTimer.textContent = `For your security, sign-in is temporarily paused. Try again in ${remainingSec}s.`;
     btnLogin.disabled = true;
 
     if (lockoutInterval) clearInterval(lockoutInterval);
@@ -182,7 +182,7 @@ function startLockoutCountdown(seconds) {
             lockoutNotice.style.display = 'none';
             btnLogin.disabled = false;
         } else {
-            lockoutTimer.textContent = `Too many failed attempts. Try again in ${remainingSec}s.`;
+            lockoutTimer.textContent = `For your security, sign-in is temporarily paused. Try again in ${remainingSec}s.`;
         }
     }, 1000);
 }
@@ -217,21 +217,21 @@ registerForm.addEventListener('submit', async (e) => {
     const password = regPassInput.value;
 
     if (!/^[a-zA-Z0-9_]{3,20}$/.test(username)) {
-        showToast('Username must be 3–20 letters, numbers, or underscores.', 'error');
+        showToast('Please choose a username with 3 to 20 letters, numbers, or underscores.', 'error');
         regUserInput.focus();
         return;
     }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
-        showToast('Please enter a valid email address.', 'error');
+        showToast('Please enter a valid email address (e.g. name@company.com).', 'error');
         regEmailInput.focus();
         return;
     }
 
     const passwordEval = evaluatePassword(password);
     if (!passwordEval.isValid) {
-        showToast(`Password requires: ${passwordEval.reasons.join(', ')}.`, 'error');
+        showToast(`Please strengthen your password: ${passwordEval.reasons.join(', ')}.`, 'error');
         regPassInput.focus();
         return;
     }
@@ -255,12 +255,12 @@ registerForm.addEventListener('submit', async (e) => {
         if (!response.ok) {
             const firstError = data.errors
                 ? Object.values(data.errors).flat()[0]
-                : (data.message || 'Could not create account.');
+                : (data.message || 'We were unable to create your account. Please review your details and try again.');
             showToast(firstError, 'error');
             return;
         }
 
-        showToast(data.message || 'Account created successfully. Please sign in.', 'success');
+        showToast(data.message || 'Welcome! Your account has been created successfully. Please sign in to continue.', 'success');
         setTimeout(() => {
             container.classList.remove('active');
             clearInputs();
@@ -269,7 +269,7 @@ registerForm.addEventListener('submit', async (e) => {
             loginPassInput.focus();
         }, 1000);
     } catch {
-        showToast('Unable to reach server. Please try again.', 'error');
+        showToast('Unable to connect to the server. Please check your internet connection and try again.', 'error');
     } finally {
         btnRegister.disabled = false;
         btnRegister.textContent = 'Register';
@@ -284,7 +284,7 @@ loginForm.addEventListener('submit', async (e) => {
     const password = loginPassInput.value;
 
     if (!username || !password) {
-        showToast('Please enter your username and password.', 'error');
+        showToast('Please enter both your username and password to continue.', 'error');
         return;
     }
 
@@ -306,20 +306,20 @@ loginForm.addEventListener('submit', async (e) => {
 
         if (response.status === 429) {
             startLockoutCountdown(data.retry_after || 30);
-            showToast(data.message || 'Too many failed attempts.', 'error');
+            showToast(data.message || 'For your security, too many attempts were made. Please wait before trying again.', 'error');
             return;
         }
 
         if (!response.ok) {
             const firstError = data.errors
                 ? Object.values(data.errors).flat()[0]
-                : (data.message || 'Invalid username or password.');
+                : (data.message || 'Incorrect username or password. Please double-check your credentials and try again.');
             showToast(firstError, 'error');
             return;
         }
 
         lockoutNotice.style.display = 'none';
-        showToast(data.message || 'Signed in successfully.', 'success');
+        showToast(data.message || 'Welcome back! You have signed in successfully.', 'success');
         displayActiveSession(data.username || username, data.redirect_url);
 
         if (data.redirect_url) {
@@ -328,7 +328,7 @@ loginForm.addEventListener('submit', async (e) => {
             }, 900);
         }
     } catch {
-        showToast('Unable to reach server. Please try again.', 'error');
+        showToast('Unable to connect to the server. Please check your internet connection and try again.', 'error');
     } finally {
         if (lockoutNotice.style.display === 'none') {
             btnLogin.disabled = false;
@@ -361,5 +361,5 @@ btnLogout.addEventListener('click', async () => {
     }
     authSuccessOverlay.style.display = 'none';
     clearInputs();
-    showToast('Signed out.', 'info');
+    showToast('You have been signed out safely. Have a great day!', 'info');
 });

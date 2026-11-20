@@ -35,7 +35,7 @@ class HeroSlideController extends Controller
         HeroSlide::create($data);
 
         return redirect()->route('admin.hero-slides.index')
-            ->with('status', 'Hero slide created successfully.');
+            ->with('status', 'Carousel slide has been created successfully.');
     }
 
     public function edit(HeroSlide $heroSlide)
@@ -58,7 +58,7 @@ class HeroSlideController extends Controller
         $heroSlide->update($data);
 
         return redirect()->route('admin.hero-slides.index')
-            ->with('status', 'Hero slide updated successfully.');
+            ->with('status', 'Carousel slide has been updated successfully.');
     }
 
     public function destroy(HeroSlide $heroSlide)
@@ -66,7 +66,7 @@ class HeroSlideController extends Controller
         $heroSlide->delete();
 
         return redirect()->route('admin.hero-slides.index')
-            ->with('status', 'Hero slide deleted.');
+            ->with('status', 'Carousel slide has been deleted.');
     }
 
     public function toggleActive(HeroSlide $heroSlide)
@@ -77,7 +77,7 @@ class HeroSlideController extends Controller
 
         $state = $heroSlide->is_active ? 'activated' : 'hidden';
 
-        return back()->with('status', "Hero slide \"{$heroSlide->title}\" {$state}.");
+        return back()->with('status', "Carousel slide \"{$heroSlide->title}\" is now {$state}.");
     }
 
     private function validateSlide(Request $request): array

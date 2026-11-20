@@ -47,7 +47,8 @@ class InquiryController extends Controller
     {
         $inquiry->update(['is_read' => ! $inquiry->is_read]);
 
-        return back()->with('status', 'Inquiry status updated.');
+        $msg = $inquiry->is_read ? 'Inquiry marked as read.' : 'Inquiry marked as unread.';
+        return back()->with('status', $msg);
     }
 
     public function updateStatus(Request $request, Inquiry $inquiry)
@@ -58,6 +59,12 @@ class InquiryController extends Controller
 
         $inquiry->update($validated);
 
-        return back()->with('status', 'Inquiry processing state updated.');
+                $labels = [
+            'new' => 'New',
+            'in_progress' => 'In Progress',
+            'resolved' => 'Resolved',
+        ];
+        $statusLabel = $labels[$validated['status']] ?? ucfirst($validated['status']);
+        return back()->with('status', "Inquiry status has been updated to {$statusLabel}.");
     }
 }

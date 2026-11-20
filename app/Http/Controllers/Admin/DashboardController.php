@@ -94,7 +94,8 @@ class DashboardController extends Controller
             $note = ($mailer === 'log') ? ' (Recorded to local log. To send across the internet, set MAIL_MAILER=smtp or RESEND_API_KEY in .env/Vercel)' : " via {$mailer}";
             return back()->with('status', "Test notification successfully dispatched to {$targetEmail}{$note}.");
         } catch (\Throwable $e) {
-            return back()->with('error', "Notification dispatch failed: " . $e->getMessage());
+                        \Illuminate\Support\Facades\Log::error('Test notification dispatch failed: ' . $e->getMessage());
+            return back()->with('error', 'Unable to send test notification at this time. Please check your mail settings or try again shortly.');
         }
     }
 }

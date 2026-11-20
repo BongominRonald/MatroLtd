@@ -80,7 +80,7 @@
                                 <a href="{{ route('admin.hero-slides.edit', $slide) }}" class="btn btn-sm btn-outline-primary rounded-pill" title="Edit Slide">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="{{ route('admin.hero-slides.destroy', $slide) }}" method="POST" onsubmit="return confirm('Delete this hero slide?');">
+                                <form action="{{ route('admin.hero-slides.destroy', $slide) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove this carousel slide?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill" title="Delete Slide">

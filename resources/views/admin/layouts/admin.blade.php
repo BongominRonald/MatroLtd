@@ -976,10 +976,10 @@
 
         <!-- Main Workspace -->
         <div class="admin-content">
-            @if (session('status'))
+            @if (session('status') || session('success'))
                 <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm d-flex align-items-center mb-4" role="alert">
                     <i class="bi bi-check-circle-fill me-2 fs-5"></i>
-                    <div>{{ session('status') }}</div>
+                    <div>{{ session('status') ?: session('success') }}</div>
                     <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
                 </div>
             @endif

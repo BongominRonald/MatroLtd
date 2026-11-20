@@ -59,6 +59,16 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'is_featured' => 'boolean',
             'is_new' => 'boolean',
+        ], [
+            'name.required' => 'Please enter a product name.',
+            'category_id.required' => 'Please select a category for this product.',
+            'category_id.exists' => 'The selected category does not exist.',
+            'price.required' => 'Please provide a unit price.',
+            'price.numeric' => 'The price must be a valid number.',
+            'unit.required' => 'Please specify the unit of measure (e.g., MT, Bag, kg).',
+            'stock.required' => 'Please enter the available stock quantity.',
+            'image_file.image' => 'The uploaded file must be an image (JPEG, PNG, JPG, or WebP).',
+            'image_file.max' => 'Image size must not exceed 4MB.',
         ]);
 
         if ($request->hasFile('image_file')) {
@@ -72,7 +82,7 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        return redirect()->route('admin.products.index')->with('status', 'Product added successfully.');
+        return redirect()->route('admin.products.index')->with('status', 'Product has been added to the catalog successfully.');
     }
 
     public function show(Product $product)
@@ -106,6 +116,16 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'is_featured' => 'boolean',
             'is_new' => 'boolean',
+        ], [
+            'name.required' => 'Please enter a product name.',
+            'category_id.required' => 'Please select a category for this product.',
+            'category_id.exists' => 'The selected category does not exist.',
+            'price.required' => 'Please provide a unit price.',
+            'price.numeric' => 'The price must be a valid number.',
+            'unit.required' => 'Please specify the unit of measure (e.g., MT, Bag, kg).',
+            'stock.required' => 'Please enter the available stock quantity.',
+            'image_file.image' => 'The uploaded file must be an image (JPEG, PNG, JPG, or WebP).',
+            'image_file.max' => 'Image size must not exceed 4MB.',
         ]);
 
         if ($request->hasFile('image_file')) {
@@ -118,7 +138,7 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        return redirect()->route('admin.products.index')->with('status', 'Product updated successfully.');
+        return redirect()->route('admin.products.index')->with('status', 'Product details have been updated successfully.');
     }
 
     public function destroy(Product $product)
@@ -126,6 +146,6 @@ class ProductController extends Controller
         $name = $product->name;
         $product->delete();
 
-        return redirect()->route('admin.products.index')->with('status', "Product '{$name}' was deleted.");
+        return redirect()->route('admin.products.index')->with('status', "Product '{$name}' has been removed from the catalog.");
     }
 }

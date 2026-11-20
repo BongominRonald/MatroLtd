@@ -52,9 +52,15 @@ class AuthController extends Controller
                 Password::min(8)->mixedCase()->numbers()->symbols(),
             ],
         ], [
-            'username.regex' => 'Username may only contain letters, numbers, and underscores.',
-            'username.unique' => 'Username is already taken.',
-            'email.unique' => 'An account with this email already exists.',
+            'username.required' => 'Please choose a username for your account.',
+            'username.min' => 'Your username must be at least 3 characters long.',
+            'username.max' => 'Your username cannot exceed 20 characters.',
+            'username.regex' => 'Username can only contain letters, numbers, and underscores (no spaces or special characters).',
+            'username.unique' => 'This username is already taken. Please try another one.',
+            'email.required' => 'Please enter your email address.',
+            'email.email' => 'Please enter a valid email address (e.g., name@company.com).',
+            'email.unique' => 'An account with this email address already exists. Please sign in instead.',
+            'password.required' => 'Please create a password for your account.',
         ]);
 
         $user = User::create([
@@ -66,13 +72,13 @@ class AuthController extends Controller
         if ($request->expectsJson()) {
             return response()->json([
                 'status' => 'success',
-                'message' => 'Account created successfully. Please sign in.',
+                'message' => 'Welcome! Your account has been created successfully. Please sign in to continue.',
                 'username' => $user->name,
             ], 201);
         }
 
         return redirect()->route('login')
-            ->with('toast_success', 'Account created successfully. Please sign in.')
+            ->with('toast_success', 'Welcome! Your account has been created successfully. Please sign in to continue.')
             ->with('registered_username', $user->name);
     }
 
@@ -84,13 +90,16 @@ class AuthController extends Controller
         $validated = $request->validate([
             'username' => ['required', 'string'],
             'password' => ['required', 'string'],
+        ], [
+            'username.required' => 'Please enter your username or email address.',
+            'password.required' => 'Please enter your password.',
         ]);
 
         $throttleKey = Str::transliterate(Str::lower($validated['username']).'|'.$request->ip());
 
         if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
             $seconds = RateLimiter::availableIn($throttleKey);
-            $message = "Too many failed attempts. Please try again in {$seconds}s.";
+            $message = "For your account security, too many sign-in attempts were made. Please wait {$seconds} seconds before trying again.";
 
             if ($request->expectsJson()) {
                 return response()->json([
@@ -118,13 +127,13 @@ class AuthController extends Controller
                 if ($request->expectsJson()) {
                     return response()->json([
                         'status' => 'locked',
-                        'message' => "Too many failed attempts. Locked for {$seconds}s.",
+                        'message' => "For your account security, sign-in is temporarily locked. Please wait {$seconds} seconds.",
                         'retry_after' => $seconds,
                     ], 429);
                 }
             }
 
-            $errorMessage = 'Invalid username or password.';
+            $errorMessage = 'Incorrect username or password. Please double-check your credentials and try again.';
 
             if ($request->expectsJson()) {
                 return response()->json([
@@ -145,13 +154,13 @@ class AuthController extends Controller
         if ($request->expectsJson()) {
             return response()->json([
                 'status' => 'success',
-                'message' => 'Signed in successfully.',
+                'message' => 'Welcome back! You have signed in successfully.',
                 'username' => $user->name,
                 'redirect_url' => $redirectUrl,
             ]);
         }
 
-        return redirect()->to($redirectUrl)->with('toast_success', 'Signed in successfully.');
+        return redirect()->to($redirectUrl)->with('toast_success', 'Welcome back! You have signed in successfully.');
     }
 
     /**
@@ -166,12 +175,12 @@ class AuthController extends Controller
         if ($request->expectsJson()) {
             return response()->json([
                 'status' => 'success',
-                'message' => 'Signed out.',
+                'message' => 'You have been signed out safely. Have a great day!',
                 'redirect_url' => route('home'),
             ]);
         }
 
-        return redirect()->route('home')->with('toast_info', 'Signed out.');
+        return redirect()->route('home')->with('toast_info', 'You have been signed out safely. Have a great day!');
     }
 
     /**
@@ -184,14 +193,14 @@ class AuthController extends Controller
 
         if (empty($clientId) || empty($clientSecret)) {
             return redirect()->route('login')
-                ->with('toast_error', 'Google Sign-In is not configured yet. Please configure GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in the environment.');
+                ->with('toast_error', 'Google Sign-In is temporarily unavailable. Please sign in using your username and password, or contact our support team.');
         }
 
         try {
             return Socialite::driver('google')->redirect();
         } catch (\Throwable $e) {
             return redirect()->route('login')
-                ->with('toast_error', 'Could not initiate Google authentication: ' . $e->getMessage());
+                ->with('toast_error', 'Unable to initiate Google sign-in at this time. Please try signing in with your username and password.');
         }
     }
 
@@ -205,19 +214,19 @@ class AuthController extends Controller
 
         if (empty($clientId) || empty($clientSecret)) {
             return redirect()->route('login')
-                ->with('toast_error', 'Google Sign-In is not configured yet.');
+                ->with('toast_error', 'Google Sign-In is temporarily unavailable. Please sign in using your username and password.');
         }
 
         try {
             $googleUser = Socialite::driver('google')->user();
         } catch (\Throwable $e) {
             return redirect()->route('login')
-                ->with('toast_error', 'Google authentication was cancelled or failed.');
+                ->with('toast_error', 'Google sign-in was cancelled or could not be completed. Please try again.');
         }
 
         if (! $googleUser || empty($googleUser->getEmail())) {
             return redirect()->route('login')
-                ->with('toast_error', 'Could not retrieve verified email from Google.');
+                ->with('toast_error', 'We could not retrieve a verified email address from your Google account. Please sign up with email.');
         }
 
         $email = Str::lower($googleUser->getEmail());
@@ -232,7 +241,7 @@ class AuthController extends Controller
 
         if ($user && $user->trashed()) {
             return redirect()->route('login')
-                ->with('toast_error', 'Your account has been deactivated. Please contact support.');
+                ->with('toast_error', 'Your account has been deactivated. Please contact our support team for assistance.');
         }
 
         if ($user) {
@@ -267,6 +276,6 @@ class AuthController extends Controller
         $redirectUrl = $user->isAdmin() ? route('admin.dashboard') : route('home');
 
         return redirect()->intended($redirectUrl)
-            ->with('toast_success', 'Successfully signed in with Google as ' . $user->name . '.');
+            ->with('toast_success', 'Welcome back, ' . $user->name . '! Signed in successfully with Google.');
     }
 }
