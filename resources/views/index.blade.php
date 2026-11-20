@@ -3113,7 +3113,7 @@
                             <h4 class="fw-bold sh-text-title mb-2">Request Trade Quote (RFQ)</h4>
                             <p class="sh-text-muted small mb-4">Complete the form below to receive formal indicative pricing, SGS specifications, packaging options, and vessel allocation schedule.</p>
 
-                            <div id="rfqAlert" class="alert d-none mb-3"></div>
+                            <div id="rfqAlert" class="alert d-none mb-3 p-3 rounded-3" style="word-break: break-word; overflow-wrap: anywhere;"></div>
 
                             <form id="rfqInquiryForm">
                                 <input type="hidden" name="role" value="buyer">
@@ -3582,22 +3582,22 @@
 
     <!-- Agrovia Trade Checkout Modal -->
     <div class="modal fade" id="agroviaCheckoutModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
-                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3 px-sm-4">
                     <div class="d-flex align-items-center gap-2">
                         <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(120, 162, 47, 0.15); color: var(--sh-primary);">
                             <i class="bi bi-send-check-fill fs-5"></i>
                         </div>
                         <div>
-                            <h5 class="modal-title fw-bold sh-text-title mb-0" style="font-size: 1.15rem;">Commodity Order Dispatch to Trade Desk</h5>
+                            <h5 class="modal-title fw-bold sh-text-title mb-0" style="font-size: clamp(0.95rem, 3.5vw, 1.15rem);">Commodity Order Dispatch to Trade Desk</h5>
                             <small class="text-muted" style="font-size: 0.78rem;">Automated backend transmission to BRX Agro Global devices</small>
                         </div>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <div class="modal-body p-4">
+                <div class="modal-body p-3 p-sm-4">
                     <form id="checkoutOrderForm">
                         <!-- Step 1: Order Items Summary Preview -->
                         <div class="mb-4 p-3 rounded-3 sh-box-bg" style="border: 1px solid var(--bs-border-color);">
@@ -3720,23 +3720,23 @@
                         </div>
 
                         <!-- Assurance Strip -->
-                        <div class="p-3 rounded-3 mb-4 small d-flex flex-wrap gap-3 align-items-center justify-content-between" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.25);">
+                        <div class="p-2.5 p-sm-3 rounded-3 mb-4 small d-flex flex-column flex-sm-row flex-wrap gap-2 gap-sm-3 align-items-start align-items-sm-center justify-content-between" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.25); font-size: 0.78rem;">
                             <div><i class="bi bi-patch-check-fill text-success me-1"></i> 100% Pre-Shipment Assay</div>
                             <div><i class="bi bi-shield-fill-check text-success me-1"></i> SGS Inspection Guaranteed</div>
                             <div><i class="bi bi-file-earmark-lock text-success me-1"></i> Official MAPA Export Clearance</div>
                         </div>
 
                         <!-- Order Alert message container -->
-                        <div id="checkoutAlertBox" class="alert d-none mb-3 py-2 px-3 small rounded-3"></div>
+                        <div id="checkoutAlertBox" class="alert d-none mb-3 p-3 small rounded-3" style="word-break: break-word; overflow-wrap: anywhere;"></div>
 
                         <!-- Form Actions -->
-                        <div class="d-flex gap-2">
-                            <button type="submit" id="btnSubmitOrder" class="btn btn-sh-primary flex-grow-1 py-2.5 fw-bold d-flex align-items-center justify-content-center gap-2">
+                        <div class="d-flex flex-column flex-sm-row gap-2">
+                            <button type="submit" id="btnSubmitOrder" class="btn btn-sh-primary flex-grow-1 py-2.5 px-3 fw-bold d-flex align-items-center justify-content-center gap-2 text-center" style="font-size: 0.9rem;">
                                 <span class="spinner-border spinner-border-sm d-none" id="orderSubmitSpinner" role="status"></span>
-                                <i class="bi bi-send-fill fs-5" id="orderSubmitIcon"></i>
+                                <i class="bi bi-send-fill fs-5 flex-shrink-0" id="orderSubmitIcon"></i>
                                 <span id="orderSubmitText">Transmit Order to BRX Agro Global Trade Desk</span>
                             </button>
-                            <button type="button" class="btn btn-sh-outline px-4" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-sh-outline py-2.5 px-4" data-bs-dismiss="modal">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -3746,9 +3746,9 @@
 
     <!-- Authentication Required Modal (Commodity Cart Gating) -->
     <div class="modal fade" id="authRequiredModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
-                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3 px-sm-4">
                     <div class="d-flex align-items-center gap-2">
                         <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 1.15rem;">
                             <i class="bi bi-shield-lock-fill"></i>
@@ -3760,7 +3760,7 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4 text-center">
+                <div class="modal-body p-3 p-sm-4 text-center">
                     <div class="mb-3 mx-auto rounded-circle d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; background: rgba(120, 162, 47, 0.12); color: var(--sh-primary); font-size: 1.85rem;">
                         <i class="bi bi-person-lock"></i>
                     </div>
@@ -3800,13 +3800,13 @@
 
     <!-- Quick View Modal -->
     <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color);">
-                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3 px-sm-4">
                     <h5 class="modal-title fw-bold sh-text-title" id="qvModalTitle">Commodity Quick View</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4">
+                <div class="modal-body p-3 p-sm-4">
                     <div class="rounded-3 overflow-hidden mb-3" style="height: 200px;">
                         <img id="qvModalImg" src="" alt="" class="w-100 h-100 object-fit-cover">
                     </div>
@@ -3844,13 +3844,13 @@
 
     <!-- Search Modal -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color);">
-                <div class="modal-header border-0 pb-0">
+                <div class="modal-header border-0 pb-0 pt-3 px-3 px-sm-4">
                     <h5 class="modal-title fw-bold sh-text-title"><i class="bi bi-search me-2" style="color: var(--sh-primary);"></i>Search Commodities</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4">
+                <div class="modal-body p-3 p-sm-4">
                     <input type="text" id="modalSearchInput" class="form-control form-control-lg rounded-pill mb-3 sh-input" placeholder="Type commodity name, grade, or basin...">
                     <div class="small sh-text-muted">Press <kbd class="sh-box-bg sh-text-title border border-secondary px-2 py-1">Esc</kbd> to exit.</div>
                 </div>
@@ -3861,10 +3861,10 @@
     <!-- ================= AUTHENTICATED USER ACCOUNT PORTAL MODAL ================= -->
     @auth
     <div class="modal fade" id="agroviaAccountModal" tabindex="-1" aria-labelledby="agroviaAccountModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
                 <!-- Modal Header -->
-                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3 px-sm-4">
                     <div class="d-flex align-items-center gap-2">
                         <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 1.25rem;">
                             <i class="bi bi-person-circle"></i>
@@ -3878,7 +3878,7 @@
                 </div>
 
                 <!-- Modal Body -->
-                <div class="modal-body p-4">
+                <div class="modal-body p-3 p-sm-4">
                     <!-- User Info Card -->
                     <div class="p-3 rounded-3 mb-3 sh-box-bg" style="border: 1px solid var(--bs-border-color);">
                         <div class="d-flex align-items-center gap-3">
@@ -4014,37 +4014,37 @@
          15. ON-SITE TRADE DESK INBOX & MESSAGING BOX (No external WhatsApp app)
          ========================================================================= -->
     <div class="modal fade" id="tradeDeskInboxModal" tabindex="-1" aria-labelledby="tradeDeskInboxModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
                 
                 <!-- Modal Header -->
-                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4" style="background: linear-gradient(135deg, #121820 0%, #1a232f 100%);">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background: rgba(120, 162, 47, 0.2); border: 2px solid #78a22f; color: #78a22f; font-size: 1.35rem;">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3 px-sm-4" style="background: linear-gradient(135deg, #121820 0%, #1a232f 100%);">
+                    <div class="d-flex align-items-center gap-2 gap-sm-3">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px; background: rgba(120, 162, 47, 0.2); border: 2px solid #78a22f; color: #78a22f; font-size: 1.25rem;">
                             <i class="bi bi-inbox-fill"></i>
                         </div>
                         <div>
-                            <div class="d-flex align-items-center gap-2">
-                                <h5 class="modal-title fw-bold text-white mb-0" id="tradeDeskInboxModalLabel" style="font-size: 1.15rem;">Trade Desk Online Inbox</h5>
-                                <span class="badge bg-success rounded-pill px-2 py-0.5" style="font-size: 0.68rem; letter-spacing: 0.5px;">
-                                    <i class="bi bi-circle-fill me-1" style="font-size: 0.45rem;"></i>SÃO PAULO DESK LIVE
+                            <div class="d-flex flex-wrap align-items-center gap-1.5 gap-sm-2">
+                                <h5 class="modal-title fw-bold text-white mb-0" id="tradeDeskInboxModalLabel" style="font-size: clamp(0.95rem, 3.5vw, 1.15rem);">Trade Desk Online Inbox</h5>
+                                <span class="badge bg-success rounded-pill px-2 py-0.5" style="font-size: 0.65rem; letter-spacing: 0.5px;">
+                                    <i class="bi bi-circle-fill me-1" style="font-size: 0.42rem;"></i>SÃO PAULO DESK LIVE
                                 </span>
                             </div>
-                            <small class="text-white-50" style="font-size: 0.76rem;">Direct commercial inquiry &amp; order execution desk — on-site message inbox</small>
+                            <small class="text-white-50" style="font-size: 0.74rem;">Direct commercial inquiry &amp; order execution desk — on-site message inbox</small>
                         </div>
                     </div>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <!-- Nav Tabs -->
-                <ul class="nav nav-tabs px-4 pt-2 border-bottom border-secondary border-opacity-25" id="inboxTabNav" role="tablist" style="background: rgba(120, 162, 47, 0.04);">
+                <ul class="nav nav-tabs px-2 px-sm-4 pt-2 border-bottom border-secondary border-opacity-25 flex-nowrap overflow-x-auto" id="inboxTabNav" role="tablist" style="background: rgba(120, 162, 47, 0.04);">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active fw-bold text-uppercase py-2.5 px-3 border-0" id="inboxComposeTabBtn" data-bs-toggle="tab" data-bs-target="#inboxComposeTab" type="button" role="tab" style="font-size: 0.8rem; letter-spacing: 0.5px;">
+                        <button class="nav-link active fw-bold text-uppercase py-2 px-2.5 px-sm-3 border-0 text-nowrap" id="inboxComposeTabBtn" data-bs-toggle="tab" data-bs-target="#inboxComposeTab" type="button" role="tab" style="font-size: 0.78rem; letter-spacing: 0.5px;">
                             <i class="bi bi-pencil-square me-1"></i> Send Desk Message / RFQ
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link fw-bold text-uppercase py-2.5 px-3 border-0" id="inboxMessagesTabBtn" data-bs-toggle="tab" data-bs-target="#inboxMessagesTab" type="button" role="tab" style="font-size: 0.8rem; letter-spacing: 0.5px;">
+                        <button class="nav-link fw-bold text-uppercase py-2 px-2.5 px-sm-3 border-0 text-nowrap" id="inboxMessagesTabBtn" data-bs-toggle="tab" data-bs-target="#inboxMessagesTab" type="button" role="tab" style="font-size: 0.78rem; letter-spacing: 0.5px;">
                             <i class="bi bi-chat-left-text-fill me-1"></i> Desk Inquiries &amp; Messages
                             <span class="badge bg-success rounded-pill ms-1" id="inboxBadgeCount">{{ isset($userInquiries) ? $userInquiries->count() : 0 }}</span>
                         </button>
@@ -4052,12 +4052,12 @@
                 </ul>
 
                 <!-- Modal Body -->
-                <div class="modal-body p-4">
+                <div class="modal-body p-3 p-sm-4">
                     <div class="tab-content" id="inboxTabContent">
                         
                         <!-- TAB 1: COMPOSE MESSAGE / RFQ -->
                         <div class="tab-pane fade show active" id="inboxComposeTab" role="tabpanel">
-                            <div id="deskInboxAlert" class="alert d-none mb-3 py-2 px-3 small rounded-3"></div>
+                            <div id="deskInboxAlert" class="alert d-none mb-3 py-2 px-3 small rounded-3" style="word-break: break-word; overflow-wrap: anywhere;"></div>
 
                             <form id="deskInboxForm">
                                 <input type="hidden" name="role" value="buyer">
@@ -4598,22 +4598,34 @@
                         var waButton = '';
                         if (res.whatsapp_url && (selectedChannel === 'whatsapp' || selectedChannel === 'both')) {
                             waButton = `
-                                <div class="mt-3 pt-2.5 border-top border-success border-opacity-25 d-flex flex-wrap align-items-center justify-content-between gap-2">
-                                    <span class="small text-muted"><i class="bi bi-check2-all text-success me-1"></i> Dispatched automatically by server in real time</span>
-                                    <a href="${res.whatsapp_url}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success fw-semibold d-inline-flex align-items-center gap-1.5 shadow-sm">
+                                <div class="mt-3 pt-2.5 border-top border-success border-opacity-25 d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-content-between gap-2">
+                                    <span class="small text-muted" style="font-size: 0.76rem; line-height: 1.4;"><i class="bi bi-check2-all text-success me-1"></i> Dispatched automatically by server in real time</span>
+                                    <a href="${res.whatsapp_url}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success fw-semibold d-inline-flex align-items-center justify-content-center gap-1.5 shadow-sm text-center py-2 px-3">
                                         <i class="bi bi-whatsapp"></i> Optional: Chat Directly with Trade Desk
                                     </a>
                                 </div>
                             `;
                         }
 
-                        $alert.removeClass('d-none alert-danger').addClass('alert-success').html(`
-                            <h6 class="fw-bold mb-1"><i class="bi bi-check-circle-fill me-1"></i> Order Recorded &amp; Transmitted!</h6>
-                            <p class="mb-1">Reference: <strong>#${res.order_number}</strong></p>
-                            <p class="mb-1 small">${res.message}</p>
-                            <div class="mt-2 d-flex flex-wrap gap-1">
-                                <span class="badge bg-success text-white px-2 py-1"><i class="bi bi-bell-fill me-1"></i> Dispatched to: ${channelBadge}</span>
-                                <span class="badge bg-dark text-white px-2 py-1"><i class="bi bi-shield-check me-1"></i> Saved for Accountability</span>
+                        $alert.removeClass('d-none alert-danger').addClass('alert-success border-success-subtle shadow-sm p-3').html(`
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0"></i>
+                                <h6 class="fw-bold mb-0 text-success" style="font-size: 1rem; line-height: 1.3;">Order Recorded &amp; Transmitted!</h6>
+                            </div>
+                            <div class="p-2 mb-2 rounded-2 bg-white bg-opacity-75 border border-success border-opacity-25 d-flex flex-wrap align-items-center justify-content-between gap-1" style="word-break: break-all;">
+                                <span class="text-muted small fw-semibold">Order Reference:</span>
+                                <span class="font-monospace fw-bold text-success" style="font-size: 0.95rem;">#${res.order_number}</span>
+                            </div>
+                            <p class="mb-2 text-dark small" style="line-height: 1.5; word-break: break-word; overflow-wrap: anywhere;">${res.message}</p>
+                            <div class="d-flex flex-column flex-sm-row flex-wrap gap-2 mt-2.5">
+                                <div class="d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5 rounded-2 bg-success text-white small" style="white-space: normal; word-break: break-word; overflow-wrap: anywhere; line-height: 1.35; font-size: 0.78rem;">
+                                    <i class="bi bi-bell-fill flex-shrink-0"></i>
+                                    <span><strong>Dispatched to:</strong> ${channelBadge}</span>
+                                </div>
+                                <div class="d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5 rounded-2 bg-dark text-white small" style="white-space: normal; word-break: break-word; line-height: 1.35; font-size: 0.78rem;">
+                                    <i class="bi bi-shield-check flex-shrink-0 text-success"></i>
+                                    <span>Saved for Accountability</span>
+                                </div>
                             </div>
                             ${waButton}
                         `);
