@@ -39,7 +39,7 @@
                 overflow: hidden !important;
             }
             body {
-                border-radius: 20px !important;
+                border-radius: 16px !important; /* Standard 16px OS window curvature */
                 overflow-x: hidden !important;
                 overflow-y: auto !important;
                 min-height: 100vh !important;

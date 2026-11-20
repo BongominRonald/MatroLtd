@@ -2206,7 +2206,7 @@
                 overflow: hidden !important;
             }
             body {
-                border-radius: 20px !important; /* smooth rounded pixels for native app window */
+                border-radius: 16px !important; /* Standard 16px (1rem) OS & UI window curvature */
                 overflow-x: hidden !important;
                 overflow-y: auto !important;
                 min-height: 100vh !important;
@@ -2214,12 +2214,12 @@
                 box-shadow: 0 0 0 1px rgba(120, 162, 47, 0.22), 0 12px 48px rgba(0, 0, 0, 0.6) !important;
             }
             .sh-navbar.sticky-top {
-                border-top-left-radius: 20px !important;
-                border-top-right-radius: 20px !important;
+                border-top-left-radius: 16px !important;
+                border-top-right-radius: 16px !important;
             }
             footer {
-                border-bottom-left-radius: 20px !important;
-                border-bottom-right-radius: 20px !important;
+                border-bottom-left-radius: 16px !important;
+                border-bottom-right-radius: 16px !important;
             }
         }
     </style>
