@@ -1,5 +1,5 @@
 {
-  "name": "BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA",
+  "name": "BRX AGRO GLOBAL IMPORTA\u00c7\u00c3O E EXPORTA\u00c7\u00c3O LTDA",
   "short_name": "BRX Agro Global",
   "description": "Institutional origination and global export of Brazilian agro-commodities: Soybeans, ICUMSA 45 Sugar, Yellow Corn, Arabica Coffee, Edible Oils, and Halal Frozen Proteins.",
   "start_url": "/",
@@ -21,6 +21,30 @@
       "src": "/img/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png"
+    },
+    {
+      "src": "/img/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/img/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

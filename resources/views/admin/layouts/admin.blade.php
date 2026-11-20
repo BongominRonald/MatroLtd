@@ -11,7 +11,10 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('img/icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('img/icon-512x512.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
 
     <!-- Local Bootstrap 5 CSS & Icons -->
     <link href="{{ asset('lib/bootstrap/bootstrap-5.3.3.min.css') }}" rel="stylesheet">
@@ -29,6 +32,21 @@
     </script>
 
     <style>
+        @media all and (display-mode: standalone), (display-mode: window-controls-overlay), (display-mode: fullscreen) {
+            html {
+                background-color: #0b0f14 !important;
+                height: 100% !important;
+                overflow: hidden !important;
+            }
+            body {
+                border-radius: 20px !important;
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                min-height: 100vh !important;
+                margin: 0 !important;
+                box-shadow: 0 0 0 1px rgba(120, 162, 47, 0.22), 0 12px 48px rgba(0, 0, 0, 0.6) !important;
+            }
+        }
         :root {
             --matro-green: #78a22f;
             --matro-green-dark: #5c7f21;

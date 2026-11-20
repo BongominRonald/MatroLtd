@@ -38,13 +38,18 @@
     <meta name="twitter:image" content="{{ asset('img/carousel-1.jpg') }}">
     <meta name="twitter:image:alt" content="BRX AGRO GLOBAL Brazilian Commodity Export Operations">
 
-    <!-- Badge Favicons & Web Manifest -->
+    <!-- Badge Favicons & Web Manifest (With 192x192 & 512x512 Rounded Maskable Icons) -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
     <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('img/favicon-48x48.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('img/icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('img/icon-512x512.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-touch-icon.png') }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BRX Agro">
 
     <!-- Structured Data (Schema.org JSON-LD: Corporation, WebSite, Commodity Catalog & FAQ) -->
     @php
@@ -2188,6 +2193,34 @@
         .sh-scroll-top:hover { background: var(--sh-primary-dark); }
         @media (max-width: 991.98px) {
             .sh-scroll-top { bottom: 74px; right: 16px; }
+        }
+
+        /* =========================================================================
+           PWA / STANDALONE APP WINDOW ROUNDED EDGES
+           Applied when the application is downloaded/installed and running standalone
+           ========================================================================= */
+        @media all and (display-mode: standalone), (display-mode: window-controls-overlay), (display-mode: fullscreen) {
+            html {
+                background-color: #0b0f14 !important;
+                height: 100% !important;
+                overflow: hidden !important;
+            }
+            body {
+                border-radius: 20px !important; /* smooth rounded pixels for native app window */
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                min-height: 100vh !important;
+                margin: 0 !important;
+                box-shadow: 0 0 0 1px rgba(120, 162, 47, 0.22), 0 12px 48px rgba(0, 0, 0, 0.6) !important;
+            }
+            .sh-navbar.sticky-top {
+                border-top-left-radius: 20px !important;
+                border-top-right-radius: 20px !important;
+            }
+            footer {
+                border-bottom-left-radius: 20px !important;
+                border-bottom-right-radius: 20px !important;
+            }
         }
     </style>
 </head>
@@ -4985,6 +5018,13 @@
             }
 
         })();
+
+        // Register PWA Service Worker for App Installation
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js').catch(function () {});
+            });
+        }
     </script>
 </body>
 
