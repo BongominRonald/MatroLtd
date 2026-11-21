@@ -208,20 +208,22 @@ Route::post('/inquiries', function (Request $request) {
     }
 
     $validated = $request->validate([
-        'name' => 'required|string|max:255',
+        'name' => 'required|string|min:2|max:255',
         'email' => 'required|email|max:255',
         'phone' => 'nullable|string|max:50',
         'role' => 'nullable|string|max:50',
         'company' => 'nullable|string|max:255',
         'country' => 'nullable|string|max:100',
+        'volume' => 'nullable|string|max:100',
         'buyer_detail' => 'nullable|string|max:500',
         'service_type' => 'nullable|string|max:100',
         'grower_detail' => 'nullable|string|max:500',
         'message' => 'nullable|string',
     ], [
         'name.required' => 'Please provide your full name or company representative name.',
-        'email.required' => 'Please enter your email address so our trade desk can send your quotation.',
-        'email.email' => 'Please provide a valid email address (e.g., procurement@company.com).',
+        'name.min' => 'Representative name must be at least 2 characters.',
+        'email.required' => 'Please enter your corporate email address so our trade desk can send your quotation.',
+        'email.email' => 'Please provide a valid corporate email address (e.g., procurement@company.com).',
     ]);
 
     $detail = $validated['buyer_detail'] ?? $validated['service_type'] ?? $validated['grower_detail'] ?? null;
@@ -231,6 +233,9 @@ Route::post('/inquiries', function (Request $request) {
     }
     if (! empty($validated['country'])) {
         $extraInfo[] = 'Country: '.$validated['country'];
+    }
+    if (! empty($validated['volume'])) {
+        $extraInfo[] = 'Requested Volume: '.$validated['volume'];
     }
     if (! empty($detail)) {
         $extraInfo[] = 'Requirement: '.$detail;
@@ -350,27 +355,29 @@ Route::post('/checkout', function (Request $request) {
     $userId = auth()->check() ? auth()->id() : null;
 
     $validated = $request->validate([
-        'customer_name' => 'required|string|max:255',
+        'customer_name' => 'required|string|min:2|max:255',
         'customer_email' => 'required|email|max:255',
         'customer_phone' => 'nullable|string|max:50',
         'shipping_address' => 'nullable|string|max:500',
         'payment_method' => 'nullable|string|max:100',
         'channel' => 'nullable|string|in:whatsapp,email,both',
-        'notes' => 'nullable|string',
+        'notes' => 'nullable|string|max:1000',
         'items' => 'required|array|min:1',
         'items.*.name' => 'required|string|max:255',
-        'items.*.qty' => 'required|integer|min:1',
+        'items.*.qty' => 'required|integer|min:1|max:500000',
         'items.*.unit' => 'nullable|string|max:50',
         'items.*.price' => 'nullable|numeric|min:0',
     ], [
         'customer_name.required' => 'Please provide your full name or company representative name.',
-        'customer_email.required' => 'Please provide your email address to receive order receipts and export documentation.',
-        'customer_email.email' => 'Please provide a valid email address (e.g., procurement@company.com).',
+        'customer_name.min' => 'Representative name must be at least 2 characters.',
+        'customer_email.required' => 'Please provide your corporate email address to receive order receipts and export documentation.',
+        'customer_email.email' => 'Please provide a valid corporate email address (e.g., procurement@company.com).',
         'items.required' => 'Your sample cart is empty. Please select at least one commodity lot before checking out.',
         'items.min' => 'Your sample cart is empty. Please select at least one commodity lot before checking out.',
         'items.*.name.required' => 'Each lot item in your cart must have a valid commodity name.',
         'items.*.qty.required' => 'Please specify the quantity for each selected lot.',
         'items.*.qty.min' => 'Quantity must be at least 1 lot/unit.',
+        'items.*.qty.max' => 'Maximum sample lot allocation is 500,000 units per order.',
     ]);
 
     $channel = $validated['channel'] ?? 'both';

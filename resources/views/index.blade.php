@@ -2370,6 +2370,36 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
         }
 
+
+        /* ===== Real-Time Form Validation & Feedback Styles ===== */
+        .invalid-feedback-custom {
+            display: none;
+            color: #ef4444;
+            font-size: 0.78rem;
+            margin-top: 0.35rem;
+            font-weight: 500;
+        }
+        .valid-feedback-custom {
+            display: none;
+            color: #10b981;
+            font-size: 0.78rem;
+            margin-top: 0.35rem;
+            font-weight: 500;
+        }
+        .sh-input.is-invalid {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 0.2rem rgba(239, 68, 68, 0.22) !important;
+        }
+        .sh-input.is-valid {
+            border-color: #10b981 !important;
+            box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.22) !important;
+        }
+        .sh-search-feedback {
+            font-size: 0.82rem;
+            color: var(--bs-secondary-color);
+            margin-top: 0.5rem;
+        }
+
     </style>
 </head>
 
@@ -2777,13 +2807,14 @@
         <!-- 3. SEARCH BAR STRIP (Under Hero, exact fume-main layout) -->
         <section class="py-4" style="background: var(--sh-surface-alt); border-bottom: 1px solid var(--bs-border-color);">
             <div class="container">
-                <form action="#products" method="GET" class="mx-auto" style="max-width: 620px;" onsubmit="event.preventDefault(); var q = $('#quickSearchInput').val().toLowerCase(); $('.agro-filter-btn[data-filter=\'all\']').click(); $('.product-item').each(function(){ var t = $(this).text().toLowerCase(); $(this).toggle(t.indexOf(q) !== -1); }); $('html, body').animate({scrollTop: $('#products').offset().top - 80}, 600);">
-                    <div class="input-group">
+                <form id="quickSearchForm" action="#products" method="GET" class="mx-auto" style="max-width: 620px;">
+                    <div class="input-group position-relative shadow-sm">
                         <input type="text" id="quickSearchInput" class="form-control form-control-lg sh-input" placeholder="Search Brazilian commodities, grades, harvest basins..." style="border-radius: 8px 0 0 8px; font-size: 1rem;">
                         <button type="submit" class="btn btn-sh-primary btn-lg" style="border-radius: 0 8px 8px 0;">
                             <i class="bi bi-search"></i> Search
                         </button>
                     </div>
+                    <div id="quickSearchFeedback" class="sh-search-feedback text-center mt-2 d-none"></div>
                 </form>
             </div>
         </section>
@@ -2844,6 +2875,17 @@
 
                 <!-- Product Grid: 4 columns like fume-main -->
                 <div class="row row-cols-2 row-cols-md-4 g-3 g-md-4" id="catalogGrid">
+                    <!-- Search & Filter Empty Feedback State -->
+                    <div id="catalogNoResults" class="col-12 py-5 text-center d-none">
+                        <div class="p-4 p-md-5 rounded-4 sh-card-bg border border-secondary border-opacity-25 mx-auto" style="max-width: 520px;">
+                            <i class="bi bi-search fs-1 text-muted d-block mb-3"></i>
+                            <h5 class="fw-bold sh-text-title mb-2">No Matching Commodities Found</h5>
+                            <p class="text-muted small mb-4">We could not find any export lot matching your search. Please check your spelling or try searching for Soybeans, Sugar, Corn, or Coffee.</p>
+                            <button type="button" class="btn btn-sh-primary btn-sm px-4" id="btnResetCatalogSearch">
+                                <i class="bi bi-arrow-clockwise me-1"></i> View All Commodities
+                            </button>
+                        </div>
+                    </div>
                     @forelse ($products as $product)
                         <div class="col product-item" data-category="{{ $product->category->name ?? 'Grains & Rice' }}">
                             <div class="sh-product-card h-100">
@@ -3330,7 +3372,7 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Target Commodity *</label>
-                                        <select name="buyer_detail" class="form-select sh-input" required>
+                                        <select name="buyer_detail" id="rfq_buyer_detail" class="form-select sh-input" required>
                                             <option value="Brazilian Non-GMO Soybeans">Brazilian Non-GMO Soybeans</option>
                                             <option value="Refined Cane Sugar (ICUMSA 45)">Refined Cane Sugar (ICUMSA 45)</option>
                                             <option value="Yellow Corn (Maize Grade 2)">Yellow Corn (Maize Grade 2)</option>
@@ -3358,26 +3400,32 @@
                                             <option value="Instant Full Cream Milk Powder">Instant Full Cream Milk Powder</option>
                                             <option value="Fresh Brazilian Export Mangoes & Fruits">Fresh Brazilian Export Mangoes &amp; Fruits</option>
                                         </select>
+                                        <div class="invalid-feedback-custom">Please select your target commodity.</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Volume Required (Metric Tons) *</label>
-                                        <input type="text" name="volume" class="form-control sh-input" placeholder="e.g. 500 MT / 2,500 MT / 1 FCL" required>
+                                        <input type="text" name="volume" id="rfq_volume" class="form-control sh-input" placeholder="e.g. 500 MT / 2,500 MT / 1 FCL" required>
+                                        <div class="invalid-feedback-custom">Please specify the volume required (e.g. 500 MT or 1 FCL).</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Full Name *</label>
-                                        <input type="text" name="name" class="form-control sh-input" placeholder="First and last name" required>
+                                        <input type="text" name="name" id="rfq_name" class="form-control sh-input" placeholder="First and last name" required>
+                                        <div class="invalid-feedback-custom">Please enter your representative name (at least 2 characters).</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Corporate Email *</label>
-                                        <input type="email" name="email" class="form-control sh-input" placeholder="importer@company.com" required>
+                                        <input type="email" name="email" id="rfq_email" class="form-control sh-input" placeholder="importer@company.com" required>
+                                        <div class="invalid-feedback-custom">Please enter a valid corporate email (e.g. buyer@company.com).</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Company Name *</label>
-                                        <input type="text" name="company" class="form-control sh-input" placeholder="Trading company name" required>
+                                        <input type="text" name="company" id="rfq_company" class="form-control sh-input" placeholder="Trading company name" required>
+                                        <div class="invalid-feedback-custom">Please enter your registered trade company name.</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Discharge Port / Country *</label>
-                                        <input type="text" name="country" class="form-control sh-input" placeholder="e.g. Port of Rotterdam / Jebel Ali" required>
+                                        <input type="text" name="country" id="rfq_country" class="form-control sh-input" placeholder="e.g. Port of Rotterdam / Jebel Ali" required>
+                                        <div class="invalid-feedback-custom">Please specify your destination discharge port or country.</div>
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label small fw-bold">Contract Message, Packaging &amp; Instructions</label>
@@ -3827,19 +3875,22 @@
                         <div class="row g-3 mb-4">
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Representative / Contact Name <span class="text-danger">*</span></label>
-                                <input type="text" name="customer_name" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->name : '' }}" placeholder="e.g. John Doe / Procuring Officer" required>
+                                <input type="text" name="customer_name" id="chk_customer_name" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->name : '' }}" placeholder="e.g. John Doe / Procuring Officer" required>
+                                <div class="invalid-feedback-custom">Please provide your representative or company officer name.</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Corporate Email (for SGS &amp; Contract) <span class="text-danger">*</span></label>
-                                <input type="email" name="customer_email" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->email : '' }}" placeholder="buyer@company.com" required>
+                                <input type="email" name="customer_email" id="chk_customer_email" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->email : '' }}" placeholder="buyer@company.com" required>
+                                <div class="invalid-feedback-custom">Please provide a valid corporate email for contract dispatch.</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Contact Phone / WhatsApp</label>
-                                <input type="text" name="customer_phone" class="form-control sh-input rounded-3" placeholder="+1 (555) 019-2834">
+                                <input type="text" name="customer_phone" id="chk_customer_phone" class="form-control sh-input rounded-3" placeholder="+1 (555) 019-2834">
+                                <div class="invalid-feedback-custom">Please enter a valid phone or WhatsApp number.</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Destination Port / Discharge Facility <span class="text-danger">*</span></label>
-                                <select name="shipping_address" class="form-select sh-input rounded-3" required>
+                                <select name="shipping_address" id="chk_shipping_address" class="form-select sh-input rounded-3" required>
                                     <option value="Rotterdam Port (NLRTM), Netherlands - CIF">Port of Rotterdam (NLRTM) - CIF</option>
                                     <option value="Qingdao Port (CNTAO), China - CIF">Port of Qingdao (CNTAO) - CIF</option>
                                     <option value="Jebel Ali Port (AEJEA), Dubai UAE - CIF">Port of Jebel Ali (AEJEA), Dubai - CIF</option>
@@ -3847,6 +3898,7 @@
                                     <option value="Paranaguá Port (BRPNG), Brazil - FOB">Port of Paranaguá (BRPNG) - FOB</option>
                                     <option value="Air Courier Laboratory Sample Express">Air Courier Laboratory Sample Express (DHL/FedEx)</option>
                                 </select>
+                                <div class="invalid-feedback-custom">Please select a destination port or export berth.</div>
                             </div>
                         </div>
 
@@ -3919,6 +3971,12 @@
                             </div>
                         </div>
                         <!-- Unified Trade Assurance & Automation Strip (Clean Negative Space) -->
+                        <!-- Live Channel Feedback Indicator -->
+                        <div id="channelLiveFeedback" class="p-2.5 rounded-3 mb-3 small d-flex align-items-center gap-2" style="background: rgba(120, 162, 47, 0.12); border: 1px solid rgba(120, 162, 47, 0.3);">
+                            <i class="bi bi-broadcast text-success flex-shrink-0"></i>
+                            <span id="channelLiveText" class="text-secondary small fw-medium">Simultaneous automated delivery to Trade Desk WhatsApp (+55 11 95835-3433) and corporate email.</span>
+                        </div>
+
                         <div class="p-3 rounded-3 mb-4 sh-box-bg border border-secondary border-opacity-25">
                             <div class="d-flex align-items-center gap-2 mb-2">
                                 <i class="bi bi-shield-check text-success fs-5"></i>
@@ -4662,13 +4720,22 @@
 
             function changeItemQty(index, delta) {
                 if (!cart[index]) return;
-                cart[index].qty = (parseInt(cart[index].qty, 10) || 1) + delta;
-                if (cart[index].qty <= 0) {
-                    cart.splice(index, 1);
+                var currentQty = parseInt(cart[index].qty, 10) || 1;
+                var newQty = currentQty + delta;
+                if (newQty <= 0) {
+                    if (confirm('Remove ' + cart[index].name + ' from your sample cart?')) {
+                        removeCartItem(index);
+                    }
+                    return;
                 }
+                if (newQty > 500000) {
+                    triggerToast('Maximum sample lot allocation is 500,000 units.', updateCartCount());
+                    return;
+                }
+                cart[index].qty = newQty;
                 saveCart();
                 renderCartDrawer();
-                triggerToast('Cart updated', updateCartCount());
+                triggerToast('Cart updated: ' + cart[index].name + ' (' + newQty + ' ' + (cart[index].unit || 'MT') + ')', updateCartCount());
             }
             window.changeItemQty = changeItemQty;
 
@@ -4820,9 +4887,76 @@
                 } catch (e) {}
             }
 
-            $('#checkoutOrderForm input, #checkoutOrderForm select').on('input change', function () {
-                $(this).removeClass('is-invalid');
+            // Real-Time Checkout Field Validation & Feedback
+            function validateCheckoutField($el) {
+                var name = $el.attr('name');
+                var val = ($el.val() || '').trim();
+                var isValid = true;
+                var errorMsg = '';
+
+                if (name === 'customer_name') {
+                    if (!val || val.length < 2) {
+                        isValid = false;
+                        errorMsg = 'Please enter your full name or company representative name (at least 2 letters).';
+                    }
+                } else if (name === 'customer_email') {
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!val) {
+                        isValid = false;
+                        errorMsg = 'Please enter your corporate email address.';
+                    } else if (!emailRegex.test(val)) {
+                        isValid = false;
+                        errorMsg = 'Please provide a valid corporate email (e.g. procurement@company.com).';
+                    }
+                } else if (name === 'customer_phone') {
+                    var ch = $('input[name="order_channel"]:checked').val() || 'both';
+                    if ((ch === 'whatsapp' || ch === 'both') && val.length > 0 && val.length < 7) {
+                        isValid = false;
+                        errorMsg = 'Please provide a valid phone number with country code (e.g. +1 555 123 4567).';
+                    }
+                } else if (name === 'shipping_address') {
+                    if (!val) {
+                        isValid = false;
+                        errorMsg = 'Please select your destination port or delivery berth.';
+                    }
+                }
+
+                var $fb = $el.siblings('.invalid-feedback-custom');
+                if ($fb.length > 0 && errorMsg) {
+                    $fb.text(errorMsg);
+                }
+
+                if (!isValid) {
+                    $el.removeClass('is-valid').addClass('is-invalid');
+                    if ($fb.length > 0) $fb.show();
+                } else if (val) {
+                    $el.removeClass('is-invalid').addClass('is-valid');
+                    if ($fb.length > 0) $fb.hide();
+                } else {
+                    $el.removeClass('is-invalid is-valid');
+                    if ($fb.length > 0) $fb.hide();
+                }
+                return isValid;
+            }
+
+            $('#checkoutOrderForm input, #checkoutOrderForm select').on('input change blur', function () {
+                validateCheckoutField($(this));
                 saveCheckoutDraft();
+            });
+
+            // Live Channel Feedback Indicator
+            $('input[name="order_channel"]').on('change', function () {
+                var ch = $(this).val();
+                var msg = 'Simultaneous automated delivery to Trade Desk WhatsApp (+55 11 95835-3433) and corporate email.';
+                if (ch === 'whatsapp') {
+                    msg = 'Dispatches alert directly to company WhatsApp device (+55 11 95835-3433).';
+                } else if (ch === 'email') {
+                    msg = 'Dispatches order notification to company inbox (brxagroglobal@gmail.com).';
+                }
+                $('#channelLiveText').text(msg);
+                if ($('input[name="customer_phone"]').val()) {
+                    validateCheckoutField($('input[name="customer_phone"]'));
+                }
             });
 
             // Usability: Universal Copy To Clipboard Helper
@@ -4885,17 +5019,13 @@
                     return;
                 }
 
-                // Safety & Error Recovery: Validate required fields with clean inline feedback
+                // Safety & Error Recovery: Thorough validation check on all fields
                 var isValid = true;
                 var $firstInvalid = null;
                 $('#checkoutOrderForm input[required], #checkoutOrderForm select[required]').each(function () {
-                    var val = $(this).val();
-                    if (!val || !val.trim()) {
-                        $(this).addClass('is-invalid');
+                    if (!validateCheckoutField($(this))) {
                         isValid = false;
                         if (!$firstInvalid) $firstInvalid = $(this);
-                    } else {
-                        $(this).removeClass('is-invalid');
                     }
                 });
 
@@ -4907,6 +5037,9 @@
                 }
 
                 if (!isValid) {
+                    $alert.removeClass('d-none alert-success').addClass('alert alert-warning').html(
+                        '<i class="bi bi-exclamation-triangle me-1"></i> Please complete the highlighted fields before placing your order.'
+                    );
                     if ($firstInvalid) {
                         $firstInvalid.focus();
                         $firstInvalid[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -5168,9 +5301,69 @@
                 });
             }
 
-            // RFQ In-Page Form Submission
-            $('#rfqInquiryForm input, #rfqInquiryForm select, #rfqInquiryForm textarea').on('input change', function () {
-                $(this).removeClass('is-invalid');
+            // Real-Time RFQ Field Validation & Feedback
+            function validateRfqField($el) {
+                var name = $el.attr('name');
+                var val = ($el.val() || '').trim();
+                var isValid = true;
+                var errorMsg = '';
+
+                if (name === 'name') {
+                    if (!val || val.length < 2) {
+                        isValid = false;
+                        errorMsg = 'Please enter your representative name (at least 2 letters).';
+                    }
+                } else if (name === 'email') {
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!val) {
+                        isValid = false;
+                        errorMsg = 'Please enter your corporate email address.';
+                    } else if (!emailRegex.test(val)) {
+                        isValid = false;
+                        errorMsg = 'Please provide a valid corporate email (e.g. buyer@company.com).';
+                    }
+                } else if (name === 'company') {
+                    if (!val || val.length < 2) {
+                        isValid = false;
+                        errorMsg = 'Please enter your registered trade company name.';
+                    }
+                } else if (name === 'country') {
+                    if (!val || val.length < 2) {
+                        isValid = false;
+                        errorMsg = 'Please specify destination discharge port or country.';
+                    }
+                } else if (name === 'volume') {
+                    if (!val) {
+                        isValid = false;
+                        errorMsg = 'Please specify volume required (e.g. 500 MT or 1 FCL).';
+                    }
+                } else if (name === 'buyer_detail') {
+                    if (!val) {
+                        isValid = false;
+                        errorMsg = 'Please select a target commodity.';
+                    }
+                }
+
+                var $fb = $el.siblings('.invalid-feedback-custom');
+                if ($fb.length > 0 && errorMsg) {
+                    $fb.text(errorMsg);
+                }
+
+                if (!isValid) {
+                    $el.removeClass('is-valid').addClass('is-invalid');
+                    if ($fb.length > 0) $fb.show();
+                } else if (val) {
+                    $el.removeClass('is-invalid').addClass('is-valid');
+                    if ($fb.length > 0) $fb.hide();
+                } else {
+                    $el.removeClass('is-invalid is-valid');
+                    if ($fb.length > 0) $fb.hide();
+                }
+                return isValid;
+            }
+
+            $('#rfqInquiryForm input, #rfqInquiryForm select, #rfqInquiryForm textarea').on('input change blur', function () {
+                validateRfqField($(this));
             });
 
             $('#rfqInquiryForm').on('submit', function (e) {
@@ -5182,18 +5375,17 @@
                 // Safety & Usability: Validate RFQ required fields
                 var isValid = true;
                 var $firstInvalid = null;
-                $form.find('input[required], select[required], textarea[required]').each(function () {
-                    var val = $(this).val();
-                    if (!val || !val.trim()) {
-                        $(this).addClass('is-invalid');
+                $form.find('input[required], select[required]').each(function () {
+                    if (!validateRfqField($(this))) {
                         isValid = false;
                         if (!$firstInvalid) $firstInvalid = $(this);
-                    } else {
-                        $(this).removeClass('is-invalid');
                     }
                 });
 
                 if (!isValid) {
+                    $('#rfqAlert').removeClass('d-none alert-success').addClass('alert alert-warning').html(
+                        '<i class="bi bi-exclamation-triangle me-1"></i> Please complete the highlighted fields before submitting your RFQ.'
+                    );
                     if ($firstInvalid) {
                         $firstInvalid.focus();
                         $firstInvalid[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -5256,6 +5448,54 @@
                         $btn.prop('disabled', false).html(origText);
                     }
                 });
+            });
+
+            // Quick Search & Live Filtering with Feedback
+            function applyQuickSearch(q) {
+                q = (q || '').trim().toLowerCase();
+                var matchCount = 0;
+                $('.agro-filter-btn[data-filter="all"]').addClass('active btn-primary').removeClass('btn-outline-secondary');
+                $('.product-item').each(function () {
+                    var t = $(this).text().toLowerCase();
+                    var isMatch = (!q || t.indexOf(q) !== -1);
+                    $(this).toggle(isMatch);
+                    if (isMatch) matchCount++;
+                });
+
+                if (matchCount === 0) {
+                    $('#catalogNoResults').removeClass('d-none');
+                } else {
+                    $('#catalogNoResults').addClass('d-none');
+                }
+
+                var $fb = $('#quickSearchFeedback');
+                if (q) {
+                    $fb.removeClass('d-none').html(matchCount + ' commodity lot(s) found matching "<strong>' + $('<div>').text(q).html() + '</strong>"');
+                } else {
+                    $fb.addClass('d-none').empty();
+                }
+            }
+
+            $('#quickSearchForm').on('submit', function (e) {
+                e.preventDefault();
+                var q = $('#quickSearchInput').val();
+                applyQuickSearch(q);
+                var prodSec = document.getElementById('products');
+                if (prodSec) {
+                    prodSec.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            $('#quickSearchInput').on('input', function () {
+                applyQuickSearch($(this).val());
+            });
+
+            $(document).on('click', '#btnResetCatalogSearch', function () {
+                $('#quickSearchInput').val('');
+                $('#quickSearchFeedback').addClass('d-none').empty();
+                $('.agro-filter-btn[data-filter="all"]').click();
+                $('.product-item').fadeIn(200);
+                $('#catalogNoResults').addClass('d-none');
             });
 
             // Modal Search Filter
