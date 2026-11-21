@@ -2222,6 +2222,143 @@
                 border-bottom-right-radius: 16px !important;
             }
         }
+
+        /* ===== White Space, Affordance, Feedback & Safety Enhancements ===== */
+        .sh-section-spacious {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+        @media (max-width: 768px) {
+            .sh-section-spacious {
+                padding-top: 3.5rem;
+                padding-bottom: 3.5rem;
+            }
+        }
+        .sh-title-wrap {
+            margin-bottom: 2.5rem;
+        }
+        .sh-card-body {
+            padding: 1.15rem 1.15rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            flex: 1;
+        }
+        /* Interactive Affordances */
+        .btn, .btn-sh-primary, .sh-card-cart-btn, .btn-sh-outline, .btn-sh-login {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
+        }
+        .btn-sh-primary:hover, .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(120, 162, 47, 0.32);
+        }
+        .btn-sh-primary:active, .sh-card-cart-btn:active, .btn-primary:active {
+            transform: translateY(0) scale(0.98);
+        }
+        .btn-sh-outline:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+        }
+        .btn:focus-visible, .btn-sh-primary:focus-visible, .sh-card-cart-btn:focus-visible, .btn-sh-outline:focus-visible, .form-control:focus-visible, .form-select:focus-visible {
+            outline: 3px solid rgba(120, 162, 47, 0.55) !important;
+            outline-offset: 2px !important;
+        }
+        /* Product Card Affordance & Elevation */
+        .sh-product-card {
+            border-radius: 14px;
+            background: var(--sh-surface);
+            border: 1px solid var(--bs-border-color);
+            transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+        }
+        .sh-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+            border-color: rgba(120, 162, 47, 0.65) !important;
+        }
+        /* Interactive Channel Cards */
+        .sh-channel-card {
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            border-color: var(--bs-border-color) !important;
+        }
+        .sh-channel-card:hover {
+            border-color: var(--sh-primary) !important;
+            background-color: rgba(120, 162, 47, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .sh-channel-card input[type="radio"]:checked + div,
+        .sh-channel-card:has(input[type="radio"]:checked) {
+            border-color: var(--sh-primary) !important;
+            background-color: rgba(120, 162, 47, 0.12) !important;
+            box-shadow: 0 0 0 1px var(--sh-primary);
+        }
+        /* Form Controls with Clear Affordance & Error Recovery */
+        .sh-input, .form-control.sh-input, .form-select.sh-input {
+            padding: 0.65rem 0.95rem;
+            font-size: 0.92rem;
+            border-radius: 9px;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+        }
+        .sh-input:hover {
+            border-color: rgba(120, 162, 47, 0.5) !important;
+        }
+        .sh-input:focus {
+            border-color: var(--sh-primary) !important;
+            box-shadow: 0 0 0 0.22rem rgba(120, 162, 47, 0.22) !important;
+        }
+        .sh-input.is-invalid {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 0.22rem rgba(220, 53, 69, 0.2) !important;
+        }
+        .invalid-feedback-custom {
+            display: none;
+            color: #dc3545;
+            font-size: 0.78rem;
+            margin-top: 0.35rem;
+            font-weight: 500;
+        }
+        .sh-input.is-invalid ~ .invalid-feedback-custom {
+            display: block;
+        }
+        /* Feedback: Button Added State */
+        .sh-card-cart-btn.btn-added {
+            background: #10b981 !important;
+            border-color: #10b981 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4) !important;
+            pointer-events: none;
+        }
+        /* Copy to clipboard badge affordance */
+        .copyable-badge {
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+        .copyable-badge:hover {
+            filter: brightness(1.15);
+            transform: scale(1.02);
+        }
+        .copyable-badge:active {
+            transform: scale(0.97);
+        }
+        /* Streamlined Services Card Grid */
+        .sh-service-item {
+            background: var(--sh-surface);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            height: 100%;
+        }
+        .sh-service-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--sh-primary);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+        }
+
     </style>
 </head>
 
@@ -2640,29 +2777,37 @@
             </div>
         </section>
 
-        <!-- 4. SERVICES / FEATURE STRIP (Exact fume-main layout) -->
-        <section class="sh-strip py-3" id="services">
+        <!-- 4. SERVICES / FEATURE STRIP (Clean Negative Space & Card Affordance) -->
+        <section class="sh-strip py-4 py-md-5" id="services">
             <div class="container">
-                <div class="row text-center g-3">
-                    <div class="col-6 col-md-3 item d-flex flex-column align-items-center">
-                        <i class="bi bi-truck"></i>
-                        <strong>Bulk &amp; Port Freight</strong>
-                        <small>Deepwater container &amp; vessel loading</small>
+                <div class="row text-center g-3 g-md-4">
+                    <div class="col-6 col-md-3 item">
+                        <div class="sh-service-item d-flex flex-column align-items-center">
+                            <i class="bi bi-truck fs-3 mb-2" style="color: var(--sh-primary);"></i>
+                            <strong class="sh-text-title mb-1">Bulk &amp; Port Freight</strong>
+                            <small class="sh-text-muted">Deepwater vessel &amp; container loading</small>
+                        </div>
                     </div>
-                    <div class="col-6 col-md-3 item d-flex flex-column align-items-center">
-                        <i class="bi bi-shield-check"></i>
-                        <strong>Destination Port Sourcing</strong>
-                        <small>Zero default counterparty protection</small>
+                    <div class="col-6 col-md-3 item">
+                        <div class="sh-service-item d-flex flex-column align-items-center">
+                            <i class="bi bi-shield-check fs-3 mb-2" style="color: var(--sh-primary);"></i>
+                            <strong class="sh-text-title mb-1">Counterparty Safety</strong>
+                            <small class="sh-text-muted">Direct cooperative export contracts</small>
+                        </div>
                     </div>
-                    <div class="col-6 col-md-3 item d-flex flex-column align-items-center">
-                        <i class="bi bi-award"></i>
-                        <strong>SGS &amp; MAPA Assays</strong>
-                        <small>100% pre-loading lab assay inspection</small>
+                    <div class="col-6 col-md-3 item">
+                        <div class="sh-service-item d-flex flex-column align-items-center">
+                            <i class="bi bi-award fs-3 mb-2" style="color: var(--sh-primary);"></i>
+                            <strong class="sh-text-title mb-1">SGS &amp; MAPA Assays</strong>
+                            <small class="sh-text-muted">Certified pre-loading lab testing</small>
+                        </div>
                     </div>
-                    <div class="col-6 col-md-3 item d-flex flex-column align-items-center">
-                        <i class="bi bi-headset"></i>
-                        <strong>24/7 Trade Desk</strong>
-                        <small>Direct WhatsApp &amp; São Paulo HQ</small>
+                    <div class="col-6 col-md-3 item">
+                        <div class="sh-service-item d-flex flex-column align-items-center">
+                            <i class="bi bi-headset fs-3 mb-2" style="color: var(--sh-primary);"></i>
+                            <strong class="sh-text-title mb-1">24/7 Trade Desk</strong>
+                            <small class="sh-text-muted">Direct WhatsApp &amp; São Paulo HQ</small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2690,41 +2835,34 @@
                 <div class="row row-cols-2 row-cols-md-4 g-3 g-md-4" id="catalogGrid">
                     @forelse ($products as $product)
                         <div class="col product-item" data-category="{{ $product->category->name ?? 'Grains & Rice' }}">
-                            <div class="sh-product-card">
+                            <div class="sh-product-card h-100">
                                 <div class="sh-product-img">
                                     <a href="javascript:void(0)" class="quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
                                         <img src="{{ asset($product->image ?: 'img/service-1.jpg') }}" alt="{{ $product->name }}" loading="lazy" decoding="async">
                                     </a>
                                     @if ($product->unit == 'Metric Ton')
-                                        <span class="sh-badge-sale">BULK / B2B</span>
+                                        <span class="sh-badge-sale">BULK ALLOCATION</span>
                                     @elseif ($product->is_new)
-                                        <span class="sh-badge-new">NEW</span>
+                                        <span class="sh-badge-new">NEW CROP</span>
                                     @endif
-
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">{{ $product->origin ?? 'Brazil' }} · {{ $product->category->name ?? 'Agro' }}</div>
                                     <a href="javascript:void(0)" class="text-decoration-none quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
-                                        <div class="sh-card-name">{{ $product->name }}</div>
+                                        <h6 class="sh-card-name mb-0">{{ $product->name }}</h6>
                                     </a>
-                                    <div class="sh-card-price">
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
-                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
+                                    <div class="d-flex align-items-center justify-content-between text-muted small py-1 border-top border-secondary border-opacity-10 mt-1">
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill me-1"></i>SGS Assayed
                                         </span>
-                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
+                                        <span class="small text-muted" style="font-size: 0.72rem;">FOB / CIF</span>
                                     </div>
-                                    <div class="sh-card-rating">
-                                        <span class="stars">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i>
-                                        </span>
-                                        <span class="count text-muted">({{ number_format($product->stock) }} {{ $product->unit == 'Metric Ton' ? 'MT' : 'units' }})</span>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small mb-1" style="font-size: 0.74rem;">
+                                        <span><i class="bi bi-box-seam text-success me-1"></i>Available</span>
+                                        <strong class="text-secondary">{{ number_format($product->stock) }} {{ $product->unit == 'Metric Ton' ? 'MT' : 'units' }}</strong>
                                     </div>
-                                    <div class="d-flex gap-2 mt-auto pt-2">
-                                        <button type="button" class="sh-card-cart-btn btn-add-cart" data-name="{{ $product->name }}" data-price="0" data-unit="{{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}">
+                                    <div class="mt-auto pt-2">
+                                        <button type="button" class="sh-card-cart-btn btn-add-cart w-100" data-name="{{ $product->name }}" data-price="0" data-unit="{{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}">
                                             <i class="bi bi-bag-plus"></i> Add to Cart
                                         </button>
                                     </div>
@@ -2734,86 +2872,110 @@
                     @empty
                         <!-- Clean Fallbacks if DB has no items -->
                         <div class="col product-item" data-category="Grains & Rice">
-                            <div class="sh-product-card">
+                            <div class="sh-product-card h-100">
                                 <div class="sh-product-img">
                                     <img src="{{ asset('img/service-1.jpg') }}" alt="Brazilian Non-GMO Soybeans" loading="lazy" decoding="async">
-                                    <span class="sh-badge-sale">BULK</span>
+                                    <span class="sh-badge-sale">BULK ALLOCATION</span>
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">Mato Grosso · Grains &amp; Rice</div>
-                                    <div class="sh-card-name">Brazilian Non-GMO Soybeans</div>
-                                    <div class="sh-card-price">
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
-                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
+                                    <h6 class="sh-card-name mb-0">Brazilian Non-GMO Soybeans</h6>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small py-1 border-top border-secondary border-opacity-10 mt-1">
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill me-1"></i>SGS Assayed
                                         </span>
-                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
+                                        <span class="small text-muted" style="font-size: 0.72rem;">FOB / CIF</span>
                                     </div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Brazilian Non-GMO Soybeans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-1.jpg') }}" data-origin="Mato Grosso">
-                                        <i class="bi bi-bag-plus"></i> Add to Cart
-                                    </button>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small mb-1" style="font-size: 0.74rem;">
+                                        <span><i class="bi bi-box-seam text-success me-1"></i>Available</span>
+                                        <strong class="text-secondary">100,000 MT Spot</strong>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <button class="sh-card-cart-btn btn-add-cart w-100" data-name="Brazilian Non-GMO Soybeans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-1.jpg') }}" data-origin="Mato Grosso">
+                                            <i class="bi bi-bag-plus"></i> Add to Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col product-item" data-category="Oil & Sugar">
-                            <div class="sh-product-card">
+                        <div class="col product-item" data-category="Sugar & Ethanol">
+                            <div class="sh-product-card h-100">
                                 <div class="sh-product-img">
                                     <img src="{{ asset('img/service-2.jpg') }}" alt="Refined Cane Sugar ICUMSA 45" loading="lazy" decoding="async">
-                                    <span class="sh-badge-sale">BULK</span>
+                                    <span class="sh-badge-sale">EXPORT LOT</span>
                                 </div>
                                 <div class="sh-card-body">
-                                    <div class="sh-card-brand">São Paulo · Oil &amp; Sugar</div>
-                                    <div class="sh-card-name">Refined Cane Sugar (ICUMSA 45)</div>
-                                    <div class="sh-card-price">
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
-                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
+                                    <div class="sh-card-brand">São Paulo · Sugar &amp; Sweeteners</div>
+                                    <h6 class="sh-card-name mb-0">Refined Cane Sugar (ICUMSA 45)</h6>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small py-1 border-top border-secondary border-opacity-10 mt-1">
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill me-1"></i>SGS Assayed
                                         </span>
-                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
+                                        <span class="small text-muted" style="font-size: 0.72rem;">FOB / CIF</span>
                                     </div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Refined Cane Sugar (ICUMSA 45)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-2.jpg') }}" data-origin="São Paulo">
-                                        <i class="bi bi-bag-plus"></i> Add to Cart
-                                    </button>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small mb-1" style="font-size: 0.74rem;">
+                                        <span><i class="bi bi-box-seam text-success me-1"></i>Available</span>
+                                        <strong class="text-secondary">50,000 MT Vessel</strong>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <button class="sh-card-cart-btn btn-add-cart w-100" data-name="Refined Cane Sugar (ICUMSA 45)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-2.jpg') }}" data-origin="São Paulo">
+                                            <i class="bi bi-bag-plus"></i> Add to Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col product-item" data-category="Grains & Rice">
-                            <div class="sh-product-card">
+                            <div class="sh-product-card h-100">
                                 <div class="sh-product-img">
                                     <img src="{{ asset('img/service-3.jpg') }}" alt="Yellow Corn Maize Grade 2" loading="lazy" decoding="async">
-                                    <span class="sh-badge-new">NEW</span>
+                                    <span class="sh-badge-new">NEW CROP</span>
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">Goiás · Grains &amp; Rice</div>
-                                    <div class="sh-card-name">Yellow Corn (Maize Grade 2)</div>
-                                    <div class="sh-card-price">
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
-                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
+                                    <h6 class="sh-card-name mb-0">Yellow Corn (Maize Grade 2)</h6>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small py-1 border-top border-secondary border-opacity-10 mt-1">
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill me-1"></i>SGS Assayed
                                         </span>
-                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
+                                        <span class="small text-muted" style="font-size: 0.72rem;">FOB / CIF</span>
                                     </div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Yellow Corn (Maize Grade 2)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-3.jpg') }}" data-origin="Goiás">
-                                        <i class="bi bi-bag-plus"></i> Add to Cart
-                                    </button>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small mb-1" style="font-size: 0.74rem;">
+                                        <span><i class="bi bi-box-seam text-success me-1"></i>Available</span>
+                                        <strong class="text-secondary">75,000 MT Spot</strong>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <button class="sh-card-cart-btn btn-add-cart w-100" data-name="Yellow Corn (Maize Grade 2)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-3.jpg') }}" data-origin="Goiás">
+                                            <i class="bi bi-bag-plus"></i> Add to Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col product-item" data-category="Spices & Specialty">
-                            <div class="sh-product-card">
+                            <div class="sh-product-card h-100">
                                 <div class="sh-product-img">
                                     <img src="{{ asset('img/service-5.jpg') }}" alt="Arabica Green Coffee Beans" loading="lazy" decoding="async">
-                                    <span class="sh-badge-sale">EXPORT</span>
+                                    <span class="sh-badge-sale">SPECIALTY</span>
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">Minas Gerais · Specialty</div>
-                                    <div class="sh-card-name">Arabica Green Coffee Beans</div>
-                                    <div class="sh-card-price">
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
-                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
+                                    <h6 class="sh-card-name mb-0">Arabica Green Coffee Beans</h6>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small py-1 border-top border-secondary border-opacity-10 mt-1">
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill me-1"></i>SGS Assayed
                                         </span>
-                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
+                                        <span class="small text-muted" style="font-size: 0.72rem;">FOB / CIF</span>
                                     </div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Arabica Green Coffee Beans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-5.jpg') }}" data-origin="Minas Gerais">
-                                        <i class="bi bi-bag-plus"></i> Add to Cart
-                                    </button>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small mb-1" style="font-size: 0.74rem;">
+                                        <span><i class="bi bi-box-seam text-success me-1"></i>Available</span>
+                                        <strong class="text-secondary">25,000 Bags Specialty</strong>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <button class="sh-card-cart-btn btn-add-cart w-100" data-name="Arabica Green Coffee Beans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-5.jpg') }}" data-origin="Minas Gerais">
+                                            <i class="bi bi-bag-plus"></i> Add to Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -3745,18 +3907,22 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="p-2.5 rounded-3 mb-4 small d-flex align-items-center gap-2" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.2);">
-                            <i class="bi bi-robot text-success fs-5 flex-shrink-0"></i>
-                            <div class="text-muted" style="font-size: 0.76rem; line-height: 1.4;">
-                                <strong>100% Automated Backend Dispatch:</strong> Everything is sent by our server directly to the business devices. You will not have to manually compose or type any messages.
+                        <!-- Unified Trade Assurance & Automation Strip (Clean Negative Space) -->
+                        <div class="p-3 rounded-3 mb-4 sh-box-bg border border-secondary border-opacity-25">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i class="bi bi-shield-check text-success fs-5"></i>
+                                <span class="small fw-bold sh-text-title">Automated Server Transmission &amp; Trade Assurance</span>
                             </div>
-                        </div>
-
-                        <!-- Assurance Strip -->
-                        <div class="p-2.5 p-sm-3 rounded-3 mb-4 small d-flex flex-column flex-sm-row flex-wrap gap-2 gap-sm-3 align-items-start align-items-sm-center justify-content-between" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.25); font-size: 0.78rem;">
-                            <div><i class="bi bi-patch-check-fill text-success me-1"></i> 100% Pre-Shipment Assay</div>
-                            <div><i class="bi bi-shield-fill-check text-success me-1"></i> SGS Inspection Guaranteed</div>
-                            <div><i class="bi bi-file-earmark-lock text-success me-1"></i> Official MAPA Export Clearance</div>
+                            <div class="text-muted small mb-2" style="font-size: 0.76rem; line-height: 1.45;">
+                                Your order is securely dispatched by server to company devices. Pre-shipment SGS assays, MAPA phytosanitary clearance, and Incoterms 2020 legal framework are attached automatically.
+                            </div>
+                            <div class="d-flex flex-wrap gap-2 pt-2 border-top border-secondary border-opacity-10 small text-muted" style="font-size: 0.74rem;">
+                                <span><i class="bi bi-check2 text-success me-1"></i>SGS Pre-Shipment Assay</span>
+                                <span class="mx-1">·</span>
+                                <span><i class="bi bi-check2 text-success me-1"></i>MAPA Phytosanitary Clearance</span>
+                                <span class="mx-1">·</span>
+                                <span><i class="bi bi-check2 text-success me-1"></i>Incoterms 2020 Berth Allocation</span>
+                            </div>
                         </div>
 
                         <!-- Order Alert message container -->
@@ -4505,16 +4671,27 @@
             }
             window.removeCartItem = removeCartItem;
 
+            var lastClearedCart = [];
             function clearCart() {
                 if (cart.length === 0) return;
                 if (confirm('Would you like to clear all commodity lots from your sample cart?')) {
+                    lastClearedCart = cart.slice();
                     cart = [];
                     saveCart();
                     renderCartDrawer();
-                    triggerToast('Cart cleared', 0);
+                    triggerToast('Cart cleared. Click Undo to restore.', 0);
                 }
             }
             window.clearCart = clearCart;
+            window.undoClearCart = function () {
+                if (lastClearedCart && lastClearedCart.length > 0) {
+                    cart = lastClearedCart.slice();
+                    lastClearedCart = [];
+                    saveCart();
+                    renderCartDrawer();
+                    triggerToast('Cart restored!', updateCartCount());
+                }
+            };
 
             // Add to Cart Buttons
             var currentQvProduct = '';
@@ -4524,10 +4701,12 @@
 
             $(document).on('click', '.btn-add-cart', function (e) {
                 e.preventDefault();
-                var prodName = $(this).attr('data-name') || 'Agricultural Commodity';
-                var prodUnit = $(this).attr('data-unit') || 'MT';
-                var prodImage = $(this).attr('data-image') || '{{ asset('img/service-1.jpg') }}';
-                var prodOrigin = $(this).attr('data-origin') || 'Brazil';
+                var $btn = $(this);
+                var origHtml = $btn.html();
+                var prodName = $btn.attr('data-name') || 'Agricultural Commodity';
+                var prodUnit = $btn.attr('data-unit') || 'MT';
+                var prodImage = $btn.attr('data-image') || '{{ asset('img/service-1.jpg') }}';
+                var prodOrigin = $btn.attr('data-origin') || 'Brazil';
 
                 var existing = cart.find(function (i) { return i.name === prodName; });
                 if (existing) {
@@ -4544,6 +4723,13 @@
                 }
                 saveCart();
                 var total = updateCartCount();
+
+                // Affordance & Feedback: Instant button state confirmation
+                $btn.addClass('btn-added').html('<i class="bi bi-check2-circle"></i> Added to Cart');
+                setTimeout(function () {
+                    $btn.removeClass('btn-added').html(origHtml);
+                }, 1400);
+
                 triggerToast(prodName + ' added to cart!', total);
                 openCartDrawer();
             });
@@ -4593,6 +4779,55 @@
                 openCartDrawer();
             });
 
+            // Safety: Auto-Save & Restore Checkout Form Draft
+            function saveCheckoutDraft() {
+                try {
+                    var draft = {
+                        customer_name: $('input[name="customer_name"]').val(),
+                        customer_email: $('input[name="customer_email"]').val(),
+                        customer_phone: $('input[name="customer_phone"]').val(),
+                        shipping_address: $('select[name="shipping_address"]').val(),
+                        payment_method: $('select[name="payment_method"]').val(),
+                        notes: $('input[name="notes"]').val()
+                    };
+                    localStorage.setItem('brx_checkout_draft', JSON.stringify(draft));
+                } catch (e) {}
+            }
+
+            function restoreCheckoutDraft() {
+                try {
+                    var draftStr = localStorage.getItem('brx_checkout_draft');
+                    if (draftStr) {
+                        var draft = JSON.parse(draftStr);
+                        if (draft.customer_name && !$('input[name="customer_name"]').val()) $('input[name="customer_name"]').val(draft.customer_name);
+                        if (draft.customer_email && !$('input[name="customer_email"]').val()) $('input[name="customer_email"]').val(draft.customer_email);
+                        if (draft.customer_phone && !$('input[name="customer_phone"]').val()) $('input[name="customer_phone"]').val(draft.customer_phone);
+                        if (draft.shipping_address) $('select[name="shipping_address"]').val(draft.shipping_address);
+                        if (draft.payment_method) $('select[name="payment_method"]').val(draft.payment_method);
+                        if (draft.notes && !$('input[name="notes"]').val()) $('input[name="notes"]').val(draft.notes);
+                    }
+                } catch (e) {}
+            }
+
+            $('#checkoutOrderForm input, #checkoutOrderForm select').on('input change', function () {
+                $(this).removeClass('is-invalid');
+                saveCheckoutDraft();
+            });
+
+            // Usability: Universal Copy To Clipboard Helper
+            window.copyTextToClipboard = function (text, label) {
+                if (!navigator.clipboard) {
+                    var $temp = $('<input>');
+                    $('body').append($temp);
+                    $temp.val(text).select();
+                    document.execCommand('copy');
+                    $temp.remove();
+                } else {
+                    navigator.clipboard.writeText(text);
+                }
+                triggerToast((label || 'Text') + ' copied to clipboard!', updateCartCount());
+            };
+
             // Open Checkout Modal from Cart Drawer
             $('#btnOpenCheckout').on('click', function () {
                 if (cart.length === 0) {
@@ -4600,6 +4835,7 @@
                     return;
                 }
                 closeCartDrawer();
+                restoreCheckoutDraft();
 
                 var $chkList = $('#checkoutItemsList');
                 $chkList.empty();
@@ -4630,10 +4866,40 @@
             // Submit Checkout Order via AJAX
             $('#checkoutOrderForm').on('submit', function (e) {
                 e.preventDefault();
+                var $alert = $('#checkoutAlertBox');
                 if (cart.length === 0) {
                     $alert.removeClass('d-none alert-success').addClass('alert alert-danger').html(
                         '<i class="bi bi-info-circle me-1"></i> Your sample cart is currently empty. Please select commodity lots first before placing an order.'
                     );
+                    return;
+                }
+
+                // Safety & Error Recovery: Validate required fields with clean inline feedback
+                var isValid = true;
+                var $firstInvalid = null;
+                $('#checkoutOrderForm input[required], #checkoutOrderForm select[required]').each(function () {
+                    var val = $(this).val();
+                    if (!val || !val.trim()) {
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                        if (!$firstInvalid) $firstInvalid = $(this);
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
+                });
+
+                var emailVal = $('input[name="customer_email"]').val();
+                if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal.trim())) {
+                    $('input[name="customer_email"]').addClass('is-invalid');
+                    isValid = false;
+                    if (!$firstInvalid) $firstInvalid = $('input[name="customer_email"]');
+                }
+
+                if (!isValid) {
+                    if ($firstInvalid) {
+                        $firstInvalid.focus();
+                        $firstInvalid[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
                     return;
                 }
 
@@ -4697,6 +4963,7 @@
                         </div>
                     `);
 
+                    try { localStorage.removeItem('brx_checkout_draft'); } catch (e) {}
                     cart = [];
                     saveCart();
                     updateCartCount();
@@ -4741,9 +5008,14 @@
                                 <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0"></i>
                                 <h6 class="fw-bold mb-0 text-success" style="font-size: 1rem; line-height: 1.3;">Order Recorded &amp; Transmitted!</h6>
                             </div>
-                            <div class="p-2 mb-2 rounded-2 bg-white bg-opacity-75 border border-success border-opacity-25 d-flex flex-wrap align-items-center justify-content-between gap-1" style="word-break: break-all;">
-                                <span class="text-muted small fw-semibold">Order Reference:</span>
-                                <span class="font-monospace fw-bold text-success" style="font-size: 0.95rem;">#${res.order_number}</span>
+                            <div class="p-2 mb-2 rounded-2 bg-white bg-opacity-75 border border-success border-opacity-25 d-flex flex-wrap align-items-center justify-content-between gap-2" style="word-break: break-all;">
+                                <div>
+                                    <span class="text-muted small fw-semibold">Order Reference:</span>
+                                    <span class="font-monospace fw-bold text-success ms-1" style="font-size: 0.95rem;">#${res.order_number}</span>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-success copyable-badge py-0.5 px-2 d-inline-flex align-items-center gap-1" onclick="copyTextToClipboard('#${res.order_number}', 'Order Reference')">
+                                    <i class="bi bi-clipboard"></i> Copy Ref
+                                </button>
                             </div>
                             <p class="mb-2 text-dark small" style="line-height: 1.5; word-break: break-word; overflow-wrap: anywhere;">${res.message}</p>
                             <div class="d-flex flex-column flex-sm-row flex-wrap gap-2 mt-2.5">
@@ -4759,7 +5031,8 @@
                             ${waButton}
                         `);
 
-                        // Clear cart
+                        // Clear cart & saved draft
+                        try { localStorage.removeItem('brx_checkout_draft'); } catch (e) {}
                         cart = [];
                         saveCart();
                         updateCartCount();
@@ -4850,11 +5123,37 @@
             }
 
             // RFQ In-Page Form Submission
+            $('#rfqInquiryForm input, #rfqInquiryForm select, #rfqInquiryForm textarea').on('input change', function () {
+                $(this).removeClass('is-invalid');
+            });
+
             $('#rfqInquiryForm').on('submit', function (e) {
                 e.preventDefault();
                 var $form = $(this);
                 var $btn = $('#rfqSubmitBtn');
                 var origText = $btn.html();
+
+                // Safety & Usability: Validate RFQ required fields
+                var isValid = true;
+                var $firstInvalid = null;
+                $form.find('input[required], select[required], textarea[required]').each(function () {
+                    var val = $(this).val();
+                    if (!val || !val.trim()) {
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                        if (!$firstInvalid) $firstInvalid = $(this);
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
+                });
+
+                if (!isValid) {
+                    if ($firstInvalid) {
+                        $firstInvalid.focus();
+                        $firstInvalid[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return;
+                }
 
                 if (!navigator.onLine) {
                     var offlineRef = 'AGRO-INQ-OFFLINE-' + Math.random().toString(36).substring(2, 8).toUpperCase();
