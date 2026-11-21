@@ -274,12 +274,21 @@
         }
 
         /* ===== Typography & Global Layout (Agrovia Global) ===== */
-        html, body {
-            overflow-x: hidden !important;
-            max-width: 100%;
+        html {
+            overflow-x: hidden;
+            overflow-y: auto !important;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
             width: 100%;
+            max-width: 100%;
         }
         body {
+            overflow-x: hidden;
+            overflow-y: visible !important;
+            position: relative;
+            max-width: 100%;
+            width: 100%;
+            min-height: 100vh;
             font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-size: 1rem;
             background-color: var(--bs-body-bg);
@@ -1360,8 +1369,8 @@
             overflow: hidden;
         }
         .sh-strip.has-scroll-anim .item {
-            opacity: 0;
-            transform: translateY(28px) scale(0.94);
+            opacity: 1;
+            transform: none;
         }
         .sh-strip.has-scroll-anim .item.is-visible {
             animation: shStripBounceIn 0.72s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -1554,8 +1563,8 @@
             color: #fff;
         }
         .sh-card-cart-btn.has-scroll-anim {
-            opacity: 0;
-            transform: translateY(20px) scale(0.94);
+            opacity: 1;
+            transform: none;
         }
         .sh-card-cart-btn.has-scroll-anim.is-visible {
             animation: shStripBounceIn 0.72s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -1894,12 +1903,13 @@
             z-index: 1055;
             opacity: 0;
             visibility: hidden;
+            pointer-events: none;
             transition: opacity .25s ease, visibility .25s ease;
-            overflow: hidden !important;
         }
         .sh-cart-backdrop.show {
             opacity: 1;
             visibility: visible;
+            pointer-events: auto;
         }
         .sh-cart-offcanvas {
             position: fixed;
@@ -2186,10 +2196,11 @@
             cursor: pointer;
             opacity: 0;
             visibility: hidden;
+            pointer-events: none;
             transition: all .25s ease;
             z-index: 999;
         }
-        .sh-scroll-top.visible { opacity: 1; visibility: visible; }
+        .sh-scroll-top.visible { opacity: 1; visibility: visible; pointer-events: auto; }
         .sh-scroll-top:hover { background: var(--sh-primary-dark); }
         @media (max-width: 991.98px) {
             .sh-scroll-top { bottom: 74px; right: 16px; }
@@ -2199,27 +2210,27 @@
            PWA / STANDALONE APP WINDOW ROUNDED EDGES
            Applied when the application is downloaded/installed and running standalone
            ========================================================================= */
-        @media all and (display-mode: standalone), (display-mode: window-controls-overlay), (display-mode: fullscreen) {
+        @media all and (display-mode: standalone), (display-mode: window-controls-overlay) {
             html {
                 background-color: #0b0f14 !important;
-                height: 100% !important;
-                overflow: hidden !important;
-            }
-            body {
-                border-radius: 16px !important; /* Standard 16px (1rem) OS & UI window curvature */
                 overflow-x: hidden !important;
                 overflow-y: auto !important;
-                min-height: 100vh !important;
-                margin: 0 !important;
-                box-shadow: 0 0 0 1px rgba(120, 162, 47, 0.22), 0 12px 48px rgba(0, 0, 0, 0.6) !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            body {
+                border-radius: 16px; /* Standard 16px (1rem) OS & UI window curvature */
+                overflow-x: hidden !important;
+                overflow-y: visible !important;
+                min-height: 100vh;
+                margin: 0;
             }
             .sh-navbar.sticky-top {
-                border-top-left-radius: 16px !important;
-                border-top-right-radius: 16px !important;
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
             }
             footer {
-                border-bottom-left-radius: 16px !important;
-                border-bottom-right-radius: 16px !important;
+                border-bottom-left-radius: 16px;
+                border-bottom-right-radius: 16px;
             }
         }
 
@@ -5111,12 +5122,47 @@
                 }
             });
 
+            // Hero Carousel Auto-Cycle & Swipe (Active, moving elements)
+            var heroCarouselEl = document.getElementById('heroCarousel');
+            if (heroCarouselEl && window.bootstrap && window.bootstrap.Carousel) {
+                var heroCarousel = bootstrap.Carousel.getOrCreateInstance(heroCarouselEl, {
+                    interval: 4200,
+                    ride: 'carousel',
+                    wrap: true,
+                    touch: true,
+                    pause: false
+                });
+                heroCarousel.cycle();
+
+                // Touch swipe handling for mobile devices
+                var touchStartX = 0;
+                var touchEndX = 0;
+                heroCarouselEl.addEventListener('touchstart', function (e) {
+                    if (e.changedTouches && e.changedTouches[0]) {
+                        touchStartX = e.changedTouches[0].screenX;
+                    }
+                }, { passive: true });
+                heroCarouselEl.addEventListener('touchend', function (e) {
+                    if (e.changedTouches && e.changedTouches[0]) {
+                        touchEndX = e.changedTouches[0].screenX;
+                        var diff = touchStartX - touchEndX;
+                        if (Math.abs(diff) > 45) {
+                            if (diff > 0) {
+                                heroCarousel.next();
+                            } else {
+                                heroCarousel.prev();
+                            }
+                        }
+                    }
+                }, { passive: true });
+            }
+
             // Scroll to Top Button
             var scrollBtn = document.getElementById('sh-scroll-top');
             if (scrollBtn) {
                 window.addEventListener('scroll', function () {
-                    scrollBtn.classList.toggle('visible', window.scrollY > 350);
-                });
+                    scrollBtn.classList.toggle('visible', (window.pageYOffset || document.documentElement.scrollTop || 0) > 300);
+                }, { passive: true });
                 scrollBtn.addEventListener('click', function () {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
