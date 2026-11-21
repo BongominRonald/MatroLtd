@@ -3147,7 +3147,7 @@
                         <div class="p-4 rounded-3 h-100 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
                             <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.16); color: var(--sh-primary);">04</div>
                             <h5 class="fw-bold sh-text-title mb-2">Port Vessel Dispatch</h5>
-                            <p class="small sh-text-muted mb-0">Terminal berth coordination at Port of Santos and Paranaguá with live vessel telemetry until discharge.</p>
+                            <p class="small sh-text-muted mb-0">Terminal berth coordination at Port of Santos and Paranaguá with live vessel tracking until discharge.</p>
                         </div>
                     </div>
                 </div>
@@ -3415,7 +3415,7 @@
                             <div class="sh-stars mb-3">
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                             </div>
-                            <p class="fst-italic sh-text-muted mb-3">"The ICUMSA 45 refined sugar arrived on time with complete phytosanitary certificates and zero broken bags. BRX Agro Global's direct desk communicated vessel telemetry daily."</p>
+                            <p class="fst-italic sh-text-muted mb-3">"The ICUMSA 45 refined sugar arrived on time with complete phytosanitary certificates and zero broken bags. BRX Agro Global's direct desk communicated vessel shipping updates daily."</p>
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('img/testimonial-2.jpg') }}" alt="Tariq Al-Mansoor" class="rounded-circle me-3 object-fit-cover" width="46" height="46" loading="lazy" decoding="async">
                                 <div>
@@ -3786,7 +3786,7 @@
                         </div>
                         <div>
                             <h5 class="modal-title fw-bold sh-text-title mb-0" style="font-size: clamp(0.95rem, 3.5vw, 1.15rem);">Commodity Order Dispatch to Trade Desk</h5>
-                            <small class="text-muted" style="font-size: 0.78rem;">Automated backend transmission to BRX Agro Global devices</small>
+                            <small class="text-muted" style="font-size: 0.78rem;">Instant notification sent directly to BRX Agro Global trade desk</small>
                         </div>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
