@@ -1842,11 +1842,11 @@
                 background: rgba(20, 20, 26, 0.98);
                 backdrop-filter: blur(12px);
                 border-top: 1px solid rgba(255, 255, 255, 0.12);
-                padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+                padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
                 justify-content: space-around;
                 align-items: center;
             }
-            body { padding-bottom: 64px; }
+            body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
         }
         .sh-tabbar > a {
             flex: 1 1 0;
@@ -2177,33 +2177,52 @@
         .sh-toast.sh-toast-hide { transform: translateX(130%); opacity: 0; }
         .sh-toast-icon { color: var(--sh-primary); font-size: 1.4rem; flex-shrink: 0; }
 
-        /* ===== Scroll Top ===== */
+        /* ===== Scroll Top (Floating Action Button / FAB) ===== */
         .sh-scroll-top {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            width: 44px;
-            height: 44px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
-            background: var(--sh-primary);
-            color: #fff;
-            border: none;
+            background: linear-gradient(135deg, var(--sh-primary) 0%, #5d8021 100%);
+            color: #ffffff !important;
+            border: 2px solid rgba(255, 255, 255, 0.18);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            font-size: 1.25rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.25);
             cursor: pointer;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: all .25s ease;
-            z-index: 999;
+            transform: translateY(12px) scale(0.9);
+            transition: opacity .25s ease, transform .25s ease, visibility .25s ease, background-color .2s ease;
+            z-index: 1050;
         }
-        .sh-scroll-top.visible { opacity: 1; visibility: visible; pointer-events: auto; }
-        .sh-scroll-top:hover { background: var(--sh-primary-dark); }
+        .sh-scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+        .sh-scroll-top:hover, .sh-scroll-top:active {
+            background: var(--sh-primary-dark);
+            color: #ffffff !important;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 12px 28px rgba(120, 162, 47, 0.45), 0 4px 10px rgba(0,0,0,0.3);
+        }
         @media (max-width: 991.98px) {
-            .sh-scroll-top { bottom: 74px; right: 16px; }
+            .sh-scroll-top {
+                bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+                right: 16px;
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+                z-index: 1050;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.3);
+            }
         }
 
         /* =========================================================================
@@ -3732,8 +3751,8 @@
         </div>
     </div>
 
-    <!-- 13. SCROLL TO TOP BUTTON (Exact fume-main architecture) -->
-    <button id="sh-scroll-top" class="sh-scroll-top" aria-label="Scroll to top">
+    <!-- 13. SCROLL TO TOP (Floating Action Button / FAB) -->
+    <button id="sh-scroll-top" class="sh-scroll-top back-to-top" type="button" aria-label="Scroll back to top" title="Scroll back to top">
         <i class="bi bi-chevron-up"></i>
     </button>
 
@@ -5290,16 +5309,59 @@
                 }, { passive: true });
             }
 
-            // Scroll to Top Button
+            // Scroll to Top FAB (Floating Action Button)
             var scrollBtn = document.getElementById('sh-scroll-top');
             if (scrollBtn) {
-                window.addEventListener('scroll', function () {
-                    scrollBtn.classList.toggle('visible', (window.pageYOffset || document.documentElement.scrollTop || 0) > 300);
-                }, { passive: true });
-                scrollBtn.addEventListener('click', function () {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                var ticking = false;
+
+                function updateScrollFab() {
+                    var y = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                    if (y > 180) {
+                        scrollBtn.classList.add('visible');
+                    } else {
+                        scrollBtn.classList.remove('visible');
+                    }
+                    ticking = false;
+                }
+
+                function onScrollThrottled() {
+                    if (!ticking) {
+                        window.requestAnimationFrame(updateScrollFab);
+                        ticking = true;
+                    }
+                }
+
+                window.addEventListener('scroll', onScrollThrottled, { passive: true });
+                document.addEventListener('scroll', onScrollThrottled, { passive: true });
+                window.addEventListener('touchmove', onScrollThrottled, { passive: true });
+
+                scrollBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    try {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } catch (err) {
+                        window.scrollTo(0, 0);
+                    }
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
                 });
+
+                updateScrollFab();
             }
+
+            // Mobile Tab Bar "Home" tap scrolls back to top smoothly
+            $('.sh-tabbar a[href="{{ route('home') }}"], .sh-tabbar a[href="/"], .sh-tabbar a[href="#"]').on('click', function (e) {
+                if (window.location.pathname === '/' || window.location.pathname === '') {
+                    e.preventDefault();
+                    try {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } catch (err) {
+                        window.scrollTo(0, 0);
+                    }
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                }
+            });
 
             // Real-Time RFQ Field Validation & Feedback
             function validateRfqField($el) {
