@@ -2182,46 +2182,47 @@
             position: fixed;
             bottom: 25px;
             right: 25px;
-            width: 46px;
-            height: 46px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--sh-primary) 0%, #5d8021 100%);
+            background: #78a22f;
+            background: linear-gradient(135deg, #78a22f 0%, #5d8021 100%);
             color: #ffffff !important;
-            border: 2px solid rgba(255, 255, 255, 0.18);
-            display: flex;
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            display: flex !important;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.25);
+            font-size: 1.35rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.25);
             cursor: pointer;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
             transform: translateY(12px) scale(0.9);
             transition: opacity .25s ease, transform .25s ease, visibility .25s ease, background-color .2s ease;
-            z-index: 1050;
+            z-index: 1055 !important;
         }
         .sh-scroll-top.visible {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            transform: translateY(0) scale(1);
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            transform: translateY(0) scale(1) !important;
         }
         .sh-scroll-top:hover, .sh-scroll-top:active {
-            background: var(--sh-primary-dark);
+            background: #648827;
             color: #ffffff !important;
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 12px 28px rgba(120, 162, 47, 0.45), 0 4px 10px rgba(0,0,0,0.3);
+            transform: translateY(-2px) scale(1.06);
+            box-shadow: 0 12px 28px rgba(120, 162, 47, 0.5), 0 4px 10px rgba(0,0,0,0.3);
         }
         @media (max-width: 991.98px) {
             .sh-scroll-top {
-                bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+                bottom: calc(74px + env(safe-area-inset-bottom, 0px));
                 right: 16px;
-                width: 44px;
-                height: 44px;
-                font-size: 1.2rem;
-                z-index: 1050;
-                box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.3);
+                width: 46px;
+                height: 46px;
+                font-size: 1.25rem;
+                z-index: 1055 !important;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.3);
             }
         }
 
@@ -3752,8 +3753,8 @@
     </div>
 
     <!-- 13. SCROLL TO TOP (Floating Action Button / FAB) -->
-    <button id="sh-scroll-top" class="sh-scroll-top back-to-top" type="button" aria-label="Scroll back to top" title="Scroll back to top">
-        <i class="bi bi-chevron-up"></i>
+    <button id="sh-scroll-top" class="sh-scroll-top" type="button" aria-label="Scroll back to top" title="Scroll back to top">
+        <i class="bi bi-arrow-up"></i>
     </button>
 
     <!-- Modals & Drawers -->
@@ -5316,7 +5317,7 @@
 
                 function updateScrollFab() {
                     var y = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-                    if (y > 180) {
+                    if (y > 40) {
                         scrollBtn.classList.add('visible');
                     } else {
                         scrollBtn.classList.remove('visible');
