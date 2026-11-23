@@ -2216,11 +2216,12 @@
         }
         @media (max-width: 991.98px) {
             .sh-scroll-top {
+                bottom: 74px;
                 bottom: calc(74px + env(safe-area-inset-bottom, 0px));
                 right: 16px;
-                width: 46px;
-                height: 46px;
-                font-size: 1.25rem;
+                width: 48px;
+                height: 48px;
+                font-size: 1.35rem;
                 z-index: 1055 !important;
                 box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.3);
             }
@@ -3753,8 +3754,8 @@
     </div>
 
     <!-- 13. SCROLL TO TOP (Floating Action Button / FAB) -->
-    <button id="sh-scroll-top" class="sh-scroll-top" type="button" aria-label="Scroll back to top" title="Scroll back to top">
-        <i class="bi bi-arrow-up"></i>
+    <button id="sh-scroll-top" class="sh-scroll-top" type="button" aria-label="Scroll back to top" title="Scroll back to top" onclick="window.scrollTo({top:0,behavior:'smooth'});document.documentElement.scrollTop=0;document.body.scrollTop=0;">
+        <i class="bi bi-chevron-up"></i>
     </button>
 
     <!-- Modals & Drawers -->
@@ -5276,65 +5277,58 @@
             });
 
             // Hero Carousel Auto-Cycle & Swipe (Active, moving elements)
-            var heroCarouselEl = document.getElementById('heroCarousel');
-            if (heroCarouselEl && window.bootstrap && window.bootstrap.Carousel) {
-                var heroCarousel = bootstrap.Carousel.getOrCreateInstance(heroCarouselEl, {
-                    interval: 4200,
-                    ride: 'carousel',
-                    wrap: true,
-                    touch: true,
-                    pause: false
-                });
-                heroCarousel.cycle();
-
-                // Touch swipe handling for mobile devices
-                var touchStartX = 0;
-                var touchEndX = 0;
-                heroCarouselEl.addEventListener('touchstart', function (e) {
-                    if (e.changedTouches && e.changedTouches[0]) {
-                        touchStartX = e.changedTouches[0].screenX;
+            try {
+                var heroCarouselEl = document.getElementById('heroCarousel');
+                if (heroCarouselEl && window.bootstrap && window.bootstrap.Carousel) {
+                    var heroCarousel = (typeof bootstrap.Carousel.getOrCreateInstance === 'function')
+                        ? bootstrap.Carousel.getOrCreateInstance(heroCarouselEl, { interval: 4200, ride: 'carousel', wrap: true, touch: true, pause: false })
+                        : ((typeof bootstrap.Carousel.getInstance === 'function' ? bootstrap.Carousel.getInstance(heroCarouselEl) : null) || new bootstrap.Carousel(heroCarouselEl, { interval: 4200, ride: 'carousel', wrap: true, touch: true, pause: false }));
+                    if (heroCarousel && typeof heroCarousel.cycle === 'function') {
+                        heroCarousel.cycle();
                     }
-                }, { passive: true });
-                heroCarouselEl.addEventListener('touchend', function (e) {
-                    if (e.changedTouches && e.changedTouches[0]) {
-                        touchEndX = e.changedTouches[0].screenX;
-                        var diff = touchStartX - touchEndX;
-                        if (Math.abs(diff) > 45) {
-                            if (diff > 0) {
-                                heroCarousel.next();
-                            } else {
-                                heroCarousel.prev();
+
+                    // Touch swipe handling for mobile devices
+                    var touchStartX = 0;
+                    var touchEndX = 0;
+                    heroCarouselEl.addEventListener('touchstart', function (e) {
+                        if (e.changedTouches && e.changedTouches[0]) {
+                            touchStartX = e.changedTouches[0].screenX;
+                        }
+                    }, { passive: true });
+                    heroCarouselEl.addEventListener('touchend', function (e) {
+                        if (e.changedTouches && e.changedTouches[0]) {
+                            touchEndX = e.changedTouches[0].screenX;
+                            var diff = touchStartX - touchEndX;
+                            if (Math.abs(diff) > 45) {
+                                if (diff > 0) {
+                                    heroCarousel.next();
+                                } else {
+                                    heroCarousel.prev();
+                                }
                             }
                         }
-                    }
-                }, { passive: true });
+                    }, { passive: true });
+                }
+            } catch (carouselErr) {
+                console.warn('Hero carousel init note:', carouselErr);
             }
 
-            // Scroll to Top FAB (Floating Action Button)
+            // Scroll to Top FAB (Floating Action Button) - Bulletproof
             var scrollBtn = document.getElementById('sh-scroll-top');
             if (scrollBtn) {
-                var ticking = false;
-
                 function updateScrollFab() {
-                    var y = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-                    if (y > 40) {
+                    var y = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                    if (y > 25) {
                         scrollBtn.classList.add('visible');
                     } else {
                         scrollBtn.classList.remove('visible');
                     }
-                    ticking = false;
                 }
 
-                function onScrollThrottled() {
-                    if (!ticking) {
-                        window.requestAnimationFrame(updateScrollFab);
-                        ticking = true;
-                    }
-                }
-
-                window.addEventListener('scroll', onScrollThrottled, { passive: true });
-                document.addEventListener('scroll', onScrollThrottled, { passive: true });
-                window.addEventListener('touchmove', onScrollThrottled, { passive: true });
+                window.addEventListener('scroll', updateScrollFab, { passive: true });
+                document.addEventListener('scroll', updateScrollFab, { passive: true });
+                window.addEventListener('touchmove', updateScrollFab, { passive: true });
+                window.addEventListener('resize', updateScrollFab, { passive: true });
 
                 scrollBtn.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -5348,6 +5342,7 @@
                 });
 
                 updateScrollFab();
+                setTimeout(updateScrollFab, 300);
             }
 
             // Mobile Tab Bar "Home" tap scrolls back to top smoothly
