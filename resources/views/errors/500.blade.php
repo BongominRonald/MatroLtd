@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Server Error — BRX AGRO GLOBAL</title>
-    <link rel="icon" type="image/x-icon" href="{ asset('favicon.ico') }">
-    <link rel="stylesheet" href="{ asset('lib/boxicons/boxicons.min.css') }">
-    <link rel="stylesheet" href="{ asset('fonts/open-sans.css') }">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('lib/boxicons/boxicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('fonts/open-sans.css') }}">
     <style>
         :root {
             --primary: #155724;
@@ -127,7 +127,7 @@
         <h1>Something Went Wrong</h1>
         <p>Our servers encountered a temporary hiccup while processing your request. Our technical team has been notified. Please try refreshing in a few moments.</p>
         <div class="actions">
-            <a href="{ route('home') }" class="btn btn-primary">
+            <a href="{ route('home') }}" class="btn btn-primary">
                 <i class='bx bx-home-alt'></i> Back to Homepage
             </a>
             <a href="https://api.whatsapp.com/send?phone=5511958353433&text=Hello%20BRX%20Agro%20Global,%20I%20need%20assistance." target="_blank" class="btn btn-outline">

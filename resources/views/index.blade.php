@@ -3424,6 +3424,7 @@
                             <div id="rfqAlert" class="alert d-none mb-3 p-3 rounded-3" style="word-break: break-word; overflow-wrap: anywhere;"></div>
 
                             <form id="rfqInquiryForm">
+                                @csrf
                                 <input type="hidden" name="role" value="buyer">
                                 <div aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;">
                                     <label for="rfq_company_website_url">Company Website URL</label>
@@ -3913,6 +3914,7 @@
 
                 <div class="modal-body p-3 p-sm-4">
                     <form id="checkoutOrderForm">
+                        @csrf
                         <!-- Step 1: Order Items Summary Preview -->
                         <div class="mb-4 p-3 rounded-3 sh-box-bg" style="border: 1px solid var(--bs-border-color);">
                             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -4443,6 +4445,7 @@
                             <div id="deskInboxAlert" class="alert d-none mb-3 py-2 px-3 small rounded-3" style="word-break: break-word; overflow-wrap: anywhere;"></div>
 
                             <form id="deskInboxForm">
+                        @csrf
                                 <input type="hidden" name="role" value="buyer">
                                 <div aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;">
                                     <label for="inbox_company_website_url">Company Website URL</label>
