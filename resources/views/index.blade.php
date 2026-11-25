@@ -2699,14 +2699,53 @@
                         <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
                         <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                         <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
                     </div>
                     <div class="carousel-inner">
-                    <!-- Slide 1: Farm Origination & Port Export -->
+                    <!-- Slide 1: Maritime Container Cargo & Deepwater Ports -->
                     <div class="carousel-item active">
                         <div class="sh-hero-slide">
                             <picture>
+                                <source srcset="{{ asset('img/banner-container-cargo.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/banner-container-cargo.jpg') }}" alt="Global Container Cargo & Ocean Freight Direct" class="sh-hero-bg">
+                            </picture>
+                            <div class="sh-hero-scrim"></div>
+                            <div class="container sh-hero-content">
+                                <div class="eyebrow mb-3">Maritime Logistics &amp; Deepwater Berths</div>
+                                <h1 class="mb-4">Global Container Cargo &amp; <span style="color: var(--sh-primary);">Ocean Freight Direct</span></h1>
+                                <p class="lead mb-4">Direct containerized and bulk ocean logistics operating through Santos and Paranaguá terminals. Full-scale intermodal vessel loading, MAPA/SIF phytosanitary clearance, and guaranteed shipping schedules.</p>
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <a href="#products" class="btn btn-sh-primary btn-lg">Explore Export Commodities</a>
+                                    <a href="#rfq-desk" class="btn btn-sh-outline-white btn-lg">Request Freight &amp; RFQ</a>
+                                </div>
+                                <div class="d-flex gap-4 mt-5 flex-wrap sh-hero-stats">
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">40ft &amp; 20ft</div>
+                                        <small class="text-white-50">Container Capacity</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">100% SGS</div>
+                                        <small class="text-white-50">Pre-Shipment Tested</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">Zero Risk</div>
+                                        <small class="text-white-50">Global Port Discharge</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">Santos &amp; Paranaguá</div>
+                                        <small class="text-white-50">Deepwater Exit Ports</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Farm Origination & Port Export -->
+                    <div class="carousel-item">
+                        <div class="sh-hero-slide">
+                            <picture>
                                 <source srcset="{{ asset('img/banner-shipping.webp') }}" type="image/webp">
-                                <img src="{{ asset('img/banner-shipping.jpg') }}" alt="Brazilian Direct Farm Sourcing & Deepwater Export" class="sh-hero-bg">
+                                <img src="{{ asset('img/banner-shipping.jpg') }}" alt="Brazilian Direct Farm Sourcing & Deepwater Export" class="sh-hero-bg" loading="lazy" decoding="async">
                             </picture>
                             <div class="sh-hero-scrim"></div>
                             <div class="container sh-hero-content">
