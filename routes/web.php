@@ -181,6 +181,16 @@ Route::get('/merchant-feed.xml', function () {
         $xml .= '      <g:price>'.e($priceFormatted).'</g:price>'."\n";
         $xml .= '      <g:brand>'.e($prod->brand ?: 'BRX AGRO GLOBAL').'</g:brand>'."\n";
         $xml .= '      <g:identifier_exists>no</g:identifier_exists>'."\n";
+        $xml .= '      <g:shipping>'."\n";
+        $xml .= '        <g:country>US</g:country>'."\n";
+        $xml .= '        <g:service>Maritime Export Freight</g:service>'."\n";
+        $xml .= '        <g:price>0.00 USD</g:price>'."\n";
+        $xml .= '      </g:shipping>'."\n";
+        $xml .= '      <g:shipping>'."\n";
+        $xml .= '        <g:country>BR</g:country>'."\n";
+        $xml .= '        <g:service>Port Dispatch Logistics</g:service>'."\n";
+        $xml .= '        <g:price>0.00 USD</g:price>'."\n";
+        $xml .= '      </g:shipping>'."\n";
         $xml .= '      <g:product_type>'.e('Food, Beverages & Tobacco > Food Items > '.$categoryName).'</g:product_type>'."\n";
         $xml .= '    </item>'."\n";
     }
