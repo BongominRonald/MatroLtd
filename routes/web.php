@@ -166,6 +166,7 @@ Route::get('/merchant-feed.xml', function () {
         $description = trim((string) ($prod->description ?: ($prod->name.' — Institutional export grade Brazilian agro-commodity supplied by BRX AGRO GLOBAL ('.($prod->unit ?: 'MT').').')));
         $priceFormatted = number_format((float) ($prod->price ?: 450.00), 2, '.', '').' USD';
         $availability = ((int) ($prod->stock ?? 100)) > 0 ? 'in_stock' : 'out_of_stock';
+        $stockQuantity = (int) ($prod->stock ?? 100);
         $categoryName = $prod->category?->name ?: 'Agricultural Commodities';
 
         $xml .= '    <item>'."\n";
@@ -176,6 +177,7 @@ Route::get('/merchant-feed.xml', function () {
         $xml .= '      <g:image_link>'.e($imageUrl).'</g:image_link>'."\n";
         $xml .= '      <g:condition>new</g:condition>'."\n";
         $xml .= '      <g:availability>'.$availability.'</g:availability>'."\n";
+        $xml .= '      <g:quantity>'.$stockQuantity.'</g:quantity>'."\n";
         $xml .= '      <g:price>'.e($priceFormatted).'</g:price>'."\n";
         $xml .= '      <g:brand>'.e($prod->brand ?: 'BRX AGRO GLOBAL').'</g:brand>'."\n";
         $xml .= '      <g:identifier_exists>no</g:identifier_exists>'."\n";
