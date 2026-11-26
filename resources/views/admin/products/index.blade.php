@@ -103,7 +103,7 @@
                                 <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-sm btn-outline-secondary" title="Edit Product">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete ' + {{ json_encode($product->name) }} + '? This action cannot be undone.')">
+                                <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete ' + {{ json_encode($product->name) }} + ' from the catalog? This action cannot be undone.')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete Product">

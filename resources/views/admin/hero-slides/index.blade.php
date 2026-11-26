@@ -47,7 +47,7 @@
                         <a href="{{ route('admin.hero-slides.edit', $slide) }}" class="btn btn-sm btn-outline-primary rounded-pill">
                             <i class="bi bi-arrows-fullscreen me-1"></i>Full Screen Editor
                         </a>
-                        <form action="{{ route('admin.hero-slides.destroy', $slide) }}" method="POST" class="d-inline m-0" onsubmit="return confirm('Delete this hero slide?');">
+                        <form action="{{ route('admin.hero-slides.destroy', $slide) }}" method="POST" class="d-inline m-0" onsubmit="return confirm('Are you sure you want to remove this carousel slide?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill" title="Delete Slide">

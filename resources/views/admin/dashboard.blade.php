@@ -6,7 +6,7 @@
 @section('content')
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <p class="text-muted small mb-0">High-level telemetry, trade pipeline, and operations monitor for BRX Agro Global.</p>
+        <p class="text-muted small mb-0">Overview of trade orders, inquiries, inventory, and customer communications for BRX Agro Global.</p>
     </div>
     <div class="d-flex flex-wrap gap-2">
         <a href="{{ route('admin.products.create') }}" class="btn btn-matro btn-sm"><i class="bi bi-plus-lg me-1"></i>Add Product</a>
@@ -52,6 +52,40 @@
     <a href="{{ route('admin.products.index') }}" class="btn btn-sm btn-dark text-nowrap rounded-pill">Manage Products</a>
 </div>
 @endif
+
+<!-- Live Communications & Order Notifications Banner -->
+<div class="card admin-card p-3 mb-4 shadow-sm border-0" style="background: linear-gradient(135deg, rgba(120, 162, 47, 0.08) 0%, rgba(37, 99, 235, 0.06) 100%); border-left: 4px solid #78a22f !important;">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div class="d-flex align-items-center gap-3">
+            <div class="rounded-circle p-2 bg-success text-white d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+                <i class="bi bi-bell-fill fs-5"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold mb-0 text-dark">Order Notifications &amp; Message Channels</h6>
+                <div class="small text-muted d-flex flex-wrap align-items-center gap-3 mt-1">
+                    <span>
+                        <i class="bi bi-envelope-at text-primary me-1"></i>
+                        <strong>Official Email:</strong>
+                        <span class="badge bg-success text-white px-2 py-0.5">Active</span>
+                        <span class="text-secondary small">({{ $system_health['trade_desk_email'] ?? 'brxagroglobal@gmail.com' }})</span>
+                    </span>
+                    <span>
+                        <i class="bi bi-whatsapp text-success me-1"></i>
+                        <strong>Trade Desk WhatsApp:</strong>
+                        <span class="badge bg-success text-white px-2 py-0.5">Connected</span>
+                        <span class="text-secondary small">({{ $system_health['whatsapp_device'] ?? '+55 11 95835-3433' }})</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <form action="{{ route('admin.notifications.test') }}" method="POST" class="d-flex align-items-center gap-2 m-0">
+            @csrf
+            <button type="submit" class="btn btn-sm btn-outline-success fw-bold d-inline-flex align-items-center gap-1 shadow-sm">
+                <i class="bi bi-send-check"></i> Send Test Alert
+            </button>
+        </form>
+    </div>
+</div>
 
 <!-- Quick Notification Banner -->
 <div class="row g-3 mb-4">

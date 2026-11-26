@@ -40,13 +40,18 @@
     <meta name="twitter:image" content="{{ asset('img/carousel-1.jpg') }}">
     <meta name="twitter:image:alt" content="BRX AGRO GLOBAL Brazilian Commodity Export Operations">
 
-    <!-- Badge Favicons & Web Manifest -->
+    <!-- Badge Favicons & Web Manifest (With 192x192 & 512x512 Rounded Maskable Icons) -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
     <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('img/favicon-48x48.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('img/icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('img/icon-512x512.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-touch-icon.png') }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BRX Agro">
 
     <!-- Structured Data (Schema.org JSON-LD: Corporation, WebSite, Commodity Catalog & FAQ) -->
     @php
@@ -271,12 +276,21 @@
         }
 
         /* ===== Typography & Global Layout (Agrovia Global) ===== */
-        html, body {
-            overflow-x: hidden !important;
-            max-width: 100%;
+        html {
+            overflow-x: hidden;
+            overflow-y: auto !important;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
             width: 100%;
+            max-width: 100%;
         }
         body {
+            overflow-x: hidden;
+            overflow-y: visible !important;
+            position: relative;
+            max-width: 100%;
+            width: 100%;
+            min-height: 100vh;
             font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-size: 1rem;
             background-color: var(--bs-body-bg);
@@ -1359,8 +1373,8 @@
             overflow: hidden;
         }
         .sh-strip.has-scroll-anim .item {
-            opacity: 0;
-            transform: translateY(28px) scale(0.94);
+            opacity: 1;
+            transform: none;
         }
         .sh-strip.has-scroll-anim .item.is-visible {
             animation: shStripBounceIn 0.72s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -1553,8 +1567,8 @@
             color: #fff;
         }
         .sh-card-cart-btn.has-scroll-anim {
-            opacity: 0;
-            transform: translateY(20px) scale(0.94);
+            opacity: 1;
+            transform: none;
         }
         .sh-card-cart-btn.has-scroll-anim.is-visible {
             animation: shStripBounceIn 0.72s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -1832,11 +1846,11 @@
                 background: rgba(20, 20, 26, 0.98);
                 backdrop-filter: blur(12px);
                 border-top: 1px solid rgba(255, 255, 255, 0.12);
-                padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+                padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
                 justify-content: space-around;
                 align-items: center;
             }
-            body { padding-bottom: 64px; }
+            body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
         }
         .sh-tabbar > a {
             flex: 1 1 0;
@@ -1893,12 +1907,13 @@
             z-index: 1055;
             opacity: 0;
             visibility: hidden;
+            pointer-events: none;
             transition: opacity .25s ease, visibility .25s ease;
-            overflow: hidden !important;
         }
         .sh-cart-backdrop.show {
             opacity: 1;
             visibility: visible;
+            pointer-events: auto;
         }
         .sh-cart-offcanvas {
             position: fixed;
@@ -2166,33 +2181,250 @@
         .sh-toast.sh-toast-hide { transform: translateX(130%); opacity: 0; }
         .sh-toast-icon { color: var(--sh-primary); font-size: 1.4rem; flex-shrink: 0; }
 
-        /* ===== Scroll Top ===== */
+        /* ===== Scroll Top (Floating Action Button / FAB) ===== */
         .sh-scroll-top {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: var(--sh-primary);
-            color: #fff;
-            border: none;
-            display: flex;
+            background: #78a22f;
+            background: linear-gradient(135deg, #78a22f 0%, #5d8021 100%);
+            color: #ffffff !important;
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            display: flex !important;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            font-size: 1.35rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.25);
             cursor: pointer;
             opacity: 0;
             visibility: hidden;
-            transition: all .25s ease;
-            z-index: 999;
+            pointer-events: none;
+            transform: translateY(12px) scale(0.9);
+            transition: opacity .25s ease, transform .25s ease, visibility .25s ease, background-color .2s ease;
+            z-index: 1055 !important;
         }
-        .sh-scroll-top.visible { opacity: 1; visibility: visible; }
-        .sh-scroll-top:hover { background: var(--sh-primary-dark); }
+        .sh-scroll-top.visible {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            transform: translateY(0) scale(1) !important;
+        }
+        .sh-scroll-top:hover, .sh-scroll-top:active {
+            background: #648827;
+            color: #ffffff !important;
+            transform: translateY(-2px) scale(1.06);
+            box-shadow: 0 12px 28px rgba(120, 162, 47, 0.5), 0 4px 10px rgba(0,0,0,0.3);
+        }
         @media (max-width: 991.98px) {
-            .sh-scroll-top { bottom: 74px; right: 16px; }
+            .sh-scroll-top {
+                bottom: 74px;
+                bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+                right: 16px;
+                width: 48px;
+                height: 48px;
+                font-size: 1.35rem;
+                z-index: 1055 !important;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.3);
+            }
         }
+
+        /* =========================================================================
+           PWA / STANDALONE APP WINDOW ROUNDED EDGES
+           Applied when the application is downloaded/installed and running standalone
+           ========================================================================= */
+        @media all and (display-mode: standalone), (display-mode: window-controls-overlay) {
+            html {
+                background-color: #0b0f14 !important;
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            body {
+                border-radius: 16px; /* Standard 16px (1rem) OS & UI window curvature */
+                overflow-x: hidden !important;
+                overflow-y: visible !important;
+                min-height: 100vh;
+                margin: 0;
+            }
+            .sh-navbar.sticky-top {
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
+            }
+            footer {
+                border-bottom-left-radius: 16px;
+                border-bottom-right-radius: 16px;
+            }
+        }
+
+        /* ===== White Space, Affordance, Feedback & Safety Enhancements ===== */
+        .sh-section-spacious {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+        @media (max-width: 768px) {
+            .sh-section-spacious {
+                padding-top: 3.5rem;
+                padding-bottom: 3.5rem;
+            }
+        }
+        .sh-title-wrap {
+            margin-bottom: 2.5rem;
+        }
+        .sh-card-body {
+            padding: 1.15rem 1.15rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            flex: 1;
+        }
+        /* Interactive Affordances */
+        .btn, .btn-sh-primary, .sh-card-cart-btn, .btn-sh-outline, .btn-sh-login {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
+        }
+        .btn-sh-primary:hover, .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(120, 162, 47, 0.32);
+        }
+        .btn-sh-primary:active, .sh-card-cart-btn:active, .btn-primary:active {
+            transform: translateY(0) scale(0.98);
+        }
+        .btn-sh-outline:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+        }
+        .btn:focus-visible, .btn-sh-primary:focus-visible, .sh-card-cart-btn:focus-visible, .btn-sh-outline:focus-visible, .form-control:focus-visible, .form-select:focus-visible {
+            outline: 3px solid rgba(120, 162, 47, 0.55) !important;
+            outline-offset: 2px !important;
+        }
+        /* Product Card Affordance & Elevation */
+        .sh-product-card {
+            border-radius: 14px;
+            background: var(--sh-surface);
+            border: 1px solid var(--bs-border-color);
+            transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+        }
+        .sh-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+            border-color: rgba(120, 162, 47, 0.65) !important;
+        }
+        /* Interactive Channel Cards */
+        .sh-channel-card {
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            border-color: var(--bs-border-color) !important;
+        }
+        .sh-channel-card:hover {
+            border-color: var(--sh-primary) !important;
+            background-color: rgba(120, 162, 47, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .sh-channel-card input[type="radio"]:checked + div,
+        .sh-channel-card:has(input[type="radio"]:checked) {
+            border-color: var(--sh-primary) !important;
+            background-color: rgba(120, 162, 47, 0.12) !important;
+            box-shadow: 0 0 0 1px var(--sh-primary);
+        }
+        /* Form Controls with Clear Affordance & Error Recovery */
+        .sh-input, .form-control.sh-input, .form-select.sh-input {
+            padding: 0.65rem 0.95rem;
+            font-size: 0.92rem;
+            border-radius: 9px;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+        }
+        .sh-input:hover {
+            border-color: rgba(120, 162, 47, 0.5) !important;
+        }
+        .sh-input:focus {
+            border-color: var(--sh-primary) !important;
+            box-shadow: 0 0 0 0.22rem rgba(120, 162, 47, 0.22) !important;
+        }
+        .sh-input.is-invalid {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 0.22rem rgba(220, 53, 69, 0.2) !important;
+        }
+        .invalid-feedback-custom {
+            display: none;
+            color: #dc3545;
+            font-size: 0.78rem;
+            margin-top: 0.35rem;
+            font-weight: 500;
+        }
+        .sh-input.is-invalid ~ .invalid-feedback-custom {
+            display: block;
+        }
+        /* Feedback: Button Added State */
+        .sh-card-cart-btn.btn-added {
+            background: #10b981 !important;
+            border-color: #10b981 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4) !important;
+            pointer-events: none;
+        }
+        /* Copy to clipboard badge affordance */
+        .copyable-badge {
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+        .copyable-badge:hover {
+            filter: brightness(1.15);
+            transform: scale(1.02);
+        }
+        .copyable-badge:active {
+            transform: scale(0.97);
+        }
+        /* Streamlined Services Card Grid */
+        .sh-service-item {
+            background: var(--sh-surface);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            height: 100%;
+        }
+        .sh-service-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--sh-primary);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+        }
+
+
+        /* ===== Real-Time Form Validation & Feedback Styles ===== */
+        .invalid-feedback-custom {
+            display: none;
+            color: #ef4444;
+            font-size: 0.78rem;
+            margin-top: 0.35rem;
+            font-weight: 500;
+        }
+        .valid-feedback-custom {
+            display: none;
+            color: #10b981;
+            font-size: 0.78rem;
+            margin-top: 0.35rem;
+            font-weight: 500;
+        }
+        .sh-input.is-invalid {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 0.2rem rgba(239, 68, 68, 0.22) !important;
+        }
+        .sh-input.is-valid {
+            border-color: #10b981 !important;
+            box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.22) !important;
+        }
+        .sh-search-feedback {
+            font-size: 0.82rem;
+            color: var(--bs-secondary-color);
+            margin-top: 0.5rem;
+        }
+
     </style>
 </head>
 
@@ -2494,14 +2726,53 @@
                         <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
                         <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                         <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
                     </div>
                     <div class="carousel-inner">
-                    <!-- Slide 1: Farm Origination & Port Export -->
+                    <!-- Slide 1: Maritime Container Cargo & Deepwater Ports -->
                     <div class="carousel-item active">
                         <div class="sh-hero-slide">
                             <picture>
+                                <source srcset="{{ asset('img/banner-container-cargo.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/banner-container-cargo.jpg') }}" alt="Global Container Cargo & Ocean Freight Direct" class="sh-hero-bg">
+                            </picture>
+                            <div class="sh-hero-scrim"></div>
+                            <div class="container sh-hero-content">
+                                <div class="eyebrow mb-3">Maritime Logistics &amp; Deepwater Berths</div>
+                                <h1 class="mb-4">Global Container Cargo &amp; <span style="color: var(--sh-primary);">Ocean Freight Direct</span></h1>
+                                <p class="lead mb-4">Direct containerized and bulk ocean logistics operating through Santos and Paranaguá terminals. Full-scale intermodal vessel loading, MAPA/SIF phytosanitary clearance, and guaranteed shipping schedules.</p>
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <a href="#products" class="btn btn-sh-primary btn-lg">Explore Export Commodities</a>
+                                    <a href="#rfq-desk" class="btn btn-sh-outline-white btn-lg">Request Freight &amp; RFQ</a>
+                                </div>
+                                <div class="d-flex gap-4 mt-5 flex-wrap sh-hero-stats">
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">40ft &amp; 20ft</div>
+                                        <small class="text-white-50">Container Capacity</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">100% SGS</div>
+                                        <small class="text-white-50">Pre-Shipment Tested</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">Zero Risk</div>
+                                        <small class="text-white-50">Global Port Discharge</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">Santos &amp; Paranaguá</div>
+                                        <small class="text-white-50">Deepwater Exit Ports</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Farm Origination & Port Export -->
+                    <div class="carousel-item">
+                        <div class="sh-hero-slide">
+                            <picture>
                                 <source srcset="{{ asset('img/banner-shipping.webp') }}" type="image/webp">
-                                <img src="{{ asset('img/banner-shipping.jpg') }}" alt="Brazilian Direct Farm Sourcing & Deepwater Export" class="sh-hero-bg">
+                                <img src="{{ asset('img/banner-shipping.jpg') }}" alt="Brazilian Direct Farm Sourcing & Deepwater Export" class="sh-hero-bg" loading="lazy" decoding="async">
                             </picture>
                             <div class="sh-hero-scrim"></div>
                             <div class="container sh-hero-content">
@@ -2623,40 +2894,49 @@
         <!-- 3. SEARCH BAR STRIP (Under Hero, exact fume-main layout) -->
         <section class="py-4" style="background: var(--sh-surface-alt); border-bottom: 1px solid var(--bs-border-color);">
             <div class="container">
-                <form action="#products" method="GET" class="mx-auto" style="max-width: 620px;" onsubmit="event.preventDefault(); var q = $('#quickSearchInput').val().toLowerCase(); $('.agro-filter-btn[data-filter=\'all\']').click(); $('.product-item').each(function(){ var t = $(this).text().toLowerCase(); $(this).toggle(t.indexOf(q) !== -1); }); $('html, body').animate({scrollTop: $('#products').offset().top - 80}, 600);">
-                    <div class="input-group">
+                <form id="quickSearchForm" action="#products" method="GET" class="mx-auto" style="max-width: 620px;">
+                    <div class="input-group position-relative shadow-sm">
                         <input type="text" id="quickSearchInput" class="form-control form-control-lg sh-input" placeholder="Search Brazilian commodities, grades, harvest basins..." style="border-radius: 8px 0 0 8px; font-size: 1rem;">
                         <button type="submit" class="btn btn-sh-primary btn-lg" style="border-radius: 0 8px 8px 0;">
                             <i class="bi bi-search"></i> Search
                         </button>
                     </div>
+                    <div id="quickSearchFeedback" class="sh-search-feedback text-center mt-2 d-none"></div>
                 </form>
             </div>
         </section>
 
-        <!-- 4. SERVICES / FEATURE STRIP (Exact fume-main layout) -->
-        <section class="sh-strip py-3" id="services">
+        <!-- 4. SERVICES / FEATURE STRIP (Clean Negative Space & Card Affordance) -->
+        <section class="sh-strip py-4 py-md-5" id="services">
             <div class="container">
-                <div class="row text-center g-3">
-                    <div class="col-6 col-md-3 item d-flex flex-column align-items-center">
-                        <i class="bi bi-truck"></i>
-                        <strong>Bulk &amp; Port Freight</strong>
-                        <small>Deepwater container &amp; vessel loading</small>
+                <div class="row text-center g-3 g-md-4">
+                    <div class="col-6 col-md-3 item">
+                        <div class="sh-service-item d-flex flex-column align-items-center">
+                            <i class="bi bi-truck fs-3 mb-2" style="color: var(--sh-primary);"></i>
+                            <strong class="sh-text-title mb-1">Bulk &amp; Port Freight</strong>
+                            <small class="sh-text-muted">Deepwater vessel &amp; container loading</small>
+                        </div>
                     </div>
-                    <div class="col-6 col-md-3 item d-flex flex-column align-items-center">
-                        <i class="bi bi-shield-check"></i>
-                        <strong>Destination Port Sourcing</strong>
-                        <small>Zero default counterparty protection</small>
+                    <div class="col-6 col-md-3 item">
+                        <div class="sh-service-item d-flex flex-column align-items-center">
+                            <i class="bi bi-shield-check fs-3 mb-2" style="color: var(--sh-primary);"></i>
+                            <strong class="sh-text-title mb-1">Counterparty Safety</strong>
+                            <small class="sh-text-muted">Direct cooperative export contracts</small>
+                        </div>
                     </div>
-                    <div class="col-6 col-md-3 item d-flex flex-column align-items-center">
-                        <i class="bi bi-award"></i>
-                        <strong>SGS &amp; MAPA Assays</strong>
-                        <small>100% pre-loading lab assay inspection</small>
+                    <div class="col-6 col-md-3 item">
+                        <div class="sh-service-item d-flex flex-column align-items-center">
+                            <i class="bi bi-award fs-3 mb-2" style="color: var(--sh-primary);"></i>
+                            <strong class="sh-text-title mb-1">SGS &amp; MAPA Assays</strong>
+                            <small class="sh-text-muted">Certified pre-loading lab testing</small>
+                        </div>
                     </div>
-                    <div class="col-6 col-md-3 item d-flex flex-column align-items-center">
-                        <i class="bi bi-headset"></i>
-                        <strong>24/7 Trade Desk</strong>
-                        <small>Direct WhatsApp &amp; São Paulo HQ</small>
+                    <div class="col-6 col-md-3 item">
+                        <div class="sh-service-item d-flex flex-column align-items-center">
+                            <i class="bi bi-headset fs-3 mb-2" style="color: var(--sh-primary);"></i>
+                            <strong class="sh-text-title mb-1">24/7 Trade Desk</strong>
+                            <small class="sh-text-muted">Direct WhatsApp &amp; São Paulo HQ</small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2682,48 +2962,57 @@
 
                 <!-- Product Grid: 4 columns like fume-main -->
                 <div class="row row-cols-2 row-cols-md-4 g-3 g-md-4" id="catalogGrid">
+                    <!-- Search & Filter Empty Feedback State -->
+                    <div id="catalogNoResults" class="col-12 py-5 text-center d-none">
+                        <div class="p-4 p-md-5 rounded-4 sh-card-bg border border-secondary border-opacity-25 mx-auto" style="max-width: 520px;">
+                            <i class="bi bi-search fs-1 text-muted d-block mb-3"></i>
+                            <h5 class="fw-bold sh-text-title mb-2">No Matching Commodities Found</h5>
+                            <p class="text-muted small mb-4">We could not find any export lot matching your search. Please check your spelling or try searching for Soybeans, Sugar, Corn, or Coffee.</p>
+                            <button type="button" class="btn btn-sh-primary btn-sm px-4" id="btnResetCatalogSearch">
+                                <i class="bi bi-arrow-clockwise me-1"></i> View All Commodities
+                            </button>
+                        </div>
+                    </div>
                     @forelse ($products as $product)
                         <div class="col product-item" data-category="{{ $product->category->name ?? 'Grains & Rice' }}">
-                            <div class="sh-product-card">
+                            <div class="sh-product-card h-100">
                                 <div class="sh-product-img">
-                                    <a href="javascript:void(0)" class="quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
+                                    <a href="javascript:void(0)" class="quick-view-trigger" data-product="{{ $product->name }}" data-price="{{ $product->price > 0 ? '$' . number_format($product->price, 2) . ' / ' . ($product->unit == 'Metric Ton' ? 'MT' : $product->unit) : 'Direct Wholesale FOB / CIF' }}" data-raw-price="{{ (float)$product->price }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
                                         <img src="{{ asset($product->image ?: 'img/service-1.jpg') }}" alt="{{ $product->name }}" loading="lazy" decoding="async">
                                     </a>
                                     @if ($product->unit == 'Metric Ton')
-                                        <span class="sh-badge-sale">BULK / B2B</span>
+                                        <span class="sh-badge-sale">BULK ALLOCATION</span>
                                     @elseif ($product->is_new)
-                                        <span class="sh-badge-new">NEW</span>
+                                        <span class="sh-badge-new">NEW CROP</span>
                                     @endif
-
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">{{ $product->origin ?? 'Brazil' }} · {{ $product->category->name ?? 'Agro' }}</div>
-                                    <a href="javascript:void(0)" class="text-decoration-none quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
-                                        <div class="sh-card-name">{{ $product->name }}</div>
+                                    <a href="javascript:void(0)" class="text-decoration-none quick-view-trigger" data-product="{{ $product->name }}" data-price="{{ $product->price > 0 ? '$' . number_format($product->price, 2) . ' / ' . ($product->unit == 'Metric Ton' ? 'MT' : $product->unit) : 'Direct Wholesale FOB / CIF' }}" data-raw-price="{{ (float)$product->price }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
+                                        <h6 class="sh-card-name mb-0">{{ $product->name }}</h6>
                                     </a>
-                                    <div class="sh-card-price">
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
-                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
-                                        </span>
-                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
+                                    <div class="sh-card-price mt-1">
+                                        @if($product->price > 0)
+                                            <span class="price-now text-success fw-bold" style="font-size: 1.05rem;">${{ number_format($product->price, 2) }}</span>
+                                            <span class="text-muted small">/ {{ $product->unit == 'Metric Ton' ? 'MT' : $product->unit }}</span>
+                                        @else
+                                            <span class="price-now text-success fw-bold" style="font-size: 0.95rem;">Wholesale Quote</span>
+                                            <span class="text-muted small">/ MT</span>
+                                        @endif
                                     </div>
-                                    <div class="sh-card-rating">
-                                        <span class="stars">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small py-1 border-top border-secondary border-opacity-10 mt-1">
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill me-1"></i>SGS Assayed
                                         </span>
-                                        <span class="count text-muted">({{ number_format($product->stock) }} {{ $product->unit == 'Metric Ton' ? 'MT' : 'units' }})</span>
+                                        <span class="small text-muted" style="font-size: 0.72rem;">FOB / CIF</span>
                                     </div>
-                                    <div class="d-flex gap-2 mt-auto pt-2">
-                                        <button type="button" class="sh-card-cart-btn btn-add-cart" data-name="{{ $product->name }}" data-price="0" data-unit="{{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}">
-                                            @auth
-                                                <i class="bi bi-bag"></i> Add to Cart
-                                            @else
-                                                <i class="bi bi-shield-lock"></i> Add to Cart
-                                            @endauth
+                                    <div class="d-flex align-items-center justify-content-between text-muted small mb-1" style="font-size: 0.74rem;">
+                                        <span><i class="bi bi-box-seam text-success me-1"></i>Available</span>
+                                        <strong class="text-secondary">{{ number_format($product->stock) }} {{ $product->unit == 'Metric Ton' ? 'MT' : 'units' }}</strong>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <button type="button" class="sh-card-cart-btn btn-add-cart w-100" data-name="{{ $product->name }}" data-price="{{ (float)$product->price }}" data-unit="{{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}">
+                                            <i class="bi bi-bag-plus"></i> Add to Cart
                                         </button>
                                     </div>
                                 </div>
@@ -2732,102 +3021,110 @@
                     @empty
                         <!-- Clean Fallbacks if DB has no items -->
                         <div class="col product-item" data-category="Grains & Rice">
-                            <div class="sh-product-card">
+                            <div class="sh-product-card h-100">
                                 <div class="sh-product-img">
                                     <img src="{{ asset('img/service-1.jpg') }}" alt="Brazilian Non-GMO Soybeans" loading="lazy" decoding="async">
-                                    <span class="sh-badge-sale">BULK</span>
+                                    <span class="sh-badge-sale">BULK ALLOCATION</span>
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">Mato Grosso · Grains &amp; Rice</div>
-                                    <div class="sh-card-name">Brazilian Non-GMO Soybeans</div>
-                                    <div class="sh-card-price">
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
-                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
+                                    <h6 class="sh-card-name mb-0">Brazilian Non-GMO Soybeans</h6>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small py-1 border-top border-secondary border-opacity-10 mt-1">
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill me-1"></i>SGS Assayed
                                         </span>
-                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
+                                        <span class="small text-muted" style="font-size: 0.72rem;">FOB / CIF</span>
                                     </div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Brazilian Non-GMO Soybeans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-1.jpg') }}" data-origin="Mato Grosso">
-                                        @auth
-                                            <i class="bi bi-bag"></i> Add to Cart
-                                        @else
-                                            <i class="bi bi-shield-lock"></i> Add to Cart
-                                        @endauth
-                                    </button>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small mb-1" style="font-size: 0.74rem;">
+                                        <span><i class="bi bi-box-seam text-success me-1"></i>Available</span>
+                                        <strong class="text-secondary">100,000 MT Spot</strong>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <button class="sh-card-cart-btn btn-add-cart w-100" data-name="Brazilian Non-GMO Soybeans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-1.jpg') }}" data-origin="Mato Grosso">
+                                            <i class="bi bi-bag-plus"></i> Add to Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col product-item" data-category="Oil & Sugar">
-                            <div class="sh-product-card">
+                        <div class="col product-item" data-category="Sugar & Ethanol">
+                            <div class="sh-product-card h-100">
                                 <div class="sh-product-img">
                                     <img src="{{ asset('img/service-2.jpg') }}" alt="Refined Cane Sugar ICUMSA 45" loading="lazy" decoding="async">
-                                    <span class="sh-badge-sale">BULK</span>
+                                    <span class="sh-badge-sale">EXPORT LOT</span>
                                 </div>
                                 <div class="sh-card-body">
-                                    <div class="sh-card-brand">São Paulo · Oil &amp; Sugar</div>
-                                    <div class="sh-card-name">Refined Cane Sugar (ICUMSA 45)</div>
-                                    <div class="sh-card-price">
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
-                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
+                                    <div class="sh-card-brand">São Paulo · Sugar &amp; Sweeteners</div>
+                                    <h6 class="sh-card-name mb-0">Refined Cane Sugar (ICUMSA 45)</h6>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small py-1 border-top border-secondary border-opacity-10 mt-1">
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill me-1"></i>SGS Assayed
                                         </span>
-                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
+                                        <span class="small text-muted" style="font-size: 0.72rem;">FOB / CIF</span>
                                     </div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Refined Cane Sugar (ICUMSA 45)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-2.jpg') }}" data-origin="São Paulo">
-                                        @auth
-                                            <i class="bi bi-bag"></i> Add to Cart
-                                        @else
-                                            <i class="bi bi-shield-lock"></i> Add to Cart
-                                        @endauth
-                                    </button>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small mb-1" style="font-size: 0.74rem;">
+                                        <span><i class="bi bi-box-seam text-success me-1"></i>Available</span>
+                                        <strong class="text-secondary">50,000 MT Vessel</strong>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <button class="sh-card-cart-btn btn-add-cart w-100" data-name="Refined Cane Sugar (ICUMSA 45)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-2.jpg') }}" data-origin="São Paulo">
+                                            <i class="bi bi-bag-plus"></i> Add to Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col product-item" data-category="Grains & Rice">
-                            <div class="sh-product-card">
+                            <div class="sh-product-card h-100">
                                 <div class="sh-product-img">
                                     <img src="{{ asset('img/service-3.jpg') }}" alt="Yellow Corn Maize Grade 2" loading="lazy" decoding="async">
-                                    <span class="sh-badge-new">NEW</span>
+                                    <span class="sh-badge-new">NEW CROP</span>
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">Goiás · Grains &amp; Rice</div>
-                                    <div class="sh-card-name">Yellow Corn (Maize Grade 2)</div>
-                                    <div class="sh-card-price">
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
-                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
+                                    <h6 class="sh-card-name mb-0">Yellow Corn (Maize Grade 2)</h6>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small py-1 border-top border-secondary border-opacity-10 mt-1">
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill me-1"></i>SGS Assayed
                                         </span>
-                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
+                                        <span class="small text-muted" style="font-size: 0.72rem;">FOB / CIF</span>
                                     </div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Yellow Corn (Maize Grade 2)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-3.jpg') }}" data-origin="Goiás">
-                                        @auth
-                                            <i class="bi bi-bag"></i> Add to Cart
-                                        @else
-                                            <i class="bi bi-shield-lock"></i> Add to Cart
-                                        @endauth
-                                    </button>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small mb-1" style="font-size: 0.74rem;">
+                                        <span><i class="bi bi-box-seam text-success me-1"></i>Available</span>
+                                        <strong class="text-secondary">75,000 MT Spot</strong>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <button class="sh-card-cart-btn btn-add-cart w-100" data-name="Yellow Corn (Maize Grade 2)" data-price="0" data-unit="MT" data-image="{{ asset('img/service-3.jpg') }}" data-origin="Goiás">
+                                            <i class="bi bi-bag-plus"></i> Add to Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col product-item" data-category="Spices & Specialty">
-                            <div class="sh-product-card">
+                            <div class="sh-product-card h-100">
                                 <div class="sh-product-img">
                                     <img src="{{ asset('img/service-5.jpg') }}" alt="Arabica Green Coffee Beans" loading="lazy" decoding="async">
-                                    <span class="sh-badge-sale">EXPORT</span>
+                                    <span class="sh-badge-sale">SPECIALTY</span>
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">Minas Gerais · Specialty</div>
-                                    <div class="sh-card-name">Arabica Green Coffee Beans</div>
-                                    <div class="sh-card-price">
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.78rem; font-weight: 600;">
-                                            <i class="bi bi-patch-check-fill"></i> Direct Export Lot
+                                    <h6 class="sh-card-name mb-0">Arabica Green Coffee Beans</h6>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small py-1 border-top border-secondary border-opacity-10 mt-1">
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-patch-check-fill me-1"></i>SGS Assayed
                                         </span>
-                                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">SGS Assayed · FOB / CIF Maritime Export</small>
+                                        <span class="small text-muted" style="font-size: 0.72rem;">FOB / CIF</span>
                                     </div>
-                                    <button class="sh-card-cart-btn btn-add-cart" data-name="Arabica Green Coffee Beans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-5.jpg') }}" data-origin="Minas Gerais">
-                                        @auth
-                                            <i class="bi bi-bag"></i> Add to Cart
-                                        @else
-                                            <i class="bi bi-shield-lock"></i> Add to Cart
-                                        @endauth
-                                    </button>
+                                    <div class="d-flex align-items-center justify-content-between text-muted small mb-1" style="font-size: 0.74rem;">
+                                        <span><i class="bi bi-box-seam text-success me-1"></i>Available</span>
+                                        <strong class="text-secondary">25,000 Bags Specialty</strong>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <button class="sh-card-cart-btn btn-add-cart w-100" data-name="Arabica Green Coffee Beans" data-price="0" data-unit="MT" data-image="{{ asset('img/service-5.jpg') }}" data-origin="Minas Gerais">
+                                            <i class="bi bi-bag-plus"></i> Add to Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2999,7 +3296,7 @@
                         <div class="p-4 rounded-3 h-100 sh-card-bg" style="border: 1px solid var(--bs-border-color);">
                             <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 fw-bold" style="width: 42px; height: 42px; background: rgba(120, 162, 47, 0.16); color: var(--sh-primary);">04</div>
                             <h5 class="fw-bold sh-text-title mb-2">Port Vessel Dispatch</h5>
-                            <p class="small sh-text-muted mb-0">Terminal berth coordination at Port of Santos and Paranaguá with live vessel telemetry until discharge.</p>
+                            <p class="small sh-text-muted mb-0">Terminal berth coordination at Port of Santos and Paranaguá with live vessel tracking until discharge.</p>
                         </div>
                     </div>
                 </div>
@@ -3160,9 +3457,10 @@
                             <h4 class="fw-bold sh-text-title mb-2">Request Trade Quote (RFQ)</h4>
                             <p class="sh-text-muted small mb-4">Complete the form below to receive formal indicative pricing, SGS specifications, packaging options, and vessel allocation schedule.</p>
 
-                            <div id="rfqAlert" class="alert d-none mb-3"></div>
+                            <div id="rfqAlert" class="alert d-none mb-3 p-3 rounded-3" style="word-break: break-word; overflow-wrap: anywhere;"></div>
 
                             <form id="rfqInquiryForm">
+                                @csrf
                                 <input type="hidden" name="role" value="buyer">
                                 <div aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;">
                                     <label for="rfq_company_website_url">Company Website URL</label>
@@ -3171,7 +3469,7 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Target Commodity *</label>
-                                        <select name="buyer_detail" class="form-select sh-input" required>
+                                        <select name="buyer_detail" id="rfq_buyer_detail" class="form-select sh-input" required>
                                             <option value="Brazilian Non-GMO Soybeans">Brazilian Non-GMO Soybeans</option>
                                             <option value="Refined Cane Sugar (ICUMSA 45)">Refined Cane Sugar (ICUMSA 45)</option>
                                             <option value="Yellow Corn (Maize Grade 2)">Yellow Corn (Maize Grade 2)</option>
@@ -3199,26 +3497,32 @@
                                             <option value="Instant Full Cream Milk Powder">Instant Full Cream Milk Powder</option>
                                             <option value="Fresh Brazilian Export Mangoes & Fruits">Fresh Brazilian Export Mangoes &amp; Fruits</option>
                                         </select>
+                                        <div class="invalid-feedback-custom">Please select your target commodity.</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Volume Required (Metric Tons) *</label>
-                                        <input type="text" name="volume" class="form-control sh-input" placeholder="e.g. 500 MT / 2,500 MT / 1 FCL" required>
+                                        <input type="text" name="volume" id="rfq_volume" class="form-control sh-input" placeholder="e.g. 500 MT / 2,500 MT / 1 FCL" required>
+                                        <div class="invalid-feedback-custom">Please specify the volume required (e.g. 500 MT or 1 FCL).</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Full Name *</label>
-                                        <input type="text" name="name" class="form-control sh-input" placeholder="First and last name" required>
+                                        <input type="text" name="name" id="rfq_name" class="form-control sh-input" placeholder="First and last name" required>
+                                        <div class="invalid-feedback-custom">Please enter your representative name (at least 2 characters).</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Corporate Email *</label>
-                                        <input type="email" name="email" class="form-control sh-input" placeholder="importer@company.com" required>
+                                        <input type="email" name="email" id="rfq_email" class="form-control sh-input" placeholder="importer@company.com" required>
+                                        <div class="invalid-feedback-custom">Please enter a valid corporate email (e.g. buyer@company.com).</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Company Name *</label>
-                                        <input type="text" name="company" class="form-control sh-input" placeholder="Trading company name" required>
+                                        <input type="text" name="company" id="rfq_company" class="form-control sh-input" placeholder="Trading company name" required>
+                                        <div class="invalid-feedback-custom">Please enter your registered trade company name.</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">Discharge Port / Country *</label>
-                                        <input type="text" name="country" class="form-control sh-input" placeholder="e.g. Port of Rotterdam / Jebel Ali" required>
+                                        <input type="text" name="country" id="rfq_country" class="form-control sh-input" placeholder="e.g. Port of Rotterdam / Jebel Ali" required>
+                                        <div class="invalid-feedback-custom">Please specify your destination discharge port or country.</div>
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label small fw-bold">Contract Message, Packaging &amp; Instructions</label>
@@ -3267,7 +3571,7 @@
                             <div class="sh-stars mb-3">
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                             </div>
-                            <p class="fst-italic sh-text-muted mb-3">"The ICUMSA 45 refined sugar arrived on time with complete phytosanitary certificates and zero broken bags. BRX Agro Global's direct desk communicated vessel telemetry daily."</p>
+                            <p class="fst-italic sh-text-muted mb-3">"The ICUMSA 45 refined sugar arrived on time with complete phytosanitary certificates and zero broken bags. BRX Agro Global's direct desk communicated vessel shipping updates daily."</p>
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('img/testimonial-2.jpg') }}" alt="Tariq Al-Mansoor" class="rounded-circle me-3 object-fit-cover" width="46" height="46" loading="lazy" decoding="async">
                                 <div>
@@ -3525,8 +3829,8 @@
         </div>
     </div>
 
-    <!-- 13. SCROLL TO TOP BUTTON (Exact fume-main architecture) -->
-    <button id="sh-scroll-top" class="sh-scroll-top" aria-label="Scroll to top">
+    <!-- 13. SCROLL TO TOP (Floating Action Button / FAB) -->
+    <button id="sh-scroll-top" class="sh-scroll-top" type="button" aria-label="Scroll back to top" title="Scroll back to top" onclick="window.scrollTo({top:0,behavior:'smooth'});document.documentElement.scrollTop=0;document.body.scrollTop=0;">
         <i class="bi bi-chevron-up"></i>
     </button>
 
@@ -3562,28 +3866,13 @@
                 <div class="mb-3 text-muted opacity-50" style="font-size: 3.5rem;">
                     <i class="bi bi-basket3"></i>
                 </div>
-                <h5 class="fw-bold sh-text-title mb-2">Your Sample Cart is Empty</h5>
+                <h5 class="fw-bold sh-text-title mb-2">Your Commodity Cart is Empty</h5>
                 <p class="text-muted small mb-4 px-3">
-                    @auth
-                        You have not added any commodity lots yet. Browse our harvest catalog or select physical samples for laboratory analysis.
-                    @else
-                        Please sign in to your institutional account to reserve export lots and request physical commodity samples.
-                    @endauth
+                    You have not added any commodity lots yet. Browse our harvest catalog to select export lots for direct shipment or physical assay samples.
                 </p>
-                @auth
-                    <a href="#products" class="btn btn-sh-primary btn-sm px-4 py-2" onclick="closeCartDrawer()">
-                        <i class="bi bi-grid-3x3-gap me-1"></i> Browse Commodities
-                    </a>
-                @else
-                    <div class="d-flex justify-content-center gap-2">
-                        <a href="{{ route('login') }}" class="btn btn-sh-login btn-sm px-3 py-2">
-                            <i class="bi bi-box-arrow-in-right me-1"></i> Log In
-                        </a>
-                        <a href="{{ route('register') }}" class="btn btn-sh-primary btn-sm px-3 py-2">
-                            <i class="bi bi-person-plus me-1"></i> Sign Up
-                        </a>
-                    </div>
-                @endauth
+                <a href="#products" class="btn btn-sh-primary btn-sm px-4 py-2" onclick="closeCartDrawer()">
+                    <i class="bi bi-grid-3x3-gap me-1"></i> Browse Commodities
+                </a>
             </div>
 
             <!-- Populated Cart Content -->
@@ -3644,23 +3933,24 @@
 
     <!-- Agrovia Trade Checkout Modal -->
     <div class="modal fade" id="agroviaCheckoutModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
-                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3 px-sm-4">
                     <div class="d-flex align-items-center gap-2">
                         <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(120, 162, 47, 0.15); color: var(--sh-primary);">
                             <i class="bi bi-send-check-fill fs-5"></i>
                         </div>
                         <div>
-                            <h5 class="modal-title fw-bold sh-text-title mb-0" style="font-size: 1.15rem;">Commodity Order Dispatch to Trade Desk</h5>
-                            <small class="text-muted" style="font-size: 0.78rem;">Automated backend transmission to BRX Agro Global devices</small>
+                            <h5 class="modal-title fw-bold sh-text-title mb-0" style="font-size: clamp(0.95rem, 3.5vw, 1.15rem);">Commodity Order Dispatch to Trade Desk</h5>
+                            <small class="text-muted" style="font-size: 0.78rem;">Instant notification sent directly to BRX Agro Global trade desk</small>
                         </div>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <div class="modal-body p-4">
+                <div class="modal-body p-3 p-sm-4">
                     <form id="checkoutOrderForm">
+                        @csrf
                         <!-- Step 1: Order Items Summary Preview -->
                         <div class="mb-4 p-3 rounded-3 sh-box-bg" style="border: 1px solid var(--bs-border-color);">
                             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -3683,19 +3973,22 @@
                         <div class="row g-3 mb-4">
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Representative / Contact Name <span class="text-danger">*</span></label>
-                                <input type="text" name="customer_name" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->name : '' }}" placeholder="e.g. John Doe / Procuring Officer" required>
+                                <input type="text" name="customer_name" id="chk_customer_name" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->name : '' }}" placeholder="e.g. John Doe / Procuring Officer" required>
+                                <div class="invalid-feedback-custom">Please provide your representative or company officer name.</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Corporate Email (for SGS &amp; Contract) <span class="text-danger">*</span></label>
-                                <input type="email" name="customer_email" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->email : '' }}" placeholder="buyer@company.com" required>
+                                <input type="email" name="customer_email" id="chk_customer_email" class="form-control sh-input rounded-3" value="{{ auth()->check() ? auth()->user()->email : '' }}" placeholder="buyer@company.com" required>
+                                <div class="invalid-feedback-custom">Please provide a valid corporate email for contract dispatch.</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Contact Phone / WhatsApp</label>
-                                <input type="text" name="customer_phone" class="form-control sh-input rounded-3" placeholder="+1 (555) 019-2834">
+                                <input type="text" name="customer_phone" id="chk_customer_phone" class="form-control sh-input rounded-3" placeholder="+1 (555) 019-2834">
+                                <div class="invalid-feedback-custom">Please enter a valid phone or WhatsApp number.</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Destination Port / Discharge Facility <span class="text-danger">*</span></label>
-                                <select name="shipping_address" class="form-select sh-input rounded-3" required>
+                                <select name="shipping_address" id="chk_shipping_address" class="form-select sh-input rounded-3" required>
                                     <option value="Rotterdam Port (NLRTM), Netherlands - CIF">Port of Rotterdam (NLRTM) - CIF</option>
                                     <option value="Qingdao Port (CNTAO), China - CIF">Port of Qingdao (CNTAO) - CIF</option>
                                     <option value="Jebel Ali Port (AEJEA), Dubai UAE - CIF">Port of Jebel Ali (AEJEA), Dubai - CIF</option>
@@ -3703,6 +3996,7 @@
                                     <option value="Paranaguá Port (BRPNG), Brazil - FOB">Port of Paranaguá (BRPNG) - FOB</option>
                                     <option value="Air Courier Laboratory Sample Express">Air Courier Laboratory Sample Express (DHL/FedEx)</option>
                                 </select>
+                                <div class="invalid-feedback-custom">Please select a destination port or export berth.</div>
                             </div>
                         </div>
 
@@ -3774,31 +4068,41 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="p-2.5 rounded-3 mb-4 small d-flex align-items-center gap-2" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.2);">
-                            <i class="bi bi-robot text-success fs-5 flex-shrink-0"></i>
-                            <div class="text-muted" style="font-size: 0.76rem; line-height: 1.4;">
-                                <strong>100% Automated Backend Dispatch:</strong> Everything is sent by our server directly to the business devices. You will not have to manually compose or type any messages.
+                        <!-- Unified Trade Assurance & Automation Strip (Clean Negative Space) -->
+                        <!-- Live Channel Feedback Indicator -->
+                        <div id="channelLiveFeedback" class="p-2.5 rounded-3 mb-3 small d-flex align-items-center gap-2" style="background: rgba(120, 162, 47, 0.12); border: 1px solid rgba(120, 162, 47, 0.3);">
+                            <i class="bi bi-broadcast text-success flex-shrink-0"></i>
+                            <span id="channelLiveText" class="text-secondary small fw-medium">Simultaneous automated delivery to Trade Desk WhatsApp (+55 11 95835-3433) and corporate email.</span>
+                        </div>
+
+                        <div class="p-3 rounded-3 mb-4 sh-box-bg border border-secondary border-opacity-25">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i class="bi bi-shield-check text-success fs-5"></i>
+                                <span class="small fw-bold sh-text-title">Automated Server Transmission &amp; Trade Assurance</span>
+                            </div>
+                            <div class="text-muted small mb-2" style="font-size: 0.76rem; line-height: 1.45;">
+                                Your order is securely dispatched by server to company devices. Pre-shipment SGS assays, MAPA phytosanitary clearance, and Incoterms 2020 legal framework are attached automatically.
+                            </div>
+                            <div class="d-flex flex-wrap gap-2 pt-2 border-top border-secondary border-opacity-10 small text-muted" style="font-size: 0.74rem;">
+                                <span><i class="bi bi-check2 text-success me-1"></i>SGS Pre-Shipment Assay</span>
+                                <span class="mx-1">·</span>
+                                <span><i class="bi bi-check2 text-success me-1"></i>MAPA Phytosanitary Clearance</span>
+                                <span class="mx-1">·</span>
+                                <span><i class="bi bi-check2 text-success me-1"></i>Incoterms 2020 Berth Allocation</span>
                             </div>
                         </div>
 
-                        <!-- Assurance Strip -->
-                        <div class="p-3 rounded-3 mb-4 small d-flex flex-wrap gap-3 align-items-center justify-content-between" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.25);">
-                            <div><i class="bi bi-patch-check-fill text-success me-1"></i> 100% Pre-Shipment Assay</div>
-                            <div><i class="bi bi-shield-fill-check text-success me-1"></i> SGS Inspection Guaranteed</div>
-                            <div><i class="bi bi-file-earmark-lock text-success me-1"></i> Official MAPA Export Clearance</div>
-                        </div>
-
                         <!-- Order Alert message container -->
-                        <div id="checkoutAlertBox" class="alert d-none mb-3 py-2 px-3 small rounded-3"></div>
+                        <div id="checkoutAlertBox" class="alert d-none mb-3 p-3 small rounded-3" style="word-break: break-word; overflow-wrap: anywhere;"></div>
 
                         <!-- Form Actions -->
-                        <div class="d-flex gap-2">
-                            <button type="submit" id="btnSubmitOrder" class="btn btn-sh-primary flex-grow-1 py-2.5 fw-bold d-flex align-items-center justify-content-center gap-2">
+                        <div class="d-flex flex-column flex-sm-row gap-2">
+                            <button type="submit" id="btnSubmitOrder" class="btn btn-sh-primary flex-grow-1 py-2.5 px-3 fw-bold d-flex align-items-center justify-content-center gap-2 text-center" style="font-size: 0.9rem;">
                                 <span class="spinner-border spinner-border-sm d-none" id="orderSubmitSpinner" role="status"></span>
-                                <i class="bi bi-send-fill fs-5" id="orderSubmitIcon"></i>
+                                <i class="bi bi-send-fill fs-5 flex-shrink-0" id="orderSubmitIcon"></i>
                                 <span id="orderSubmitText">Transmit Order to BRX Agro Global Trade Desk</span>
                             </button>
-                            <button type="button" class="btn btn-sh-outline px-4" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-sh-outline py-2.5 px-4" data-bs-dismiss="modal">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -3808,9 +4112,9 @@
 
     <!-- Authentication Required Modal (Commodity Cart Gating) -->
     <div class="modal fade" id="authRequiredModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
-                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3 px-sm-4">
                     <div class="d-flex align-items-center gap-2">
                         <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 1.15rem;">
                             <i class="bi bi-shield-lock-fill"></i>
@@ -3822,7 +4126,7 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4 text-center">
+                <div class="modal-body p-3 p-sm-4 text-center">
                     <div class="mb-3 mx-auto rounded-circle d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; background: rgba(120, 162, 47, 0.12); color: var(--sh-primary); font-size: 1.85rem;">
                         <i class="bi bi-person-lock"></i>
                     </div>
@@ -3862,13 +4166,13 @@
 
     <!-- Quick View Modal -->
     <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color);">
-                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3 px-sm-4">
                     <h5 class="modal-title fw-bold sh-text-title" id="qvModalTitle">Commodity Quick View</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4">
+                <div class="modal-body p-3 p-sm-4">
                     <div class="rounded-3 overflow-hidden mb-3" style="height: 200px;">
                         <img id="qvModalImg" src="" alt="" class="w-100 h-100 object-fit-cover">
                     </div>
@@ -3892,15 +4196,9 @@
                         </div>
                     </div>
                     <div class="d-flex gap-2">
-                        @auth
-                            <button type="button" id="qvAddToCartBtn" class="btn btn-sh-primary flex-fill">
-                                <i class="bi bi-bag me-1"></i> Add to Sample Cart
-                            </button>
-                        @else
-                            <button type="button" id="qvAddToCartBtn" class="btn btn-sh-primary flex-fill">
-                                <i class="bi bi-shield-lock me-1"></i> Sign In to Add to Cart
-                            </button>
-                        @endauth
+                        <button type="button" id="qvAddToCartBtn" class="btn btn-sh-primary flex-fill">
+                            <i class="bi bi-bag-plus me-1"></i> Add to Commodity Cart
+                        </button>
                         <button type="button" class="btn btn-sh-outline" data-bs-dismiss="modal">
                             Close
                         </button>
@@ -3912,13 +4210,13 @@
 
     <!-- Search Modal -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color);">
-                <div class="modal-header border-0 pb-0">
+                <div class="modal-header border-0 pb-0 pt-3 px-3 px-sm-4">
                     <h5 class="modal-title fw-bold sh-text-title"><i class="bi bi-search me-2" style="color: var(--sh-primary);"></i>Search Commodities</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4">
+                <div class="modal-body p-3 p-sm-4">
                     <input type="text" id="modalSearchInput" class="form-control form-control-lg rounded-pill mb-3 sh-input" placeholder="Type commodity name, grade, or basin...">
                     <div class="small sh-text-muted">Press <kbd class="sh-box-bg sh-text-title border border-secondary px-2 py-1">Esc</kbd> to exit.</div>
                 </div>
@@ -3929,10 +4227,10 @@
     <!-- ================= AUTHENTICATED USER ACCOUNT PORTAL MODAL ================= -->
     @auth
     <div class="modal fade" id="agroviaAccountModal" tabindex="-1" aria-labelledby="agroviaAccountModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
                 <!-- Modal Header -->
-                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3 px-sm-4">
                     <div class="d-flex align-items-center gap-2">
                         <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 1.25rem;">
                             <i class="bi bi-person-circle"></i>
@@ -3946,7 +4244,7 @@
                 </div>
 
                 <!-- Modal Body -->
-                <div class="modal-body p-4">
+                <div class="modal-body p-3 p-sm-4">
                     <!-- User Info Card -->
                     <div class="p-3 rounded-3 mb-3 sh-box-bg" style="border: 1px solid var(--bs-border-color);">
                         <div class="d-flex align-items-center gap-3">
@@ -4050,13 +4348,38 @@
                                         </div>
                                         <div class="text-muted d-flex justify-content-between" style="font-size: 0.72rem;">
                                             <span>{{ $ord->created_at->format('M d, Y') }}</span>
-                                            <span>${{ number_format($ord->total_amount, 2) }}</span>
+                                            <span>{{ $ord->total_amount > 0 ? '$'.number_format($ord->total_amount, 2) : 'Direct Wholesale RFQ' }}</span>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                     @endif
+
+                    <!-- Active Session & Device Security Section -->
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="small fw-bold text-uppercase text-muted" style="letter-spacing: 0.5px;">Session &amp; Device Security</span>
+                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-0.5" style="font-size: 0.65rem;">
+                                <i class="bi bi-shield-check me-1"></i>Encrypted AES-256
+                            </span>
+                        </div>
+                        <div class="p-2.5 rounded-3 sh-box-bg mb-2" style="border: 1px solid var(--bs-border-color); font-size: 0.8rem;">
+                            <div class="d-flex align-items-center justify-content-between mb-1.5">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-laptop text-success fs-5"></i>
+                                    <div>
+                                        <strong class="d-block sh-text-title">Active Browser Session</strong>
+                                        <small class="text-muted">HttpOnly Cookie &bull; AuthenticateSession Guard Active</small>
+                                    </div>
+                                </div>
+                                <span class="badge bg-success rounded-pill px-2 py-0.5" style="font-size: 0.65rem;">This Device</span>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-danger w-100 mt-2 fw-semibold d-flex align-items-center justify-content-center gap-1.5" onclick="promptLogoutOtherSessions()">
+                                <i class="bi bi-box-arrow-right"></i> Log Out All Other Devices
+                            </button>
+                        </div>
+                    </div>
 
                     <!-- Incoterms & Origination Info Strip -->
                     <div class="p-2.5 rounded-3 mb-3 small d-flex align-items-center gap-2" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.22); font-size: 0.8rem;">
@@ -4075,43 +4398,73 @@
             </div>
         </div>
     </div>
+
+    <!-- Session Inactivity Warning Modal -->
+    <div class="modal fade" id="sessionTimeoutModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-sm mx-2 mx-sm-auto my-2 my-sm-4">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-clock-history text-warning fs-5"></i>
+                        <h6 class="modal-title fw-bold sh-text-title mb-0" style="font-size: 0.95rem;">Session Expiring Soon</h6>
+                    </div>
+                </div>
+                <div class="modal-body p-3 text-center">
+                    <p class="small text-muted mb-3" style="line-height: 1.5; font-size: 0.8rem;">
+                        For institutional trade security, your session will expire soon due to inactivity. Would you like to stay signed in?
+                    </p>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-sh-primary flex-grow-1 py-1.5 fw-bold small" onclick="extendUserSession()">
+                            Stay Signed In
+                        </button>
+                        <form action="{{ route('logout') }}" method="POST" class="m-0">
+                            @csrf
+                            <button type="submit" class="btn btn-sh-outline py-1.5 px-2.5 small">
+                                Sign Out
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     @endauth
 
     <!-- =========================================================================
          15. ON-SITE TRADE DESK INBOX & MESSAGING BOX (No external WhatsApp app)
          ========================================================================= -->
     <div class="modal fade" id="tradeDeskInboxModal" tabindex="-1" aria-labelledby="tradeDeskInboxModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable mx-2 mx-sm-auto my-2 my-sm-4">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface); color: var(--bs-body-color); border: 1px solid var(--sh-border);">
                 
                 <!-- Modal Header -->
-                <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4" style="background: linear-gradient(135deg, #121820 0%, #1a232f 100%);">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background: rgba(120, 162, 47, 0.2); border: 2px solid #78a22f; color: #78a22f; font-size: 1.35rem;">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3 px-sm-4" style="background: linear-gradient(135deg, #121820 0%, #1a232f 100%);">
+                    <div class="d-flex align-items-center gap-2 gap-sm-3">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px; background: rgba(120, 162, 47, 0.2); border: 2px solid #78a22f; color: #78a22f; font-size: 1.25rem;">
                             <i class="bi bi-inbox-fill"></i>
                         </div>
                         <div>
-                            <div class="d-flex align-items-center gap-2">
-                                <h5 class="modal-title fw-bold text-white mb-0" id="tradeDeskInboxModalLabel" style="font-size: 1.15rem;">Trade Desk Online Inbox</h5>
-                                <span class="badge bg-success rounded-pill px-2 py-0.5" style="font-size: 0.68rem; letter-spacing: 0.5px;">
-                                    <i class="bi bi-circle-fill me-1" style="font-size: 0.45rem;"></i>SÃO PAULO DESK LIVE
+                            <div class="d-flex flex-wrap align-items-center gap-1.5 gap-sm-2">
+                                <h5 class="modal-title fw-bold text-white mb-0" id="tradeDeskInboxModalLabel" style="font-size: clamp(0.95rem, 3.5vw, 1.15rem);">Trade Desk Online Inbox</h5>
+                                <span class="badge bg-success rounded-pill px-2 py-0.5" style="font-size: 0.65rem; letter-spacing: 0.5px;">
+                                    <i class="bi bi-circle-fill me-1" style="font-size: 0.42rem;"></i>SÃO PAULO DESK LIVE
                                 </span>
                             </div>
-                            <small class="text-white-50" style="font-size: 0.76rem;">Direct commercial inquiry &amp; order execution desk — on-site message inbox</small>
+                            <small class="text-white-50" style="font-size: 0.74rem;">Direct commercial inquiry &amp; order execution desk — on-site message inbox</small>
                         </div>
                     </div>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <!-- Nav Tabs -->
-                <ul class="nav nav-tabs px-4 pt-2 border-bottom border-secondary border-opacity-25" id="inboxTabNav" role="tablist" style="background: rgba(120, 162, 47, 0.04);">
+                <ul class="nav nav-tabs px-2 px-sm-4 pt-2 border-bottom border-secondary border-opacity-25 flex-nowrap overflow-x-auto" id="inboxTabNav" role="tablist" style="background: rgba(120, 162, 47, 0.04);">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active fw-bold text-uppercase py-2.5 px-3 border-0" id="inboxComposeTabBtn" data-bs-toggle="tab" data-bs-target="#inboxComposeTab" type="button" role="tab" style="font-size: 0.8rem; letter-spacing: 0.5px;">
+                        <button class="nav-link active fw-bold text-uppercase py-2 px-2.5 px-sm-3 border-0 text-nowrap" id="inboxComposeTabBtn" data-bs-toggle="tab" data-bs-target="#inboxComposeTab" type="button" role="tab" style="font-size: 0.78rem; letter-spacing: 0.5px;">
                             <i class="bi bi-pencil-square me-1"></i> Send Desk Message / RFQ
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link fw-bold text-uppercase py-2.5 px-3 border-0" id="inboxMessagesTabBtn" data-bs-toggle="tab" data-bs-target="#inboxMessagesTab" type="button" role="tab" style="font-size: 0.8rem; letter-spacing: 0.5px;">
+                        <button class="nav-link fw-bold text-uppercase py-2 px-2.5 px-sm-3 border-0 text-nowrap" id="inboxMessagesTabBtn" data-bs-toggle="tab" data-bs-target="#inboxMessagesTab" type="button" role="tab" style="font-size: 0.78rem; letter-spacing: 0.5px;">
                             <i class="bi bi-chat-left-text-fill me-1"></i> Desk Inquiries &amp; Messages
                             <span class="badge bg-success rounded-pill ms-1" id="inboxBadgeCount">{{ isset($userInquiries) ? $userInquiries->count() : 0 }}</span>
                         </button>
@@ -4119,14 +4472,15 @@
                 </ul>
 
                 <!-- Modal Body -->
-                <div class="modal-body p-4">
+                <div class="modal-body p-3 p-sm-4">
                     <div class="tab-content" id="inboxTabContent">
                         
                         <!-- TAB 1: COMPOSE MESSAGE / RFQ -->
                         <div class="tab-pane fade show active" id="inboxComposeTab" role="tabpanel">
-                            <div id="deskInboxAlert" class="alert d-none mb-3 py-2 px-3 small rounded-3"></div>
+                            <div id="deskInboxAlert" class="alert d-none mb-3 py-2 px-3 small rounded-3" style="word-break: break-word; overflow-wrap: anywhere;"></div>
 
                             <form id="deskInboxForm">
+                        @csrf
                                 <input type="hidden" name="role" value="buyer">
                                 <div aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;">
                                     <label for="inbox_company_website_url">Company Website URL</label>
@@ -4334,7 +4688,7 @@
                     cart = cart.map(function (item) {
                         return {
                             name: item.name || 'Commodity Lot',
-                            price: 0,
+                            price: parseFloat(item.price) || 0,
                             unit: item.unit || 'MT',
                             image: item.image || '{{ asset('img/service-1.jpg') }}',
                             origin: item.origin || 'Brazil',
@@ -4347,22 +4701,12 @@
             }
 
             function saveCart() {
-                if (!isAuthenticated) {
-                    cart = [];
-                    try { localStorage.removeItem('agroviaCart'); } catch (e) {}
-                    return;
-                }
                 try {
                     localStorage.setItem('agroviaCart', JSON.stringify(cart));
                 } catch (e) {}
             }
 
             function updateCartCount() {
-                if (!isAuthenticated) {
-                    $('#cartCountBadge, .mobileCartBadge').text('0');
-                    $('#cartDrawerCountBadge').text('0 lots');
-                    return 0;
-                }
                 var total = cart.reduce(function (sum, item) { return sum + (parseInt(item.qty, 10) || 1); }, 0);
                 $('#cartCountBadge, .mobileCartBadge').text(total);
                 $('#cartDrawerCountBadge').text(total + (total === 1 ? ' lot' : ' lots'));
@@ -4370,42 +4714,18 @@
             }
             updateCartCount();
 
-            function triggerToast(message, total) {
+            function triggerToast(message, total, subText) {
                 var toast = document.getElementById('sh-toast');
                 if (!toast) return;
                 document.getElementById('shToastMsg').textContent = message;
-                document.getElementById('shToastCount').textContent = (total || 0) + ' lot(s) in cart';
+                document.getElementById('shToastCount').textContent = subText || ((total || 0) + ' lot(s) in cart');
                 toast.classList.remove('sh-toast-hide');
                 toast.classList.add('sh-toast-show');
                 setTimeout(function () {
                     toast.classList.remove('sh-toast-show');
                     toast.classList.add('sh-toast-hide');
-                }, 3000);
+                }, 3500);
             }
-
-            function requireAuthForCart() {
-                // If quick view modal is currently open, dismiss it
-                var qvEl = document.getElementById('quickViewModal');
-                if (qvEl) {
-                    var qvInstance = bootstrap.Modal.getInstance(qvEl);
-                    if (qvInstance) {
-                        qvInstance.hide();
-                    }
-                }
-
-                // Show notification toast explaining login requirement
-                triggerToast('Sign-in required: Please log in to add commodity samples.', 0);
-
-                // Show the institutional authentication required modal
-                var authModalEl = document.getElementById('authRequiredModal');
-                if (authModalEl) {
-                    var authModal = bootstrap.Modal.getInstance(authModalEl) || new bootstrap.Modal(authModalEl);
-                    authModal.show();
-                } else {
-                    window.location.href = "{{ route('login') }}";
-                }
-            }
-            window.requireAuthForCart = requireAuthForCart;
 
             // Agrovia Cart Drawer Functions
             function openCartDrawer() {
@@ -4435,16 +4755,12 @@
             window.closeCartDrawer = closeCartDrawer;
 
             function renderCartDrawer() {
-                if (!isAuthenticated) {
-                    cart = [];
-                    try { localStorage.removeItem('agroviaCart'); } catch (e) {}
-                }
                 updateCartCount();
                 var $empty = $('#cartEmptyState');
                 var $pop = $('#cartPopulatedContent');
                 var $list = $('#cartItemsList');
 
-                if (!isAuthenticated || cart.length === 0) {
+                if (cart.length === 0) {
                     $empty.removeClass('d-none');
                     $pop.addClass('d-none');
                     $('#cartSummaryTotalVal').text('0 Lots');
@@ -4457,10 +4773,17 @@
                 $list.empty();
 
                 var totalLots = 0;
+                var totalEstimatedValue = 0;
 
                 cart.forEach(function (item, index) {
                     var qty = parseInt(item.qty, 10) || 1;
+                    var itemPrice = parseFloat(item.price) || 0;
                     totalLots += qty;
+                    totalEstimatedValue += (itemPrice * qty);
+
+                    var priceBadge = itemPrice > 0
+                        ? `<span class="badge" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.8rem; font-weight: 700;">$${itemPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} / ${item.unit || 'MT'}</span>`
+                        : `<span class="badge" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.76rem; font-weight: 600;">Direct Export Lot</span>`;
 
                     var itemHtml = `
                         <div class="sh-cart-item">
@@ -4485,7 +4808,7 @@
                                         <button type="button" class="sh-cart-qty-btn" onclick="changeItemQty(${index}, 1)" title="Increase">+</button>
                                     </div>
                                     <div class="text-end ms-auto flex-shrink-0" style="min-width: 0;">
-                                        <span class="badge" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.76rem; font-weight: 600;">Direct Export Lot</span>
+                                        ${priceBadge}
                                         <small class="text-muted d-block" style="font-size: 0.68rem; white-space: nowrap;">FOB / CIF IncoTerms</small>
                                     </div>
                                 </div>
@@ -4496,31 +4819,36 @@
                 });
 
                 $('#cartSummaryLotCount').text(totalLots);
-                $('#cartSummaryTotalVal').text(totalLots + (totalLots === 1 ? ' Lot' : ' Lots'));
+                if (totalEstimatedValue > 0) {
+                    $('#cartSummaryTotalVal').text('$' + totalEstimatedValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' (' + totalLots + ' MT)');
+                } else {
+                    $('#cartSummaryTotalVal').text(totalLots + (totalLots === 1 ? ' Lot' : ' Lots'));
+                }
             }
             window.renderCartDrawer = renderCartDrawer;
 
             function changeItemQty(index, delta) {
-                if (!isAuthenticated) {
-                    requireAuthForCart();
+                if (!cart[index]) return;
+                var currentQty = parseInt(cart[index].qty, 10) || 1;
+                var newQty = currentQty + delta;
+                if (newQty <= 0) {
+                    if (confirm('Remove ' + cart[index].name + ' from your sample cart?')) {
+                        removeCartItem(index);
+                    }
                     return;
                 }
-                if (!cart[index]) return;
-                cart[index].qty = (parseInt(cart[index].qty, 10) || 1) + delta;
-                if (cart[index].qty <= 0) {
-                    cart.splice(index, 1);
+                if (newQty > 500000) {
+                    triggerToast('Maximum sample lot allocation is 500,000 units.', updateCartCount());
+                    return;
                 }
+                cart[index].qty = newQty;
                 saveCart();
                 renderCartDrawer();
-                triggerToast('Cart updated', updateCartCount());
+                triggerToast('Cart updated: ' + cart[index].name + ' (' + newQty + ' ' + (cart[index].unit || 'MT') + ')', updateCartCount());
             }
             window.changeItemQty = changeItemQty;
 
             function removeCartItem(index) {
-                if (!isAuthenticated) {
-                    requireAuthForCart();
-                    return;
-                }
                 if (!cart[index]) return;
                 var removedName = cart[index].name;
                 cart.splice(index, 1);
@@ -4530,47 +4858,53 @@
             }
             window.removeCartItem = removeCartItem;
 
+            var lastClearedCart = [];
             function clearCart() {
-                if (!isAuthenticated) {
-                    cart = [];
-                    try { localStorage.removeItem('agroviaCart'); } catch (e) {}
-                    renderCartDrawer();
-                    return;
-                }
                 if (cart.length === 0) return;
-                if (confirm('Are you sure you want to clear your commodity sample cart?')) {
+                if (confirm('Would you like to clear all commodity lots from your sample cart?')) {
+                    lastClearedCart = cart.slice();
                     cart = [];
                     saveCart();
                     renderCartDrawer();
-                    triggerToast('Cart cleared', 0);
+                    triggerToast('Cart cleared. Click Undo to restore.', 0);
                 }
             }
             window.clearCart = clearCart;
+            window.undoClearCart = function () {
+                if (lastClearedCart && lastClearedCart.length > 0) {
+                    cart = lastClearedCart.slice();
+                    lastClearedCart = [];
+                    saveCart();
+                    renderCartDrawer();
+                    triggerToast('Cart restored!', updateCartCount());
+                }
+            };
 
             // Add to Cart Buttons
             var currentQvProduct = '';
             var currentQvUnit = 'MT';
             var currentQvImage = '{{ asset('img/service-1.jpg') }}';
             var currentQvOrigin = 'Brazil';
+            var currentQvPrice = 0;
 
             $(document).on('click', '.btn-add-cart', function (e) {
                 e.preventDefault();
-                if (!isAuthenticated) {
-                    requireAuthForCart();
-                    return;
-                }
-                var prodName = $(this).attr('data-name') || 'Agricultural Commodity';
-                var prodUnit = $(this).attr('data-unit') || 'MT';
-                var prodImage = $(this).attr('data-image') || '{{ asset('img/service-1.jpg') }}';
-                var prodOrigin = $(this).attr('data-origin') || 'Brazil';
+                var $btn = $(this);
+                var origHtml = $btn.html();
+                var prodName = $btn.attr('data-name') || 'Agricultural Commodity';
+                var prodUnit = $btn.attr('data-unit') || 'MT';
+                var prodImage = $btn.attr('data-image') || '{{ asset('img/service-1.jpg') }}';
+                var prodOrigin = $btn.attr('data-origin') || 'Brazil';
+                var prodPrice = parseFloat($btn.attr('data-price')) || 0;
 
                 var existing = cart.find(function (i) { return i.name === prodName; });
                 if (existing) {
                     existing.qty = (parseInt(existing.qty, 10) || 1) + 1;
+                    if (prodPrice > 0) existing.price = prodPrice;
                 } else {
                     cart.push({
                         name: prodName,
-                        price: 0,
+                        price: prodPrice,
                         unit: prodUnit,
                         image: prodImage,
                         origin: prodOrigin,
@@ -4579,6 +4913,13 @@
                 }
                 saveCart();
                 var total = updateCartCount();
+
+                // Affordance & Feedback: Instant button state confirmation
+                $btn.addClass('btn-added').html('<i class="bi bi-check2-circle"></i> Added to Cart');
+                setTimeout(function () {
+                    $btn.removeClass('btn-added').html(origHtml);
+                }, 1400);
+
                 triggerToast(prodName + ' added to cart!', total);
                 openCartDrawer();
             });
@@ -4589,29 +4930,29 @@
                 currentQvImage = $(this).attr('data-image') || '{{ asset('img/service-1.jpg') }}';
                 currentQvOrigin = $(this).attr('data-origin') || 'Brazil';
                 currentQvUnit = $(this).attr('data-unit') || 'MT';
+                currentQvPrice = parseFloat($(this).attr('data-raw-price')) || 0;
+                var displayPrice = $(this).attr('data-price') || 'Direct Wholesale FOB / CIF';
 
                 $('#qvModalTitle').text(currentQvProduct);
                 $('#qvModalName').text(currentQvProduct);
                 $('#qvModalOrigin').text(currentQvOrigin);
                 $('#qvModalImg').attr('src', currentQvImage);
+                $('#qvModalPrice').text(displayPrice);
 
                 var modal = new bootstrap.Modal(document.getElementById('quickViewModal'));
                 modal.show();
             });
 
             $('#qvAddToCartBtn').on('click', function () {
-                if (!isAuthenticated) {
-                    requireAuthForCart();
-                    return;
-                }
                 if (!currentQvProduct) return;
                 var existing = cart.find(function (i) { return i.name === currentQvProduct; });
                 if (existing) {
                     existing.qty = (parseInt(existing.qty, 10) || 1) + 1;
+                    if (currentQvPrice > 0) existing.price = currentQvPrice;
                 } else {
                     cart.push({
                         name: currentQvProduct,
-                        price: 0,
+                        price: currentQvPrice,
                         unit: currentQvUnit,
                         image: currentQvImage,
                         origin: currentQvOrigin,
@@ -4632,25 +4973,149 @@
                 openCartDrawer();
             });
 
+            // Safety: Auto-Save & Restore Checkout Form Draft
+            function saveCheckoutDraft() {
+                try {
+                    var draft = {
+                        customer_name: $('input[name="customer_name"]').val(),
+                        customer_email: $('input[name="customer_email"]').val(),
+                        customer_phone: $('input[name="customer_phone"]').val(),
+                        shipping_address: $('select[name="shipping_address"]').val(),
+                        payment_method: $('select[name="payment_method"]').val(),
+                        notes: $('input[name="notes"]').val()
+                    };
+                    localStorage.setItem('brx_checkout_draft', JSON.stringify(draft));
+                } catch (e) {}
+            }
+
+            function restoreCheckoutDraft() {
+                try {
+                    var draftStr = localStorage.getItem('brx_checkout_draft');
+                    if (draftStr) {
+                        var draft = JSON.parse(draftStr);
+                        if (draft.customer_name && !$('input[name="customer_name"]').val()) $('input[name="customer_name"]').val(draft.customer_name);
+                        if (draft.customer_email && !$('input[name="customer_email"]').val()) $('input[name="customer_email"]').val(draft.customer_email);
+                        if (draft.customer_phone && !$('input[name="customer_phone"]').val()) $('input[name="customer_phone"]').val(draft.customer_phone);
+                        if (draft.shipping_address) $('select[name="shipping_address"]').val(draft.shipping_address);
+                        if (draft.payment_method) $('select[name="payment_method"]').val(draft.payment_method);
+                        if (draft.notes && !$('input[name="notes"]').val()) $('input[name="notes"]').val(draft.notes);
+                    }
+                } catch (e) {}
+            }
+
+            // Real-Time Checkout Field Validation & Feedback
+            function validateCheckoutField($el) {
+                var name = $el.attr('name');
+                var val = ($el.val() || '').trim();
+                var isValid = true;
+                var errorMsg = '';
+
+                if (name === 'customer_name') {
+                    if (!val || val.length < 2) {
+                        isValid = false;
+                        errorMsg = 'Please enter your full name or company representative name (at least 2 letters).';
+                    }
+                } else if (name === 'customer_email') {
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!val) {
+                        isValid = false;
+                        errorMsg = 'Please enter your corporate email address.';
+                    } else if (!emailRegex.test(val)) {
+                        isValid = false;
+                        errorMsg = 'Please provide a valid corporate email (e.g. procurement@company.com).';
+                    }
+                } else if (name === 'customer_phone') {
+                    var ch = $('input[name="order_channel"]:checked').val() || 'both';
+                    if ((ch === 'whatsapp' || ch === 'both') && val.length > 0 && val.length < 7) {
+                        isValid = false;
+                        errorMsg = 'Please provide a valid phone number with country code (e.g. +1 555 123 4567).';
+                    }
+                } else if (name === 'shipping_address') {
+                    if (!val) {
+                        isValid = false;
+                        errorMsg = 'Please select your destination port or delivery berth.';
+                    }
+                }
+
+                var $fb = $el.siblings('.invalid-feedback-custom');
+                if ($fb.length > 0 && errorMsg) {
+                    $fb.text(errorMsg);
+                }
+
+                if (!isValid) {
+                    $el.removeClass('is-valid').addClass('is-invalid');
+                    if ($fb.length > 0) $fb.show();
+                } else if (val) {
+                    $el.removeClass('is-invalid').addClass('is-valid');
+                    if ($fb.length > 0) $fb.hide();
+                } else {
+                    $el.removeClass('is-invalid is-valid');
+                    if ($fb.length > 0) $fb.hide();
+                }
+                return isValid;
+            }
+
+            $('#checkoutOrderForm input, #checkoutOrderForm select').on('input change blur', function () {
+                validateCheckoutField($(this));
+                saveCheckoutDraft();
+            });
+
+            // Live Channel Feedback Indicator
+            $('input[name="order_channel"]').on('change', function () {
+                var ch = $(this).val();
+                var msg = 'Simultaneous automated delivery to Trade Desk WhatsApp (+55 11 95835-3433) and corporate email.';
+                if (ch === 'whatsapp') {
+                    msg = 'Dispatches alert directly to company WhatsApp device (+55 11 95835-3433).';
+                } else if (ch === 'email') {
+                    msg = 'Dispatches order notification to company inbox (brxagroglobal@gmail.com).';
+                }
+                $('#channelLiveText').text(msg);
+                if ($('input[name="customer_phone"]').val()) {
+                    validateCheckoutField($('input[name="customer_phone"]'));
+                }
+            });
+
+            // Usability: Universal Copy To Clipboard Helper
+            window.copyTextToClipboard = function (text, label) {
+                if (!navigator.clipboard) {
+                    var $temp = $('<input>');
+                    $('body').append($temp);
+                    $temp.val(text).select();
+                    document.execCommand('copy');
+                    $temp.remove();
+                } else {
+                    navigator.clipboard.writeText(text);
+                }
+                triggerToast((label || 'Text') + ' copied to clipboard!', updateCartCount());
+            };
+
             // Open Checkout Modal from Cart Drawer
             $('#btnOpenCheckout').on('click', function () {
-                if (!isAuthenticated) {
-                    requireAuthForCart();
-                    return;
-                }
                 if (cart.length === 0) {
-                    alert('Your sample cart is currently empty. Please select commodity lots first.');
+                    triggerToast('Your sample cart is currently empty. Please select commodity lots first.', 0);
                     return;
                 }
                 closeCartDrawer();
+                restoreCheckoutDraft();
 
                 var $chkList = $('#checkoutItemsList');
                 $chkList.empty();
                 var lotCount = 0;
+                var checkoutTotal = 0;
 
                 cart.forEach(function (item) {
                     var qty = parseInt(item.qty, 10) || 1;
+                    var itemPrice = parseFloat(item.price) || 0;
                     lotCount += qty;
+                    var itemSubtotal = itemPrice * qty;
+                    checkoutTotal += itemSubtotal;
+
+                    var priceTag = itemPrice > 0
+                        ? `<div class="text-end flex-shrink-0">
+                               <strong class="text-success d-block" style="font-size: 0.9rem;">$${itemSubtotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong>
+                               <small class="text-muted" style="font-size: 0.74rem;">$${itemPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} / ${item.unit || 'MT'}</small>
+                           </div>`
+                        : `<span class="badge flex-shrink-0" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.78rem;">SGS Assayed Lot</span>`;
 
                     $chkList.append(`
                         <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary border-opacity-10 gap-2">
@@ -4658,12 +5123,17 @@
                                 <strong class="sh-text-title d-block" style="word-break: break-word;">${item.name}</strong>
                                 <span class="text-muted small">${qty} ${item.unit || 'MT / Lot(s)'} · ${item.origin || 'Brazil'} Origin</span>
                             </div>
-                            <span class="badge flex-shrink-0" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.78rem;">SGS Assayed Lot</span>
+                            ${priceTag}
                         </div>
                     `);
                 });
 
                 $('#checkoutItemCountBadge').text(lotCount + (lotCount === 1 ? ' item' : ' items'));
+                if (checkoutTotal > 0) {
+                    $('#checkoutTotalVal').text('$' + checkoutTotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' (' + lotCount + ' MT)');
+                } else {
+                    $('#checkoutTotalVal').text('Direct Wholesale IncoTerms 2020');
+                }
                 $('#checkoutAlertBox').addClass('d-none');
 
                 var checkoutModal = new bootstrap.Modal(document.getElementById('agroviaCheckoutModal'));
@@ -4673,8 +5143,39 @@
             // Submit Checkout Order via AJAX
             $('#checkoutOrderForm').on('submit', function (e) {
                 e.preventDefault();
+                var $alert = $('#checkoutAlertBox');
                 if (cart.length === 0) {
-                    alert('Your cart is empty.');
+                    $alert.removeClass('d-none alert-success').addClass('alert alert-danger').html(
+                        '<i class="bi bi-info-circle me-1"></i> Your sample cart is currently empty. Please select commodity lots first before placing an order.'
+                    );
+                    return;
+                }
+
+                // Safety & Error Recovery: Thorough validation check on all fields
+                var isValid = true;
+                var $firstInvalid = null;
+                $('#checkoutOrderForm input[required], #checkoutOrderForm select[required]').each(function () {
+                    if (!validateCheckoutField($(this))) {
+                        isValid = false;
+                        if (!$firstInvalid) $firstInvalid = $(this);
+                    }
+                });
+
+                var emailVal = $('input[name="customer_email"]').val();
+                if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal.trim())) {
+                    $('input[name="customer_email"]').addClass('is-invalid');
+                    isValid = false;
+                    if (!$firstInvalid) $firstInvalid = $('input[name="customer_email"]');
+                }
+
+                if (!isValid) {
+                    $alert.removeClass('d-none alert-success').addClass('alert alert-warning').html(
+                        '<i class="bi bi-exclamation-triangle me-1"></i> Please complete the highlighted fields before placing your order.'
+                    );
+                    if ($firstInvalid) {
+                        $firstInvalid.focus();
+                        $firstInvalid[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
                     return;
                 }
 
@@ -4704,10 +5205,52 @@
                             name: item.name,
                             unit: item.unit || 'MT',
                             qty: parseInt(item.qty, 10) || 1,
-                            price: 0
+                            price: parseFloat(item.price) || 0
                         };
                     })
                 };
+
+                // Seamless Offline Queueing
+                if (!navigator.onLine) {
+                    var offlineOrderNum = 'OFFLINE-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+                    var queuedOrders = JSON.parse(localStorage.getItem('brx_offline_orders') || '[]');
+                    queuedOrders.push(formData);
+                    localStorage.setItem('brx_offline_orders', JSON.stringify(queuedOrders));
+
+                    $alert.removeClass('d-none alert-danger').addClass('alert-success border-success-subtle shadow-sm p-3').html(`
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-cloud-arrow-up-fill text-warning fs-5 flex-shrink-0"></i>
+                            <h6 class="fw-bold mb-0 text-success" style="font-size: 1rem; line-height: 1.3;">Order Saved Locally (Offline Mode)</h6>
+                        </div>
+                        <div class="p-2 mb-2 rounded-2 bg-white bg-opacity-75 border border-success border-opacity-25 d-flex flex-wrap align-items-center justify-content-between gap-1" style="word-break: break-all;">
+                            <span class="text-muted small fw-semibold">Local Offline Reference:</span>
+                            <span class="font-monospace fw-bold text-success" style="font-size: 0.95rem;">#BRX-ORD-${offlineOrderNum}</span>
+                        </div>
+                        <p class="mb-2 text-dark small" style="line-height: 1.5; word-break: break-word; overflow-wrap: anywhere;">Your commodity order has been stored locally on this device. When your internet reconnects, it will automatically transmit to the BRX Agro Global trade desk.</p>
+                        <div class="d-flex flex-column flex-sm-row flex-wrap gap-2 mt-2.5">
+                            <div class="d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5 rounded-2 bg-warning text-dark small" style="white-space: normal; word-break: break-word; overflow-wrap: anywhere; line-height: 1.35; font-size: 0.78rem;">
+                                <i class="bi bi-wifi-off flex-shrink-0"></i>
+                                <span>Queued on Device Storage</span>
+                            </div>
+                            <div class="d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5 rounded-2 bg-dark text-white small" style="white-space: normal; word-break: break-word; line-height: 1.35; font-size: 0.78rem;">
+                                <i class="bi bi-shield-check flex-shrink-0 text-success"></i>
+                                <span>Auto-Syncs When Online</span>
+                            </div>
+                        </div>
+                    `);
+
+                    try { localStorage.removeItem('brx_checkout_draft'); } catch (e) {}
+                    cart = [];
+                    saveCart();
+                    updateCartCount();
+                    renderCartDrawer();
+                    $btn.prop('disabled', false);
+                    $spinner.addClass('d-none');
+                    $icon.removeClass('d-none');
+                    $text.text('Transmit Order to BRX Agro Global Trade Desk');
+                    triggerToast('Order Queued Locally (Offline Mode)', 0, 'Auto-syncs on reconnection');
+                    return;
+                }
 
                 $.ajax({
                     url: '{{ route('checkout.store') }}',
@@ -4723,29 +5266,49 @@
                             : (selectedChannel === 'email') ? 'Corporate Email (brxagroglobal@gmail.com)'
                             : 'WhatsApp (+55 11 95835-3433) & Corporate Email';
 
+                        // Automated backend transmission has completed; provide optional direct chat link without disruptive popup
                         var waButton = '';
                         if (res.whatsapp_url && (selectedChannel === 'whatsapp' || selectedChannel === 'both')) {
                             waButton = `
-                                <div class="mt-2.5 pt-2 border-top border-success border-opacity-25">
-                                    <a href="${res.whatsapp_url}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-success fw-bold d-inline-flex align-items-center gap-1.5 shadow-sm">
-                                        <i class="bi bi-whatsapp"></i> Open Direct WhatsApp Conversation (Pre-Composed)
+                                <div class="mt-3 pt-2.5 border-top border-success border-opacity-25 d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-content-between gap-2">
+                                    <span class="small text-muted" style="font-size: 0.76rem; line-height: 1.4;"><i class="bi bi-check2-all text-success me-1"></i> Dispatched automatically by server in real time</span>
+                                    <a href="${res.whatsapp_url}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success fw-semibold d-inline-flex align-items-center justify-content-center gap-1.5 shadow-sm text-center py-2 px-3">
+                                        <i class="bi bi-whatsapp"></i> Optional: Chat Directly with Trade Desk
                                     </a>
                                 </div>
                             `;
                         }
 
-                        $alert.removeClass('d-none alert-danger').addClass('alert-success').html(`
-                            <h6 class="fw-bold mb-1"><i class="bi bi-check-circle-fill me-1"></i> Order Recorded &amp; Transmitted!</h6>
-                            <p class="mb-1">Reference: <strong>#${res.order_number}</strong></p>
-                            <p class="mb-1 small">${res.message}</p>
-                            <div class="mt-2 d-flex flex-wrap gap-1">
-                                <span class="badge bg-success text-white px-2 py-1"><i class="bi bi-bell-fill me-1"></i> Dispatched to: ${channelBadge}</span>
-                                <span class="badge bg-dark text-white px-2 py-1"><i class="bi bi-shield-check me-1"></i> Saved for Accountability</span>
+                        $alert.removeClass('d-none alert-danger').addClass('alert-success border-success-subtle shadow-sm p-3').html(`
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0"></i>
+                                <h6 class="fw-bold mb-0 text-success" style="font-size: 1rem; line-height: 1.3;">Order Recorded &amp; Transmitted!</h6>
+                            </div>
+                            <div class="p-2 mb-2 rounded-2 bg-white bg-opacity-75 border border-success border-opacity-25 d-flex flex-wrap align-items-center justify-content-between gap-2" style="word-break: break-all;">
+                                <div>
+                                    <span class="text-muted small fw-semibold">Order Reference:</span>
+                                    <span class="font-monospace fw-bold text-success ms-1" style="font-size: 0.95rem;">#${res.order_number}</span>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-success copyable-badge py-0.5 px-2 d-inline-flex align-items-center gap-1" onclick="copyTextToClipboard('#${res.order_number}', 'Order Reference')">
+                                    <i class="bi bi-clipboard"></i> Copy Ref
+                                </button>
+                            </div>
+                            <p class="mb-2 text-dark small" style="line-height: 1.5; word-break: break-word; overflow-wrap: anywhere;">${res.message}</p>
+                            <div class="d-flex flex-column flex-sm-row flex-wrap gap-2 mt-2.5">
+                                <div class="d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5 rounded-2 bg-success text-white small" style="white-space: normal; word-break: break-word; overflow-wrap: anywhere; line-height: 1.35; font-size: 0.78rem;">
+                                    <i class="bi bi-bell-fill flex-shrink-0"></i>
+                                    <span><strong>Dispatched to:</strong> ${channelBadge}</span>
+                                </div>
+                                <div class="d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5 rounded-2 bg-dark text-white small" style="white-space: normal; word-break: break-word; line-height: 1.35; font-size: 0.78rem;">
+                                    <i class="bi bi-shield-check flex-shrink-0 text-success"></i>
+                                    <span>Saved for Accountability</span>
+                                </div>
                             </div>
                             ${waButton}
                         `);
 
-                        // Clear cart
+                        // Clear cart & saved draft
+                        try { localStorage.removeItem('brx_checkout_draft'); } catch (e) {}
                         cart = [];
                         saveCart();
                         updateCartCount();
@@ -4760,15 +5323,20 @@
                         }, 2500);
                     },
                     error: function (xhr) {
-                        if (xhr.status === 401) {
-                            window.location.href = "{{ route('login') }}";
-                            return;
-                        }
                         var errMsg = 'Unable to complete checkout. Please review form fields or contact our trade desk directly.';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            errMsg = xhr.responseJSON.message;
+                        if (xhr.responseJSON) {
+                            if (xhr.responseJSON.errors) {
+                                var errList = Object.values(xhr.responseJSON.errors).flat();
+                                errMsg = '<ul class="mb-0 ps-3 text-start">' + errList.map(function (e) {
+                                    return '<li>' + $('<div>').text(e).html() + '</li>';
+                                }).join('') + '</ul>';
+                            } else if (xhr.responseJSON.message) {
+                                errMsg = $('<div>').text(xhr.responseJSON.message).html();
+                            }
+                        } else if (xhr.status === 0) {
+                            errMsg = 'Unable to connect to our servers. Please check your internet connection and try again, or contact our trade desk on WhatsApp.';
                         }
-                        $alert.removeClass('d-none alert-success').addClass('alert-danger').text(errMsg);
+                        $alert.removeClass('d-none alert-success').addClass('alert-danger').html(errMsg);
                         $btn.prop('disabled', false);
                         $spinner.addClass('d-none');
                         $icon.removeClass('d-none');
@@ -4819,23 +5387,195 @@
                 }
             });
 
-            // Scroll to Top Button
-            var scrollBtn = document.getElementById('sh-scroll-top');
-            if (scrollBtn) {
-                window.addEventListener('scroll', function () {
-                    scrollBtn.classList.toggle('visible', window.scrollY > 350);
-                });
-                scrollBtn.addEventListener('click', function () {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
+            // Hero Carousel Auto-Cycle & Swipe (Active, moving elements)
+            try {
+                var heroCarouselEl = document.getElementById('heroCarousel');
+                if (heroCarouselEl && window.bootstrap && window.bootstrap.Carousel) {
+                    var heroCarousel = (typeof bootstrap.Carousel.getOrCreateInstance === 'function')
+                        ? bootstrap.Carousel.getOrCreateInstance(heroCarouselEl, { interval: 4200, ride: 'carousel', wrap: true, touch: true, pause: false })
+                        : ((typeof bootstrap.Carousel.getInstance === 'function' ? bootstrap.Carousel.getInstance(heroCarouselEl) : null) || new bootstrap.Carousel(heroCarouselEl, { interval: 4200, ride: 'carousel', wrap: true, touch: true, pause: false }));
+                    if (heroCarousel && typeof heroCarousel.cycle === 'function') {
+                        heroCarousel.cycle();
+                    }
+
+                    // Touch swipe handling for mobile devices
+                    var touchStartX = 0;
+                    var touchEndX = 0;
+                    heroCarouselEl.addEventListener('touchstart', function (e) {
+                        if (e.changedTouches && e.changedTouches[0]) {
+                            touchStartX = e.changedTouches[0].screenX;
+                        }
+                    }, { passive: true });
+                    heroCarouselEl.addEventListener('touchend', function (e) {
+                        if (e.changedTouches && e.changedTouches[0]) {
+                            touchEndX = e.changedTouches[0].screenX;
+                            var diff = touchStartX - touchEndX;
+                            if (Math.abs(diff) > 45) {
+                                if (diff > 0) {
+                                    heroCarousel.next();
+                                } else {
+                                    heroCarousel.prev();
+                                }
+                            }
+                        }
+                    }, { passive: true });
+                }
+            } catch (carouselErr) {
+                console.warn('Hero carousel init note:', carouselErr);
             }
 
-            // RFQ In-Page Form Submission
+            // Scroll to Top FAB (Floating Action Button) - Bulletproof
+            var scrollBtn = document.getElementById('sh-scroll-top');
+            if (scrollBtn) {
+                function updateScrollFab() {
+                    var y = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                    if (y > 25) {
+                        scrollBtn.classList.add('visible');
+                    } else {
+                        scrollBtn.classList.remove('visible');
+                    }
+                }
+
+                window.addEventListener('scroll', updateScrollFab, { passive: true });
+                document.addEventListener('scroll', updateScrollFab, { passive: true });
+                window.addEventListener('touchmove', updateScrollFab, { passive: true });
+                window.addEventListener('resize', updateScrollFab, { passive: true });
+
+                scrollBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    try {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } catch (err) {
+                        window.scrollTo(0, 0);
+                    }
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                });
+
+                updateScrollFab();
+                setTimeout(updateScrollFab, 300);
+            }
+
+            // Mobile Tab Bar "Home" tap scrolls back to top smoothly
+            $('.sh-tabbar a[href="{{ route('home') }}"], .sh-tabbar a[href="/"], .sh-tabbar a[href="#"]').on('click', function (e) {
+                if (window.location.pathname === '/' || window.location.pathname === '') {
+                    e.preventDefault();
+                    try {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } catch (err) {
+                        window.scrollTo(0, 0);
+                    }
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                }
+            });
+
+            // Real-Time RFQ Field Validation & Feedback
+            function validateRfqField($el) {
+                var name = $el.attr('name');
+                var val = ($el.val() || '').trim();
+                var isValid = true;
+                var errorMsg = '';
+
+                if (name === 'name') {
+                    if (!val || val.length < 2) {
+                        isValid = false;
+                        errorMsg = 'Please enter your representative name (at least 2 letters).';
+                    }
+                } else if (name === 'email') {
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!val) {
+                        isValid = false;
+                        errorMsg = 'Please enter your corporate email address.';
+                    } else if (!emailRegex.test(val)) {
+                        isValid = false;
+                        errorMsg = 'Please provide a valid corporate email (e.g. buyer@company.com).';
+                    }
+                } else if (name === 'company') {
+                    if (!val || val.length < 2) {
+                        isValid = false;
+                        errorMsg = 'Please enter your registered trade company name.';
+                    }
+                } else if (name === 'country') {
+                    if (!val || val.length < 2) {
+                        isValid = false;
+                        errorMsg = 'Please specify destination discharge port or country.';
+                    }
+                } else if (name === 'volume') {
+                    if (!val) {
+                        isValid = false;
+                        errorMsg = 'Please specify volume required (e.g. 500 MT or 1 FCL).';
+                    }
+                } else if (name === 'buyer_detail') {
+                    if (!val) {
+                        isValid = false;
+                        errorMsg = 'Please select a target commodity.';
+                    }
+                }
+
+                var $fb = $el.siblings('.invalid-feedback-custom');
+                if ($fb.length > 0 && errorMsg) {
+                    $fb.text(errorMsg);
+                }
+
+                if (!isValid) {
+                    $el.removeClass('is-valid').addClass('is-invalid');
+                    if ($fb.length > 0) $fb.show();
+                } else if (val) {
+                    $el.removeClass('is-invalid').addClass('is-valid');
+                    if ($fb.length > 0) $fb.hide();
+                } else {
+                    $el.removeClass('is-invalid is-valid');
+                    if ($fb.length > 0) $fb.hide();
+                }
+                return isValid;
+            }
+
+            $('#rfqInquiryForm input, #rfqInquiryForm select, #rfqInquiryForm textarea').on('input change blur', function () {
+                validateRfqField($(this));
+            });
+
             $('#rfqInquiryForm').on('submit', function (e) {
                 e.preventDefault();
                 var $form = $(this);
                 var $btn = $('#rfqSubmitBtn');
                 var origText = $btn.html();
+
+                // Safety & Usability: Validate RFQ required fields
+                var isValid = true;
+                var $firstInvalid = null;
+                $form.find('input[required], select[required]').each(function () {
+                    if (!validateRfqField($(this))) {
+                        isValid = false;
+                        if (!$firstInvalid) $firstInvalid = $(this);
+                    }
+                });
+
+                if (!isValid) {
+                    $('#rfqAlert').removeClass('d-none alert-success').addClass('alert alert-warning').html(
+                        '<i class="bi bi-exclamation-triangle me-1"></i> Please complete the highlighted fields before submitting your RFQ.'
+                    );
+                    if ($firstInvalid) {
+                        $firstInvalid.focus();
+                        $firstInvalid[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return;
+                }
+
+                if (!navigator.onLine) {
+                    var offlineRef = 'AGRO-INQ-OFFLINE-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+                    var queuedInquiries = JSON.parse(localStorage.getItem('brx_offline_inquiries') || '[]');
+                    queuedInquiries.push({ data: $form.serialize(), created_at: new Date().toISOString() });
+                    localStorage.setItem('brx_offline_inquiries', JSON.stringify(queuedInquiries));
+
+                    $('#rfqAlert').removeClass('d-none alert-danger').addClass('alert alert-success').html(
+                        '<strong>Inquiry Queued Locally (Offline Mode)!</strong> Reference: <code>' + offlineRef + '</code>. Your RFQ has been saved on this device and will transmit to our trade desk as soon as your device reconnects.'
+                    );
+                    triggerToast('RFQ Queued Locally (Offline)', 0, 'Auto-syncs on reconnection');
+                    $form[0].reset();
+                    return;
+                }
+
                 $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Transmitting to Brazilian Desk...');
 
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -4858,16 +5598,73 @@
                         $form[0].reset();
                     },
                     error: function (xhr) {
-                        var errorMsg = 'Failed to submit inquiry. Please check required fields or contact WhatsApp directly.';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            errorMsg = xhr.responseJSON.message;
+                        var errorMsg = 'We could not submit your inquiry. Please check the required fields or reach out directly on WhatsApp.';
+                        if (xhr.responseJSON) {
+                            if (xhr.responseJSON.errors) {
+                                var errList = Object.values(xhr.responseJSON.errors).flat();
+                                errorMsg = '<ul class="mb-0 ps-3 text-start">' + errList.map(function (e) {
+                                    return '<li>' + $('<div>').text(e).html() + '</li>';
+                                }).join('') + '</ul>';
+                            } else if (xhr.responseJSON.message) {
+                                errorMsg = $('<div>').text(xhr.responseJSON.message).html();
+                            }
+                        } else if (xhr.status === 0) {
+                            errorMsg = 'Unable to connect to our servers. Please check your internet connection and try again.';
                         }
-                        $('#rfqAlert').removeClass('d-none alert-success').addClass('alert alert-danger').text(errorMsg);
+                        $('#rfqAlert').removeClass('d-none alert-success').addClass('alert alert-danger').html(errorMsg);
                     },
                     complete: function () {
                         $btn.prop('disabled', false).html(origText);
                     }
                 });
+            });
+
+            // Quick Search & Live Filtering with Feedback
+            function applyQuickSearch(q) {
+                q = (q || '').trim().toLowerCase();
+                var matchCount = 0;
+                $('.agro-filter-btn[data-filter="all"]').addClass('active btn-primary').removeClass('btn-outline-secondary');
+                $('.product-item').each(function () {
+                    var t = $(this).text().toLowerCase();
+                    var isMatch = (!q || t.indexOf(q) !== -1);
+                    $(this).toggle(isMatch);
+                    if (isMatch) matchCount++;
+                });
+
+                if (matchCount === 0) {
+                    $('#catalogNoResults').removeClass('d-none');
+                } else {
+                    $('#catalogNoResults').addClass('d-none');
+                }
+
+                var $fb = $('#quickSearchFeedback');
+                if (q) {
+                    $fb.removeClass('d-none').html(matchCount + ' commodity lot(s) found matching "<strong>' + $('<div>').text(q).html() + '</strong>"');
+                } else {
+                    $fb.addClass('d-none').empty();
+                }
+            }
+
+            $('#quickSearchForm').on('submit', function (e) {
+                e.preventDefault();
+                var q = $('#quickSearchInput').val();
+                applyQuickSearch(q);
+                var prodSec = document.getElementById('products');
+                if (prodSec) {
+                    prodSec.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            $('#quickSearchInput').on('input', function () {
+                applyQuickSearch($(this).val());
+            });
+
+            $(document).on('click', '#btnResetCatalogSearch', function () {
+                $('#quickSearchInput').val('');
+                $('#quickSearchFeedback').addClass('d-none').empty();
+                $('.agro-filter-btn[data-filter="all"]').click();
+                $('.product-item').fadeIn(200);
+                $('#catalogNoResults').addClass('d-none');
             });
 
             // Modal Search Filter
@@ -5009,11 +5806,20 @@
                         triggerToast('Message Sent to Desk Inbox! Ref: ' + ref, updateCartCount());
                     },
                     error: function (xhr) {
-                        var errorMsg = 'Failed to transmit message. Please check all required fields.';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            errorMsg = xhr.responseJSON.message;
+                        var errorMsg = 'We could not transmit your message. Please check all required fields or try again shortly.';
+                        if (xhr.responseJSON) {
+                            if (xhr.responseJSON.errors) {
+                                var errList = Object.values(xhr.responseJSON.errors).flat();
+                                errorMsg = '<ul class="mb-0 ps-3 text-start">' + errList.map(function (e) {
+                                    return '<li>' + $('<div>').text(e).html() + '</li>';
+                                }).join('') + '</ul>';
+                            } else if (xhr.responseJSON.message) {
+                                errorMsg = $('<div>').text(xhr.responseJSON.message).html();
+                            }
+                        } else if (xhr.status === 0) {
+                            errorMsg = 'Unable to connect to our servers. Please check your internet connection and try again.';
                         }
-                        $('#deskInboxAlert').removeClass('d-none alert-success').addClass('alert alert-danger').text(errorMsg);
+                        $('#deskInboxAlert').removeClass('d-none alert-success').addClass('alert alert-danger').html(errorMsg);
                     },
                     complete: function () {
                         $btn.prop('disabled', false).html(origBtn);
@@ -5077,6 +5883,147 @@
             }
 
         })();
+
+        // Register PWA Service Worker for App Installation & Offline Caching
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js').catch(function () {});
+            });
+        }
+
+        // Automatic Offline Queue Sync
+        function syncOfflineQueues() {
+            var queuedOrders = JSON.parse(localStorage.getItem('brx_offline_orders') || '[]');
+            if (queuedOrders.length > 0) {
+                var orderPayload = queuedOrders[0];
+                var csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
+                $.ajax({
+                    url: '{{ route("checkout.store") }}',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(orderPayload),
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    success: function (res) {
+                        queuedOrders.shift();
+                        localStorage.setItem('brx_offline_orders', JSON.stringify(queuedOrders));
+                        triggerToast('Queued Order Transmitted!', 0, 'Order #' + res.order_number);
+                        if (queuedOrders.length > 0) {
+                            syncOfflineQueues();
+                        }
+                    }
+                });
+            }
+
+            var queuedInquiries = JSON.parse(localStorage.getItem('brx_offline_inquiries') || '[]');
+            if (queuedInquiries.length > 0) {
+                var inqPayload = queuedInquiries[0];
+                var csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
+                $.ajax({
+                    url: '/inquiries',
+                    type: 'POST',
+                    data: inqPayload.data,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    success: function (res) {
+                        queuedInquiries.shift();
+                        localStorage.setItem('brx_offline_inquiries', JSON.stringify(queuedInquiries));
+                        triggerToast('Queued RFQ Transmitted!', 0, 'Reference: ' + (res.reference || 'Done'));
+                        if (queuedInquiries.length > 0) {
+                            syncOfflineQueues();
+                        }
+                    }
+                });
+            }
+        }
+
+        window.addEventListener('online', function () {
+            triggerToast('Connection Restored!', 0, 'Live Trade Desk active');
+            syncOfflineQueues();
+        });
+
+        window.addEventListener('offline', function () {
+            triggerToast('Offline Mode Active', 0, 'Viewing cached catalog & specs');
+        });
+
+        // =========================================================================
+        // Session Management & Inactivity Invalidation Handling
+        // =========================================================================
+        var idleSeconds = 0;
+        var sessionLifetimeMinutes = {{ (int) config('session.lifetime', 120) }};
+
+        function resetIdleTimer() {
+            idleSeconds = 0;
+        }
+
+        ['mousedown', 'keydown', 'touchstart', 'scroll'].forEach(function (evt) {
+            window.addEventListener(evt, resetIdleTimer, { passive: true });
+        });
+
+        @auth
+        setInterval(function () {
+            idleSeconds += 60;
+            // Warn 5 minutes before expiration if user has been inactive for (lifetime - 5) minutes
+            if (idleSeconds >= (sessionLifetimeMinutes - 5) * 60) {
+                var modalEl = document.getElementById('sessionTimeoutModal');
+                if (modalEl && !modalEl.classList.contains('show')) {
+                    var timeoutModal = new bootstrap.Modal(modalEl);
+                    timeoutModal.show();
+                }
+            }
+        }, 60000);
+        @endauth
+
+        window.extendUserSession = function () {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
+            $.ajax({
+                url: '{{ route("session.keep-alive") }}',
+                type: 'POST',
+                headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
+                success: function (res) {
+                    resetIdleTimer();
+                    if (res.csrf_token) {
+                        $('meta[name="csrf-token"]').attr('content', res.csrf_token);
+                    }
+                    var modalEl = document.getElementById('sessionTimeoutModal');
+                    if (modalEl) {
+                        var modalInst = bootstrap.Modal.getInstance(modalEl);
+                        if (modalInst) modalInst.hide();
+                    }
+                    triggerToast('Session Extended', 0, 'Active security token refreshed');
+                }
+            });
+        };
+
+        window.promptLogoutOtherSessions = function () {
+            var pwd = prompt('Enter your account password to confirm signing out all other browser devices:');
+            if (!pwd) return;
+            var csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
+            $.ajax({
+                url: '{{ route("session.logout-other-devices") }}',
+                type: 'POST',
+                data: { password: pwd },
+                headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
+                success: function (res) {
+                    alert(res.message || 'All other devices logged out successfully.');
+                },
+                error: function (xhr) {
+                    var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Unable to log out other devices. Please check your password.';
+                    alert(msg);
+                }
+            });
+        };
+
+        // Global 419 Session Expiry Interceptor
+        $(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
+            if (jqXHR.status === 419) {
+                triggerToast('Session Expired', 0, 'Please refresh or sign in again');
+            }
+        });
     </script>
 </body>
 

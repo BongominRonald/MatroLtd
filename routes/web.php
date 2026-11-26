@@ -8,10 +8,9 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SessionController;
 use App\Mail\AdminInquiryAlertMail;
-use App\Mail\AdminOrderAlertMail;
 use App\Mail\InquiryConfirmationMail;
-use App\Mail\OrderConfirmationMail;
 use App\Models\Category;
 use App\Models\HeroSlide;
 use App\Models\Inquiry;
@@ -20,6 +19,8 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use App\Services\OrderNotificationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -50,7 +51,28 @@ Route::get('/', function () {
         ? HeroSlide::where('is_active', true)->orderBy('sort_order')->orderBy('id')->get()
         : collect();
 
-    return view('index', compact('categories', 'products', 'totalStock', 'productsCount', 'userInquiries', 'userOrders', 'heroSlides'));
+    $currentSessionId = request()->session()->getId();
+    $userSessions = auth()->check() && Schema::hasTable('sessions')
+        ? DB::table('sessions')
+            ->where('user_id', auth()->id())
+            ->orderByDesc('last_activity')
+            ->get()
+            ->map(function ($s) use ($currentSessionId) {
+                $deviceInfo = SessionController::parseUserAgent($s->user_agent);
+
+                return (object) [
+                    'id' => substr($s->id, 0, 8).'...',
+                    'ip_address' => $s->ip_address ?: 'Unknown IP',
+                    'is_current' => ($s->id === $currentSessionId),
+                    'device_type' => $deviceInfo['device_type'],
+                    'browser' => $deviceInfo['browser'],
+                    'platform' => $deviceInfo['platform'],
+                    'last_active' => Carbon::createFromTimestamp($s->last_activity)->diffForHumans(),
+                ];
+            })
+        : collect();
+
+    return view('index', compact('categories', 'products', 'totalStock', 'productsCount', 'userInquiries', 'userOrders', 'heroSlides', 'userSessions'));
 })->name('home');
 
 // Dynamic robots.txt (automatically reflects current domain / custom domain)
@@ -63,10 +85,10 @@ Route::get('/robots.txt', function () {
         'Disallow: /account',
         'Disallow: /checkout',
         '',
-        'Sitemap: ' . url('/sitemap.xml'),
+        'Sitemap: '.url('/sitemap.xml'),
     ];
 
-    return response(implode("\n", $lines) . "\n", 200, [
+    return response(implode("\n", $lines)."\n", 200, [
         'Content-Type' => 'text/plain; charset=utf-8',
     ]);
 })->name('robots');
@@ -81,39 +103,39 @@ Route::get('/sitemap.xml', function () {
 
     $products = Schema::hasTable('products') ? Product::orderBy('id')->take(50)->get() : collect();
 
-    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'."\n";
 
     // Primary Storefront & Commodity Catalog
-    $xml .= '  <url>' . "\n";
-    $xml .= '    <loc>' . e($baseUrl . '/') . '</loc>' . "\n";
-    $xml .= '    <lastmod>' . e($lastMod) . '</lastmod>' . "\n";
-    $xml .= '    <changefreq>daily</changefreq>' . "\n";
-    $xml .= '    <priority>1.0</priority>' . "\n";
+    $xml .= '  <url>'."\n";
+    $xml .= '    <loc>'.e($baseUrl.'/').'</loc>'."\n";
+    $xml .= '    <lastmod>'.e($lastMod).'</lastmod>'."\n";
+    $xml .= '    <changefreq>daily</changefreq>'."\n";
+    $xml .= '    <priority>1.0</priority>'."\n";
     foreach ($products as $prod) {
         if (! empty($prod->image)) {
-            $xml .= '    <image:image>' . "\n";
-            $xml .= '      <image:loc>' . e(asset($prod->image)) . '</image:loc>' . "\n";
-            $xml .= '      <image:title>' . e($prod->name . ' — BRX AGRO GLOBAL') . '</image:title>' . "\n";
-            $xml .= '    </image:image>' . "\n";
+            $xml .= '    <image:image>'."\n";
+            $xml .= '      <image:loc>'.e(asset($prod->image)).'</image:loc>'."\n";
+            $xml .= '      <image:title>'.e($prod->name.' — BRX AGRO GLOBAL').'</image:title>'."\n";
+            $xml .= '    </image:image>'."\n";
         }
     }
-    $xml .= '  </url>' . "\n";
+    $xml .= '  </url>'."\n";
 
     // Public Buyer Authentication & Registration Pages
-    $xml .= '  <url>' . "\n";
-    $xml .= '    <loc>' . e(route('login')) . '</loc>' . "\n";
-    $xml .= '    <lastmod>' . e($lastMod) . '</lastmod>' . "\n";
-    $xml .= '    <changefreq>monthly</changefreq>' . "\n";
-    $xml .= '    <priority>0.6</priority>' . "\n";
-    $xml .= '  </url>' . "\n";
+    $xml .= '  <url>'."\n";
+    $xml .= '    <loc>'.e(route('login')).'</loc>'."\n";
+    $xml .= '    <lastmod>'.e($lastMod).'</lastmod>'."\n";
+    $xml .= '    <changefreq>monthly</changefreq>'."\n";
+    $xml .= '    <priority>0.6</priority>'."\n";
+    $xml .= '  </url>'."\n";
 
-    $xml .= '  <url>' . "\n";
-    $xml .= '    <loc>' . e(route('register')) . '</loc>' . "\n";
-    $xml .= '    <lastmod>' . e($lastMod) . '</lastmod>' . "\n";
-    $xml .= '    <changefreq>monthly</changefreq>' . "\n";
-    $xml .= '    <priority>0.6</priority>' . "\n";
-    $xml .= '  </url>' . "\n";
+    $xml .= '  <url>'."\n";
+    $xml .= '    <loc>'.e(route('register')).'</loc>'."\n";
+    $xml .= '    <lastmod>'.e($lastMod).'</lastmod>'."\n";
+    $xml .= '    <changefreq>monthly</changefreq>'."\n";
+    $xml .= '    <priority>0.6</priority>'."\n";
+    $xml .= '  </url>'."\n";
 
     $xml .= '</urlset>';
 
@@ -129,45 +151,65 @@ Route::get('/merchant-feed.xml', function () {
         ? Product::with('category')->orderBy('id')->get()
         : collect();
 
-    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-    $xml .= '<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">' . "\n";
-    $xml .= '  <channel>' . "\n";
-    $xml .= '    <title>' . e(config('company.legal_name', 'BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA')) . ' — Product Catalog</title>' . "\n";
-    $xml .= '    <link>' . e($baseUrl . '/') . '</link>' . "\n";
-    $xml .= '    <description>Direct Brazilian Agricultural Commodity Export Catalog — Soybeans, ICUMSA 45 Sugar, Yellow Corn, Arabica Coffee, Edible Oils &amp; Frozen Proteins.</description>' . "\n";
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
+    $xml .= '<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">'."\n";
+    $xml .= '  <channel>'."\n";
+    $xml .= '    <title>'.e(config('company.legal_name', 'BRX AGRO GLOBAL IMPORTAÇÃO E EXPORTAÇÃO LTDA')).' — Product Catalog</title>'."\n";
+    $xml .= '    <link>'.e($baseUrl.'/').'</link>'."\n";
+    $xml .= '    <description>Direct Brazilian Agricultural Commodity Export Catalog — Soybeans, ICUMSA 45 Sugar, Yellow Corn, Arabica Coffee, Edible Oils &amp; Frozen Proteins.</description>'."\n";
 
     foreach ($products as $prod) {
-        $productUrl = $baseUrl . '/?product=' . urlencode($prod->slug ?: ('item-' . $prod->id)) . '#products';
+        $productUrl = $baseUrl.'/?product='.urlencode($prod->slug ?: ('item-'.$prod->id)).'#products';
         $imageUrl = ! empty($prod->image)
             ? (Str::startsWith($prod->image, ['http://', 'https://']) ? $prod->image : asset($prod->image))
             : asset('img/carousel-1.jpg');
-        $description = trim((string) ($prod->description ?: ($prod->name . ' — Institutional export grade Brazilian agro-commodity supplied by BRX AGRO GLOBAL (' . ($prod->unit ?: 'MT') . ').')));
-        $priceFormatted = number_format((float) ($prod->price ?: 450.00), 2, '.', '') . ' USD';
+        $description = trim((string) ($prod->description ?: ($prod->name.' — Institutional export grade Brazilian agro-commodity supplied by BRX AGRO GLOBAL ('.($prod->unit ?: 'MT').').')));
+        $priceFormatted = number_format((float) ($prod->price ?: 450.00), 2, '.', '').' USD';
         $availability = ((int) ($prod->stock ?? 100)) > 0 ? 'in_stock' : 'out_of_stock';
         $categoryName = $prod->category?->name ?: 'Agricultural Commodities';
 
-        $xml .= '    <item>' . "\n";
-        $xml .= '      <g:id>' . e('BRX-' . $prod->id) . '</g:id>' . "\n";
-        $xml .= '      <g:title>' . e($prod->name . ($prod->unit ? ' (' . $prod->unit . ')' : '')) . '</g:title>' . "\n";
-        $xml .= '      <g:description>' . e($description) . '</g:description>' . "\n";
-        $xml .= '      <g:link>' . e($productUrl) . '</g:link>' . "\n";
-        $xml .= '      <g:image_link>' . e($imageUrl) . '</g:image_link>' . "\n";
-        $xml .= '      <g:condition>new</g:condition>' . "\n";
-        $xml .= '      <g:availability>' . $availability . '</g:availability>' . "\n";
-        $xml .= '      <g:price>' . e($priceFormatted) . '</g:price>' . "\n";
-        $xml .= '      <g:brand>' . e($prod->brand ?: 'BRX AGRO GLOBAL') . '</g:brand>' . "\n";
-        $xml .= '      <g:identifier_exists>no</g:identifier_exists>' . "\n";
-        $xml .= '      <g:product_type>' . e('Food, Beverages & Tobacco > Food Items > ' . $categoryName) . '</g:product_type>' . "\n";
-        $xml .= '    </item>' . "\n";
+        $xml .= '    <item>'."\n";
+        $xml .= '      <g:id>'.e('BRX-'.$prod->id).'</g:id>'."\n";
+        $xml .= '      <g:title>'.e($prod->name.($prod->unit ? ' ('.$prod->unit.')' : '')).'</g:title>'."\n";
+        $xml .= '      <g:description>'.e($description).'</g:description>'."\n";
+        $xml .= '      <g:link>'.e($productUrl).'</g:link>'."\n";
+        $xml .= '      <g:image_link>'.e($imageUrl).'</g:image_link>'."\n";
+        $xml .= '      <g:condition>new</g:condition>'."\n";
+        $xml .= '      <g:availability>'.$availability.'</g:availability>'."\n";
+        $xml .= '      <g:price>'.e($priceFormatted).'</g:price>'."\n";
+        $xml .= '      <g:brand>'.e($prod->brand ?: 'BRX AGRO GLOBAL').'</g:brand>'."\n";
+        $xml .= '      <g:identifier_exists>no</g:identifier_exists>'."\n";
+        $xml .= '      <g:product_type>'.e('Food, Beverages & Tobacco > Food Items > '.$categoryName).'</g:product_type>'."\n";
+        $xml .= '    </item>'."\n";
     }
 
-    $xml .= '  </channel>' . "\n";
+    $xml .= '  </channel>'."\n";
     $xml .= '</rss>';
 
     return response($xml, 200, [
         'Content-Type' => 'application/xml; charset=utf-8',
     ]);
 })->name('merchant.feed');
+
+// Offline PWA Fallback Page
+Route::get('/offline', function () {
+    $path = public_path('offline.html');
+    if (! file_exists($path)) {
+        abort(404);
+    }
+
+    return response(file_get_contents($path), 200, [
+        'Content-Type' => 'text/html; charset=utf-8',
+    ]);
+})->name('offline');
+
+// Session Management & Device Security Routes
+Route::get('/session/status', [SessionController::class, 'status'])->name('session.status');
+Route::post('/session/keep-alive', [SessionController::class, 'keepAlive'])->name('session.keep-alive');
+Route::middleware('auth')->group(function () {
+    Route::get('/session/devices', [SessionController::class, 'devices'])->name('session.devices');
+    Route::post('/session/logout-other-devices', [SessionController::class, 'logoutOtherDevices'])->name('session.logout-other-devices');
+});
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
@@ -188,6 +230,7 @@ Route::get('/account', function () {
     if (auth()->user()->isAdmin()) {
         return redirect()->route('admin.dashboard');
     }
+
     return redirect()->to(route('home').'#account');
 })->name('account');
 
@@ -206,24 +249,30 @@ Route::post('/inquiries', function (Request $request) {
             return response()->json([
                 'success' => true,
                 'reference' => $fakeRef,
-                'message' => 'Your inquiry has been submitted. Our trade desk will contact you promptly.',
+                'message' => 'Thank you! Your inquiry (Reference: '.$fakeRef.') has been received. Our trade desk officers in São Paulo will review your specifications and contact you shortly.',
             ]);
         }
 
-        return back()->with('status', 'Inquiry submitted successfully.');
+        return back()->with('status', 'Thank you! Your inquiry (Reference: '.$fakeRef.') has been received. Our trade desk officers in São Paulo will review your specifications and contact you shortly.');
     }
 
     $validated = $request->validate([
-        'name' => 'required|string|max:255',
+        'name' => 'required|string|min:2|max:255',
         'email' => 'required|email|max:255',
         'phone' => 'nullable|string|max:50',
         'role' => 'nullable|string|max:50',
         'company' => 'nullable|string|max:255',
         'country' => 'nullable|string|max:100',
+        'volume' => 'nullable|string|max:100',
         'buyer_detail' => 'nullable|string|max:500',
         'service_type' => 'nullable|string|max:100',
         'grower_detail' => 'nullable|string|max:500',
         'message' => 'nullable|string',
+    ], [
+        'name.required' => 'Please provide your full name or company representative name.',
+        'name.min' => 'Representative name must be at least 2 characters.',
+        'email.required' => 'Please enter your corporate email address so our trade desk can send your quotation.',
+        'email.email' => 'Please provide a valid corporate email address (e.g., procurement@company.com).',
     ]);
 
     $detail = $validated['buyer_detail'] ?? $validated['service_type'] ?? $validated['grower_detail'] ?? null;
@@ -233,6 +282,9 @@ Route::post('/inquiries', function (Request $request) {
     }
     if (! empty($validated['country'])) {
         $extraInfo[] = 'Country: '.$validated['country'];
+    }
+    if (! empty($validated['volume'])) {
+        $extraInfo[] = 'Requested Volume: '.$validated['volume'];
     }
     if (! empty($detail)) {
         $extraInfo[] = 'Requirement: '.$detail;
@@ -256,19 +308,44 @@ Route::post('/inquiries', function (Request $request) {
         Mail::to($validated['email'])->send(new InquiryConfirmationMail($inquiry, $reference));
         $adminEmail = config('services.company.trade_desk_email') ?: 'brxagroglobal@gmail.com';
         Mail::to($adminEmail)->send(new AdminInquiryAlertMail($inquiry, $reference));
-    } catch (\Throwable $e) {
-        Log::warning('Inquiry notification email failed: ' . $e->getMessage());
+    } catch (Throwable $e) {
+        Log::warning('Inquiry notification email failed: '.$e->getMessage());
+    }
+
+    // Resend API alert dispatch for real-time mobile notifications
+    $resendKey = config('services.resend.key') ?: env('RESEND_API_KEY');
+    if (! empty($resendKey)) {
+        try {
+            $fromAddress = config('services.resend.from') ?: env('RESEND_FROM_EMAIL', 'onboarding@resend.dev');
+            $fromName = config('mail.from.name', 'BRX AGRO GLOBAL');
+            $recipients = array_filter([
+                env('RESEND_TEST_RECIPIENT', 'abonga029@gmail.com'),
+                config('services.company.trade_desk_email', 'brxagroglobal@gmail.com'),
+            ]);
+            foreach (array_unique($recipients) as $recipient) {
+                Http::timeout(6)
+                    ->withToken($resendKey)
+                    ->post('https://api.resend.com/emails', [
+                        'from' => "{$fromName} <{$fromAddress}>",
+                        'to' => [$recipient],
+                        'subject' => "[TRADE DESK INQUIRY] Ref: {$reference} — {$inquiry->name}",
+                        'html' => "<div style='font-family:sans-serif;padding:20px;'><h3 style='color:#78a22f;'>New Trade Desk Inquiry: {$reference}</h3><p><strong>Name:</strong> {$inquiry->name}<br><strong>Email:</strong> {$inquiry->email}<br><strong>Phone:</strong> {$inquiry->phone}<br><strong>Subject:</strong> {$inquiry->subject}</p><p><strong>Message:</strong><br>".nl2br(e($inquiry->message)).'</p></div>',
+                    ]);
+            }
+        } catch (Throwable $e) {
+            Log::warning('Resend inquiry dispatch failed: '.$e->getMessage());
+        }
     }
 
     if ($request->wantsJson() || $request->ajax()) {
         return response()->json([
             'success' => true,
             'reference' => $reference,
-            'message' => 'Your inquiry has been submitted. Our trade desk will contact you promptly.',
+            'message' => 'Thank you! Your inquiry (Reference: '.$reference.') has been received. Our trade desk officers in São Paulo will review your specifications and contact you shortly.',
         ]);
     }
 
-    return back()->with('status', 'Inquiry submitted successfully.');
+    return back()->with('status', 'Thank you! Your inquiry (Reference: '.$reference.') has been received. Our trade desk officers in São Paulo will review your specifications and contact you shortly.');
 })->middleware('throttle:10,1')->name('inquiries.store');
 
 // Cookie Governance & LGPD/GDPR Preferences
@@ -303,7 +380,7 @@ Route::post('/cookies/consent', function (Request $request) {
 
     return response()->json([
         'success' => true,
-        'message' => 'Cookie consent preferences recorded successfully.',
+        'message' => 'Your privacy and cookie preferences have been saved.',
         'consent' => $consent,
     ])->withCookie($cookie);
 })->name('cookies.consent');
@@ -322,29 +399,34 @@ Route::get('/cookies/consent', function (Request $request) {
     ]);
 })->name('cookies.status');
 
-// Public Commodity Cart Checkout & Order Placement (Authenticated Buyers Only)
+// Public Commodity Cart Checkout & Order Placement (Open to all buyers & institutional clients)
 Route::post('/checkout', function (Request $request) {
-    if (! auth()->check()) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Authentication required. Please log in to place a commodity order.',
-            'redirect' => route('login'),
-        ], 401);
-    }
+    $userId = auth()->check() ? auth()->id() : null;
 
     $validated = $request->validate([
-        'customer_name' => 'required|string|max:255',
+        'customer_name' => 'required|string|min:2|max:255',
         'customer_email' => 'required|email|max:255',
         'customer_phone' => 'nullable|string|max:50',
         'shipping_address' => 'nullable|string|max:500',
         'payment_method' => 'nullable|string|max:100',
         'channel' => 'nullable|string|in:whatsapp,email,both',
-        'notes' => 'nullable|string',
+        'notes' => 'nullable|string|max:1000',
         'items' => 'required|array|min:1',
         'items.*.name' => 'required|string|max:255',
-        'items.*.qty' => 'required|integer|min:1',
+        'items.*.qty' => 'required|integer|min:1|max:500000',
         'items.*.unit' => 'nullable|string|max:50',
         'items.*.price' => 'nullable|numeric|min:0',
+    ], [
+        'customer_name.required' => 'Please provide your full name or company representative name.',
+        'customer_name.min' => 'Representative name must be at least 2 characters.',
+        'customer_email.required' => 'Please provide your corporate email address to receive order receipts and export documentation.',
+        'customer_email.email' => 'Please provide a valid corporate email address (e.g., procurement@company.com).',
+        'items.required' => 'Your sample cart is empty. Please select at least one commodity lot before checking out.',
+        'items.min' => 'Your sample cart is empty. Please select at least one commodity lot before checking out.',
+        'items.*.name.required' => 'Each lot item in your cart must have a valid commodity name.',
+        'items.*.qty.required' => 'Please specify the quantity for each selected lot.',
+        'items.*.qty.min' => 'Quantity must be at least 1 lot/unit.',
+        'items.*.qty.max' => 'Maximum sample lot allocation is 500,000 units per order.',
     ]);
 
     $channel = $validated['channel'] ?? 'both';
@@ -364,7 +446,7 @@ Route::post('/checkout', function (Request $request) {
 
     $order = Order::create([
         'order_number' => 'BRX-ORD-'.strtoupper(Str::random(6)),
-        'user_id' => auth()->id(),
+        'user_id' => $userId,
         'customer_name' => $validated['customer_name'],
         'customer_email' => $validated['customer_email'],
         'customer_phone' => $validated['customer_phone'] ?? null,
@@ -372,15 +454,15 @@ Route::post('/checkout', function (Request $request) {
         'total_amount' => $total,
         'status' => 'pending',
         'payment_method' => $validated['payment_method'] ?? 'CIF / FOB Destination Logistics',
-        'notes' => ! empty($validated['notes']) ? $validated['notes'] . ' ' . $channelNote : 'Wholesale commodity order. ' . $channelNote,
+        'notes' => ! empty($validated['notes']) ? $validated['notes'].' '.$channelNote : 'Wholesale commodity order. '.$channelNote,
     ]);
 
     foreach ($validated['items'] as $item) {
         $price = (float) ($item['price'] ?? 0);
-        $unit = ! empty($item['unit']) ? ' (' . $item['unit'] . ')' : '';
+        $unit = ! empty($item['unit']) ? ' ('.$item['unit'].')' : '';
         OrderItem::create([
             'order_id' => $order->id,
-            'product_name' => $item['name'] . $unit,
+            'product_name' => $item['name'].$unit,
             'price' => $price,
             'quantity' => $item['qty'],
             'subtotal' => $price * $item['qty'],
@@ -404,7 +486,7 @@ Route::post('/checkout', function (Request $request) {
         'channel' => $channel,
         'whatsapp_url' => $notifications['whatsapp']['whatsapp_url'] ?? 'https://api.whatsapp.com/send?phone=5511958353433',
         'total' => number_format($total, 2),
-        'message' => 'Your commodity order '.$order->order_number.' has been recorded and automatically dispatched by our backend to the BRX Agro Global '.$targetDevice.'. Company officers have received your notification and will reach out promptly.',
+        'message' => 'Your commodity order #'.$order->order_number.' has been placed successfully! We have notified our trade desk via '.$targetDevice.', and a trade officer will follow up with you promptly regarding shipping logistics and export documentation.',
         'notifications' => [
             'company_alerted' => ! empty($notifications['company_emails']) || ! empty($notifications['whatsapp']) || $notifications['inquiry_synced'],
             'email_sent' => ! empty($notifications['company_emails']),
@@ -423,6 +505,7 @@ Route::post('/checkout', function (Request $request) {
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('notifications/test', [DashboardController::class, 'sendTestNotification'])->name('notifications.test');
 
     // Products Management
     Route::resource('products', ProductController::class);

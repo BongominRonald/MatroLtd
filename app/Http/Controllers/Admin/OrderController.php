@@ -51,6 +51,14 @@ class OrderController extends Controller
 
         $order->update($validated);
 
-        return back()->with('status', "Order #{$order->order_number} status updated to '{$validated['status']}'.");
+                $labels = [
+            'pending' => 'Pending Review',
+            'confirmed' => 'Confirmed',
+            'shipped' => 'Shipped / In Transit',
+            'delivered' => 'Delivered',
+            'cancelled' => 'Cancelled',
+        ];
+        $statusLabel = $labels[$validated['status']] ?? ucfirst($validated['status']);
+        return back()->with('status', "Order #{$order->order_number} status has been updated to {$statusLabel}.");
     }
 }

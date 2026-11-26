@@ -90,7 +90,13 @@
                                     <tr style="border-bottom: 1px solid #f1f5f9;">
                                         <td style="padding: 10px; font-weight: 600; color: #1e293b;">{{ $item->product_name }}</td>
                                         <td style="padding: 10px; text-align: center; color: #64748b;">{{ $item->quantity }}</td>
-                                        <td style="padding: 10px; text-align: right; color: #16a34a; font-weight: 600;">Direct Wholesale RFQ (FOB / CIF)</td>
+                                        <td style="padding: 10px; text-align: right; color: #16a34a; font-weight: 600;">
+                                            @if($item->price > 0)
+                                                ${{ number_format($item->subtotal ?: ($item->price * $item->quantity), 2) }} (${{ number_format($item->price, 2) }}/MT)
+                                            @else
+                                                Direct Wholesale RFQ (FOB / CIF)
+                                            @endif
+                                        </td>
                                     </tr>
                                     @empty
                                     <tr>

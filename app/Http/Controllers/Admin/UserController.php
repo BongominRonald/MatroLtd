@@ -50,7 +50,7 @@ class UserController extends Controller
         $user = User::withTrashed()->findOrFail($id);
 
         if ($user->id === auth()->id()) {
-            return back()->with('status', 'You cannot change your own administrator role.');
+            return back()->with('error', 'For security reasons, you cannot change your own administrator role.');
         }
 
         $validated = $request->validate([
@@ -60,7 +60,7 @@ class UserController extends Controller
         $user->role = $validated['role'];
         $user->save();
 
-        return back()->with('status', "Updated role for {$user->name} to '{$user->role}'.");
+        return back()->with('status', "User {$user->name}'s role has been updated to " . ucfirst($user->role) . ".");
     }
 
     public function destroy(int $id)
@@ -68,12 +68,12 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         if ($user->id === auth()->id()) {
-            return back()->with('status', 'You cannot deactivate your own administrator account.');
+            return back()->with('error', 'For security reasons, you cannot deactivate your own administrator account.');
         }
 
         $user->delete();
 
-        return back()->with('status', "User '{$user->name}' has been deactivated (soft-deleted).");
+        return back()->with('status', "User '{$user->name}' has been deactivated. They will no longer be able to log in.");
     }
 
     public function restore(int $id)
@@ -81,13 +81,34 @@ class UserController extends Controller
         $user = User::onlyTrashed()->findOrFail($id);
         $user->restore();
 
-        return back()->with('status', "User '{$user->name}' has been restored.");
+        return back()->with('status', "User '{$user->name}' has been restored and can now access their account.");
     }
 
     public function profile()
     {
+        $userId = auth()->id();
+        $currentSessionId = request()->session()->getId();
+
+        $sessions = \Illuminate\Support\Facades\DB::table('sessions')
+            ->where('user_id', $userId)
+            ->orderByDesc('last_activity')
+            ->get()
+            ->map(function ($s) use ($currentSessionId) {
+                $deviceInfo = \App\Http\Controllers\SessionController::parseUserAgent($s->user_agent);
+                return (object) [
+                    'id' => $s->id,
+                    'ip_address' => $s->ip_address ?: 'Unknown IP',
+                    'is_current_device' => ($s->id === $currentSessionId),
+                    'device_type' => $deviceInfo['device_type'],
+                    'browser' => $deviceInfo['browser'],
+                    'platform' => $deviceInfo['platform'],
+                    'last_active' => \Illuminate\Support\Carbon::createFromTimestamp($s->last_activity)->diffForHumans(),
+                ];
+            });
+
         return view('admin.users.profile', [
             'user' => auth()->user(),
+            'sessions' => $sessions,
         ]);
     }
 
@@ -108,10 +129,12 @@ class UserController extends Controller
 
         if (! empty($validated['new_password'])) {
             $user->password = Hash::make($validated['new_password']);
+            $user->save();
+            \Illuminate\Support\Facades\Auth::logoutOtherDevices($validated['new_password']);
+        } else {
+            $user->save();
         }
 
-        $user->save();
-
-        return back()->with('status', 'Admin account settings updated successfully.');
+        return back()->with('status', 'Your profile settings and password have been updated successfully.');
     }
 }

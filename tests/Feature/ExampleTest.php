@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\HeroSlide;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -140,7 +141,7 @@ class ExampleTest extends TestCase
 
         $robots = $this->get('/robots.txt');
         $robots->assertStatus(200);
-        $robots->assertSee('Sitemap: ' . url('/sitemap.xml'), false);
+        $robots->assertSee('Sitemap: '.url('/sitemap.xml'), false);
         $robots->assertSee('Disallow: /admin', false);
 
         $sitemap = $this->get('/sitemap.xml');
@@ -163,7 +164,7 @@ class ExampleTest extends TestCase
         $indexResponse = $this->actingAs($admin)->get(route('admin.hero-slides.index'));
         $indexResponse->assertOk();
 
-        $slide = \App\Models\HeroSlide::first();
+        $slide = HeroSlide::first();
         $this->assertNotNull($slide);
 
         $updateResponse = $this->actingAs($admin)->put(route('admin.hero-slides.update', $slide), [
@@ -192,5 +193,20 @@ class ExampleTest extends TestCase
         $homeResponse->assertSee('Custom admin lead paragraph description for the hero banner.');
         $homeResponse->assertSee('Custom Primary Button');
         $homeResponse->assertSee('25,000+ MT');
+    }
+
+    public function test_offline_page_and_service_worker_render_correctly(): void
+    {
+        $offline = $this->get('/offline');
+        $offline->assertStatus(200);
+        $offline->assertSee('Offline Mode Active');
+        $offline->assertSee('Browsing Offline');
+        $offline->assertSee('+55 11 95835-3433');
+
+        $home = $this->get('/');
+        $home->assertStatus(200);
+        $home->assertSee('/sw.js');
+        $home->assertSee('icon-192x192.png');
+        $home->assertSee('icon-512x512.png');
     }
 }

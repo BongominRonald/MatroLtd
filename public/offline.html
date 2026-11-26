@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Mode — BRX AGRO GLOBAL</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#78a22f">
+    <style>
+        :root {
+            --bg-dark: #0f1318;
+            --surface: #171d25;
+            --surface-border: rgba(120, 162, 47, 0.28);
+            --primary: #78a22f;
+            --primary-hover: #8cb937;
+            --text-main: #f0f4f8;
+            --text-muted: #9aa8b6;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+            line-height: 1.5;
+        }
+        @media all and (display-mode: standalone) {
+            body {
+                border-radius: 16px; /* Standard 16px */
+                overflow: hidden;
+                box-shadow: 0 0 0 1px rgba(120, 162, 47, 0.25), 0 12px 48px rgba(0, 0, 0, 0.6);
+            }
+        }
+        .offline-card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 18px;
+            max-width: 520px;
+            width: 100%;
+            padding: 2.25rem 2rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+        }
+        .icon-circle {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: rgba(120, 162, 47, 0.15);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(234, 179, 8, 0.18);
+            color: #facc15;
+            border: 1px solid rgba(234, 179, 8, 0.35);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.6rem;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+        p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .feature-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.75rem;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            margin-bottom: 0.65rem;
+            color: var(--text-main);
+        }
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+        .feature-icon {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        @media (min-width: 480px) {
+            .btn-group {
+                flex-direction: row;
+            }
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #eab308;
+            display: inline-block;
+            margin-right: 4px;
+            animation: pulse 1.8s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-card">
+        <div class="icon-circle">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+                <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+                <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+                <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+                <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                <line x1="12" y1="20" x2="12.01" y2="20"></line>
+            </svg>
+        </div>
+
+        <div>
+            <span class="badge"><span class="status-dot"></span> Offline Mode Active</span>
+        </div>
+
+        <h1>Browsing Offline</h1>
+        <p>You are currently not connected to the internet. BRX Agro Global's cached catalog and specifications remain available on your device.</p>
+
+        <div class="feature-box">
+            <div class="feature-item">
+                <span class="feature-icon">&#10003;</span>
+                <span>Previously viewed commodity specs &amp; assay certificates are cached.</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">&#10003;</span>
+                <span>Orders and RFQ inquiries composed offline will automatically queue locally.</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">&#10003;</span>
+                <span>Direct telephone and SMS contact remain available: <strong>+55 11 95835-3433</strong>.</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button onclick="window.location.reload()" class="btn btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+                Retry Connection
+            </button>
+            <a href="/" class="btn btn-outline">
+                Return to Cached App
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Auto-reload as soon as internet connectivity returns
+        window.addEventListener('online', function() {
+            const badge = document.querySelector('.badge');
+            if (badge) {
+                badge.style.background = 'rgba(120, 162, 47, 0.25)';
+                badge.style.color = '#78a22f';
+                badge.style.borderColor = '#78a22f';
+                badge.innerHTML = '<span class="status-dot" style="background:#78a22f"></span> Connection Restored! Reloading...';
+            }
+            setTimeout(function() {
+                window.location.href = '/';
+            }, 1200);
+        });
+    </script>
+</body>
+</html>

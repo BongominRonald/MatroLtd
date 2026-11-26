@@ -18,12 +18,34 @@
     <meta property="og:description" content="Institutional buyer portal for BRX AGRO GLOBAL Brazilian commodity origination and export.">
     <meta property="og:url" content="{{ ($initialMode ?? 'login') === 'register' ? route('register') : route('login') }}">
     <meta property="og:image" content="{{ asset('img/BRX Agro Global Product Emblem.png') }}">
-    <!-- Badge Favicon -->
+    <!-- Badge Favicon (With 192x192 & 512x512 Rounded Maskable Icons) -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('img/icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('img/icon-512x512.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-touch-icon.png') }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BRX Agro">
+    <style>
+        @media all and (display-mode: standalone), (display-mode: window-controls-overlay), (display-mode: fullscreen) {
+            html {
+                background-color: #0b0f14 !important;
+                height: 100% !important;
+                overflow: hidden !important;
+            }
+            body {
+                border-radius: 16px !important; /* Standard 16px OS window curvature */
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                min-height: 100vh !important;
+                margin: 0 !important;
+                box-shadow: 0 0 0 1px rgba(120, 162, 47, 0.22), 0 12px 48px rgba(0, 0, 0, 0.6) !important;
+            }
+        }
+    </style>
 
     <!-- Local Self-Hosted Assets -->
     <link rel="stylesheet" href="{{ asset('lib/boxicons/boxicons.min.css') }}">

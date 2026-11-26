@@ -89,11 +89,14 @@ class CheckoutTest extends TestCase
         Mail::assertSent(AdminOrderAlertMail::class);
     }
 
-    public function test_unauthenticated_guest_cannot_place_order_via_checkout_endpoint(): void
+    public function test_guest_client_can_place_commodity_order_without_account(): void
     {
+        Mail::fake();
+
         $payload = [
             'customer_name' => 'Anonymous Trader',
             'customer_email' => 'guest@example.com',
+            'channel' => 'both',
             'items' => [
                 [
                     'name' => 'Brazilian Non-GMO Soybeans',
@@ -104,14 +107,19 @@ class CheckoutTest extends TestCase
 
         $response = $this->postJson(route('checkout.store'), $payload);
 
-        $response->assertStatus(401);
+        $response->assertStatus(200);
         $response->assertJson([
-            'success' => false,
-            'message' => 'Authentication required. Please log in to place a commodity order.',
+            'success' => true,
         ]);
 
-        $this->assertDatabaseCount('orders', 0);
-        $this->assertDatabaseCount('order_items', 0);
+        $this->assertDatabaseHas('orders', [
+            'user_id' => null,
+            'customer_name' => 'Anonymous Trader',
+            'customer_email' => 'guest@example.com',
+        ]);
+        $this->assertDatabaseCount('order_items', 1);
+
+        Mail::assertSent(AdminOrderAlertMail::class);
     }
 
     public function test_authenticated_user_can_choose_whatsapp_channel_only(): void
@@ -311,5 +319,107 @@ class CheckoutTest extends TestCase
         ]);
 
         Mail::assertNothingSent();
+    }
+
+    public function test_callmebot_whatsapp_dispatches_realtime_to_company_device(): void
+    {
+        Mail::fake();
+        Http::fake([
+            'api.callmebot.com/*' => Http::response('OK', 200),
+        ]);
+
+        config([
+            'services.company.callmebot_api_key' => 'test_callmebot_key_123',
+            'services.company.whatsapp_raw' => '5511958353433',
+        ]);
+
+        $response = $this->postJson(route('checkout.store'), [
+            'customer_name' => 'CallMeBot Buyer',
+            'customer_email' => 'buyer@callmebot-test.com',
+            'channel' => 'whatsapp',
+            'items' => [
+                [
+                    'name' => 'Brazilian Non-GMO Soybeans',
+                    'qty' => 10,
+                ],
+            ],
+        ]);
+
+        $response->assertStatus(200);
+
+        Http::assertSent(function ($request) {
+            return str_contains($request->url(), 'api.callmebot.com/whatsapp.php')
+                && str_contains($request->url(), '5511958353433')
+                && str_contains($request->url(), 'apikey=test_callmebot_key_123');
+        });
+    }
+
+    public function test_meta_cloud_api_whatsapp_dispatches_realtime_to_company_device(): void
+    {
+        Mail::fake();
+        Http::fake([
+            'graph.facebook.com/*' => Http::response(['messaging_product' => 'whatsapp'], 200),
+        ]);
+
+        config([
+            'services.company.callmebot_api_key' => null,
+            'services.company.whatsapp_cloud_token' => 'meta_test_cloud_token',
+            'services.company.whatsapp_phone_number_id' => '10987654321',
+            'services.company.whatsapp_raw' => '5511958353433',
+        ]);
+
+        $response = $this->postJson(route('checkout.store'), [
+            'customer_name' => 'Meta Cloud Buyer',
+            'customer_email' => 'buyer@metacloud-test.com',
+            'channel' => 'whatsapp',
+            'items' => [
+                [
+                    'name' => 'Refined Cane Sugar (ICUMSA 45)',
+                    'qty' => 5,
+                ],
+            ],
+        ]);
+
+        $response->assertStatus(200);
+
+        Http::assertSent(function ($request) {
+            return str_contains($request->url(), 'graph.facebook.com/v19.0/10987654321/messages')
+                && $request->hasHeader('Authorization', 'Bearer meta_test_cloud_token')
+                && $request['to'] === '5511958353433';
+        });
+    }
+
+    public function test_resend_api_fallback_delivers_realtime_email_when_configured(): void
+    {
+        Mail::fake();
+        Http::fake([
+            'api.resend.com/emails' => Http::response(['id' => 're_email_12345'], 200),
+        ]);
+
+        config([
+            'services.resend.key' => 're_test_resend_key_999',
+            'mail.default' => 'log',
+            'services.company.trade_desk_email' => 'brxagroglobal@gmail.com',
+        ]);
+
+        $response = $this->postJson(route('checkout.store'), [
+            'customer_name' => 'Resend Test Buyer',
+            'customer_email' => 'buyer@resend-test.com',
+            'channel' => 'email',
+            'items' => [
+                [
+                    'name' => 'Brazilian Yellow Corn Grade 2',
+                    'qty' => 3,
+                ],
+            ],
+        ]);
+
+        $response->assertStatus(200);
+
+        Http::assertSent(function ($request) {
+            return $request->url() === 'https://api.resend.com/emails'
+                && $request->hasHeader('Authorization', 'Bearer re_test_resend_key_999')
+                && in_array('brxagroglobal@gmail.com', $request['to']);
+        });
     }
 }

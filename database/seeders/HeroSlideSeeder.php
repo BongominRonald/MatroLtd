@@ -9,11 +9,28 @@ class HeroSlideSeeder extends Seeder
 {
     public function run(): void
     {
-        if (HeroSlide::count() > 0) {
-            return;
-        }
 
         $slides = [
+            [
+                'eyebrow' => 'Maritime Logistics & Deepwater Berths',
+                'title' => 'Global Container Cargo &',
+                'title_highlight' => 'Ocean Freight Direct',
+                'description' => 'Direct containerized and bulk ocean logistics operating through Santos and Paranaguá terminals. Full-scale intermodal vessel loading, MAPA/SIF phytosanitary clearance, and certified shipping schedules.',
+                'primary_cta_text' => 'Explore Agricultural Products',
+                'primary_cta_url' => '#products',
+                'secondary_cta_text' => 'Request Bulk RFQ',
+                'secondary_cta_url' => '#rfq-desk',
+                'image' => 'img/banner-container-cargo.jpg',
+                'image_webp' => 'img/banner-container-cargo.webp',
+                'sort_order' => 1,
+                'is_active' => true,
+                'stats' => [
+                    ['value' => '40ft & 20ft', 'label' => 'Container Capacity'],
+                    ['value' => '100% SGS', 'label' => 'Pre-Shipment Tested'],
+                    ['value' => 'Zero Risk', 'label' => 'Global Port Discharge'],
+                    ['value' => 'Santos & Paranaguá', 'label' => 'Deepwater Exit Ports'],
+                ],
+            ],
             [
                 'eyebrow' => 'Direct Harvest Basin Sourcing',
                 'title' => 'From Brazilian Farms to',
@@ -25,7 +42,7 @@ class HeroSlideSeeder extends Seeder
                 'secondary_cta_url' => '#rfq-desk',
                 'image' => 'img/banner-shipping.jpg',
                 'image_webp' => 'img/banner-shipping.webp',
-                'sort_order' => 1,
+                'sort_order' => 2,
                 'is_active' => true,
                 'stats' => [
                     ['value' => '{total_stock}+ MT', 'label' => 'Active Supply'],
@@ -45,7 +62,7 @@ class HeroSlideSeeder extends Seeder
                 'secondary_cta_url' => '#rfq-desk',
                 'image' => 'img/banner-harvest.jpg',
                 'image_webp' => 'img/banner-harvest.webp',
-                'sort_order' => 2,
+                'sort_order' => 3,
                 'is_active' => true,
                 'stats' => [
                     ['value' => '10 Sectors', 'label' => 'Commodity Categories'],
@@ -65,7 +82,7 @@ class HeroSlideSeeder extends Seeder
                 'secondary_cta_url' => '#rfq-desk',
                 'image' => 'img/banner-warehouse.jpg',
                 'image_webp' => 'img/banner-warehouse.webp',
-                'sort_order' => 3,
+                'sort_order' => 4,
                 'is_active' => true,
                 'stats' => [
                     ['value' => '5 Continents', 'label' => 'Global Distribution'],
@@ -77,7 +94,7 @@ class HeroSlideSeeder extends Seeder
         ];
 
         foreach ($slides as $slide) {
-            HeroSlide::create($slide);
+            HeroSlide::updateOrCreate(['image' => $slide['image']], $slide);
         }
     }
 }
