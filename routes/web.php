@@ -163,11 +163,18 @@ Route::get('/merchant-feed.xml', function () {
 
     foreach ($products as $prod) {
         $productUrl = $baseUrl.'/?product='.urlencode($prod->slug ?: ('item-'.$prod->id)).'#products';
-        $imageUrl = ! empty($prod->image)
-            ? (Str::startsWith($prod->image, ['http://', 'https://']) ? $prod->image : asset($prod->image))
+        $rawImage = $prod->image;
+        if (! empty($rawImage) && Str::endsWith($rawImage, '.webp')) {
+            $jpgCandidate = Str::replaceLast('.webp', '.jpg', $rawImage);
+            if (file_exists(public_path($jpgCandidate))) {
+                $rawImage = $jpgCandidate;
+            }
+        }
+        $imageUrl = ! empty($rawImage)
+            ? (Str::startsWith($rawImage, ['http://', 'https://']) ? $rawImage : asset($rawImage))
             : asset('img/carousel-1.jpg');
         $description = trim((string) ($prod->description ?: ($prod->name.' — Institutional export grade Brazilian agro-commodity supplied by BRX AGRO GLOBAL ('.($prod->unit ?: 'MT').').')));
-        
+
         $rawPrice = (float) ($prod->price ?: 450.00);
         if ($targetCurrency === 'BRL') {
             $priceFormatted = number_format($rawPrice * $brlRate, 2, '.', '').' BRL';
