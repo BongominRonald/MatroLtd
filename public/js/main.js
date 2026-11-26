@@ -123,10 +123,10 @@
             url: "service-detail.html"
         },
         {
-            title: "Fresh Heirloom Vegetables & Greens",
-            category: "Harvest Produce",
-            desc: "Crisp organic butterhead lettuce, kale, heirloom carrots, and vine tomatoes.",
-            url: "product.html"
+            title: "Container Cargo & Maritime Freight",
+            category: "Export Logistics",
+            desc: "Full Container Load (FCL) shipping, bulk cargo booking, and certified Santos port dispatch.",
+            url: "#products"
         },
         {
             title: "Orchard Fresh Organic Fruits",

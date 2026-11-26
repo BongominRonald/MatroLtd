@@ -143,14 +143,14 @@
             <div class="form-box Register">
                 <h2 class="animation" style="--li: 0s; --lo: 0.6s;">Register</h2>
                 <div class="register-peppers-strip animation" style="--li: 0.04s; --lo: 0.55s;">
-                    <img src="{{ asset('img/bell-peppers-bg.webp') }}" alt="Green, Yellow &amp; Red Bell Peppers" class="peppers-strip-thumb" onerror="this.onerror=null;this.src='{{ asset('img/bell-peppers-bg.jpg') }}'">
+                    <img src="{{ asset('img/banner-container-cargo.webp') }}" alt="Direct Deepwater Container Cargo &amp; Ocean Freight" class="peppers-strip-thumb" onerror="this.onerror=null;this.src='{{ asset('img/banner-container-cargo.jpg') }}'">
                     <div class="peppers-strip-text">
                         <span class="peppers-pill-group">
-                            <span class="pill green">Green</span>
-                            <span class="pill yellow">Yellow</span>
-                            <span class="pill red">Red</span>
+                            <span class="pill green">FOB</span>
+                            <span class="pill yellow">CIF</span>
+                            <span class="pill red">CFR</span>
                         </span>
-                        <span class="peppers-subtitle">Farm Fresh Bell Peppers</span>
+                        <span class="peppers-subtitle">Container Cargo &amp; Ocean Freight</span>
                     </div>
                 </div>
                 <form id="registerForm" action="{{ route('register') }}" method="POST" novalidate>
@@ -214,17 +214,15 @@
             <!-- ================= REGISTER INFO TEXT (LEFT SIDE) ================= -->
             <div class="info-text Register">
                 <div class="produce-preview-card animation" style="--li: 0s; --lo: 0.35s;">
-                    <img src="{{ asset('img/bell-peppers-bg.webp') }}" alt="Fresh Green, Yellow and Red Bell Peppers" class="produce-card-img" onerror="this.onerror=null;this.src='{{ asset('img/bell-peppers-bg.jpg') }}'">
+                    <img src="{{ asset('img/banner-container-cargo.webp') }}" alt="Direct Deepwater Container Cargo &amp; Ocean Freight" class="produce-card-img" onerror="this.onerror=null;this.src='{{ asset('img/banner-container-cargo.jpg') }}'">
                     <div class="produce-card-badge peppers">
-                        <span class="pepper-dot green"></span>
-                        <span class="pepper-dot yellow"></span>
-                        <span class="pepper-dot red"></span>
-                        <span>Bell Peppers</span>
+                        <i class='bx bxs-ship'></i>
+                        <span>Container Cargo</span>
                     </div>
                 </div>
-                <h2 class="animation" style="--li: 0.1s; --lo: 0.25s;">FRESH PRODUCE</h2>
+                <h2 class="animation" style="--li: 0.1s; --lo: 0.25s;">CONTAINER LOGISTICS</h2>
                 <p class="animation" style="--li: 0.2s; --lo: 0.15s;">
-                    Create an account to source verified green, yellow &amp; red bell peppers.
+                    Create an institutional buyer account to request FOB/CIF container quotes and deepwater vessel allocation.
                 </p>
             </div>
 
