@@ -182,8 +182,11 @@ class OrderNotificationService
     {
         $itemsText = $order->items->map(function ($item, $idx) {
             $num = $idx + 1;
-            return "  {$num}. *{$item->product_name}*\n     Quantity: {$item->quantity} Lot(s) / MT\n     Assay: SGS Inspected & MAPA Cleared";
+            $priceText = $item->price > 0 ? " | Price: $" . number_format($item->price, 2) . " (Total: $" . number_format($item->subtotal ?: ($item->price * $item->quantity), 2) . ")" : "";
+            return "  {$num}. *{$item->product_name}*\n     Quantity: {$item->quantity} Lot(s) / MT{$priceText}\n     Assay: SGS Inspected & MAPA Cleared";
         })->implode("\n\n");
+
+        $totalText = $order->total_amount > 0 ? "\n💰 *Estimated Order Value:* $" . number_format($order->total_amount, 2) . " USD\n" : "";
 
         $notesText = $order->notes ? "\n\n📝 *Buyer Notes / Assays:*\n" . $order->notes : "";
         $phoneText = $order->customer_phone ?: "Not specified";
@@ -208,6 +211,7 @@ class OrderNotificationService
             . "• Loading Berth: Santos / Paranaguá (Brazil)\n\n"
             . "🌾 *ORDERED COMMODITIES:*\n"
             . "{$itemsText}"
+            . "{$totalText}"
             . "{$notesText}\n\n"
             . "━━━━━━━━━━━━━━━━━━━━━━\n"
             . "⚡ *Action Required:* Trade Desk Officer to contact buyer to confirm vessel schedule and issue draft contract.\n"

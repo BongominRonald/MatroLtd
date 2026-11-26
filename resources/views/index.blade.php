@@ -2950,7 +2950,7 @@
                         <div class="col product-item" data-category="{{ $product->category->name ?? 'Grains & Rice' }}">
                             <div class="sh-product-card h-100">
                                 <div class="sh-product-img">
-                                    <a href="javascript:void(0)" class="quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
+                                    <a href="javascript:void(0)" class="quick-view-trigger" data-product="{{ $product->name }}" data-price="{{ $product->price > 0 ? '$' . number_format($product->price, 2) . ' / ' . ($product->unit == 'Metric Ton' ? 'MT' : $product->unit) : 'Direct Wholesale FOB / CIF' }}" data-raw-price="{{ (float)$product->price }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
                                         <img src="{{ asset($product->image ?: 'img/service-1.jpg') }}" alt="{{ $product->name }}" loading="lazy" decoding="async">
                                     </a>
                                     @if ($product->unit == 'Metric Ton')
@@ -2961,9 +2961,18 @@
                                 </div>
                                 <div class="sh-card-body">
                                     <div class="sh-card-brand">{{ $product->origin ?? 'Brazil' }} · {{ $product->category->name ?? 'Agro' }}</div>
-                                    <a href="javascript:void(0)" class="text-decoration-none quick-view-trigger" data-product="{{ $product->name }}" data-price="Price Calculated by Destination (FOB / CIF)" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
+                                    <a href="javascript:void(0)" class="text-decoration-none quick-view-trigger" data-product="{{ $product->name }}" data-price="{{ $product->price > 0 ? '$' . number_format($product->price, 2) . ' / ' . ($product->unit == 'Metric Ton' ? 'MT' : $product->unit) : 'Direct Wholesale FOB / CIF' }}" data-raw-price="{{ (float)$product->price }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}" data-unit="{{ $product->unit ?? 'MT' }}">
                                         <h6 class="sh-card-name mb-0">{{ $product->name }}</h6>
                                     </a>
+                                    <div class="sh-card-price mt-1">
+                                        @if($product->price > 0)
+                                            <span class="price-now text-success fw-bold" style="font-size: 1.05rem;">${{ number_format($product->price, 2) }}</span>
+                                            <span class="text-muted small">/ {{ $product->unit == 'Metric Ton' ? 'MT' : $product->unit }}</span>
+                                        @else
+                                            <span class="price-now text-success fw-bold" style="font-size: 0.95rem;">Wholesale Quote</span>
+                                            <span class="text-muted small">/ MT</span>
+                                        @endif
+                                    </div>
                                     <div class="d-flex align-items-center justify-content-between text-muted small py-1 border-top border-secondary border-opacity-10 mt-1">
                                         <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">
                                             <i class="bi bi-patch-check-fill me-1"></i>SGS Assayed
@@ -2975,7 +2984,7 @@
                                         <strong class="text-secondary">{{ number_format($product->stock) }} {{ $product->unit == 'Metric Ton' ? 'MT' : 'units' }}</strong>
                                     </div>
                                     <div class="mt-auto pt-2">
-                                        <button type="button" class="sh-card-cart-btn btn-add-cart w-100" data-name="{{ $product->name }}" data-price="0" data-unit="{{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}">
+                                        <button type="button" class="sh-card-cart-btn btn-add-cart w-100" data-name="{{ $product->name }}" data-price="{{ (float)$product->price }}" data-unit="{{ $product->unit ?? 'MT' }}" data-image="{{ asset($product->image ?: 'img/service-1.jpg') }}" data-origin="{{ $product->origin ?? 'Brazil' }}">
                                             <i class="bi bi-bag-plus"></i> Add to Cart
                                         </button>
                                     </div>
@@ -4653,7 +4662,7 @@
                     cart = cart.map(function (item) {
                         return {
                             name: item.name || 'Commodity Lot',
-                            price: 0,
+                            price: parseFloat(item.price) || 0,
                             unit: item.unit || 'MT',
                             image: item.image || '{{ asset('img/service-1.jpg') }}',
                             origin: item.origin || 'Brazil',
@@ -4738,10 +4747,17 @@
                 $list.empty();
 
                 var totalLots = 0;
+                var totalEstimatedValue = 0;
 
                 cart.forEach(function (item, index) {
                     var qty = parseInt(item.qty, 10) || 1;
+                    var itemPrice = parseFloat(item.price) || 0;
                     totalLots += qty;
+                    totalEstimatedValue += (itemPrice * qty);
+
+                    var priceBadge = itemPrice > 0
+                        ? `<span class="badge" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.8rem; font-weight: 700;">$${itemPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} / ${item.unit || 'MT'}</span>`
+                        : `<span class="badge" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.76rem; font-weight: 600;">Direct Export Lot</span>`;
 
                     var itemHtml = `
                         <div class="sh-cart-item">
@@ -4766,7 +4782,7 @@
                                         <button type="button" class="sh-cart-qty-btn" onclick="changeItemQty(${index}, 1)" title="Increase">+</button>
                                     </div>
                                     <div class="text-end ms-auto flex-shrink-0" style="min-width: 0;">
-                                        <span class="badge" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.76rem; font-weight: 600;">Direct Export Lot</span>
+                                        ${priceBadge}
                                         <small class="text-muted d-block" style="font-size: 0.68rem; white-space: nowrap;">FOB / CIF IncoTerms</small>
                                     </div>
                                 </div>
@@ -4777,7 +4793,11 @@
                 });
 
                 $('#cartSummaryLotCount').text(totalLots);
-                $('#cartSummaryTotalVal').text(totalLots + (totalLots === 1 ? ' Lot' : ' Lots'));
+                if (totalEstimatedValue > 0) {
+                    $('#cartSummaryTotalVal').text('$' + totalEstimatedValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' (' + totalLots + ' MT)');
+                } else {
+                    $('#cartSummaryTotalVal').text(totalLots + (totalLots === 1 ? ' Lot' : ' Lots'));
+                }
             }
             window.renderCartDrawer = renderCartDrawer;
 
@@ -4839,6 +4859,7 @@
             var currentQvUnit = 'MT';
             var currentQvImage = '{{ asset('img/service-1.jpg') }}';
             var currentQvOrigin = 'Brazil';
+            var currentQvPrice = 0;
 
             $(document).on('click', '.btn-add-cart', function (e) {
                 e.preventDefault();
@@ -4848,14 +4869,16 @@
                 var prodUnit = $btn.attr('data-unit') || 'MT';
                 var prodImage = $btn.attr('data-image') || '{{ asset('img/service-1.jpg') }}';
                 var prodOrigin = $btn.attr('data-origin') || 'Brazil';
+                var prodPrice = parseFloat($btn.attr('data-price')) || 0;
 
                 var existing = cart.find(function (i) { return i.name === prodName; });
                 if (existing) {
                     existing.qty = (parseInt(existing.qty, 10) || 1) + 1;
+                    if (prodPrice > 0) existing.price = prodPrice;
                 } else {
                     cart.push({
                         name: prodName,
-                        price: 0,
+                        price: prodPrice,
                         unit: prodUnit,
                         image: prodImage,
                         origin: prodOrigin,
@@ -4881,11 +4904,14 @@
                 currentQvImage = $(this).attr('data-image') || '{{ asset('img/service-1.jpg') }}';
                 currentQvOrigin = $(this).attr('data-origin') || 'Brazil';
                 currentQvUnit = $(this).attr('data-unit') || 'MT';
+                currentQvPrice = parseFloat($(this).attr('data-raw-price')) || 0;
+                var displayPrice = $(this).attr('data-price') || 'Direct Wholesale FOB / CIF';
 
                 $('#qvModalTitle').text(currentQvProduct);
                 $('#qvModalName').text(currentQvProduct);
                 $('#qvModalOrigin').text(currentQvOrigin);
                 $('#qvModalImg').attr('src', currentQvImage);
+                $('#qvModalPrice').text(displayPrice);
 
                 var modal = new bootstrap.Modal(document.getElementById('quickViewModal'));
                 modal.show();
@@ -4896,10 +4922,11 @@
                 var existing = cart.find(function (i) { return i.name === currentQvProduct; });
                 if (existing) {
                     existing.qty = (parseInt(existing.qty, 10) || 1) + 1;
+                    if (currentQvPrice > 0) existing.price = currentQvPrice;
                 } else {
                     cart.push({
                         name: currentQvProduct,
-                        price: 0,
+                        price: currentQvPrice,
                         unit: currentQvUnit,
                         image: currentQvImage,
                         origin: currentQvOrigin,
@@ -5048,10 +5075,21 @@
                 var $chkList = $('#checkoutItemsList');
                 $chkList.empty();
                 var lotCount = 0;
+                var checkoutTotal = 0;
 
                 cart.forEach(function (item) {
                     var qty = parseInt(item.qty, 10) || 1;
+                    var itemPrice = parseFloat(item.price) || 0;
                     lotCount += qty;
+                    var itemSubtotal = itemPrice * qty;
+                    checkoutTotal += itemSubtotal;
+
+                    var priceTag = itemPrice > 0
+                        ? `<div class="text-end flex-shrink-0">
+                               <strong class="text-success d-block" style="font-size: 0.9rem;">$${itemSubtotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong>
+                               <small class="text-muted" style="font-size: 0.74rem;">$${itemPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} / ${item.unit || 'MT'}</small>
+                           </div>`
+                        : `<span class="badge flex-shrink-0" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.78rem;">SGS Assayed Lot</span>`;
 
                     $chkList.append(`
                         <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary border-opacity-10 gap-2">
@@ -5059,12 +5097,17 @@
                                 <strong class="sh-text-title d-block" style="word-break: break-word;">${item.name}</strong>
                                 <span class="text-muted small">${qty} ${item.unit || 'MT / Lot(s)'} · ${item.origin || 'Brazil'} Origin</span>
                             </div>
-                            <span class="badge flex-shrink-0" style="background: rgba(120, 162, 47, 0.15); color: var(--sh-primary); font-size: 0.78rem;">SGS Assayed Lot</span>
+                            ${priceTag}
                         </div>
                     `);
                 });
 
                 $('#checkoutItemCountBadge').text(lotCount + (lotCount === 1 ? ' item' : ' items'));
+                if (checkoutTotal > 0) {
+                    $('#checkoutTotalVal').text('$' + checkoutTotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' (' + lotCount + ' MT)');
+                } else {
+                    $('#checkoutTotalVal').text('Direct Wholesale IncoTerms 2020');
+                }
                 $('#checkoutAlertBox').addClass('d-none');
 
                 var checkoutModal = new bootstrap.Modal(document.getElementById('agroviaCheckoutModal'));
@@ -5136,7 +5179,7 @@
                             name: item.name,
                             unit: item.unit || 'MT',
                             qty: parseInt(item.qty, 10) || 1,
-                            price: 0
+                            price: parseFloat(item.price) || 0
                         };
                     })
                 };
