@@ -92,7 +92,7 @@ body {
     position: absolute;
     inset: 0;
     background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.86) 0%, rgba(246, 252, 247, 0.82) 100%),
-                      url('img/sunflower-bg.jpg');
+                      url('../img/sunflower-bg.jpg');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -102,13 +102,13 @@ body {
     transition: opacity 0.8s ease;
 }
 
-/* Background image for Register: Green, yellow, and red bell peppers */
+/* Background image for Register: Global Maritime Container Cargo */
 .container::after {
     content: '';
     position: absolute;
     inset: 0;
     background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(246, 252, 247, 0.78) 100%),
-                      url('img/bell-peppers-bg.jpg');
+                      url('../img/banner-container-cargo.jpg');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -127,7 +127,7 @@ body {
 }
 
 /* ================= CURVED ANIMATED BACKGROUND SHAPES ================= */
-/* Rich vegetable green to sunflower gold gradient in login mode */
+/* Deep forest green to sunflower gold gradient in login mode */
 .curved-shape {
     position: absolute;
     right: 0;
@@ -135,7 +135,7 @@ body {
     height: 520px;
     width: 700px;
     background: linear-gradient(135deg, rgba(20, 83, 45, 0.94) 0%, rgba(25, 135, 84, 0.88) 45%, rgba(245, 158, 11, 0.88) 100%),
-                url('img/sunflower-bg.jpg') center/cover no-repeat;
+                url('../img/sunflower-bg.jpg') center/cover no-repeat;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     transform: rotate(10deg) skewY(40deg);
@@ -145,12 +145,12 @@ body {
     z-index: 1;
 }
 
-/* In Register mode: showcases green, yellow, and red bell peppers on the left side */
+/* In Register mode: showcases container cargo & maritime logistics on the left side */
 .container.active .curved-shape {
     transform: rotate(0deg) skewY(0deg);
     transition-delay: 0.3s;
     background: linear-gradient(180deg, rgba(14, 43, 22, 0.50) 0%, rgba(10, 30, 16, 0.78) 100%),
-                url('img/bell-peppers-bg.jpg') center/cover no-repeat;
+                url('../img/banner-container-cargo.jpg') center/cover no-repeat;
 }
 
 /* Light crystalline shape for Register form */
