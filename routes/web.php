@@ -193,6 +193,18 @@ Route::get('/merchant-feed.xml', function () {
     ]);
 })->name('merchant.feed');
 
+// Return & Refund Policy (Google Merchant Center Compliance)
+Route::get('/return-policy', function () {
+    $path = public_path('return-policy.html');
+    if (! file_exists($path)) {
+        abort(404);
+    }
+
+    return response(file_get_contents($path), 200, [
+        'Content-Type' => 'text/html; charset=utf-8',
+    ]);
+})->name('return.policy');
+
 // Offline PWA Fallback Page
 Route::get('/offline', function () {
     $path = public_path('offline.html');

@@ -3780,6 +3780,7 @@
                 <div class="sh-footer-col">
                     <h6>Legal &amp; Privacy</h6>
                     <ul class="list-unstyled small mb-0">
+                        <li class="mb-2"><a href="/return-policy" target="_blank"><i class="bi bi-arrow-return-left me-1 text-success"></i>Return &amp; Refund Policy</a></li>
                         <li class="mb-2"><a href="javascript:void(0)" onclick="BRXCookieManager.openPreferences()"><i class="bi bi-sliders me-1 text-success"></i>Cookie Settings</a></li>
                         <li class="mb-2"><a href="javascript:void(0)" onclick="BRXCookieManager.openPolicy()"><i class="bi bi-shield-check me-1 text-success"></i>Cookie &amp; Data Policy</a></li>
                         <li class="mb-2"><a href="javascript:void(0)">Phytosanitary Terms (MAPA)</a></li>
