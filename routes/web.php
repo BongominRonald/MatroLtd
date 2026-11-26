@@ -158,13 +158,25 @@ Route::get('/merchant-feed.xml', function () {
     $xml .= '    <link>'.e($baseUrl.'/').'</link>'."\n";
     $xml .= '    <description>Direct Brazilian Agricultural Commodity Export Catalog — Soybeans, ICUMSA 45 Sugar, Yellow Corn, Arabica Coffee, Edible Oils &amp; Frozen Proteins.</description>'."\n";
 
+    $targetCurrency = strtoupper(request()->query('currency', 'USD'));
+    $brlRate = 5.85; // Fixed institutional spot peg for BRL conversion if requested
+
     foreach ($products as $prod) {
         $productUrl = $baseUrl.'/?product='.urlencode($prod->slug ?: ('item-'.$prod->id)).'#products';
         $imageUrl = ! empty($prod->image)
             ? (Str::startsWith($prod->image, ['http://', 'https://']) ? $prod->image : asset($prod->image))
             : asset('img/carousel-1.jpg');
         $description = trim((string) ($prod->description ?: ($prod->name.' — Institutional export grade Brazilian agro-commodity supplied by BRX AGRO GLOBAL ('.($prod->unit ?: 'MT').').')));
-        $priceFormatted = number_format((float) ($prod->price ?: 450.00), 2, '.', '').' USD';
+        
+        $rawPrice = (float) ($prod->price ?: 450.00);
+        if ($targetCurrency === 'BRL') {
+            $priceFormatted = number_format($rawPrice * $brlRate, 2, '.', '').' BRL';
+            $shippingPrice = '0.00 BRL';
+        } else {
+            $priceFormatted = number_format($rawPrice, 2, '.', '').' USD';
+            $shippingPrice = '0.00 USD';
+        }
+
         $availability = ((int) ($prod->stock ?? 100)) > 0 ? 'in_stock' : 'out_of_stock';
         $stockQuantity = (int) ($prod->stock ?? 100);
         $categoryName = $prod->category?->name ?: 'Agricultural Commodities';
@@ -184,12 +196,12 @@ Route::get('/merchant-feed.xml', function () {
         $xml .= '      <g:shipping>'."\n";
         $xml .= '        <g:country>US</g:country>'."\n";
         $xml .= '        <g:service>Maritime Export Freight</g:service>'."\n";
-        $xml .= '        <g:price>0.00 USD</g:price>'."\n";
+        $xml .= '        <g:price>'.$shippingPrice.'</g:price>'."\n";
         $xml .= '      </g:shipping>'."\n";
         $xml .= '      <g:shipping>'."\n";
         $xml .= '        <g:country>BR</g:country>'."\n";
         $xml .= '        <g:service>Port Dispatch Logistics</g:service>'."\n";
-        $xml .= '        <g:price>0.00 USD</g:price>'."\n";
+        $xml .= '        <g:price>'.$shippingPrice.'</g:price>'."\n";
         $xml .= '      </g:shipping>'."\n";
         $xml .= '      <g:product_type>'.e('Food, Beverages & Tobacco > Food Items > '.$categoryName).'</g:product_type>'."\n";
         $xml .= '    </item>'."\n";
