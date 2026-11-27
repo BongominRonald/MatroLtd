@@ -19,6 +19,10 @@
       "dest": "/api/index.php"
     },
     {
+      "src": "/ads.txt",
+      "dest": "/api/index.php"
+    },
+    {
       "src": "/fonts/(.*)",
       "dest": "/public/fonts/$1"
     },
@@ -77,6 +81,8 @@
     "LOG_CHANNEL": "stderr",
     "LOG_LEVEL": "error",
     "DB_CONNECTION": "pgsql",
-    "GOOGLE_SITE_VERIFICATION": "3cxhqQ5SqG9YYE-tJcZo9FSWTRymvtjtsf038n0zXQk"
+    "GOOGLE_SITE_VERIFICATION": "3cxhqQ5SqG9YYE-tJcZo9FSWTRymvtjtsf038n0zXQk",
+    "GOOGLE_ADSENSE_CLIENT_ID": "ca-pub-XXXXXXXXXXXXXXXX",
+    "GOOGLE_ADSENSE_ENABLED": "true"
   }
 }
