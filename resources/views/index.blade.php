@@ -202,6 +202,10 @@
     </script>
 
     <style>
+        html {
+            scrollbar-gutter: stable;
+        }
+
         /* ===== Theme Tokens (Using Arovia / Matro Color Palette) ===== */
         :root {
             --sh-primary: #78a22f;          /* Agrovia Primary Olive Green */
@@ -1575,10 +1579,11 @@
         }
         .sh-card-cart-btn {
             width: 100%;
-            padding: 8px 0;
+            min-height: 38px;
+            padding: 8px 16px;
             background: var(--sh-primary);
-            color: #fff;
-            border: none;
+            color: #ffffff !important;
+            border: 1px solid transparent;
             border-radius: 999px;
             font-weight: 600;
             font-size: .85rem;
@@ -1587,29 +1592,25 @@
             justify-content: center;
             gap: 6px;
             margin-top: auto;
-            transition: all .2s;
             cursor: pointer;
             text-decoration: none;
+            user-select: none;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease !important;
+            will-change: transform, background-color;
+            outline: none;
         }
         .sh-card-cart-btn:hover {
-            background: var(--sh-primary-dark);
-            color: #fff;
+            background: var(--sh-primary-dark) !important;
+            color: #ffffff !important;
+            transform: translateY(-1px) translateZ(0);
+            box-shadow: 0 4px 14px rgba(120, 162, 47, 0.32);
         }
-        .sh-card-cart-btn.has-scroll-anim {
-            opacity: 1;
-            transform: none;
-        }
-        .sh-card-cart-btn.has-scroll-anim.is-visible {
-            animation: shStripBounceIn 0.72s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .sh-card-cart-btn.has-scroll-anim {
-                opacity: 1;
-                transform: none;
-            }
-            .sh-card-cart-btn.has-scroll-anim.is-visible {
-                animation: none;
-            }
+        .sh-card-cart-btn:active {
+            transform: translateY(0) scale(0.98) translateZ(0) !important;
         }
 
         /* ===== Section Titles ===== */
@@ -2343,10 +2344,14 @@
             border-radius: 14px;
             background: var(--sh-surface);
             border: 1px solid var(--bs-border-color);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
             transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
         }
         .sh-product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) translateZ(0);
             box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
             border-color: rgba(120, 162, 47, 0.65) !important;
         }
@@ -2402,7 +2407,7 @@
             border-color: #10b981 !important;
             color: #ffffff !important;
             box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4) !important;
-            pointer-events: none;
+            transform: scale(0.98) translateZ(0);
         }
         /* Copy to clipboard badge affordance */
         .copyable-badge {
@@ -5177,6 +5182,10 @@
                         body.scrollLeft = 0;
                     }
                 }
+                var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+                if (scrollbarWidth > 0) {
+                    document.body.style.paddingRight = scrollbarWidth + 'px';
+                }
                 document.body.style.overflow = 'hidden';
             }
             window.openCartDrawer = openCartDrawer;
@@ -5187,6 +5196,7 @@
                 if (backdrop) backdrop.classList.remove('show');
                 if (drawer) drawer.classList.remove('show');
                 document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
             }
             window.closeCartDrawer = closeCartDrawer;
 
@@ -5340,6 +5350,9 @@
             $(document).on('click', '.btn-add-cart', function (e) {
                 e.preventDefault();
                 var $btn = $(this);
+                if ($btn.hasClass('btn-added')) {
+                    return;
+                }
                 var origHtml = $btn.html();
                 var prodName = $btn.attr('data-name') || 'Agricultural Commodity';
                 var prodUnit = $btn.attr('data-unit') || 'MT';
@@ -6300,34 +6313,6 @@
                 } else {
                     stripItems.forEach(function (item) {
                         item.classList.add('is-visible');
-                    });
-                }
-            }
-
-            // Product Card "Add to Cart" buttons (.sh-card-cart-btn) bounce-on-scroll animation
-            var cartButtons = document.querySelectorAll('.sh-card-cart-btn');
-            if (cartButtons.length) {
-                cartButtons.forEach(function (btn) {
-                    btn.classList.add('has-scroll-anim');
-                });
-
-                if ('IntersectionObserver' in window) {
-                    var cartBtnObserver = new IntersectionObserver(function (entries) {
-                        entries.forEach(function (entry) {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add('is-visible');
-                            } else {
-                                entry.target.classList.remove('is-visible');
-                            }
-                        });
-                    }, { threshold: 0.15 });
-
-                    cartButtons.forEach(function (btn) {
-                        cartBtnObserver.observe(btn);
-                    });
-                } else {
-                    cartButtons.forEach(function (btn) {
-                        btn.classList.add('is-visible');
                     });
                 }
             }
