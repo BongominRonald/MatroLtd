@@ -236,4 +236,60 @@ class ExampleTest extends TestCase
         $returnPolicy->assertStatus(200);
         $returnPolicy->assertSee('Return', false);
     }
+
+    public function test_homepage_renders_top_selling_commodities_in_hero_and_google_adsense(): void
+    {
+        $this->seed();
+
+        $response = $this->get('/');
+        $response->assertStatus(200);
+
+        // Verify top-selling products in hero / quick access
+        $response->assertSee('Top-Selling Exports:');
+        $response->assertSee('Sugar ICUMSA 45');
+        $response->assertSee('465/MT');
+        $response->assertSee('Sunflower Oil');
+        $response->assertSee('915/MT');
+        $response->assertSee('Soybean Oil');
+        $response->assertSee('950/MT');
+        $response->assertSee('Corn Oil');
+        $response->assertSee('1,100/MT');
+        $response->assertSee('Palm Olein Oil');
+        $response->assertSee('920/MT');
+        $response->assertSee('Long Grain Rice');
+        $response->assertSee('295/MT');
+
+        // Verify Hero Slide for Top-Selling Commodities
+        $response->assertSee('Top-Selling Sugar, Edible Oils &');
+        $response->assertSee('Brazilian Long Grain Rice');
+
+        // Verify Google AdSense
+        $response->assertSee('pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', false);
+        $response->assertSee('adsbygoogle', false);
+        $response->assertSee('Advertisement');
+    }
+
+    public function test_trade_desk_safeguard_suppresses_dispatch_when_disabled(): void
+    {
+        config(['services.company.disable_trade_desk_dispatch' => true]);
+
+        $response = $this->postJson(route('checkout.store'), [
+            'customer_name' => 'Safeguard Test Buyer',
+            'customer_email' => 'safeguard@example.com',
+            'channel' => 'both',
+            'items' => [
+                [
+                    'name' => 'Refined Cane Sugar (ICUMSA 45)',
+                    'price' => 465,
+                    'qty' => 5,
+                ],
+            ],
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'success' => true,
+            'channel' => 'both',
+        ]);
+    }
 }

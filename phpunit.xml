@@ -32,5 +32,9 @@
         <env name="PULSE_ENABLED" value="false"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
         <env name="NIGHTWATCH_ENABLED" value="false"/>
+        <env name="CALLMEBOT_API_KEY" value=""/>
+        <env name="WHATSAPP_CLOUD_TOKEN" value=""/>
+        <env name="RESEND_API_KEY" value=""/>
+        <env name="ORDER_NOTIFICATION_WEBHOOK_URL" value=""/>
     </php>
 </phpunit>

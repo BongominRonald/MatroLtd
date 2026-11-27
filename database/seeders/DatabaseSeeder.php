@@ -407,7 +407,7 @@ class DatabaseSeeder extends Seeder
                 'stock' => 1800,
                 'origin' => 'Pará, Brazil',
                 'image' => 'img/palm-oil.webp',
-                'is_featured' => false,
+                'is_featured' => true,
                 'is_new' => true,
                 'description' => 'Refined, bleached and deodorized (RBD) palm olein CP8/CP10. Superior oxidative stability for commercial frying and industrial food formulation. Delivered in 20L jerrycans, steel drums, or flexitanks.',
             ],

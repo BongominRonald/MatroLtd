@@ -91,6 +91,26 @@ class HeroSlideSeeder extends Seeder
                     ['value' => 'MAPA / SIF', 'label' => 'Sanitary Clearance'],
                 ],
             ],
+            [
+                'eyebrow' => '🔥 Top-Selling Fast-Track Commodities',
+                'title' => 'Top-Selling Sugar, Edible Oils &',
+                'title_highlight' => 'Brazilian Long Grain Rice',
+                'description' => 'Direct container vessel and breakbulk origination for high-demand export lines: Refined Sugar ICUMSA 45 ($465/MT), Refined Sunflower Oil ($915/MT), Pure Soybean Oil ($950/MT), Corn Oil ($1,100/MT), Palm Olein Oil ($920/MT), and Type 1 White Rice ($295/MT). Full SGS & MAPA assay guarantees.',
+                'primary_cta_text' => 'Order Top-Selling Commodities',
+                'primary_cta_url' => '#products',
+                'secondary_cta_text' => 'Instant Trade Desk RFQ',
+                'secondary_cta_url' => '#rfq-desk',
+                'image' => 'img/sunflower-bg.jpg',
+                'image_webp' => 'img/sunflower-bg.webp',
+                'sort_order' => 5,
+                'is_active' => true,
+                'stats' => [
+                    ['value' => '6 Top Lines', 'label' => 'High Demand Exports'],
+                    ['value' => '$295 - $1,100', 'label' => 'Transparent Per MT'],
+                    ['value' => '100% SGS', 'label' => 'Certified Quality'],
+                    ['value' => 'CIF & FOB', 'label' => 'Global Port Delivery'],
+                ],
+            ],
         ];
 
         foreach ($slides as $slide) {
