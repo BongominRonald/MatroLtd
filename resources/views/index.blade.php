@@ -2739,6 +2739,64 @@
                                                 @endif
                                             </div>
                                         @endif
+                                        @if(str_contains(strtolower($slide->title), 'sugar') || str_contains(strtolower($slide->eyebrow), 'top-selling'))
+                                            <div class="row g-2 mt-4 hero-top-commodities-grid" style="max-width: 680px;">
+                                                <div class="col-6 col-sm-4">
+                                                    <a href="#products" onclick="$('#quickSearchInput').val('Sugar'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                                        <img src="{{ asset('img/sugar.webp') }}" alt="Sugar ICUMSA 45" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                                        <div class="lh-sm">
+                                                            <div class="text-white fw-bold small text-truncate">Sugar ICUMSA 45</div>
+                                                            <small class="text-warning fw-semibold">$465 / MT</small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-6 col-sm-4">
+                                                    <a href="#products" onclick="$('#quickSearchInput').val('Sunflower Oil'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                                        <img src="{{ asset('img/sunflower-oil.webp') }}" alt="Sunflower Oil" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                                        <div class="lh-sm">
+                                                            <div class="text-white fw-bold small text-truncate">Sunflower Oil</div>
+                                                            <small class="text-warning fw-semibold">$915 / MT</small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-6 col-sm-4">
+                                                    <a href="#products" onclick="$('#quickSearchInput').val('Soybean Oil'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                                        <img src="{{ asset('img/soybean-oil.webp') }}" alt="Soybean Oil" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                                        <div class="lh-sm">
+                                                            <div class="text-white fw-bold small text-truncate">Soybean Oil</div>
+                                                            <small class="text-warning fw-semibold">$950 / MT</small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-6 col-sm-4">
+                                                    <a href="#products" onclick="$('#quickSearchInput').val('Corn Oil'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                                        <img src="{{ asset('img/corn-oil.webp') }}" alt="Corn Oil" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                                        <div class="lh-sm">
+                                                            <div class="text-white fw-bold small text-truncate">Corn Oil</div>
+                                                            <small class="text-warning fw-semibold">$1,100 / MT</small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-6 col-sm-4">
+                                                    <a href="#products" onclick="$('#quickSearchInput').val('Palm Olein'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                                        <img src="{{ asset('img/palm-oil.webp') }}" alt="Palm Olein Oil" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                                        <div class="lh-sm">
+                                                            <div class="text-white fw-bold small text-truncate">Palm Olein Oil</div>
+                                                            <small class="text-warning fw-semibold">$920 / MT</small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-6 col-sm-4">
+                                                    <a href="#products" onclick="$('#quickSearchInput').val('White Rice'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                                        <img src="{{ asset('img/white-rice.webp') }}" alt="Long Grain Rice" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                                        <div class="lh-sm">
+                                                            <div class="text-white fw-bold small text-truncate">Long Grain Rice</div>
+                                                            <small class="text-warning fw-semibold">$295 / MT</small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endif
                                         @if(!empty($slide->stats))
                                             <div class="d-flex gap-4 mt-5 flex-wrap sh-hero-stats">
                                                 @foreach($slide->stats as $stat)
@@ -2930,6 +2988,62 @@
                                 <div class="d-flex gap-3 flex-wrap">
                                     <a href="#products" class="btn btn-sh-primary btn-lg">Order Top-Selling Commodities</a>
                                     <a href="#rfq-desk" class="btn btn-sh-outline-white btn-lg">Instant Trade Desk RFQ</a>
+                                </div>
+                                <div class="row g-2 mt-4 hero-top-commodities-grid" style="max-width: 680px;">
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#products" onclick="$('#quickSearchInput').val('Sugar'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                            <img src="{{ asset('img/sugar.webp') }}" alt="Sugar ICUMSA 45" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                            <div class="lh-sm">
+                                                <div class="text-white fw-bold small text-truncate">Sugar ICUMSA 45</div>
+                                                <small class="text-warning fw-semibold">$465 / MT</small>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#products" onclick="$('#quickSearchInput').val('Sunflower Oil'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                            <img src="{{ asset('img/sunflower-oil.webp') }}" alt="Sunflower Oil" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                            <div class="lh-sm">
+                                                <div class="text-white fw-bold small text-truncate">Sunflower Oil</div>
+                                                <small class="text-warning fw-semibold">$915 / MT</small>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#products" onclick="$('#quickSearchInput').val('Soybean Oil'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                            <img src="{{ asset('img/soybean-oil.webp') }}" alt="Soybean Oil" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                            <div class="lh-sm">
+                                                <div class="text-white fw-bold small text-truncate">Soybean Oil</div>
+                                                <small class="text-warning fw-semibold">$950 / MT</small>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#products" onclick="$('#quickSearchInput').val('Corn Oil'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                            <img src="{{ asset('img/corn-oil.webp') }}" alt="Corn Oil" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                            <div class="lh-sm">
+                                                <div class="text-white fw-bold small text-truncate">Corn Oil</div>
+                                                <small class="text-warning fw-semibold">$1,100 / MT</small>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#products" onclick="$('#quickSearchInput').val('Palm Olein'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                            <img src="{{ asset('img/palm-oil.webp') }}" alt="Palm Olein Oil" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                            <div class="lh-sm">
+                                                <div class="text-white fw-bold small text-truncate">Palm Olein Oil</div>
+                                                <small class="text-warning fw-semibold">$920 / MT</small>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#products" onclick="$('#quickSearchInput').val('White Rice'); $('#quickSearchForm').trigger('submit');" class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none shadow-sm" style="background: rgba(20, 20, 26, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(6px);">
+                                            <img src="{{ asset('img/white-rice.webp') }}" alt="Long Grain Rice" style="width: 38px; height: 38px; object-fit: cover; border-radius: 6px;">
+                                            <div class="lh-sm">
+                                                <div class="text-white fw-bold small text-truncate">Long Grain Rice</div>
+                                                <small class="text-warning fw-semibold">$295 / MT</small>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="d-flex gap-4 mt-5 flex-wrap sh-hero-stats">
                                     <div>
