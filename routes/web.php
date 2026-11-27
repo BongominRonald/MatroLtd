@@ -93,6 +93,21 @@ Route::get('/robots.txt', function () {
     ]);
 })->name('robots');
 
+// Dynamic ads.txt for Google AdSense Crawler Verification & Authorized Sellers
+Route::get('/ads.txt', function () {
+    $rawPublisherId = config('services.adsense.client_id', env('GOOGLE_ADSENSE_CLIENT_ID', 'ca-pub-XXXXXXXXXXXXXXXX'));
+    $pubId = preg_replace('/^ca-/', '', trim($rawPublisherId));
+    $lines = [
+        '# Google AdSense Authorized Digital Sellers (ads.txt)',
+        '# Reference: https://support.google.com/adsense/answer/7532444',
+        "google.com, {$pubId}, DIRECT, f08c47fec0942fa0",
+    ];
+
+    return response(implode("\n", $lines)."\n", 200, [
+        'Content-Type' => 'text/plain; charset=utf-8',
+    ]);
+})->name('ads.txt');
+
 // Dynamic XML Sitemap (with Google Image Sitemap extension for Commodity Products)
 Route::get('/sitemap.xml', function () {
     $baseUrl = rtrim(url('/'), '/');

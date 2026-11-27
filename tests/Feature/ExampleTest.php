@@ -292,4 +292,13 @@ class ExampleTest extends TestCase
             'channel' => 'both',
         ]);
     }
+
+    public function test_ads_txt_route_renders_valid_google_adsense_authorized_seller_declaration(): void
+    {
+        $response = $this->get('/ads.txt');
+        $response->assertStatus(200);
+        $response->assertHeader('Content-Type', 'text/plain; charset=utf-8');
+        $response->assertSee('google.com,', false);
+        $response->assertSee('DIRECT, f08c47fec0942fa0', false);
+    }
 }

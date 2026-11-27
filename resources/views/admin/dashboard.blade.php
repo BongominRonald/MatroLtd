@@ -225,4 +225,66 @@
         </div>
     </div>
 </div>
+
+<!-- Google AdSense Monetization Status & Setup Card -->
+<div class="card admin-card mb-4 border-0 shadow-sm" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+    <div class="card-body p-4">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-circle p-2 bg-primary text-white d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px;">
+                    <i class="bi bi-badge-ad-fill fs-4"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-1 text-dark">Google AdSense Monetization</h5>
+                    <div class="small text-muted d-flex flex-wrap align-items-center gap-3">
+                        <span>
+                            <strong>Status:</strong>
+                            @if(config('services.adsense.enabled', true))
+                                <span class="badge bg-success text-white px-2 py-0.5"><i class="bi bi-check-circle-fill me-1"></i>Integrated</span>
+                            @else
+                                <span class="badge bg-secondary text-white px-2 py-0.5">Disabled</span>
+                            @endif
+                        </span>
+                        <span>
+                            <strong>Publisher ID:</strong>
+                            <code class="bg-white px-2 py-0.5 rounded border text-dark">{{ config('services.adsense.client_id', 'ca-pub-XXXXXXXXXXXXXXXX') }}</code>
+                        </span>
+                        <span>
+                            <strong>ads.txt:</strong>
+                            <a href="{{ url('/ads.txt') }}" target="_blank" class="text-primary text-decoration-none fw-semibold">
+                                <i class="bi bi-box-arrow-up-right me-1"></i>View /ads.txt
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <a href="https://adsense.google.com/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm">
+                    <i class="bi bi-google me-1"></i>Open AdSense Console
+                </a>
+            </div>
+        </div>
+        <hr class="my-3 opacity-25">
+        <div class="row g-3 small">
+            <div class="col-md-4">
+                <div class="p-2 bg-white rounded border">
+                    <div class="fw-bold text-dark mb-1"><i class="bi bi-layout-text-window-reverse text-primary me-1"></i>Top Leaderboard</div>
+                    <div class="text-muted">Responsive ad slot between hero search strip and service features.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-2 bg-white rounded border">
+                    <div class="fw-bold text-dark mb-1"><i class="bi bi-grid text-success me-1"></i>In-Feed Catalog</div>
+                    <div class="text-muted">High-performing placement under featured agricultural commodities.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-2 bg-white rounded border">
+                    <div class="fw-bold text-dark mb-1"><i class="bi bi-layout-sidebar-inset-reverse text-info me-1"></i>Footer Banner</div>
+                    <div class="text-muted">Full-width responsive leaderboard slot above international export footer.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
