@@ -175,6 +175,12 @@
     @endphp
     <script type="application/ld+json">{!! json_encode($jsonLdGraph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
+    <!-- Google AdSense Official Integration -->
+    @if(config('services.adsense.enabled', true) && !empty(config('services.adsense.client_id')))
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ config('services.adsense.client_id') }}"
+             crossorigin="anonymous"></script>
+    @endif
+
     <!-- Self-Hosted Typography (Agrovia Brand Fonts: Comic Relief for Headings & Buttons, Open Sans for Body) -->
     <link rel="stylesheet" href="{{ asset('fonts/comic-relief.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/open-sans.css') }}">
@@ -1373,6 +1379,19 @@
         .sh-hero-stats > div {
             border-left: 2px solid var(--sh-primary);
             padding-left: 12px;
+        }
+
+        /* ===== Google AdSense Responsive Wrapper ===== */
+        .ad-container-wrapper {
+            transition: opacity 0.3s ease;
+            position: relative;
+        }
+        .ad-container-wrapper ins.adsbygoogle[data-ad-status="unfilled"] {
+            display: none !important;
+        }
+        .ad-container-wrapper ins.adsbygoogle {
+            margin: 0 auto;
+            border-radius: 8px;
         }
 
         /* ===== Feature Strip ===== */
@@ -2741,6 +2760,7 @@
                         <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                         <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                         <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
                     </div>
                     <div class="carousel-inner">
                     <!-- Slide 1: Maritime Container Cargo & Deepwater Ports -->
@@ -2894,6 +2914,44 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Slide 5: Top-Selling Sugar, Edible Oils & Rice -->
+                    <div class="carousel-item">
+                        <div class="sh-hero-slide">
+                            <picture>
+                                <source srcset="{{ asset('img/sunflower-bg.webp') }}" type="image/webp">
+                                <img src="{{ asset('img/sunflower-bg.jpg') }}" alt="Top-Selling Sugar, Edible Oils and Long Grain Rice" class="sh-hero-bg" loading="lazy" decoding="async">
+                            </picture>
+                            <div class="sh-hero-scrim"></div>
+                            <div class="container sh-hero-content">
+                                <div class="eyebrow mb-3">🔥 Top-Selling Fast-Track Commodities</div>
+                                <h1 class="mb-4">Top-Selling Sugar, Edible Oils &amp; <span style="color: var(--sh-primary);">Brazilian Long Grain Rice</span></h1>
+                                <p class="lead mb-4">Direct container vessel and breakbulk origination for high-demand export lines: Refined Sugar ICUMSA 45 ($465/MT), Refined Sunflower Oil ($915/MT), Pure Soybean Oil ($950/MT), Corn Oil ($1,100/MT), Palm Olein Oil ($920/MT), and Type 1 White Rice ($295/MT). Full SGS &amp; MAPA assay guarantees.</p>
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <a href="#products" class="btn btn-sh-primary btn-lg">Order Top-Selling Commodities</a>
+                                    <a href="#rfq-desk" class="btn btn-sh-outline-white btn-lg">Instant Trade Desk RFQ</a>
+                                </div>
+                                <div class="d-flex gap-4 mt-5 flex-wrap sh-hero-stats">
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">6 Top Lines</div>
+                                        <small class="text-white-50">High Demand Exports</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">$295 - $1,100</div>
+                                        <small class="text-white-50">Transparent Per MT</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">100% SGS</div>
+                                        <small class="text-white-50">Certified Quality</small>
+                                    </div>
+                                    <div>
+                                        <div class="fs-4 fw-bold text-white">CIF &amp; FOB</div>
+                                        <small class="text-white-50">Global Port Delivery</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 @endif
                 <button class="carousel-control-prev d-none d-md-flex" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev" aria-label="Previous">
@@ -2917,8 +2975,39 @@
                     </div>
                     <div id="quickSearchFeedback" class="sh-search-feedback text-center mt-2 d-none"></div>
                 </form>
+
+                <!-- High-Volume Fast-Track Commodities Direct Access -->
+                <div class="mt-3 text-center">
+                    <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap">
+                        <span class="badge bg-warning text-dark fw-bold px-2 py-1"><i class="bi bi-fire me-1"></i>Top-Selling Exports:</span>
+                        <a href="#products" onclick="$('#quickSearchInput').val('Sugar'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Sugar ICUMSA 45 <strong>$465/MT</strong></a>
+                        <a href="#products" onclick="$('#quickSearchInput').val('Sunflower Oil'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Sunflower Oil <strong>$915/MT</strong></a>
+                        <a href="#products" onclick="$('#quickSearchInput').val('Soybean Oil'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Soybean Oil <strong>$950/MT</strong></a>
+                        <a href="#products" onclick="$('#quickSearchInput').val('Corn Oil'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Corn Oil <strong>$1,100/MT</strong></a>
+                        <a href="#products" onclick="$('#quickSearchInput').val('Palm Olein'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Palm Olein Oil <strong>$920/MT</strong></a>
+                        <a href="#products" onclick="$('#quickSearchInput').val('White Rice'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Long Grain Rice <strong>$295/MT</strong></a>
+                    </div>
+                </div>
             </div>
         </section>
+
+        <!-- Google AdSense Top Responsive Leaderboard Placement -->
+        @if(config('services.adsense.enabled', true))
+            <div class="container my-3 text-center ad-container-wrapper" style="overflow: hidden; min-height: 90px; clear: both;">
+                <div class="d-flex align-items-center justify-content-center mb-1">
+                    <span class="text-muted fw-semibold" style="font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase;">Advertisement</span>
+                </div>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="{{ config('services.adsense.client_id', 'ca-pub-XXXXXXXXXXXXXXXX') }}"
+                     @if(config('services.adsense.slot_top')) data-ad-slot="{{ config('services.adsense.slot_top') }}" @endif
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+                </script>
+            </div>
+        @endif
 
         <!-- 4. SERVICES / FEATURE STRIP (Clean Negative Space & Card Affordance) -->
         <section class="sh-strip py-4 py-md-5" id="services">
@@ -3175,6 +3264,24 @@
                 </div>
             </div>
         </section>
+
+        <!-- Google AdSense Mid-Feed Responsive Placement -->
+        @if(config('services.adsense.enabled', true))
+            <div class="container my-4 text-center ad-container-wrapper" style="overflow: hidden; min-height: 90px; clear: both;">
+                <div class="d-flex align-items-center justify-content-center mb-1">
+                    <span class="text-muted fw-semibold" style="font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase;">Advertisement</span>
+                </div>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="{{ config('services.adsense.client_id', 'ca-pub-XXXXXXXXXXXXXXXX') }}"
+                     @if(config('services.adsense.slot_mid')) data-ad-slot="{{ config('services.adsense.slot_mid') }}" @endif
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+                </script>
+            </div>
+        @endif
 
         <!-- 6. CATEGORY CARDS & BASIN INSIGHTS -->
         <section class="py-5" id="insights" style="background: var(--sh-surface-alt); border-top: 1px solid var(--bs-border-color); border-bottom: 1px solid var(--bs-border-color);">
@@ -3714,6 +3821,24 @@
                 </div>
             </div>
         </section>
+
+        <!-- Google AdSense Bottom Responsive Leaderboard Placement -->
+        @if(config('services.adsense.enabled', true))
+            <div class="container my-5 text-center ad-container-wrapper" style="overflow: hidden; min-height: 90px; clear: both;">
+                <div class="d-flex align-items-center justify-content-center mb-1">
+                    <span class="text-muted fw-semibold" style="font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase;">Advertisement</span>
+                </div>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="{{ config('services.adsense.client_id', 'ca-pub-XXXXXXXXXXXXXXXX') }}"
+                     @if(config('services.adsense.slot_footer')) data-ad-slot="{{ config('services.adsense.slot_footer') }}" @endif
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+                </script>
+            </div>
+        @endif
     </main>
 
     <!-- 10. FOOTER (Horizontal Layout Across All Elements) -->

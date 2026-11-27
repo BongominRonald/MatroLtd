@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\Mail;
 class OrderNotificationService
 {
     /**
+     * Determine whether live trade desk notifications (CallMeBot WhatsApp, Meta Cloud, Twilio, Resend, etc.)
+     * are suppressed (e.g. during automated tests, staging, or when explicitly silenced).
+     */
+    public function isTradeDeskLiveDispatchDisabled(): bool
+    {
+        return (bool) config('services.company.disable_trade_desk_dispatch', false)
+            || (bool) config('services.company.disable_live_dispatch', false)
+            || (bool) env('DISABLE_TRADE_DESK_DISPATCH', false);
+    }
+
+    /**
      * Dispatch all notifications for a newly created commodity order.
      * Supports channels: 'whatsapp', 'email', 'both'.
      */
@@ -47,42 +58,46 @@ class OrderNotificationService
             // Company & Trade Desk Alert Mail
             $recipients = $this->getCompanyRecipients();
             if (! empty($recipients)) {
-                $emailSent = false;
-                try {
-                    Mail::to($recipients)->send(new AdminOrderAlertMail($order));
-                    $results['company_emails'] = $recipients;
-                    $emailSent = true;
-                } catch (\Throwable $e) {
-                    Log::warning('Company order alert email failed via default mailer: ' . $e->getMessage(), ['order' => $order->order_number]);
-                }
-
-                // If default mailer is 'log' or failed, check for Resend API direct delivery
-                $resendKey = config('services.resend.key') ?: env('RESEND_API_KEY');
-                if (! empty($resendKey) && (! $emailSent || config('mail.default') === 'log')) {
-                    $fromAddress = config('services.resend.from') ?: env('RESEND_FROM_EMAIL', 'onboarding@resend.dev');
-                    $fromName = config('mail.from.name', 'BRX AGRO GLOBAL');
-
-                    foreach ($recipients as $recipient) {
-                        try {
-                            $resendResponse = Http::timeout(8)
-                                ->withToken($resendKey)
-                                ->post('https://api.resend.com/emails', [
-                                    'from' => "{$fromName} <{$fromAddress}>",
-                                    'to' => [$recipient],
-                                    'subject' => '[TRADE DESK ALERT] New Commodity Order #' . $order->order_number . ' — ' . $order->customer_name,
-                                    'html' => view('emails.admin-order-alert', ['order' => $order, 'items' => $order->items])->render(),
-                                ]);
-                            if ($resendResponse->successful()) {
-                                $results['company_emails'][] = $recipient;
-                                Log::info("Company order alert email dispatched via Resend to {$recipient}.", ['order' => $order->order_number]);
-                            } else {
-                                Log::warning("Resend dispatch to {$recipient} returned: " . $resendResponse->body());
-                            }
-                        } catch (\Throwable $e) {
-                            Log::warning('Resend API direct dispatch failed: ' . $e->getMessage(), ['order' => $order->order_number]);
-                        }
+                if ($this->isTradeDeskLiveDispatchDisabled()) {
+                    Log::info('Company order alert email suppressed to prevent false alerts during test/disabled mode.', ['order' => $order->order_number]);
+                } else {
+                    $emailSent = false;
+                    try {
+                        Mail::to($recipients)->send(new AdminOrderAlertMail($order));
+                        $results['company_emails'] = $recipients;
+                        $emailSent = true;
+                    } catch (\Throwable $e) {
+                        Log::warning('Company order alert email failed via default mailer: ' . $e->getMessage(), ['order' => $order->order_number]);
                     }
-                    $results['company_emails'] = array_values(array_unique($results['company_emails']));
+
+                    // If default mailer is 'log' or failed, check for Resend API direct delivery
+                    $resendKey = config('services.resend.key') ?: env('RESEND_API_KEY');
+                    if (! empty($resendKey) && (! $emailSent || config('mail.default') === 'log')) {
+                        $fromAddress = config('services.resend.from') ?: env('RESEND_FROM_EMAIL', 'onboarding@resend.dev');
+                        $fromName = config('mail.from.name', 'BRX AGRO GLOBAL');
+
+                        foreach ($recipients as $recipient) {
+                            try {
+                                $resendResponse = Http::timeout(8)
+                                    ->withToken($resendKey)
+                                    ->post('https://api.resend.com/emails', [
+                                        'from' => "{$fromName} <{$fromAddress}>",
+                                        'to' => [$recipient],
+                                        'subject' => '[TRADE DESK ALERT] New Commodity Order #' . $order->order_number . ' — ' . $order->customer_name,
+                                        'html' => view('emails.admin-order-alert', ['order' => $order, 'items' => $order->items])->render(),
+                                    ]);
+                                if ($resendResponse->successful()) {
+                                    $results['company_emails'][] = $recipient;
+                                    Log::info("Company order alert email dispatched via Resend to {$recipient}.", ['order' => $order->order_number]);
+                                } else {
+                                    Log::warning("Resend dispatch to {$recipient} returned: " . $resendResponse->body());
+                                }
+                            } catch (\Throwable $e) {
+                                Log::warning('Resend API direct dispatch failed: ' . $e->getMessage(), ['order' => $order->order_number]);
+                            }
+                        }
+                        $results['company_emails'] = array_values(array_unique($results['company_emails']));
+                    }
                 }
             }
         }
@@ -106,7 +121,7 @@ class OrderNotificationService
 
         // 4. Dispatch Outbound Webhook (Slack / Discord / Telegram / CRM if configured)
         $webhookUrl = config('services.company.notification_webhook');
-        if (! empty($webhookUrl)) {
+        if (! empty($webhookUrl) && ! $this->isTradeDeskLiveDispatchDisabled()) {
             try {
                 $this->dispatchWebhookNotification($order, $webhookUrl, $channel);
                 $results['webhook_dispatched'] = true;
@@ -229,6 +244,23 @@ class OrderNotificationService
         $message = $this->formatWhatsAppOrderMessage($order, $channel);
         $encodedText = urlencode($message);
         $directUrl = "https://api.whatsapp.com/send?phone={$targetNumber}&text={$encodedText}";
+
+        // Safeguard: Suppress automated external WhatsApp gateway calls during tests or when live dispatch is silenced
+        if ($this->isTradeDeskLiveDispatchDisabled()) {
+            Log::info('Trade Desk WhatsApp dispatch suppressed to prevent false order alerts (testing/disabled mode)', [
+                'order' => $order->order_number,
+                'target_phone' => '+' . $targetNumber,
+            ]);
+
+            return [
+                'dispatched' => false,
+                'provider' => 'suppressed_for_testing',
+                'target_phone' => '+' . $targetNumber,
+                'whatsapp_url' => $directUrl,
+                'message' => $message,
+                'reason' => 'Trade desk live dispatch is suppressed.',
+            ];
+        }
 
         $dispatched = false;
         $providerUsed = null;

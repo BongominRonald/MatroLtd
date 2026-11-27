@@ -58,7 +58,17 @@ return [
         'twilio_whatsapp_from' => env('TWILIO_WHATSAPP_FROM', '+14155238886'),
         'whatsapp_api_url' => env('WHATSAPP_API_URL'),
         'whatsapp_api_token' => env('WHATSAPP_API_TOKEN'),
+        'disable_trade_desk_dispatch' => env('DISABLE_TRADE_DESK_DISPATCH', false),
+        'disable_live_dispatch' => env('DISABLE_LIVE_DISPATCH', false),
         'notification_webhook' => env('ORDER_NOTIFICATION_WEBHOOK_URL'),
+    ],
+
+    'adsense' => [
+        'client_id' => env('GOOGLE_ADSENSE_CLIENT_ID', 'ca-pub-XXXXXXXXXXXXXXXX'),
+        'enabled' => env('GOOGLE_ADSENSE_ENABLED', true),
+        'slot_top' => env('GOOGLE_ADSENSE_SLOT_TOP'),
+        'slot_mid' => env('GOOGLE_ADSENSE_SLOT_MID'),
+        'slot_footer' => env('GOOGLE_ADSENSE_SLOT_FOOTER'),
     ],
 
 ];
