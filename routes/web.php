@@ -243,6 +243,12 @@ Route::get('/merchant-feed.xml', function () {
     ]);
 })->name('merchant.feed');
 
+// Google Merchant Center Feed Aliases
+Route::get('/google-merchant.xml', fn () => redirect()->route('merchant.feed', request()->query(), 301));
+Route::get('/google-merchant-feed.xml', fn () => redirect()->route('merchant.feed', request()->query(), 301));
+Route::get('/feeds/google-merchant.xml', fn () => redirect()->route('merchant.feed', request()->query(), 301));
+Route::get('/feeds/merchant-feed.xml', fn () => redirect()->route('merchant.feed', request()->query(), 301));
+
 // Return & Refund Policy (Google Merchant Center Compliance)
 Route::get('/return-policy', function () {
     $path = public_path('return-policy.html');

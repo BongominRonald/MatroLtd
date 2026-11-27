@@ -209,4 +209,31 @@ class ExampleTest extends TestCase
         $home->assertSee('icon-192x192.png');
         $home->assertSee('icon-512x512.png');
     }
+
+    public function test_google_merchant_feed_renders_valid_xml_with_updated_commodity_prices(): void
+    {
+        $this->seed();
+
+        $feed = $this->get('/merchant-feed.xml');
+        $feed->assertStatus(200);
+        $feed->assertHeader('Content-Type', 'application/xml; charset=utf-8');
+        $feed->assertSee('<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">', false);
+        $feed->assertSee('<g:id>', false);
+        $feed->assertSee('750.00 USD', false); // Green Mung Beans
+        $feed->assertSee('7850.00 USD', false); // Arabica Coffee
+        $feed->assertSee('1100.00 USD', false); // Corn Oil
+        $feed->assertSee('<g:availability>in_stock</g:availability>', false);
+        $feed->assertSee('BRX AGRO GLOBAL', false);
+
+        // Test aliases
+        $alias1 = $this->get('/google-merchant.xml');
+        $alias1->assertRedirect('/merchant-feed.xml');
+        $alias2 = $this->get('/feeds/google-merchant.xml');
+        $alias2->assertRedirect('/merchant-feed.xml');
+
+        // Test Return & Refund policy compliance page
+        $returnPolicy = $this->get('/return-policy');
+        $returnPolicy->assertStatus(200);
+        $returnPolicy->assertSee('Return', false);
+    }
 }
