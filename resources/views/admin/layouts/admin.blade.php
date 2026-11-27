@@ -877,13 +877,10 @@
                     <i class="bi bi-shop"></i>
                     <span>View Store</span>
                 </a>
-                <form action="/logout" method="POST" class="m-0">
-                    @csrf
-                    <button type="submit" class="nav-link w-100 border-0 bg-transparent text-start" title="Sign Out">
-                        <i class="bi bi-box-arrow-right"></i>
-                        <span>Sign Out</span>
-                    </button>
-                </form>
+                <button type="button" class="nav-link w-100 border-0 bg-transparent text-start text-danger" title="Sign Out" data-bs-toggle="modal" data-bs-target="#adminLogoutModal">
+                    <i class="bi bi-box-arrow-right text-danger"></i>
+                    <span>Sign Out</span>
+                </button>
             </div>
         </div>
     </div>
@@ -982,10 +979,11 @@
                         <li><a class="dropdown-item py-2" href="/"><i class="bi bi-shop me-2 text-primary"></i>View Front Store</a></li>
                         <li><hr class="dropdown-divider my-1"></li>
                         <li>
-                            <form action="/logout" method="POST" class="m-0 px-2">
-                                @csrf
-                                <button class="btn btn-sm btn-outline-danger w-100 rounded-pill"><i class="bi bi-box-arrow-right me-1"></i>Sign out</button>
-                            </form>
+                            <div class="px-2">
+                                <button type="button" class="btn btn-sm btn-outline-danger w-100 rounded-pill" data-bs-toggle="modal" data-bs-target="#adminLogoutModal">
+                                    <i class="bi bi-box-arrow-right me-1"></i>Sign out
+                                </button>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -1025,6 +1023,61 @@
             @yield('content')
         </div>
     </main>
+</div>
+
+<!-- Admin Logout Confirmation Modal -->
+<div class="modal fade" id="adminLogoutModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="modal-header border-bottom py-2.5 px-3">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-box-arrow-right text-danger fs-5"></i>
+                    <h6 class="modal-title fw-bold text-danger mb-0">Sign Out Confirmation</h6>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3 text-center">
+                <p class="small text-muted mb-3">
+                    Are you sure you want to sign out of the trade desk administrative console?
+                </p>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary flex-grow-1 rounded-pill" data-bs-dismiss="modal">Stay Here</button>
+                    <form action="/logout" method="POST" class="m-0 flex-grow-1">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-danger w-100 rounded-pill fw-bold">
+                            <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Admin Universal Confirmation Modal -->
+<div class="modal fade" id="adminConfirmModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="modal-header border-bottom py-2.5 px-3">
+                <div class="d-flex align-items-center gap-2">
+                    <i id="adminConfirmIcon" class="bi bi-exclamation-triangle-fill text-danger fs-5"></i>
+                    <h6 class="modal-title fw-bold mb-0" id="adminConfirmTitle">Confirm Action</h6>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <p class="small text-muted mb-0" id="adminConfirmMessage">
+                    Are you sure you want to proceed with this action?
+                </p>
+            </div>
+            <div class="modal-footer border-top py-2 px-3 d-flex justify-content-between">
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-danger rounded-pill px-3 fw-bold" id="adminConfirmBtn">
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Local Bootstrap 5 JS -->
@@ -1092,6 +1145,32 @@
         });
     }
 })();
+
+    // Admin Universal Confirm Helper
+    window.confirmAdminAction = function(form, title, message, confirmBtnText, isDanger) {
+        var modalEl = document.getElementById('adminConfirmModal');
+        if (!modalEl || !window.bootstrap) {
+            form.submit();
+            return;
+        }
+        document.getElementById('adminConfirmTitle').textContent = title || 'Confirm Deletion';
+        document.getElementById('adminConfirmMessage').textContent = message || 'Are you sure you want to proceed?';
+        var btn = document.getElementById('adminConfirmBtn');
+        btn.textContent = confirmBtnText || 'Confirm';
+        btn.className = 'btn btn-sm rounded-pill px-3 fw-bold ' + (isDanger !== false ? 'btn-danger' : 'btn-primary');
+        var icon = document.getElementById('adminConfirmIcon');
+        if (icon) {
+            icon.className = isDanger !== false ? 'bi bi-trash3-fill text-danger fs-5' : 'bi bi-question-circle-fill text-primary fs-5';
+        }
+        var modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+        var newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+        newBtn.addEventListener('click', function() {
+            modal.hide();
+            form.submit();
+        });
+        modal.show();
+    };
 </script>
 
 @stack('scripts')

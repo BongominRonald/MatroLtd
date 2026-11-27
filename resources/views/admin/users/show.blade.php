@@ -84,7 +84,7 @@
                             </button>
                         </form>
                     @else
-                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to deactivate this user account? The user will not be able to log in until restored.');">
+                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="event.preventDefault(); confirmAdminAction(this, 'Deactivate User Account', 'Are you sure you want to deactivate this user account? The user will not be able to log in until restored by an administrator.', 'Deactivate Account', true);">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-outline-danger w-100 rounded-pill">

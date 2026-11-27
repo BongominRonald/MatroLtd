@@ -58,7 +58,7 @@
                                         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editCatModal{{ $category->id }}" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </button>
-                                        <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete the category ' + {{ json_encode($category->name) }} + '?')">
+                                        <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="d-inline" onsubmit="event.preventDefault(); confirmAdminAction(this, 'Delete Category', 'Are you sure you want to delete the category ' + {{ json_encode($category->name) }} + '? All associated relations will be updated.', 'Delete Category', true);">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete" {{ $category->products_count > 0 ? 'disabled' : '' }}>

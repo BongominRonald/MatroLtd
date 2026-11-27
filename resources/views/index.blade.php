@@ -2189,6 +2189,14 @@
         .sh-toast.sh-toast-show { transform: translateX(0); opacity: 1; }
         .sh-toast.sh-toast-hide { transform: translateX(130%); opacity: 0; }
         .sh-toast-icon { color: var(--sh-primary); font-size: 1.4rem; flex-shrink: 0; }
+        .sh-toast.sh-toast-success { border-color: #28a745; background: #142316; }
+        .sh-toast.sh-toast-success .sh-toast-icon { color: #28a745; }
+        .sh-toast.sh-toast-danger { border-color: #dc3545; background: #261416; }
+        .sh-toast.sh-toast-danger .sh-toast-icon { color: #dc3545; }
+        .sh-toast.sh-toast-warning { border-color: #ffc107; background: #262214; }
+        .sh-toast.sh-toast-warning .sh-toast-icon { color: #ffc107; }
+        .sh-toast.sh-toast-info { border-color: #17a2b8; background: #141f26; }
+        .sh-toast.sh-toast-info .sh-toast-icon { color: #17a2b8; }
 
         /* ===== Scroll Top (Floating Action Button / FAB) ===== */
         .sh-scroll-top {
@@ -2635,12 +2643,9 @@
                                     <li><hr class="dropdown-divider border-secondary my-1"></li>
                                 @endif
                                 <li>
-                                    <form action="{{ route('logout') }}" method="POST" class="m-0">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item py-2 text-danger">
-                                             <i class="bi bi-box-arrow-right me-2"></i>Logout
-                                        </button>
-                                    </form>
+                                    <button type="button" class="dropdown-item py-2 text-danger" data-bs-toggle="modal" data-bs-target="#universalLogoutModal">
+                                         <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                    </button>
                                 </li>
                             </ul>
                         </div>
@@ -3869,6 +3874,99 @@
         @endauth
     </nav>
 
+    <!-- Universal Confirmation Modal (Replaces browser confirm) -->
+    <div class="modal fade" id="universalConfirmModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-sm mx-2 mx-sm-auto">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface, #1e1e28); color: var(--bs-body-color, #e4e4e7); border: 1px solid var(--sh-border, rgba(255,255,255,0.12));">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <i id="uConfirmIcon" class="bi bi-question-circle-fill text-primary fs-5"></i>
+                        <h6 class="modal-title fw-bold sh-text-title mb-0" id="uConfirmTitle" style="font-size: 0.95rem;">Confirm Action</h6>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-3">
+                    <p class="small text-muted mb-0" id="uConfirmMessage" style="line-height: 1.5; font-size: 0.85rem;">
+                        Are you sure you want to proceed?
+                    </p>
+                </div>
+                <div class="modal-footer border-top border-secondary border-opacity-25 py-2 px-3 d-flex justify-content-between">
+                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3" data-bs-dismiss="modal" id="uConfirmCancelBtn">Cancel</button>
+                    <button type="button" class="btn btn-sm btn-danger rounded-pill px-3 fw-bold" id="uConfirmActionBtn">
+                        Confirm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Universal Logout Confirmation Modal -->
+    <div class="modal fade" id="universalLogoutModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm mx-2 mx-sm-auto">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface, #1e1e28); color: var(--bs-body-color, #e4e4e7); border: 1px solid var(--sh-border, rgba(255,255,255,0.12));">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-box-arrow-right text-danger fs-5"></i>
+                        <h6 class="modal-title fw-bold text-danger mb-0" style="font-size: 0.95rem;">Sign Out Confirmation</h6>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-3 text-center">
+                    <p class="small text-muted mb-3" style="line-height: 1.5; font-size: 0.85rem;">
+                        Are you sure you want to sign out of your institutional trade desk account? Your unsaved draft quotes will be retained.
+                    </p>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-outline-secondary flex-grow-1 py-1.5 fw-bold small rounded-pill" data-bs-dismiss="modal">
+                            Stay Signed In
+                        </button>
+                        <form action="{{ route('logout') }}" method="POST" class="m-0 flex-grow-1">
+                            @csrf
+                            <button type="submit" class="btn btn-danger w-100 py-1.5 fw-bold small rounded-pill">
+                                <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Universal Password Prompt Modal (Replaces browser prompt) -->
+    <div class="modal fade" id="universalPromptModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--sh-surface, #1e1e28); color: var(--bs-body-color, #e4e4e7); border: 1px solid var(--sh-border, rgba(255,255,255,0.12));">
+                <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-shield-lock-fill text-danger fs-5"></i>
+                        <h5 class="modal-title fw-bold sh-text-title mb-0" id="uPromptTitle">Log Out Other Browser Sessions</h5>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted small mb-3" id="uPromptMessage">
+                        Please enter your account password to confirm signing out all other browser devices:
+                    </p>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold" for="uPromptInput">Current Account Password *</label>
+                        <div class="input-group">
+                            <input type="password" id="uPromptInput" class="form-control" placeholder="Enter password to confirm" required autocomplete="current-password">
+                            <button class="btn btn-outline-secondary" type="button" onclick="var p = document.getElementById('uPromptInput'); p.type = p.type === 'password' ? 'text' : 'password';">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="uPromptFeedback" class="small fw-semibold mt-2" style="display: none;"></div>
+                </div>
+                <div class="modal-footer border-top border-secondary border-opacity-25 py-2.5 px-4 d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill px-3" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger rounded-pill px-4 fw-bold" id="uPromptSubmitBtn">
+                        <i class="bi bi-box-arrow-right me-1"></i> Confirm &amp; Sign Out Other Devices
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 12. CART TOAST NOTIFICATION (Exact fume-main architecture) -->
     <div id="sh-toast" class="sh-toast">
         <div class="sh-toast-icon"><i class="bi bi-check-circle-fill"></i></div>
@@ -4436,13 +4534,10 @@
                         <span>All quotations &amp; contracts executed under Incoterms 2020 (CIF/FOB Santos) with official MAPA phytosanitary clearance.</span>
                     </div>
 
-                    <!-- Sign Out Form -->
-                    <form action="{{ route('logout') }}" method="POST" class="m-0">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
-                            <i class="bi bi-box-arrow-right fs-5"></i> Sign Out / Logout
-                        </button>
-                    </form>
+                    <!-- Sign Out Button (Opens Modal) -->
+                    <button type="button" class="btn btn-outline-danger w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#universalLogoutModal">
+                        <i class="bi bi-box-arrow-right fs-5"></i> Sign Out / Logout
+                    </button>
                 </div>
             </div>
         </div>
@@ -4773,18 +4868,60 @@
             }
             updateCartCount();
 
-            function triggerToast(message, total, subText) {
+            var toastTimer = null;
+            function triggerToast(message, total, subText, type) {
                 var toast = document.getElementById('sh-toast');
                 if (!toast) return;
+                type = type || 'success';
+                var iconContainer = toast.querySelector('.sh-toast-icon');
+                if (iconContainer) {
+                    var iconClass = 'bi bi-check-circle-fill';
+                    if (type === 'danger') iconClass = 'bi bi-exclamation-octagon-fill text-danger';
+                    else if (type === 'warning') iconClass = 'bi bi-exclamation-triangle-fill text-warning';
+                    else if (type === 'info') iconClass = 'bi bi-info-circle-fill text-info';
+                    iconContainer.innerHTML = '<i class="' + iconClass + '"></i>';
+                }
+                toast.classList.remove('sh-toast-success', 'sh-toast-danger', 'sh-toast-warning', 'sh-toast-info');
+                toast.classList.add('sh-toast-' + type);
                 document.getElementById('shToastMsg').textContent = message;
                 document.getElementById('shToastCount').textContent = subText || ((total || 0) + ' lot(s) in cart');
                 toast.classList.remove('sh-toast-hide');
                 toast.classList.add('sh-toast-show');
-                setTimeout(function () {
+                if (toastTimer) clearTimeout(toastTimer);
+                toastTimer = setTimeout(function () {
                     toast.classList.remove('sh-toast-show');
                     toast.classList.add('sh-toast-hide');
-                }, 3500);
+                }, 3800);
             }
+            window.triggerToast = triggerToast;
+
+            // Universal In-Frame Confirmation Helper (Replaces window.confirm)
+            window.showUniversalConfirm = function(options) {
+                var modalEl = document.getElementById('universalConfirmModal');
+                if (!modalEl || !window.bootstrap) {
+                    if (options.onConfirm) options.onConfirm();
+                    return;
+                }
+                document.getElementById('uConfirmTitle').textContent = options.title || 'Confirm Action';
+                document.getElementById('uConfirmMessage').textContent = options.message || 'Are you sure you want to proceed?';
+                var actionBtn = document.getElementById('uConfirmActionBtn');
+                actionBtn.textContent = options.confirmText || 'Confirm';
+                actionBtn.className = 'btn btn-sm rounded-pill px-3 fw-bold ' + (options.btnClass || 'btn-danger');
+                var iconEl = document.getElementById('uConfirmIcon');
+                if (iconEl) {
+                    iconEl.className = options.iconClass || 'bi bi-question-circle-fill text-primary fs-5';
+                }
+                var modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                var newActionBtn = actionBtn.cloneNode(true);
+                actionBtn.parentNode.replaceChild(newActionBtn, actionBtn);
+                newActionBtn.addEventListener('click', function() {
+                    modal.hide();
+                    if (typeof options.onConfirm === 'function') {
+                        options.onConfirm();
+                    }
+                });
+                modal.show();
+            };
 
             // Agrovia Cart Drawer Functions
             function openCartDrawer() {
@@ -4891,9 +5028,16 @@
                 var currentQty = parseInt(cart[index].qty, 10) || 1;
                 var newQty = currentQty + delta;
                 if (newQty <= 0) {
-                    if (confirm('Remove ' + cart[index].name + ' from your sample cart?')) {
-                        removeCartItem(index);
-                    }
+                    window.showUniversalConfirm({
+                        title: 'Remove Commodity Lot',
+                        message: 'Remove ' + cart[index].name + ' from your sample cart?',
+                        confirmText: 'Remove Item',
+                        btnClass: 'btn-danger',
+                        iconClass: 'bi bi-trash3-fill text-danger fs-5',
+                        onConfirm: function() {
+                            removeCartItem(index);
+                        }
+                    });
                     return;
                 }
                 if (newQty > 500000) {
@@ -4920,13 +5064,20 @@
             var lastClearedCart = [];
             function clearCart() {
                 if (cart.length === 0) return;
-                if (confirm('Would you like to clear all commodity lots from your sample cart?')) {
-                    lastClearedCart = cart.slice();
-                    cart = [];
-                    saveCart();
-                    renderCartDrawer();
-                    triggerToast('Cart cleared. Click Undo to restore.', 0);
-                }
+                window.showUniversalConfirm({
+                    title: 'Clear Sample Cart',
+                    message: 'Would you like to clear all commodity lots from your sample cart? This action can be undone.',
+                    confirmText: 'Clear All Lots',
+                    btnClass: 'btn-danger',
+                    iconClass: 'bi bi-trash3-fill text-danger fs-5',
+                    onConfirm: function() {
+                        lastClearedCart = cart.slice();
+                        cart = [];
+                        saveCart();
+                        renderCartDrawer();
+                        triggerToast('Cart cleared. Click Undo to restore.', 0, 'Cart emptied', 'warning');
+                    }
+                });
             }
             window.clearCart = clearCart;
             window.undoClearCart = function () {
@@ -6059,22 +6210,56 @@
         };
 
         window.promptLogoutOtherSessions = function () {
-            var pwd = prompt('Enter your account password to confirm signing out all other browser devices:');
-            if (!pwd) return;
-            var csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
-            $.ajax({
-                url: '{{ route("session.logout-other-devices") }}',
-                type: 'POST',
-                data: { password: pwd },
-                headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
-                success: function (res) {
-                    alert(res.message || 'All other devices logged out successfully.');
-                },
-                error: function (xhr) {
-                    var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Unable to log out other devices. Please check your password.';
-                    alert(msg);
+            var modalEl = document.getElementById('universalPromptModal');
+            if (!modalEl || !window.bootstrap) return;
+            var input = document.getElementById('uPromptInput');
+            var feedback = document.getElementById('uPromptFeedback');
+            var submitBtn = document.getElementById('uPromptSubmitBtn');
+            input.value = '';
+            feedback.style.display = 'none';
+            feedback.className = 'small fw-semibold mt-2';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="bi bi-box-arrow-right me-1"></i> Confirm &amp; Sign Out Other Devices';
+            var modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+
+            var newSubmitBtn = submitBtn.cloneNode(true);
+            submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
+            newSubmitBtn.addEventListener('click', function () {
+                var pwd = input.value.trim();
+                if (!pwd) {
+                    feedback.style.display = 'block';
+                    feedback.className = 'small fw-semibold mt-2 text-danger';
+                    feedback.innerHTML = '<i class="bi bi-exclamation-circle-fill me-1"></i> Please enter your account password.';
+                    input.focus();
+                    return;
                 }
+                newSubmitBtn.disabled = true;
+                newSubmitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Terminating Sessions...';
+                feedback.style.display = 'none';
+
+                var csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
+                $.ajax({
+                    url: '{{ route("session.logout-other-devices") }}',
+                    type: 'POST',
+                    data: { password: pwd },
+                    headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
+                    success: function (res) {
+                        modal.hide();
+                        triggerToast(res.message || 'All other devices logged out successfully.', 0, 'Security Guard Active', 'success');
+                    },
+                    error: function (xhr) {
+                        newSubmitBtn.disabled = false;
+                        newSubmitBtn.innerHTML = '<i class="bi bi-box-arrow-right me-1"></i> Confirm &amp; Sign Out Other Devices';
+                        var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Invalid password. Unable to log out other devices.';
+                        feedback.style.display = 'block';
+                        feedback.className = 'small fw-semibold mt-2 text-danger';
+                        feedback.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-1"></i> ' + msg;
+                        triggerToast(msg, 0, 'Authorization Failed', 'danger');
+                    }
+                });
             });
+            modal.show();
+            setTimeout(function() { input.focus(); }, 400);
         };
 
         // Global 419 Session Expiry Interceptor
