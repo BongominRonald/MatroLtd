@@ -28,6 +28,7 @@
         (function() {
             var savedTheme = localStorage.getItem('sh_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', savedTheme);
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
         })();
     </script>
 
@@ -442,20 +443,49 @@
             padding: 1rem 1.25rem;
         }
 
+        .admin-table {
+            --bs-table-color: #1e293b;
+            --bs-table-bg: transparent;
+            --bs-table-hover-bg: #f8fafc;
+            --bs-table-hover-color: #0f172a;
+        }
+
         .admin-table th {
-            color: #64748b;
+            color: #475569 !important;
             font-size: .72rem;
             text-transform: uppercase;
             letter-spacing: .05em;
             font-weight: 700;
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
+            background: #f8fafc !important;
+            border-bottom: 1px solid #e2e8f0 !important;
             padding: .75rem 1rem;
         }
 
         .admin-table td {
+            color: #1e293b !important;
             padding: .85rem 1rem;
             border-bottom: 1px solid #f1f5f9;
+        }
+
+        .admin-table td a:not(.btn) {
+            color: #0f172a !important;
+            text-decoration: none;
+            transition: color .15s ease;
+        }
+
+        .admin-table td a:not(.btn):hover {
+            color: var(--matro-green-dark) !important;
+            text-decoration: underline !important;
+        }
+
+        .admin-table td .text-dark,
+        .admin-table td a.text-dark {
+            color: #0f172a !important;
+        }
+
+        .admin-table td .text-muted,
+        .admin-table td small.text-muted {
+            color: #64748b !important;
         }
 
         .admin-thumb {
@@ -608,17 +638,53 @@
         html[data-theme="dark"] .admin-card .card-header h5 {
             color: #ffffff;
         }
+        html[data-theme="dark"] .admin-table {
+            --bs-table-color: #f1f5f9 !important;
+            --bs-table-bg: #111827 !important;
+            --bs-table-hover-bg: #1e293b !important;
+            --bs-table-hover-color: #ffffff !important;
+        }
         html[data-theme="dark"] .admin-table th {
-            background: #0f172a;
-            color: #94a3b8;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: #0f172a !important;
+            color: #94a3b8 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
         }
         html[data-theme="dark"] .admin-table td {
-            color: #e2e8f0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            color: #f1f5f9 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+            background-color: transparent !important;
         }
         html[data-theme="dark"] .admin-table tr:hover td {
-            background-color: rgba(255, 255, 255, 0.03);
+            background-color: #1e293b !important;
+            color: #ffffff !important;
+        }
+        html[data-theme="dark"] .admin-table td .text-dark,
+        html[data-theme="dark"] .admin-table td a.text-dark,
+        html[data-theme="dark"] .admin-table td div.text-dark,
+        html[data-theme="dark"] .admin-table td span.text-dark {
+            color: #f8fafc !important;
+        }
+        html[data-theme="dark"] .admin-table td a:not(.btn) {
+            color: #38bdf8 !important;
+        }
+        html[data-theme="dark"] .admin-table td a:not(.btn):hover {
+            color: #7dd3fc !important;
+            text-decoration: underline !important;
+        }
+        html[data-theme="dark"] .admin-table td .text-muted,
+        html[data-theme="dark"] .admin-table td small.text-muted {
+            color: #94a3b8 !important;
+        }
+        html[data-theme="dark"] .admin-table .badge.bg-light {
+            background-color: #1e293b !important;
+            color: #e2e8f0 !important;
+            border-color: rgba(255, 255, 255, 0.15) !important;
+        }
+        html[data-theme="dark"] .admin-table .badge.bg-light.text-dark {
+            color: #f8fafc !important;
+        }
+        html[data-theme="dark"] .admin-table .badge.bg-light.text-secondary {
+            color: #cbd5e1 !important;
         }
         html[data-theme="dark"] .admin-user {
             background: #1e293b;
@@ -657,20 +723,22 @@
             color: #ffffff;
         }
         html[data-theme="dark"] .btn-outline-dark {
-            color: #e2e8f0;
-            border-color: #475569;
+            color: #f8fafc !important;
+            border-color: rgba(255, 255, 255, 0.25) !important;
+            background-color: #1e293b !important;
         }
         html[data-theme="dark"] .btn-outline-dark:hover {
-            background: #e2e8f0;
-            color: #0f172a;
+            background-color: #334155 !important;
+            color: #ffffff !important;
         }
         html[data-theme="dark"] .btn-outline-secondary {
-            color: #cbd5e1;
-            border-color: #475569;
+            color: #e2e8f0 !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
         }
         html[data-theme="dark"] .btn-outline-secondary:hover {
-            background: #475569;
-            color: #ffffff;
+            background-color: #475569 !important;
+            color: #ffffff !important;
         }
         html[data-theme="dark"] .btn-light {
             background-color: #1e293b !important;
@@ -1140,6 +1208,7 @@
         themeToggleBtn.addEventListener('click', function() {
             var active = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', active);
+            document.documentElement.setAttribute('data-bs-theme', active);
             try { localStorage.setItem('sh_theme', active); } catch(e) {}
             updateThemeIcon(active);
         });
