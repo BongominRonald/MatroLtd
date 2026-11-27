@@ -368,7 +368,7 @@ class DatabaseSeeder extends Seeder
             // --- COOKING OILS & ADDITIONAL COMMODITIES REQUESTED ---
             [
                 'category_id' => $categories['oil-sugar']->id,
-                'name' => 'Refined Sunflower Oil (Grade A)',
+                'name' => 'Sunflower Oil (Refined Grade A)',
                 'slug' => 'refined-sunflower-oil',
                 'brand' => 'BRX Agro Global Cooking Oils',
                 'price' => 915.00,
@@ -383,7 +383,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'category_id' => $categories['oil-sugar']->id,
-                'name' => 'Refined Corn Oil (Pure Maize Oil)',
+                'name' => 'Corn Oil (Pure Refined Maize)',
                 'slug' => 'refined-corn-oil',
                 'brand' => 'BRX Agro Global Cooking Oils',
                 'price' => 850.00,
@@ -398,7 +398,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'category_id' => $categories['oil-sugar']->id,
-                'name' => 'Refined Palm Olein Oil (RBD CP8 / CP10)',
+                'name' => 'Palm Oil (Refined RBD CP8 / CP10)',
                 'slug' => 'refined-palm-olein-oil',
                 'brand' => 'BRX Agro Global Cooking Oils',
                 'price' => 920.00,
@@ -413,7 +413,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'category_id' => $categories['oil-sugar']->id,
-                'name' => 'Pure Refined Soybean Oil (Food Grade)',
+                'name' => 'Soybeans Oil (Pure Refined Food Grade)',
                 'slug' => 'pure-refined-soybean-oil',
                 'brand' => 'BRX Mato Grosso Oils',
                 'price' => 950.00,
