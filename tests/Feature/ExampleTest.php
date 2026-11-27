@@ -265,6 +265,8 @@ class ExampleTest extends TestCase
 
         // Verify Google AdSense
         $response->assertSee('pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', false);
+        $response->assertSee('google-adsense-account', false);
+        $response->assertSee('ca-pub-2252067205687343', false);
         $response->assertSee('adsbygoogle', false);
         $response->assertSee('Advertisement');
     }
@@ -298,7 +300,6 @@ class ExampleTest extends TestCase
         $response = $this->get('/ads.txt');
         $response->assertStatus(200);
         $response->assertHeader('Content-Type', 'text/plain; charset=utf-8');
-        $response->assertSee('google.com,', false);
-        $response->assertSee('DIRECT, f08c47fec0942fa0', false);
+        $response->assertSee('google.com, pub-2252067205687343, DIRECT, f08c47fec0942fa0', false);
     }
 }

@@ -64,7 +64,7 @@ return [
     ],
 
     'adsense' => [
-        'client_id' => env('GOOGLE_ADSENSE_CLIENT_ID', 'ca-pub-XXXXXXXXXXXXXXXX'),
+        'client_id' => env('GOOGLE_ADSENSE_CLIENT_ID', 'ca-pub-2252067205687343'),
         'enabled' => env('GOOGLE_ADSENSE_ENABLED', true),
         'slot_top' => env('GOOGLE_ADSENSE_SLOT_TOP'),
         'slot_mid' => env('GOOGLE_ADSENSE_SLOT_MID'),

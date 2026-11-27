@@ -95,7 +95,7 @@ Route::get('/robots.txt', function () {
 
 // Dynamic ads.txt for Google AdSense Crawler Verification & Authorized Sellers
 Route::get('/ads.txt', function () {
-    $rawPublisherId = config('services.adsense.client_id', env('GOOGLE_ADSENSE_CLIENT_ID', 'ca-pub-XXXXXXXXXXXXXXXX'));
+    $rawPublisherId = config('services.adsense.client_id', env('GOOGLE_ADSENSE_CLIENT_ID', 'ca-pub-2252067205687343'));
     $pubId = preg_replace('/^ca-/', '', trim($rawPublisherId));
     $lines = [
         '# Google AdSense Authorized Digital Sellers (ads.txt)',

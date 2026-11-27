@@ -175,7 +175,8 @@
     @endphp
     <script type="application/ld+json">{!! json_encode($jsonLdGraph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
-    <!-- Google AdSense Official Integration -->
+    <!-- Google AdSense Account Verification Meta Tag & Script -->
+    <meta name="google-adsense-account" content="{{ config('services.adsense.client_id', 'ca-pub-2252067205687343') }}">
     @if(config('services.adsense.enabled', true) && !empty(config('services.adsense.client_id')))
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ config('services.adsense.client_id') }}"
              crossorigin="anonymous"></script>
