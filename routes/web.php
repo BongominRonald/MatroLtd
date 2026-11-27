@@ -210,6 +210,27 @@ Route::get('/merchant-feed.xml', function () {
         $xml .= '        <g:service>Port Dispatch Logistics</g:service>'."\n";
         $xml .= '        <g:price>'.$shippingPrice.'</g:price>'."\n";
         $xml .= '      </g:shipping>'."\n";
+        $googleCategory = 'Food, Beverages & Tobacco > Food Items';
+        $slug = Str::lower($prod->slug ?: '');
+        if (Str::contains($slug, 'coffee')) {
+            $googleCategory = 'Food, Beverages & Tobacco > Beverages > Coffee > Coffee Beans';
+        } elseif (Str::contains($slug, ['chicken', 'beef', 'lamb', 'meat', 'seafood', 'fish'])) {
+            $googleCategory = 'Food, Beverages & Tobacco > Food Items > Meat, Poultry & Seafood';
+        } elseif (Str::contains($slug, ['oil'])) {
+            $googleCategory = 'Food, Beverages & Tobacco > Food Items > Cooking & Baking Ingredients > Cooking Oils';
+        } elseif (Str::contains($slug, ['sugar'])) {
+            $googleCategory = 'Food, Beverages & Tobacco > Food Items > Cooking & Baking Ingredients > Sugar & Sweeteners';
+        } elseif (Str::contains($slug, ['rice', 'corn', 'soybean', 'bean', 'lentil', 'mung'])) {
+            $googleCategory = 'Food, Beverages & Tobacco > Food Items > Grains, Rice & Cereal';
+        } elseif (Str::contains($slug, ['almond', 'cashew', 'walnut', 'peanut', 'pistachio', 'nut'])) {
+            $googleCategory = 'Food, Beverages & Tobacco > Food Items > Snack Foods > Nuts & Seeds';
+        } elseif (Str::contains($slug, ['pepper', 'chilli', 'turmeric', 'cumin', 'cardamom', 'spice'])) {
+            $googleCategory = 'Food, Beverages & Tobacco > Food Items > Condiments & Sauces > Spices & Seasonings';
+        } elseif (Str::contains($slug, ['milk'])) {
+            $googleCategory = 'Food, Beverages & Tobacco > Food Items > Dairy Products';
+        }
+
+        $xml .= '      <g:google_product_category>'.e($googleCategory).'</g:google_product_category>'."\n";
         $xml .= '      <g:product_type>'.e('Food, Beverages & Tobacco > Food Items > '.$categoryName).'</g:product_type>'."\n";
         $xml .= '    </item>'."\n";
     }

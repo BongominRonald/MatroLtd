@@ -139,7 +139,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'category_id' => $categories['spices-specialty']->id,
-                'name' => 'Green Coffee Beans (Arabica NY 2/3 Fine Cup)',
+                'name' => 'Raw Unroasted Arabica Coffee Beans (NY 2/3 Fine Cup)',
                 'slug' => 'green-coffee-beans-arabica',
                 'brand' => 'BRX Minas Reserve',
                 'price' => 9850.00,
@@ -150,7 +150,7 @@ class DatabaseSeeder extends Seeder
                 'image' => 'img/coffee-beans.webp',
                 'is_featured' => true,
                 'is_new' => false,
-                'description' => 'Strictly soft, fine cup Brazilian Arabica unroasted beans. Screen size 17/18, ideal for commercial roasters.',
+                'description' => 'Export-grade 100% natural Brazilian raw unroasted Arabica coffee beans (NY 2/3, Fine Cup). Strictly soft, screen size 17/18, intended for commercial roasteries and industrial coffee production. Agricultural food commodity.',
             ],
             [
                 'category_id' => $categories['oil-sugar']->id,
