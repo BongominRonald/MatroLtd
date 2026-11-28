@@ -91,7 +91,7 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.86) 0%, rgba(246, 252, 247, 0.82) 100%),
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 252, 249, 0.92) 100%),
                       url('../img/sunflower-bg.jpg');
     background-position: center center;
     background-size: cover;
@@ -107,7 +107,7 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(246, 252, 247, 0.78) 100%),
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 252, 249, 0.92) 100%),
                       url('../img/banner-container-cargo.jpg');
     background-position: center center;
     background-size: cover;
@@ -149,7 +149,7 @@ body {
 .container.active .curved-shape {
     transform: rotate(0deg) skewY(0deg);
     transition-delay: 0.3s;
-    background: linear-gradient(180deg, rgba(14, 43, 22, 0.50) 0%, rgba(10, 30, 16, 0.78) 100%),
+    background: linear-gradient(180deg, rgba(12, 38, 20, 0.76) 0%, rgba(8, 24, 13, 0.90) 100%),
                 url('../img/banner-container-cargo.jpg') center/cover no-repeat;
 }
 
@@ -271,18 +271,19 @@ body {
 }
 
 /* Input Fields with Floating Underlines */
+/* Input Fields with Floating Underlines */
 .input-box {
     position: relative;
     width: 100%;
-    height: 38px;
-    border-bottom: 2px solid #a3cfbb;
-    margin: 9px 0 2px;
+    height: 40px;
+    border-bottom: 2px solid #86efac;
+    margin: 12px 0 3px;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .form-box.Register .input-box {
-    height: 34px;
-    margin: 6px 0 2px;
+    height: 36px;
+    margin: 8px 0 2px;
 }
 
 .input-box input {
@@ -292,9 +293,18 @@ body {
     border: none;
     outline: none;
     font-size: 13.5px;
-    color: #143823;
+    color: #0f172a;
     font-weight: 600;
-    padding-right: 28px;
+    padding: 11px 28px 2px 0;
+    box-sizing: border-box;
+}
+
+.input-box input:-webkit-autofill,
+.input-box input:-webkit-autofill:hover, 
+.input-box input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #0f172a;
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 .input-box label {
@@ -303,22 +313,28 @@ body {
     left: 0;
     transform: translateY(-50%);
     font-size: 13px;
-    color: #476652;
+    color: #475569;
     pointer-events: none;
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left top;
 }
 
 .input-box input:focus ~ label,
 .input-box input:valid ~ label,
+.input-box input:not(:placeholder-shown) ~ label,
+.input-box input:-webkit-autofill ~ label,
+.input-box input:autofill ~ label,
 .input-box.has-val label {
-    top: -4px;
-    font-size: 10.5px;
-    color: #157347;
-    font-weight: 600;
+    top: 0;
+    transform: translateY(-6px);
+    font-size: 11px;
+    color: #15803d;
+    font-weight: 700;
+    letter-spacing: 0.2px;
 }
 
 .input-box input:focus {
-    border-bottom-color: #198754;
+    border-bottom-color: #15803d;
 }
 
 .input-box i {
@@ -327,7 +343,7 @@ body {
     right: 0;
     transform: translateY(-50%);
     font-size: 17px;
-    color: #3b7a57;
+    color: #15803d;
     transition: 0.3s ease;
 }
 
@@ -338,12 +354,12 @@ body {
 }
 
 .input-box i.toggle-pass:hover {
-    color: #157347;
+    color: #166534;
 }
 
 .input-box input:focus ~ i,
 .input-box input:valid ~ i {
-    color: #198754;
+    color: #15803d;
 }
 
 /* ================= PASSWORD STRENGTH METER ================= */
@@ -682,15 +698,16 @@ body {
     letter-spacing: 0.5px;
     margin-bottom: 4px;
     text-transform: uppercase;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75), 0 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 .info-text p {
     font-size: 11.5px;
-    color: #f0fdf4;
+    color: #ffffff;
     line-height: 1.4;
-    max-width: 210px;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+    max-width: 215px;
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85), 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 /* ================= STAGGERED ENTRANCE & EXIT ANIMATIONS ================= */
@@ -887,25 +904,27 @@ body {
     background: linear-gradient(90deg, #d4e5d6, #c2dcc5);
 }
 
-/* ================= RESPONSIVE ================= */
+/* ================= DYNAMIC MOBILE VIEW (SCREEN <= 700px) ================= */
 @media (max-width: 700px) {
     .wrapper {
         padding: 16px 12px;
-        justify-content: flex-start;
+        min-height: 100vh;
+        justify-content: center;
+        align-items: center;
         overflow-x: hidden;
     }
 
     .top-nav-bar {
         max-width: 420px;
         width: 100%;
-        margin-bottom: 10px;
+        margin: 0 auto 10px;
         padding: 0 4px;
         box-sizing: border-box;
     }
 
     .back-home-link {
         font-size: 11.5px;
-        padding: 5px 12px;
+        padding: 6px 14px;
         gap: 5px;
         max-width: 100%;
         box-sizing: border-box;
@@ -922,63 +941,73 @@ body {
     .container {
         width: 100%;
         max-width: 420px;
-        height: 530px;
-        box-sizing: border-box;
-        overflow: hidden;
-    }
-
-    .form-box,
-    .info-text {
-        width: 100%;
-        padding: 0 20px;
-        box-sizing: border-box;
-    }
-
-    .info-text {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .wrapper {
-        padding: 12px 8px;
-        overflow-x: hidden;
-    }
-
-    .top-nav-bar {
-        max-width: 100%;
-        width: 100%;
-        padding: 0 2px;
-        margin: 0 auto 8px;
-        box-sizing: border-box;
-    }
-
-    .back-home-link {
-        font-size: 11px;
-        padding: 5px 10px;
-        gap: 4px;
-        max-width: 100%;
-        box-sizing: border-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .container {
-        max-width: 100%;
-        width: 100%;
+        height: auto !important;
+        min-height: unset !important;
         border-radius: 18px;
-        height: auto;
-        min-height: 480px;
-        padding-bottom: 16px;
         box-sizing: border-box;
         overflow: hidden;
+        transition: max-height 0.35s ease;
+    }
+
+    .curved-shape,
+    .curved-shape2,
+    .info-text {
+        display: none !important;
     }
 
     .form-box {
-        width: 100%;
-        padding: 0 16px;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: unset !important;
+        padding: 24px 20px 22px !important;
+        background: transparent !important;
+        overflow: visible !important;
         box-sizing: border-box;
+    }
+
+    .form-box.Login {
+        display: flex !important;
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+        pointer-events: auto !important;
+    }
+
+    .form-box.Register {
+        display: none !important;
+        transform: none !important;
+        opacity: 0 !important;
+        filter: none !important;
+        pointer-events: none !important;
+    }
+
+    .container.active .form-box.Login {
+        display: none !important;
+        pointer-events: none !important;
+    }
+
+    .container.active .form-box.Register {
+        display: flex !important;
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+        pointer-events: auto !important;
+        animation: mobileCardFadeIn 0.3s ease;
+    }
+
+    @keyframes mobileCardFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .form-box h2 {
@@ -986,7 +1015,34 @@ body {
     }
 
     .input-box {
-        margin: 16px 0;
+        margin: 14px 0 4px;
+    }
+
+    .form-box.Register .input-box {
+        margin: 9px 0 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wrapper {
+        padding: 12px 8px;
+    }
+
+    .top-nav-bar {
+        padding: 0 2px;
+        margin: 0 auto 8px;
+    }
+
+    .container {
+        border-radius: 16px;
+    }
+
+    .form-box {
+        padding: 20px 16px 18px !important;
+    }
+
+    .form-box h2 {
+        font-size: 21px;
     }
 }
 
@@ -995,18 +1051,8 @@ body {
         padding: 10px 4px;
     }
 
-    .back-home-link {
-        font-size: 10.5px;
-        padding: 4px 8px;
-        gap: 4px;
-    }
-
-    .back-home-link i {
-        font-size: 14px;
-    }
-
     .form-box {
-        padding: 0 10px;
+        padding: 16px 12px 16px !important;
     }
 
     .container {
