@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Expired — BRX AGRO GLOBAL</title>
+    <title>Page Timed Out — BRX AGRO GLOBAL</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('lib/boxicons/boxicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/open-sans.css') }}">
@@ -124,10 +124,10 @@
             <i class='bx bx-globe'></i> BRX AGRO GLOBAL
         </div>
         <div class="code-display">419</div>
-        <h1>Your Session Timed Out</h1>
-        <p>For your security, your session expired due to a period of inactivity. Please refresh the page and try submitting your request again.</p>
+        <h1>Your Sign-in Timed Out</h1>
+        <p>To protect your account and orders, this page timed out due to a period of inactivity. Please refresh the page or return to the homepage to continue.</p>
         <div class="actions">
-            <a href="{ route('home') }}" class="btn btn-primary">
+            <a href="{{ route('home') }}" class="btn btn-primary">
                 <i class='bx bx-home-alt'></i> Back to Homepage
             </a>
             <a href="https://api.whatsapp.com/send?phone=5511958353433&text=Hello%20BRX%20Agro%20Global,%20I%20need%20assistance." target="_blank" class="btn btn-outline">

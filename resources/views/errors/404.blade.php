@@ -127,7 +127,7 @@
         <h1>Page Not Found</h1>
         <p>We couldn't find the page you were looking for. It may have been moved, renamed, or is temporarily unavailable. Let's get you back on track.</p>
         <div class="actions">
-            <a href="{ route('home') }}" class="btn btn-primary">
+            <a href="{{ route('home') }}" class="btn btn-primary">
                 <i class='bx bx-home-alt'></i> Back to Homepage
             </a>
             <a href="https://api.whatsapp.com/send?phone=5511958353433&text=Hello%20BRX%20Agro%20Global,%20I%20need%20assistance." target="_blank" class="btn btn-outline">

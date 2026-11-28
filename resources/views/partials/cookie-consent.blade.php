@@ -332,14 +332,14 @@
                         <span class="badge badge-always-active rounded-pill">Always Active</span>
                     </div>
                     <p class="cookie-cat-desc mb-2.5">
-                        These cookies are essential for you to browse the platform and use its core features, including logging into your Trade Desk account, keeping your commodity sample cart active, and protecting forms from security threats (CSRF). Because they are required for the website to function, they cannot be turned off.
+                        These cookies are essential for our store to function. They keep you safely signed in, keep items saved in your cart as you browse, and protect your information from unauthorized tampering. Because they are necessary for the website to work, they cannot be switched off.
                     </p>
-                    <div class="small font-monospace">
-                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">Active Cookies:</span>
-                        <code class="cookie-tech-code">XSRF-TOKEN</code>
-                        <code class="cookie-tech-code">brx_session</code>
-                        <code class="cookie-tech-code">agrovia_cart</code>
-                        <code class="cookie-tech-code">brx_cookie_consent</code>
+                    <div class="small d-flex align-items-center flex-wrap gap-1">
+                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">What these do:</span>
+                        <span class="badge bg-secondary-subtle text-body border" style="font-size: 0.72rem;">Secure Sign-in</span>
+                        <span class="badge bg-secondary-subtle text-body border" style="font-size: 0.72rem;">Saved Cart</span>
+                        <span class="badge bg-secondary-subtle text-body border" style="font-size: 0.72rem;">Security Protection</span>
+                        <span class="badge bg-secondary-subtle text-body border" style="font-size: 0.72rem;">Cookie Choices</span>
                     </div>
                 </div>
 
@@ -355,13 +355,13 @@
                         </div>
                     </div>
                     <p class="cookie-cat-desc mb-2.5">
-                        These cookies enable advanced site functionality and personalization. They remember your Trade Desk inbox preferences, device email composition defaults, and interface customization (such as Light or Dark display themes).
+                        These cookies remember your personal preferences so you do not have to re-enter them on every visit. They remember your messaging preferences, contact defaults, and display mode (such as Light or Dark view).
                     </p>
-                    <div class="small font-monospace">
-                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">Active Cookies:</span>
-                        <code class="cookie-tech-code">brx_inbox_pref</code>
-                        <code class="cookie-tech-code">sh-theme</code>
-                        <code class="cookie-tech-code">brx_desk_sync</code>
+                    <div class="small d-flex align-items-center flex-wrap gap-1">
+                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">What these do:</span>
+                        <span class="badge bg-secondary-subtle text-body border" style="font-size: 0.72rem;">Inbox Preferences</span>
+                        <span class="badge bg-secondary-subtle text-body border" style="font-size: 0.72rem;">Light / Dark Theme</span>
+                        <span class="badge bg-secondary-subtle text-body border" style="font-size: 0.72rem;">Device Settings</span>
                     </div>
                 </div>
 
@@ -377,12 +377,12 @@
                         </div>
                     </div>
                     <p class="cookie-cat-desc mb-2.5">
-                        These cookies help us understand how international buyers interact with our commodity listings. All information is aggregated and anonymous, helping our technical team optimize catalog load speeds and international CDN delivery times.
+                        These cookies help us understand which commodities and features are most popular so we can optimize website speed and browsing reliability for all visitors. All collected information is completely anonymous.
                     </p>
-                    <div class="small font-monospace">
-                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">Active Cookies:</span>
-                        <code class="cookie-tech-code">_brx_perf</code>
-                        <code class="cookie-tech-code">_brx_analytics</code>
+                    <div class="small d-flex align-items-center flex-wrap gap-1">
+                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">What these do:</span>
+                        <span class="badge bg-secondary-subtle text-body border" style="font-size: 0.72rem;">Page Speed Insights</span>
+                        <span class="badge bg-secondary-subtle text-body border" style="font-size: 0.72rem;">Anonymous Usage Trends</span>
                     </div>
                 </div>
 
@@ -398,12 +398,12 @@
                         </div>
                     </div>
                     <p class="cookie-cat-desc mb-2.5">
-                        These cookies track the referral source of incoming institutional trade inquiries and RFQs. This ensures your account is assigned to the appropriate commodity desk officer (Grain, Sugar, Coffee, or Fertilizer).
+                        These cookies help route your order inquiries directly to the specialized desk officer for your commodity (such as Grain, Sugar, Coffee, or Fertilizer) based on how you discovered us.
                     </p>
-                    <div class="small font-monospace">
-                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">Active Cookies:</span>
-                        <code class="cookie-tech-code">_brx_rfq_source</code>
-                        <code class="cookie-tech-code">_brx_partner_ref</code>
+                    <div class="small d-flex align-items-center flex-wrap gap-1">
+                        <span class="fw-bold me-1" style="font-size: 0.76rem; color: var(--bs-secondary-color);">What these do:</span>
+                        <span class="badge bg-secondary-subtle text-body border" style="font-size: 0.72rem;">Specialist Routing</span>
+                        <span class="badge bg-secondary-subtle text-body border" style="font-size: 0.72rem;">Inquiry Source</span>
                     </div>
                 </div>
 
@@ -474,37 +474,37 @@
                             <tr>
                                 <td><code class="cookie-tech-code">XSRF-TOKEN</code></td>
                                 <td><span class="badge bg-secondary">Strictly Necessary</span></td>
-                                <td>Protects submitted trade requests, forms, and order checkouts against Cross-Site Request Forgery attacks.</td>
+                                <td>Protects your quote requests, contact messages, and order checkouts against unauthorized form tampering.</td>
                                 <td>Session / 2 hours</td>
                             </tr>
                             <tr>
                                 <td><code class="cookie-tech-code">brx_session</code></td>
                                 <td><span class="badge bg-secondary">Strictly Necessary</span></td>
-                                <td>Maintains encrypted buyer session and portal authentication state.</td>
+                                <td>Keeps you securely signed in to your Trade Desk account and saves your cart as you browse.</td>
                                 <td>2 hours</td>
                             </tr>
                             <tr>
                                 <td><code class="cookie-tech-code">brx_cookie_consent</code></td>
                                 <td><span class="badge bg-secondary">Strictly Necessary</span></td>
-                                <td>Records your explicit cookie authorizations and consent preferences.</td>
+                                <td>Remembers your cookie and privacy choices so you don't have to choose again on every visit.</td>
                                 <td>1 year</td>
                             </tr>
                             <tr>
                                 <td><code class="cookie-tech-code">agrovia_cart</code></td>
                                 <td><span class="badge bg-secondary">Strictly Necessary</span></td>
-                                <td>Saves commodity lot selections, quantities, and CIF/FOB delivery terms during browsing.</td>
+                                <td>Remembers your selected commodity lots, quantities, and CIF/FOB delivery terms in your inquiry cart.</td>
                                 <td>Session</td>
                             </tr>
                             <tr>
                                 <td><code class="cookie-tech-code">brx_inbox_pref</code></td>
                                 <td><span class="badge bg-primary">Functional</span></td>
-                                <td>Stores Trade Desk inbox drawer view states and device composer settings.</td>
+                                <td>Remembers your messaging drawer preferences and display view settings.</td>
                                 <td>30 days</td>
                             </tr>
                             <tr>
                                 <td><code class="cookie-tech-code">_brx_analytics</code></td>
                                 <td><span class="badge bg-info text-dark">Analytics</span></td>
-                                <td>Aggregates anonymous website usage and server response times to improve platform reliability.</td>
+                                <td>Collects anonymous information on page loading speeds to ensure smooth browsing worldwide.</td>
                                 <td>90 days</td>
                             </tr>
                         </tbody>

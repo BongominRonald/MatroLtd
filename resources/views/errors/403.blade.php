@@ -127,7 +127,7 @@
         <h1>Access Restricted</h1>
         <p>You do not have permission to view this section of the portal. If you believe this is an error, please sign in with an authorized account or contact support.</p>
         <div class="actions">
-            <a href="{ route('home') }}" class="btn btn-primary">
+            <a href="{{ route('home') }}" class="btn btn-primary">
                 <i class='bx bx-home-alt'></i> Back to Homepage
             </a>
             <a href="https://api.whatsapp.com/send?phone=5511958353433&text=Hello%20BRX%20Agro%20Global,%20I%20need%20assistance." target="_blank" class="btn btn-outline">

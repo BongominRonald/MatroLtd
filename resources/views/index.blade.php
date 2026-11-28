@@ -4158,7 +4158,7 @@
                 </div>
                 <div class="modal-body p-3 text-center">
                     <p class="small text-muted mb-3" style="line-height: 1.5; font-size: 0.85rem;">
-                        Are you sure you want to sign out of your institutional trade desk account? Your unsaved draft quotes will be retained.
+                        Are you sure you want to sign out of your account? Your saved items and draft quotes will be kept safe.
                     </p>
                     <div class="d-flex gap-2">
                         <button type="button" class="btn btn-outline-secondary flex-grow-1 py-1.5 fw-bold small rounded-pill" data-bs-dismiss="modal">
@@ -4183,13 +4183,13 @@
                 <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-4">
                     <div class="d-flex align-items-center gap-2">
                         <i class="bi bi-shield-lock-fill text-danger fs-5"></i>
-                        <h5 class="modal-title fw-bold sh-text-title mb-0" id="uPromptTitle">Log Out Other Browser Sessions</h5>
+                        <h5 class="modal-title fw-bold sh-text-title mb-0" id="uPromptTitle">Sign Out of Other Devices</h5>
                     </div>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <p class="text-muted small mb-3" id="uPromptMessage">
-                        Please enter your account password to confirm signing out all other browser devices:
+                        Please enter your account password to safely sign out of your account on any other phones, tablets, or computers:
                     </p>
                     <div class="mb-3">
                         <label class="form-label small fw-bold" for="uPromptInput">Current Account Password *</label>
@@ -4751,9 +4751,9 @@
                     <!-- Active Session & Device Security Section -->
                     <div class="mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="small fw-bold text-uppercase text-muted" style="letter-spacing: 0.5px;">Session &amp; Device Security</span>
+                            <span class="small fw-bold text-uppercase text-muted" style="letter-spacing: 0.5px;">Signed-in Devices &amp; Security</span>
                             <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-0.5" style="font-size: 0.65rem;">
-                                <i class="bi bi-shield-check me-1"></i>Encrypted AES-256
+                                <i class="bi bi-shield-check me-1"></i>Protected Connection
                             </span>
                         </div>
                         <div class="p-2.5 rounded-3 sh-box-bg mb-2" style="border: 1px solid var(--bs-border-color); font-size: 0.8rem;">
@@ -4761,14 +4761,14 @@
                                 <div class="d-flex align-items-center gap-2">
                                     <i class="bi bi-laptop text-success fs-5"></i>
                                     <div>
-                                        <strong class="d-block sh-text-title">Active Browser Session</strong>
-                                        <small class="text-muted">HttpOnly Cookie &bull; AuthenticateSession Guard Active</small>
+                                        <strong class="d-block sh-text-title">Current Device</strong>
+                                        <small class="text-muted">You are safely signed in on this browser</small>
                                     </div>
                                 </div>
                                 <span class="badge bg-success rounded-pill px-2 py-0.5" style="font-size: 0.65rem;">This Device</span>
                             </div>
                             <button type="button" class="btn btn-sm btn-outline-danger w-100 mt-2 fw-semibold d-flex align-items-center justify-content-center gap-1.5" onclick="promptLogoutOtherSessions()">
-                                <i class="bi bi-box-arrow-right"></i> Log Out All Other Devices
+                                <i class="bi bi-box-arrow-right"></i> Sign Out of Other Devices
                             </button>
                         </div>
                     </div>
@@ -4781,7 +4781,7 @@
 
                     <!-- Sign Out Button (Opens Modal) -->
                     <button type="button" class="btn btn-outline-danger w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#universalLogoutModal">
-                        <i class="bi bi-box-arrow-right fs-5"></i> Sign Out / Logout
+                        <i class="bi bi-box-arrow-right fs-5"></i> Sign Out
                     </button>
                 </div>
             </div>
@@ -4795,12 +4795,12 @@
                 <div class="modal-header border-bottom border-secondary border-opacity-25 py-2.5 px-3">
                     <div class="d-flex align-items-center gap-2">
                         <i class="bi bi-clock-history text-warning fs-5"></i>
-                        <h6 class="modal-title fw-bold sh-text-title mb-0" style="font-size: 0.95rem;">Session Expiring Soon</h6>
+                        <h6 class="modal-title fw-bold sh-text-title mb-0" style="font-size: 0.95rem;">Are You Still There?</h6>
                     </div>
                 </div>
                 <div class="modal-body p-3 text-center">
                     <p class="small text-muted mb-3" style="line-height: 1.5; font-size: 0.8rem;">
-                        For institutional trade security, your session will expire soon due to inactivity. Would you like to stay signed in?
+                        To protect your account and orders, your sign-in will expire soon due to inactivity. Would you like to stay signed in?
                     </p>
                     <div class="d-flex gap-2">
                         <button type="button" class="btn btn-sh-primary flex-grow-1 py-1.5 fw-bold small" onclick="extendUserSession()">
@@ -6429,7 +6429,7 @@
                         var modalInst = bootstrap.Modal.getInstance(modalEl);
                         if (modalInst) modalInst.hide();
                     }
-                    triggerToast('Session Extended', 0, 'Active security token refreshed');
+                    triggerToast('Signed In', 0, 'Your sign-in remains active');
                 }
             });
         };
@@ -6459,7 +6459,7 @@
                     return;
                 }
                 newSubmitBtn.disabled = true;
-                newSubmitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Terminating Sessions...';
+                newSubmitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Signing out other devices...';
                 feedback.style.display = 'none';
 
                 var csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
@@ -6470,16 +6470,16 @@
                     headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
                     success: function (res) {
                         modal.hide();
-                        triggerToast(res.message || 'All other devices logged out successfully.', 0, 'Security Guard Active', 'success');
+                        triggerToast(res.message || 'All other devices have been signed out.', 0, 'Account Protected', 'success');
                     },
                     error: function (xhr) {
                         newSubmitBtn.disabled = false;
                         newSubmitBtn.innerHTML = '<i class="bi bi-box-arrow-right me-1"></i> Confirm &amp; Sign Out Other Devices';
-                        var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Invalid password. Unable to log out other devices.';
+                        var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Invalid password. Unable to sign out other devices.';
                         feedback.style.display = 'block';
                         feedback.className = 'small fw-semibold mt-2 text-danger';
                         feedback.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-1"></i> ' + msg;
-                        triggerToast(msg, 0, 'Authorization Failed', 'danger');
+                        triggerToast(msg, 0, 'Incorrect Password', 'danger');
                     }
                 });
             });
@@ -6490,7 +6490,7 @@
         // Global 419 Session Expiry Interceptor
         $(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
             if (jqXHR.status === 419) {
-                triggerToast('Session Expired', 0, 'Please refresh or sign in again');
+                triggerToast('Sign-in Timed Out', 0, 'Please refresh the page or sign in again');
             }
         });
     </script>

@@ -85,7 +85,7 @@ class SessionManagementTest extends TestCase
 
         $successResponse->assertOk()
             ->assertJsonPath('status', 'success')
-            ->assertJsonPath('message', 'All other browser sessions have been logged out securely.');
+            ->assertJsonPath('message', 'All other devices have been signed out successfully.');
 
         // Verify secondary session was removed from database
         $this->assertDatabaseMissing('sessions', [

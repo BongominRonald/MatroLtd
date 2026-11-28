@@ -65,13 +65,13 @@
         <!-- Active Browser Sessions & Device Security Card -->
         <div class="card admin-card p-4 mb-4">
             <div class="d-flex align-items-center justify-content-between mb-3">
-                <h5 class="fw-bold mb-0">Active Sessions</h5>
+                <h5 class="fw-bold mb-0">Signed-in Devices</h5>
                 <span class="badge bg-success rounded-pill px-2.5 py-1 small">
                     <i class="bi bi-shield-check me-1"></i>Protected
                 </span>
             </div>
             <p class="text-muted small mb-3">
-                Manage and log out active browser sessions on other devices. Sessions are encrypted at rest with AES-256 and protected against session hijacking.
+                Manage and sign out of your account on any other devices. Your account is secured with encryption to prevent unauthorized access.
             </p>
 
             @if(isset($sessions) && $sessions->isNotEmpty())
@@ -107,19 +107,19 @@
 
             <!-- Log Out Other Sessions Action -->
             <button type="button" class="btn btn-outline-danger w-100 rounded-pill py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#logoutOtherDevicesModal">
-                <i class="bi bi-box-arrow-right"></i> Log Out Other Browser Sessions
+                <i class="bi bi-box-arrow-right"></i> Sign Out of Other Devices
             </button>
         </div>
 
         <!-- Security Best Practices Notice -->
         <div class="p-3 rounded-3 small" style="background: rgba(120, 162, 47, 0.08); border: 1px solid rgba(120, 162, 47, 0.25);">
             <div class="d-flex align-items-center gap-2 mb-1.5 text-success fw-bold">
-                <i class="bi bi-lock-fill"></i> Session Security Active
+                <i class="bi bi-shield-check"></i> Account Protection Active
             </div>
             <ul class="mb-0 ps-3 text-muted" style="font-size: 0.78rem; line-height: 1.5;">
-                <li>Cookies are flag-protected (HttpOnly, SameSite=Lax, Secure HTTPS).</li>
-                <li>Database sessions are encrypted at rest with AES-256-CBC.</li>
-                <li>Changing your password automatically terminates all other active sessions.</li>
+                <li>Your sign-in is protected with secure encryption over HTTPS.</li>
+                <li>Your account data and orders are stored securely at all times.</li>
+                <li>Changing your password automatically signs out any other phones, tablets, or computers.</li>
             </ul>
         </div>
     </div>
@@ -131,12 +131,12 @@
         <form action="{{ route('session.logout-other-devices') }}" method="POST" class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
             @csrf
             <div class="modal-header border-bottom py-3 px-4">
-                <h5 class="modal-title fw-bold">Log Out Other Browser Sessions</h5>
+                <h5 class="modal-title fw-bold">Sign Out of Other Devices</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
                 <p class="text-muted small mb-3">
-                    Please enter your account password to confirm you want to sign out of all other active browser sessions across all your devices.
+                    Please enter your account password to safely sign out of your account on any other phones, tablets, or computers:
                 </p>
                 <div class="mb-3">
                     <label class="form-label small fw-bold">Current Account Password *</label>

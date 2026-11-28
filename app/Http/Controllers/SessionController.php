@@ -44,7 +44,7 @@ class SessionController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Session extended successfully.',
+            'message' => 'Your sign-in remains active.',
             'authenticated' => Auth::check(),
             'csrf_token' => csrf_token(),
             'timestamp' => now()->toIso8601String(),
@@ -101,7 +101,7 @@ class SessionController extends Controller
 
         if (! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'password' => ['The provided password does not match your current account credentials.'],
+                'password' => ['The password you entered is incorrect. Please try again.'],
             ]);
         }
 
@@ -117,7 +117,7 @@ class SessionController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'All other browser sessions have been logged out securely.',
+            'message' => 'All other devices have been signed out successfully.',
             'active_sessions_count' => 1,
         ]);
     }
