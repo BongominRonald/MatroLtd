@@ -61,32 +61,19 @@ function clearInputs() {
     document.querySelectorAll('.input-box').forEach(box => box.classList.remove('has-val'));
 }
 
-function updateInputState(input) {
-    if (!input) return;
-    const box = input.closest('.input-box');
-    if (!box) return;
-    if (input.value && input.value.trim() !== '') {
-        box.classList.add('has-val');
-    } else {
-        box.classList.remove('has-val');
-    }
-}
-
-function checkAllInputValues() {
-    document.querySelectorAll('.input-box input').forEach(updateInputState);
-}
-
 document.querySelectorAll('.input-box input').forEach(input => {
-    ['input', 'change', 'blur', 'focus', 'keyup'].forEach(evt => {
-        input.addEventListener(evt, () => updateInputState(input));
+    if (input.value.trim() !== '') {
+        input.closest('.input-box').classList.add('has-val');
+    }
+    input.addEventListener('input', () => {
+        const box = input.closest('.input-box');
+        if (input.value.trim() !== '') {
+            box.classList.add('has-val');
+        } else {
+            box.classList.remove('has-val');
+        }
     });
 });
-
-checkAllInputValues();
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', checkAllInputValues);
-}
-[50, 150, 300, 600, 1200, 2000].forEach(delay => setTimeout(checkAllInputValues, delay));
 
 // ================= 2. PASSWORD VISIBILITY TOGGLE =================
 function setupPasswordToggle(btn, input) {

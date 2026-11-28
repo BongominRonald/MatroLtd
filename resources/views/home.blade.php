@@ -51,7 +51,8 @@
     <link rel="stylesheet" href="{{ asset('lib/boxicons/boxicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/comic-relief.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/open-sans.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/auth.css') }}?v=4.0">
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>
 
 <body>
@@ -80,13 +81,13 @@
                 <form id="loginForm" action="{{ route('login.store') }}" method="POST" novalidate>
                     @csrf
                     <div class="input-box animation" style="--li: 0.1s; --lo: 0.4s;">
-                        <input type="text" id="loginUsername" name="username" placeholder=" " value="{{ old('username', session('registered_username', '')) }}" required spellcheck="false" autocomplete="username">
+                        <input type="text" id="loginUsername" name="username" value="{{ old('username', session('registered_username', '')) }}" required spellcheck="false" autocomplete="username">
                         <label for="loginUsername">Username</label>
                         <i class='bx bxs-user'></i>
                     </div>
 
                     <div class="input-box animation" style="--li: 0.2s; --lo: 0.3s;">
-                        <input type="password" id="loginPassword" name="password" placeholder=" " required autocomplete="current-password">
+                        <input type="password" id="loginPassword" name="password" required autocomplete="current-password">
                         <label for="loginPassword">Password</label>
                         <i class='bx bx-hide toggle-pass' id="toggleLoginPass" title="Toggle password visibility"
                             role="button" tabindex="0"></i>
@@ -155,19 +156,19 @@
                 <form id="registerForm" action="{{ route('register') }}" method="POST" novalidate>
                     @csrf
                     <div class="input-box animation" style="--li: 0.08s; --lo: 0.5s;">
-                        <input type="text" id="regUsername" name="username" placeholder=" " required spellcheck="false" autocomplete="username">
+                        <input type="text" id="regUsername" name="username" required spellcheck="false" autocomplete="username">
                         <label for="regUsername">Username</label>
                         <i class='bx bxs-user'></i>
                     </div>
 
                     <div class="input-box animation" style="--li: 0.16s; --lo: 0.4s;">
-                        <input type="email" id="regEmail" name="email" placeholder=" " required spellcheck="false" autocomplete="email">
+                        <input type="email" id="regEmail" name="email" required spellcheck="false" autocomplete="email">
                         <label for="regEmail">Email</label>
                         <i class='bx bxs-envelope'></i>
                     </div>
 
                     <div class="input-box password-box animation" style="--li: 0.24s; --lo: 0.3s;">
-                        <input type="password" id="regPassword" name="password" placeholder=" " required autocomplete="new-password">
+                        <input type="password" id="regPassword" name="password" required autocomplete="new-password">
                         <label for="regPassword">Password</label>
                         <i class='bx bx-hide toggle-pass' id="toggleRegPass" title="Toggle password visibility"
                             role="button" tabindex="0"></i>
@@ -243,7 +244,8 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/auth.js') }}?v=4.0"></script>
+    <script src="{{ asset('js/auth.js') }}"></script>
+    <script src="{{ asset('script.js') }}"></script>
 </body>
 
 </html>
