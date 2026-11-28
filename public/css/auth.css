@@ -290,13 +290,30 @@ body {
 }
 
 /* Dedicated Field Label (Permanently Above Input Box — ZERO Overlap) */
-.field-label {
-    display: block;
-    font-size: 12.5px;
-    font-weight: 700;
+.field-label,
+.input-box label {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    display: block !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
     color: #1e293b !important; /* Slate-800 — WCAG AAA contrast */
-    margin-bottom: 5px;
-    letter-spacing: 0.1px;
+    margin-bottom: 5px !important;
+    letter-spacing: 0.1px !important;
+    pointer-events: auto !important;
+    text-align: left !important;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label,
+.input-box.has-val label {
+    position: static !important;
+    top: auto !important;
+    transform: none !important;
+    font-size: 13px !important;
+    color: #1e293b !important;
 }
 
 /* Input Control Enclosed Box */
@@ -670,36 +687,57 @@ body {
 
 .info-text.Login {
     right: 0;
-    text-align: right;
-    padding: 0 34px 0 20px;
+    padding: 0 28px 0 16px;
     align-items: flex-end;
 }
 
 .info-text.Register {
     left: 0;
-    text-align: left;
-    padding: 0 20px 0 34px;
+    padding: 0 16px 0 28px;
     align-items: flex-start;
 }
 
+/* Frosted High-Contrast Glass Backdrop for Info Content */
+.info-content-card {
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 18px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    max-width: 320px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.info-text.Login .info-content-card {
+    text-align: right;
+    margin-left: auto;
+}
+
+.info-text.Register .info-content-card {
+    text-align: left;
+    margin-right: auto;
+}
+
 .info-text h2 {
-    font-size: 22px;
+    font-size: 21px;
     color: #ffffff !important;
-    line-height: 1.2;
+    line-height: 1.25;
     font-weight: 800;
     letter-spacing: 0.5px;
+    margin-top: 4px;
     margin-bottom: 6px;
     text-transform: uppercase;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .info-text p {
-    font-size: 12.5px;
-    color: #f8fafc !important;
+    font-size: 12px;
+    color: #f1f5f9 !important;
     line-height: 1.5;
-    max-width: 240px;
     font-weight: 500;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+    margin-bottom: 0;
 }
 
 /* ================= STAGGERED ENTRANCE ANIMATIONS (DESKTOP) ================= */

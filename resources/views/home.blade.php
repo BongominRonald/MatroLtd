@@ -51,8 +51,7 @@
     <link rel="stylesheet" href="{{ asset('lib/boxicons/boxicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/comic-relief.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/open-sans.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}?v=3.0">
 </head>
 
 <body>
@@ -143,16 +142,18 @@
 
             <!-- ================= LOGIN INFO TEXT (RIGHT SIDE) ================= -->
             <div class="info-text Login">
-                <div class="produce-preview-card animation" style="--li: 0s; --lo: 0.35s;">
-                    <img src="{{ asset('img/sunflower-bg.webp') }}" alt="Sunflower Plants and Sunflower Oil" class="produce-card-img" onerror="this.onerror=null;this.src='{{ asset('img/sunflower-bg.jpg') }}'">
-                    <div class="produce-card-badge gold">
-                        <i class='bx bxs-sun'></i> Sunflowers &amp; Pure Oil
+                <div class="info-content-card">
+                    <div class="produce-preview-card animation" style="--li: 0s; --lo: 0.35s;">
+                        <img src="{{ asset('img/sunflower-bg.webp') }}" alt="Sunflower Plants and Sunflower Oil" class="produce-card-img" onerror="this.onerror=null;this.src='{{ asset('img/sunflower-bg.jpg') }}'">
+                        <div class="produce-card-badge gold">
+                            <i class='bx bxs-sun'></i> Sunflowers &amp; Pure Oil
+                        </div>
                     </div>
+                    <h2 class="animation" style="--li: 0.1s; --lo: 0.25s;">WELCOME BACK!</h2>
+                    <p class="animation" style="--li: 0.2s; --lo: 0.15s;">
+                        Sign in to your account to review live commodity quotes, orders, and export documents.
+                    </p>
                 </div>
-                <h2 class="animation" style="--li: 0.1s; --lo: 0.25s;">WELCOME BACK!</h2>
-                <p class="animation" style="--li: 0.2s; --lo: 0.15s;">
-                    Sign in to your account to review live commodity quotes, orders, and export documents.
-                </p>
             </div>
 
             <!-- ================= REGISTER FORM ================= -->
@@ -238,17 +239,19 @@
 
             <!-- ================= REGISTER INFO TEXT (LEFT SIDE) ================= -->
             <div class="info-text Register">
-                <div class="produce-preview-card animation" style="--li: 0s; --lo: 0.35s;">
-                    <img src="{{ asset('img/banner-container-cargo.webp') }}" alt="Direct Deepwater Container Cargo &amp; Ocean Freight" class="produce-card-img" onerror="this.onerror=null;this.src='{{ asset('img/banner-container-cargo.jpg') }}'">
-                    <div class="produce-card-badge peppers">
-                        <i class='bx bxs-ship'></i>
-                        <span>Container Cargo</span>
+                <div class="info-content-card">
+                    <div class="produce-preview-card animation" style="--li: 0s; --lo: 0.35s;">
+                        <img src="{{ asset('img/banner-container-cargo.webp') }}" alt="Direct Deepwater Container Cargo &amp; Ocean Freight" class="produce-card-img" onerror="this.onerror=null;this.src='{{ asset('img/banner-container-cargo.jpg') }}'">
+                        <div class="produce-card-badge peppers">
+                            <i class='bx bxs-ship'></i>
+                            <span>Container Cargo</span>
+                        </div>
                     </div>
+                    <h2 class="animation" style="--li: 0.1s; --lo: 0.25s;">CONTAINER LOGISTICS</h2>
+                    <p class="animation" style="--li: 0.2s; --lo: 0.15s;">
+                        Create an institutional buyer account to request FOB/CIF container quotes and deepwater vessel allocation.
+                    </p>
                 </div>
-                <h2 class="animation" style="--li: 0.1s; --lo: 0.25s;">CONTAINER LOGISTICS</h2>
-                <p class="animation" style="--li: 0.2s; --lo: 0.15s;">
-                    Create an institutional buyer account to request FOB/CIF container quotes and deepwater vessel allocation.
-                </p>
             </div>
 
             <!-- ================= AUTHENTICATED ACTIVE SESSION VIEW ================= -->
@@ -269,8 +272,7 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/auth.js') }}"></script>
-    <script src="{{ asset('script.js') }}"></script>
+    <script src="{{ asset('js/auth.js') }}?v=3.0"></script>
 </body>
 
 </html>
