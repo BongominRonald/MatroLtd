@@ -71,26 +71,42 @@
         </div>
 
         <div class="container {{ ($initialMode ?? 'login') === 'register' ? 'active' : '' }}" id="container">
-            <!-- Curved Animated Background Shapes -->
+            <!-- Curved Animated Background Shapes (Desktop only) -->
             <div class="curved-shape"></div>
             <div class="curved-shape2"></div>
 
+            <!-- Mobile Dynamic Interactive Switcher -->
+            <div class="mobile-auth-switcher">
+                <button type="button" class="mobile-tab-btn {{ ($initialMode ?? 'login') !== 'register' ? 'active' : '' }}" id="tabLogin" onclick="switchAuthTab('login')">
+                    <i class='bx bx-log-in-circle'></i> Sign In
+                </button>
+                <button type="button" class="mobile-tab-btn {{ ($initialMode ?? 'login') === 'register' ? 'active' : '' }}" id="tabRegister" onclick="switchAuthTab('register')">
+                    <i class='bx bx-user-plus'></i> Register
+                </button>
+            </div>
+
             <!-- ================= LOGIN FORM ================= -->
             <div class="form-box Login">
-                <h2 class="animation" style="--li: 0s; --lo: 0.5s;">Login</h2>
+                <h2 class="form-title animation" style="--li: 0s; --lo: 0.5s;">Login</h2>
+                <p class="form-subtitle animation" style="--li: 0.04s; --lo: 0.46s;">Sign in to your trade desk account</p>
+
                 <form id="loginForm" action="{{ route('login.store') }}" method="POST" novalidate>
                     @csrf
-                    <div class="input-box animation" style="--li: 0.1s; --lo: 0.4s;">
-                        <input type="text" id="loginUsername" name="username" value="{{ old('username', session('registered_username', '')) }}" required spellcheck="false" autocomplete="username">
-                        <label for="loginUsername">Username</label>
-                        <i class='bx bxs-user'></i>
+                    <div class="input-box animation" style="--li: 0.08s; --lo: 0.42s;">
+                        <label for="loginUsername" class="field-label">Username</label>
+                        <div class="field-control-wrap">
+                            <i class='bx bxs-user field-icon'></i>
+                            <input type="text" id="loginUsername" name="username" class="field-input" placeholder="Enter your username" value="{{ old('username', session('registered_username', '')) }}" required spellcheck="false" autocomplete="username">
+                        </div>
                     </div>
 
-                    <div class="input-box animation" style="--li: 0.2s; --lo: 0.3s;">
-                        <input type="password" id="loginPassword" name="password" required autocomplete="current-password">
-                        <label for="loginPassword">Password</label>
-                        <i class='bx bx-hide toggle-pass' id="toggleLoginPass" title="Toggle password visibility"
-                            role="button" tabindex="0"></i>
+                    <div class="input-box animation" style="--li: 0.16s; --lo: 0.34s;">
+                        <label for="loginPassword" class="field-label">Password</label>
+                        <div class="field-control-wrap">
+                            <i class='bx bx-lock-alt field-icon'></i>
+                            <input type="password" id="loginPassword" name="password" class="field-input has-toggle" placeholder="Enter your password" required autocomplete="current-password">
+                            <i class='bx bx-hide toggle-pass' id="toggleLoginPass" title="Toggle password visibility" role="button" tabindex="0" aria-label="Toggle password visibility"></i>
+                        </div>
                     </div>
 
                     <!-- Lockout Alert -->
@@ -99,13 +115,13 @@
                         <span id="lockoutTimer"></span>
                     </div>
 
-                    <div class="btn-box animation" style="--li: 0.3s; --lo: 0.2s;">
+                    <div class="btn-box animation" style="--li: 0.24s; --lo: 0.26s;">
                         <button type="submit" id="btnLogin" class="btn">Login</button>
                     </div>
 
-                    <div class="oauth-box animation" style="--li: 0.35s; --lo: 0.15s;">
+                    <div class="oauth-box animation" style="--li: 0.30s; --lo: 0.20s;">
                         <div class="oauth-divider">
-                            <span>or</span>
+                            <span>or continue with</span>
                         </div>
                         <a href="{{ route('auth.google') }}" class="btn-google" id="btnGoogleLogin">
                             <svg class="google-svg" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -118,9 +134,9 @@
                         </a>
                     </div>
 
-                    <div class="logreg-link animation" style="--li: 0.4s; --lo: 0.1s;">
+                    <div class="logreg-link animation" style="--li: 0.36s; --lo: 0.14s;">
                         <p>Don't have an account?</p>
-                        <a href="javascript:void(0)" class="SignUpLink">Sign Up</a>
+                        <a href="javascript:void(0)" class="SignUpLink">Register</a>
                     </div>
                 </form>
             </div>
@@ -135,14 +151,16 @@
                 </div>
                 <h2 class="animation" style="--li: 0.1s; --lo: 0.25s;">WELCOME BACK!</h2>
                 <p class="animation" style="--li: 0.2s; --lo: 0.15s;">
-                    Sign in to continue to your account.
+                    Sign in to your account to review live commodity quotes, orders, and export documents.
                 </p>
             </div>
 
             <!-- ================= REGISTER FORM ================= -->
             <div class="form-box Register">
-                <h2 class="animation" style="--li: 0s; --lo: 0.6s;">Register</h2>
-                <div class="register-peppers-strip animation" style="--li: 0.04s; --lo: 0.55s;">
+                <h2 class="form-title animation" style="--li: 0s; --lo: 0.6s;">Register</h2>
+                <p class="form-subtitle animation" style="--li: 0.03s; --lo: 0.57s;">Create an institutional buyer account</p>
+
+                <div class="register-peppers-strip animation" style="--li: 0.06s; --lo: 0.54s;">
                     <img src="{{ asset('img/banner-container-cargo.webp') }}" alt="Direct Deepwater Container Cargo &amp; Ocean Freight" class="peppers-strip-thumb" onerror="this.onerror=null;this.src='{{ asset('img/banner-container-cargo.jpg') }}'">
                     <div class="peppers-strip-text">
                         <span class="peppers-pill-group">
@@ -150,32 +168,39 @@
                             <span class="pill yellow">CIF</span>
                             <span class="pill red">CFR</span>
                         </span>
-                        <span class="peppers-subtitle">Container Cargo &amp; Ocean Freight</span>
+                        <span class="peppers-subtitle">Santos &bull; Paranagu&aacute; &bull; Global Ports</span>
                     </div>
                 </div>
+
                 <form id="registerForm" action="{{ route('register') }}" method="POST" novalidate>
                     @csrf
                     <div class="input-box animation" style="--li: 0.08s; --lo: 0.5s;">
-                        <input type="text" id="regUsername" name="username" required spellcheck="false" autocomplete="username">
-                        <label for="regUsername">Username</label>
-                        <i class='bx bxs-user'></i>
+                        <label for="regUsername" class="field-label">Username</label>
+                        <div class="field-control-wrap">
+                            <i class='bx bxs-user field-icon'></i>
+                            <input type="text" id="regUsername" name="username" class="field-input" placeholder="Choose a username (3-20 chars)" required spellcheck="false" autocomplete="username">
+                        </div>
                     </div>
 
                     <div class="input-box animation" style="--li: 0.16s; --lo: 0.4s;">
-                        <input type="email" id="regEmail" name="email" required spellcheck="false" autocomplete="email">
-                        <label for="regEmail">Email</label>
-                        <i class='bx bxs-envelope'></i>
+                        <label for="regEmail" class="field-label">Corporate Email</label>
+                        <div class="field-control-wrap">
+                            <i class='bx bxs-envelope field-icon'></i>
+                            <input type="email" id="regEmail" name="email" class="field-input" placeholder="buyer@company.com" required spellcheck="false" autocomplete="email">
+                        </div>
                     </div>
 
                     <div class="input-box password-box animation" style="--li: 0.24s; --lo: 0.3s;">
-                        <input type="password" id="regPassword" name="password" required autocomplete="new-password">
-                        <label for="regPassword">Password</label>
-                        <i class='bx bx-hide toggle-pass' id="toggleRegPass" title="Toggle password visibility"
-                            role="button" tabindex="0"></i>
+                        <label for="regPassword" class="field-label">Password</label>
+                        <div class="field-control-wrap">
+                            <i class='bx bx-lock-alt field-icon'></i>
+                            <input type="password" id="regPassword" name="password" class="field-input has-toggle" placeholder="8+ chars with uppercase & symbol" required autocomplete="new-password">
+                            <i class='bx bx-hide toggle-pass' id="toggleRegPass" title="Toggle password visibility" role="button" tabindex="0" aria-label="Toggle password visibility"></i>
+                        </div>
                     </div>
 
                     <!-- Password Strength Meter -->
-                    <div id="strengthContainer" class="strength-container animation" style="--li: 0.32s; --lo: 0.25s;">
+                    <div id="strengthContainer" class="strength-container animation" style="--li: 0.30s; --lo: 0.25s;">
                         <div class="strength-bar-track">
                             <div id="strengthBar" class="strength-bar"></div>
                         </div>
@@ -185,13 +210,13 @@
                         </div>
                     </div>
 
-                    <div class="btn-box animation" style="--li: 0.38s; --lo: 0.2s;">
+                    <div class="btn-box animation" style="--li: 0.36s; --lo: 0.2s;">
                         <button type="submit" id="btnRegister" class="btn">Register</button>
                     </div>
 
-                    <div class="oauth-box animation" style="--li: 0.42s; --lo: 0.15s;">
+                    <div class="oauth-box animation" style="--li: 0.40s; --lo: 0.15s;">
                         <div class="oauth-divider">
-                            <span>or</span>
+                            <span>or continue with</span>
                         </div>
                         <a href="{{ route('auth.google') }}" class="btn-google" id="btnGoogleRegister">
                             <svg class="google-svg" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -204,7 +229,7 @@
                         </a>
                     </div>
 
-                    <div class="logreg-link animation" style="--li: 0.48s; --lo: 0.1s;">
+                    <div class="logreg-link animation" style="--li: 0.46s; --lo: 0.1s;">
                         <p>Already have an account?</p>
                         <a href="javascript:void(0)" class="SignInLink">Sign In</a>
                     </div>

@@ -42,17 +42,35 @@ const BANNED_PASSWORDS = new Set([
 let lockoutInterval = null;
 
 // ================= 1. VIEW TOGGLING =================
-registerLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    container.classList.add('active');
-    clearInputs();
-});
+window.switchAuthTab = function(mode) {
+    const tabLogin = document.getElementById('tabLogin');
+    const tabRegister = document.getElementById('tabRegister');
 
-loginLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    container.classList.remove('active');
+    if (mode === 'register') {
+        container.classList.add('active');
+        if (tabRegister) tabRegister.classList.add('active');
+        if (tabLogin) tabLogin.classList.remove('active');
+    } else {
+        container.classList.remove('active');
+        if (tabRegister) tabRegister.classList.remove('active');
+        if (tabLogin) tabLogin.classList.add('active');
+    }
     clearInputs();
-});
+};
+
+if (registerLink) {
+    registerLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.switchAuthTab('register');
+    });
+}
+
+if (loginLink) {
+    loginLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.switchAuthTab('login');
+    });
+}
 
 function clearInputs() {
     loginForm.reset();
@@ -262,8 +280,7 @@ registerForm.addEventListener('submit', async (e) => {
 
         showToast(data.message || 'Welcome! Your account has been created successfully. Please sign in to continue.', 'success');
         setTimeout(() => {
-            container.classList.remove('active');
-            clearInputs();
+            window.switchAuthTab('login');
             loginUserInput.value = data.username || username;
             loginUserInput.closest('.input-box').classList.add('has-val');
             loginPassInput.focus();
