@@ -244,20 +244,13 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
         $response->assertStatus(200);
 
-        // Verify top-selling products in hero / quick access
-        $response->assertSee('Top-Selling Exports:');
+        // Verify commodities in catalog and hero
         $response->assertSee('Sugar ICUMSA 45');
-        $response->assertSee('465/MT');
         $response->assertSee('Sunflower Oil');
-        $response->assertSee('915/MT');
         $response->assertSee('Soybean Oil');
-        $response->assertSee('950/MT');
         $response->assertSee('Corn Oil');
-        $response->assertSee('1,100/MT');
-        $response->assertSee('Palm Olein Oil');
-        $response->assertSee('920/MT');
-        $response->assertSee('Long Grain Rice');
-        $response->assertSee('295/MT');
+        $response->assertSee('Palm Olein');
+        $response->assertSee('Brazilian Long Grain White Rice');
 
         // Verify Hero Slide for Top-Selling Commodities
         $response->assertSee('Top-Selling Sugar, Edible Oils &');

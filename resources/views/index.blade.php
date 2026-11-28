@@ -3095,19 +3095,6 @@
                     </div>
                     <div id="quickSearchFeedback" class="sh-search-feedback text-center mt-2 d-none"></div>
                 </form>
-
-                <!-- High-Volume Fast-Track Commodities Direct Access -->
-                <div class="mt-3 text-center">
-                    <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap">
-                        <span class="badge bg-warning text-dark fw-bold px-2 py-1"><i class="bi bi-fire me-1"></i>Top-Selling Exports:</span>
-                        <a href="#products" onclick="$('#quickSearchInput').val('Sugar'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Sugar ICUMSA 45 <strong>$465/MT</strong></a>
-                        <a href="#products" onclick="$('#quickSearchInput').val('Sunflower Oil'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Sunflower Oil <strong>$915/MT</strong></a>
-                        <a href="#products" onclick="$('#quickSearchInput').val('Soybean Oil'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Soybean Oil <strong>$950/MT</strong></a>
-                        <a href="#products" onclick="$('#quickSearchInput').val('Corn Oil'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Corn Oil <strong>$1,100/MT</strong></a>
-                        <a href="#products" onclick="$('#quickSearchInput').val('Palm Olein'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Palm Olein Oil <strong>$920/MT</strong></a>
-                        <a href="#products" onclick="$('#quickSearchInput').val('White Rice'); $('#quickSearchForm').trigger('submit');" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 text-nowrap"><i class="bi bi-tag-fill text-success me-1"></i>Long Grain Rice <strong>$295/MT</strong></a>
-                    </div>
-                </div>
             </div>
         </section>
 
